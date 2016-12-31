@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- sign up info layout -->
+    <string name="suil_first_name_input_hint">First Name</string>
+    <string name="suil_last_name_input_hint">Last Name</string>
+    <string name="suil_email_address_input_hint">Email Address</string>
+    <string name="suil_phone_number_input_hint">Phone Number</string>
+    <string name="suil_password_input_hint">Password</string>
+
+    <!-- help layout -->
+    <string name="help_layout_name">Your full name</string>
+    <string name="help_layout_email">Your email address</string>
+    <string name="help_layout_content">What would you like to say (500 words)</string>
+
+    <!-- log in layout -->
+    <string name="login_layout_email">Email address</string>
+    <string name="login_layout_password">Password</string>
+
+    <!-- forgot password popup -->
+    <string name="fpl_email_address">Your email address</string>
+
+    <!-- modify password layout -->
+    <string name="mpwd_current_password_input_text">Enter your current password</string>
+    <string name="mpwd_new_password_input_text">Enter your new password</string>
+    <string name="mpwd_confirm_password_input_text">Confirm your new password</string>
+
+    <!-- add new card layout -->
+    <string name="ancl_credit_card_number">XXXX XXXX XXXX XXXX</string>
+    <string name="ancl_credit_card_month">MM</string>
+    <string name="ancl_credit_card_year">YY</string>
+    <string name="ancl_credit_card_cvc">XXX/XXXX</string>
+    <string name="ancl_credit_card_holder_name">XXXX XXXXX</string>
+
+    <!-- invite email layout -->
+    <string name="iel_input_name_edit_text">Type full name</string>
+    <string name="iel_input_email_edit_text">Type email address</string>
+
+    <!-- location layout -->
+    <string name="location_layout_line1">Line 1 (street address, P.O. box)</string>
+    <string name="location_layout_line2">Line 2 (apt,suite,unit, etc.)</string>
+    <string name="location_layout_city">City</string>
+    <string name="location_layout_zip_code">Zip code</string>
+
+    <!-- request detail layout -->
+    <string name="rdl_cur_mile">Current miles</string>
+    <string name="rdl_description">Description (Optional)</string>
+</resources>
