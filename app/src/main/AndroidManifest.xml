@@ -39,18 +39,27 @@
         </activity>
         <activity
             android:name="com.caknow.android.customer.app.activity.InitActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.caknow.android.customer.app.activity.HomeActivity"
-            android:theme="@style/AppTheme"></activity>
-        <activity
-            android:name=".LoginActivity"
+            android:name="com.caknow.android.customer.app.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName="com.caknow.android.customer.app.activity.InitActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.caknow.android.customer.app.activity.InitActivity" />
         </activity>
+        <activity
+            android:name="com.caknow.android.customer.app.activity.SignUpActivity"
+            android:label="@string/title_activity_signup"
+            android:parentActivityName="com.caknow.android.customer.app.activity.InitActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.caknow.android.customer.app.activity.InitActivity" />
+        </activity>
+        <activity
+            android:name="com.caknow.android.customer.app.activity.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

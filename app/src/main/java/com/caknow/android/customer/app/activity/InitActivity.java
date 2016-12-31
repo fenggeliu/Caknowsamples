@@ -3,10 +3,13 @@ package com.caknow.android.customer.app.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -27,28 +30,39 @@ public class InitActivity extends BaseActivity {
     Button signInButton;
     @BindView(R.id.init_layout_create_btn)
     Button createNewAcountButton;
+    @BindView(R.id.init_logo)
+    ImageView logo;
 
     /**
      * Butterknife OnClick methods
      */
     @OnClick(R.id.init_layout_login_btn)
-    private void startLogin(){
+    void startLogin(){
         final Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
     }
 
     @OnClick(R.id.init_layout_create_btn)
-    private void startSignUp(){
-
+    void startSignUp(){
+        final Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
     }
 
+    @OnClick(R.id.init_logo)
+    void debugHome(){
+        if(BuildConfig.DEBUG && !InitActivity.this.isFinishing()) {
+            final Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            InitActivity.this.finish();
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.init_layout);
-
+        ButterKnife.bind(this);
     }
 
     @Override
