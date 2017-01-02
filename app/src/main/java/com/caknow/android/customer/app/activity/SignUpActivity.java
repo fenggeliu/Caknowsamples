@@ -1,6 +1,8 @@
 package com.caknow.android.customer.app.activity;
 
 
+import android.os.Build;
+
 import com.caknow.app.R;
 
 /**
@@ -11,6 +13,9 @@ public class SignUpActivity extends BaseActivity {
     @Override
     protected void initContentView() {
         setContentView(R.layout.sign_up_info_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getColor(R.color.blue_title));
+        }
     }
 
     @Override

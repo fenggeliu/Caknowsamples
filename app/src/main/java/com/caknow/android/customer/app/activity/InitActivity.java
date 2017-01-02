@@ -2,9 +2,12 @@ package com.caknow.android.customer.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.caknow.android.customer.app.home.HomeActivity;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 
@@ -61,6 +64,9 @@ public class InitActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.init_layout);
         ButterKnife.bind(this);
     }

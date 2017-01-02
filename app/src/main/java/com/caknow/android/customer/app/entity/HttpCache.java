@@ -321,7 +321,7 @@ public class HttpCache {
 
         protected void onPostExecute(HttpResponse httpResponse) {
             if(listener != null) {
-                listener.onPostGet(httpResponse,httpResponse == null ? false : httpResponse.isInCache());
+                listener.onPostGet(httpResponse, httpResponse != null && httpResponse.isInCache());
             }
         }
     }
@@ -352,7 +352,7 @@ public class HttpCache {
 
         protected void onPostExecute(HttpResponse httpResponse) {
             if(listener != null) {
-                listener.onPostGet(httpResponse, httpResponse == null ? false : httpResponse.isInCache());
+                listener.onPostGet(httpResponse, httpResponse != null && httpResponse.isInCache());
             }
         }
     }

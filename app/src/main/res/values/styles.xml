@@ -11,6 +11,9 @@
     <style name="NotitleTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/blue_title</item>
+        <item name="colorPrimaryDark">@color/blue_title</item>
+        <item name="colorAccent">@color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -20,6 +23,12 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/blue_title</item>
+        <item name="colorPrimaryDark">@color/blue_title</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowBackground">@drawable/window_background</item>
     </style>
 
 </resources>

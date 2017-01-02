@@ -1,108 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_homepage_2x"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/init_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:layout_marginTop="@dimen/init_layout_margin_top"
-                android:src="@drawable/logo_login"/>
+                android:src="@drawable/logo_login" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
+            android:layout_weight="1"></LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
+            android:layout_weight="1"></LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="9"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-            </LinearLayout>
+                android:layout_weight="1"></LinearLayout>
+
             <LinearLayout
                 android:id="@+id/init_layout_login"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3">
+
                 <Button
                     android:id="@+id/init_layout_login_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/button_red_2x"
                     android:gravity="center"
                     android:scaleType="fitCenter"
                     android:text="@string/init_layout_login_btn"
-                    android:textColor="@color/white_full"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/init_layout_login_text_size"
                     android:textAllCaps="false"
-                    android:background="@drawable/button_red_2x"/>
+                    android:textColor="@color/white_full"
+                    android:textSize="@dimen/init_layout_login_text_size"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-            </LinearLayout>
+                android:layout_weight="1"></LinearLayout>
+
             <LinearLayout
                 android:id="@+id/init_layout_create"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3">
+
                 <Button
                     android:id="@+id/init_layout_create_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/button_start_2x"
                     android:gravity="center"
                     android:scaleType="fitCenter"
                     android:text="@string/init_layout_create_btn"
-                    android:textColor="@color/white_full"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/init_layout_create_text_size"
                     android:textAllCaps="false"
-                    android:background="@drawable/button_start_2x"/>
+                    android:textColor="@color/white_full"
+                    android:textSize="@dimen/init_layout_create_text_size"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-            </LinearLayout>
+                android:layout_weight="1"></LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
+            android:layout_weight="1"></LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -21,9 +21,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ptgm_content"
-            android:textSize="@dimen/ptgm_content_text_size"
+            android:paddingEnd="@dimen/ptgm_content_padding_right"
             android:paddingStart="@dimen/ptgm_content_padding_left"
-            android:paddingEnd="@dimen/ptgm_content_padding_right"/>
+            android:text="@string/ptgm_content"
+            android:textSize="@dimen/ptgm_content_text_size" />
     </LinearLayout>
 </LinearLayout>

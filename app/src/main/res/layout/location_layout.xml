@@ -1,315 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="@color/blue_title">
+        android:background="@color/blue_title"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/location_layout_back_btn_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <TextView
                 android:id="@+id/location_layout_back_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/location_layout_back_btn_margin_top"
                 android:layout_marginBottom="@dimen/location_layout_back_btn_margin_bottom"
-                android:layout_marginStart="@dimen/location_layout_back_btn_margin_left"
                 android:layout_marginEnd="@dimen/location_layout_back_btn_margin_right"
-                android:background="@drawable/arrow_white_2x"/>
+                android:layout_marginStart="@dimen/location_layout_back_btn_margin_left"
+                android:layout_marginTop="@dimen/location_layout_back_btn_margin_top"
+                android:background="@drawable/arrow_white_2x"
+                android:gravity="center" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/location_layout_title"
-                android:textSize="@dimen/location_layout_title_text_size"
-                android:textColor="@color/white_full"/>
+                android:textColor="@color/white_full"
+                android:textSize="@dimen/location_layout_title_text_size" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/location_layout_map_btn_margin_top"
                 android:layout_marginBottom="@dimen/location_layout_map_btn_margin_bottom"
-                android:layout_marginStart="@dimen/location_layout_map_btn_margin_left"
                 android:layout_marginEnd="@dimen/location_layout_map_btn_margin_right"
-                android:background="@drawable/distance_white_2x"/>
+                android:layout_marginStart="@dimen/location_layout_map_btn_margin_left"
+                android:layout_marginTop="@dimen/location_layout_map_btn_margin_top"
+                android:background="@drawable/distance_white_2x"
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
+            android:layout_weight="1"></LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="13"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|start"
                     android:text="@string/location_layout_why_description"
-                    android:textSize="@dimen/location_layout_why_description_text_size"
-                    android:textColor="@color/font_black"/>
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/location_layout_why_description_text_size" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginTop="@dimen/location_layout_warning_margin_top"
                         android:layout_marginBottom="@dimen/location_layout_warning_margin_bottom"
                         android:layout_marginEnd="@dimen/location_layout_warning_margin_end"
-                        android:background="@drawable/warnning_icon_2x"/>
+                        android:layout_marginTop="@dimen/location_layout_warning_margin_top"
+                        android:layout_weight="1"
+                        android:background="@drawable/warnning_icon_2x" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="6"
                     android:gravity="center">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/location_layout_warning_description"
-                        android:textSize="@dimen/location_layout_warning_text_size"
-                        android:textColor="@color/font_black"/>
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/location_layout_warning_text_size" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
-                android:orientation="vertical"
-                android:background="@drawable/location_layout_edit_text_bolder">
+                android:background="@drawable/location_layout_edit_text_bolder"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <EditText
                         android:id="@+id/reg_address_line_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:background="@null"
                         android:ems="10"
+                        android:gravity="center_vertical"
                         android:hint="@string/location_layout_line1"
-                        android:paddingStart="@dimen/location_layout_line1_padding_left"
-                        android:paddingEnd="@dimen/location_layout_line1_padding_right"
-                        android:paddingTop="@dimen/location_layout_line1_padding_top"
                         android:maxLines="1"
+                        android:paddingEnd="@dimen/location_layout_line1_padding_right"
+                        android:paddingStart="@dimen/location_layout_line1_padding_left"
+                        android:paddingTop="@dimen/location_layout_line1_padding_top"
                         android:textColorHint="#999999"
                         android:textSize="@dimen/location_layout_line1_text_size">
-                        <requestFocus/>
+
+                        <requestFocus />
                     </EditText>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp">
+
                     <View
+                        android:layout_width="fill_parent"
                         android:layout_height="1px"
-                        android:background="@android:color/darker_gray"
-                        android:layout_width="fill_parent"/>
+                        android:background="@android:color/darker_gray" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <EditText
                         android:id="@+id/reg_address_line_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:background="@null"
                         android:ems="10"
+                        android:gravity="center_vertical"
                         android:hint="@string/location_layout_line2"
-                        android:paddingStart="@dimen/location_layout_line2_padding_left"
-                        android:paddingEnd="@dimen/location_layout_line2_padding_right"
-                        android:paddingTop="@dimen/location_layout_line2_padding_top"
                         android:maxLines="1"
+                        android:paddingEnd="@dimen/location_layout_line2_padding_right"
+                        android:paddingStart="@dimen/location_layout_line2_padding_left"
+                        android:paddingTop="@dimen/location_layout_line2_padding_top"
                         android:textColorHint="#999999"
-                        android:textSize="@dimen/location_layout_line2_text_size">
-                    </EditText>
+                        android:textSize="@dimen/location_layout_line2_text_size"></EditText>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp">
+
                     <View
+                        android:layout_width="fill_parent"
                         android:layout_height="1px"
-                        android:background="@android:color/darker_gray"
-                        android:layout_width="fill_parent"/>
+                        android:background="@android:color/darker_gray" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <EditText
                         android:id="@+id/reg_city"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:background="@null"
                         android:ems="10"
+                        android:gravity="center_vertical"
                         android:hint="@string/location_layout_city"
-                        android:paddingStart="@dimen/location_layout_city_padding_left"
-                        android:paddingEnd="@dimen/location_layout_city_padding_right"
-                        android:paddingTop="@dimen/location_layout_city_padding_top"
                         android:maxLines="1"
+                        android:paddingEnd="@dimen/location_layout_city_padding_right"
+                        android:paddingStart="@dimen/location_layout_city_padding_left"
+                        android:paddingTop="@dimen/location_layout_city_padding_top"
                         android:textColorHint="#999999"
-                        android:textSize="@dimen/location_layout_city_text_size">
-                    </EditText>
+                        android:textSize="@dimen/location_layout_city_text_size"></EditText>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp">
+
                     <View
+                        android:layout_width="fill_parent"
                         android:layout_height="1px"
-                        android:background="@android:color/darker_gray"
-                        android:layout_width="fill_parent"/>
+                        android:background="@android:color/darker_gray" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
+
                         <EditText
                             android:id="@+id/reg_zip_code"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
                             android:background="@null"
-                            android:hint="@string/location_layout_zip_code"
-                            android:paddingStart="@dimen/location_layout_zip_padding_left"
-                            android:paddingEnd="@dimen/location_layout_zip_padding_right"
-                            android:paddingTop="@dimen/location_layout_zip_padding_top"
-                            android:maxLines="1"
-                            android:textColorHint="#999999"
-                            android:textSize="@dimen/location_layout_zip_text_size"
                             android:digits="0123456789"
-                            android:inputType="number">
-                        </EditText>
+                            android:gravity="center_vertical"
+                            android:hint="@string/location_layout_zip_code"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:paddingEnd="@dimen/location_layout_zip_padding_right"
+                            android:paddingStart="@dimen/location_layout_zip_padding_left"
+                            android:paddingTop="@dimen/location_layout_zip_padding_top"
+                            android:textColorHint="#999999"
+                            android:textSize="@dimen/location_layout_zip_text_size"></EditText>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="1dp"
                         android:layout_height="match_parent">
+
                         <View
                             android:layout_width="1px"
-                            android:background="@android:color/darker_gray"
-                            android:layout_height="fill_parent"/>
+                            android:layout_height="fill_parent"
+                            android:background="@android:color/darker_gray" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
+
                         <Spinner
                             android:id="@+id/spinner_state"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerHorizontal="true"
                             android:layout_marginStart="@dimen/location_layout_spinner_margin_left"
-                            android:background="@drawable/spinner_selector"/>
+                            android:background="@drawable/spinner_selector" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp">
+
                     <View
+                        android:layout_width="fill_parent"
                         android:layout_height="1px"
-                        android:background="@android:color/darker_gray"
-                        android:layout_width="fill_parent"/>
+                        android:background="@android:color/darker_gray" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5">
-            </LinearLayout>
+                android:layout_weight="0.5"></LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_start_2x"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-                </LinearLayout>
+                    android:layout_weight="1"></LinearLayout>
+
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
                     android:layout_gravity="center"
+                    android:layout_weight="4"
                     android:gravity="center"
                     android:text="@string/location_layout_next_btn"
-                    android:textSize="@dimen/location_layout_next_btn_text_size"
-                    android:textColor="@color/white_full"/>
+                    android:textColor="@color/white_full"
+                    android:textSize="@dimen/location_layout_next_btn_text_size" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/location_layout_left_arrow_margin_bottom"
+                        android:layout_marginEnd="@dimen/location_layout_left_arrow_margin_right"
+                        android:layout_marginStart="@dimen/location_layout_left_arrow_margin_left"
+                        android:layout_marginTop="@dimen/location_layout_left_arrow_margin_top"
                         android:layout_weight="1"
                         android:background="@drawable/left_white_2x"
-                        android:gravity="center"
-                        android:layout_marginTop="@dimen/location_layout_left_arrow_margin_top"
-                        android:layout_marginBottom="@dimen/location_layout_left_arrow_margin_bottom"
-                        android:layout_marginStart="@dimen/location_layout_left_arrow_margin_left"
-                        android:layout_marginEnd="@dimen/location_layout_left_arrow_margin_right"/>
+                        android:gravity="center" />
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4">
-            </LinearLayout>
+                android:layout_weight="4"></LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
+            android:layout_weight="1"></LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

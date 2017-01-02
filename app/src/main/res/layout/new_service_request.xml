@@ -1,120 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="@color/blue_title">
+        android:background="@color/blue_title"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/nsr_back_btn_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <TextView
                 android:id="@+id/nsr_back_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/nsr_back_btn_margin_top"
                 android:layout_marginBottom="@dimen/nsr_back_btn_margin_bottom"
-                android:layout_marginStart="@dimen/nsr_back_btn_margin_left"
                 android:layout_marginEnd="@dimen/nsr_back_btn_margin_right"
-                android:background="@drawable/arrow_white_2x"/>
+                android:layout_marginStart="@dimen/nsr_back_btn_margin_left"
+                android:layout_marginTop="@dimen/nsr_back_btn_margin_top"
+                android:background="@drawable/arrow_white_2x"
+                android:gravity="center" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="SERVICE REQUEST"
-                android:textSize="@dimen/nsr_title_text_size"
-                android:textColor="@color/white_full"/>
+                android:textColor="@color/white_full"
+                android:textSize="@dimen/nsr_title_text_size" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/nsr_quit_btn_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <TextView
                 android:id="@+id/nsr_quit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/nsr_quit_btn_margin_top"
                 android:layout_marginBottom="@dimen/nsr_quit_btn_margin_bottom"
-                android:layout_marginStart="@dimen/nsr_quit_btn_margin_left"
                 android:layout_marginEnd="@dimen/nsr_quit_btn_margin_right"
-                android:background="@drawable/close_top_2x"/>
+                android:layout_marginStart="@dimen/nsr_quit_btn_margin_left"
+                android:layout_marginTop="@dimen/nsr_quit_btn_margin_top"
+                android:background="@drawable/ic_action_close"
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/nsr_repair_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/nsr_repair_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/repair_image_2x"
                 android:gravity="center"
                 android:text="@string/nsr_repair_title"
-                android:textSize="@dimen/nsr_repair_title_text_size"
                 android:textColor="@color/white_full"
-                android:textStyle="bold"
-                android:background="@drawable/repair_image_2x"/>
+                android:textSize="@dimen/nsr_repair_title_text_size"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/nsr_space_height"/>
+            android:layout_height="@dimen/nsr_space_height" />
+
         <LinearLayout
             android:id="@+id/nsr_maintenance_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/nsr_maintenance_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/maintenance_image_2x"
                 android:gravity="center"
                 android:text="@string/nsr_maintenance_title"
-                android:textSize="@dimen/nsr_maintenance_title_text_size"
                 android:textColor="@color/white_full"
-                android:textStyle="bold"
-                android:background="@drawable/maintenance_image_2x"/>
+                android:textSize="@dimen/nsr_maintenance_title_text_size"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/nsr_space_height"/>
+            android:layout_height="@dimen/nsr_space_height" />
+
         <LinearLayout
             android:id="@+id/nsr_emergency_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/emergency_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/emergancy_image_2x"
                 android:gravity="center"
                 android:text="@string/nsr_emergency_title"
-                android:textSize="@dimen/nsr_emergency_title_text_size"
                 android:textColor="@color/white_full"
-                android:textStyle="bold"
-                android:background="@drawable/emergancy_image_2x"/>
+                android:textSize="@dimen/nsr_emergency_title_text_size"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

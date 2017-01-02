@@ -58,11 +58,7 @@ public class LoadMoreListView extends ListView implements AbsListView.OnScrollLi
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (getLastVisiblePosition() == (totalItemCount - 1)) {
-            isScrollToBottom = true;
-        } else {
-            isScrollToBottom = false;
-        }
+        isScrollToBottom = getLastVisiblePosition() == (totalItemCount - 1);
 
     }
 

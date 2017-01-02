@@ -2,7 +2,7 @@
 <resources>
     <!-- sign up info layout -->
     <string name="suil_welcome_description">Welcome to join CAKNOW</string>
-    <string name="suil_term_decription"><font color="black"><b>By Loging in or signing up, I agree to CAKNOW</b></font></string>
+    <string name="suil_term_decription"><font color="black"><b>By logging in or signing up, I agree to CAKNOW</b></font></string>
     <string name="suil_term_privacy_description"><font color="black"><a href="https://www.caknow.com/privacy-policy">Privacy policy</a>,</font></string>
     <string name="suil_term_service_description"><font color="black"><a href="https://www.caknow.com/affiliates/terms-of-service">&#160;terms of service</a> and </font></string>
     <string name="suil_term_condition_description"><font color="black"><a href="https://www.caknow.com/promotions-terms">&#160;terms and conditions</a></font></string>
@@ -21,6 +21,7 @@
     <!-- help layout -->
     <string name="help_layout_description_head"><b>If you have any question or want to report an issue, please call us:</b></string>
     <string name="help_layout_description_phone"><b><u>(866)900-8900</u></b></string>
+    <string name="help_layout_description_phone_number"><b><u>8669008900</u></b></string>
     <string name="help_layout_description_time_zone"><b>( 8AM - 6PM PST )</b></string>
     <string name="help_layout_description_sub_head"><b>Or leave message to us:</b></string>
 

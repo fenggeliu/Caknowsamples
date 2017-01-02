@@ -314,7 +314,7 @@ public class HttpUtils {
         StringBuilder paras = new StringBuilder();
         Iterator<Map.Entry<String, String>> ite = parasMap.entrySet().iterator();
         while(ite.hasNext()) {
-            Map.Entry<String, String> entry = (Map.Entry<String, String>) ite.next();
+            Map.Entry<String, String> entry = ite.next();
             paras.append(entry.getKey()).append(EQUAL_SIGN).append(entry.getValue());
             if(ite.hasNext()) {
                 paras.append(PARAMETERS_SEPARATOR);
@@ -336,7 +336,7 @@ public class HttpUtils {
             Iterator<Map.Entry<String, String>> ite = parasMap.entrySet().iterator();
             try {
                 while(ite.hasNext()) {
-                    Map.Entry<String, String> entry = (Map.Entry<String, String>) ite.next();
+                    Map.Entry<String, String> entry = ite.next();
                     paras.append(entry.getKey()).append(EQUAL_SIGN).append(StringUtils.utf8Encode(entry.getValue()));
                     if(ite.hasNext()) {
                         paras.append(PARAMETERS_SEPARATOR);

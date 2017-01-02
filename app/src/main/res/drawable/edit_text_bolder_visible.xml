@@ -2,13 +2,11 @@
     android:shape="rectangle">
     <stroke
         android:width="0.01dp"
-        android:color="@color/border_gray"
-        />
+        android:color="@color/border_gray" />
 
     <padding
         android:bottom="7sp"
         android:left="7sp"
         android:right="7dp"
-        android:top="7dp"
-        />
+        android:top="7dp" />
 </shape>
