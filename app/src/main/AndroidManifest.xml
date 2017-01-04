@@ -73,32 +73,32 @@
 
         </activity>
         <activity
-            android:name="com.caknow.android.customer.app.activity.NewServiceRequestActivity"
+            android:name="com.caknow.android.customer.app.service.NewServiceRequestActivity"
             android:label="Service Request"
             android:theme="@style/NotitleTheme" />
 
         <activity
-            android:name="com.caknow.android.customer.app.activity.GarageActivity"
+            android:name="com.caknow.android.customer.app.garage.GarageActivity"
             android:label="Garage"
             android:theme="@style/NotitleTheme" />
         <activity
-            android:name="com.caknow.android.customer.app.activity.NewVehicleActivity"
+            android:name="com.caknow.android.customer.app.garage.NewVehicleActivity"
             android:label="New Vehicle"
             android:theme="@style/NotitleTheme" />
         <activity
-            android:name="com.caknow.android.customer.app.activity.PromoActivity"
+            android:name="com.caknow.android.customer.app.promo.PromoActivity"
             android:label="New Vehicle"
             android:theme="@style/NotitleTheme" />
         <activity
-            android:name="com.caknow.android.customer.app.activity.HistoryActivity"
+            android:name="com.caknow.android.customer.app.history.HistoryActivity"
             android:label="New Vehicle"
             android:theme="@style/NotitleTheme" />
         <activity
-            android:name="com.caknow.android.customer.app.activity.FeedbackActivity"
+            android:name="com.caknow.android.customer.app.feedback.FeedbackActivity"
             android:label="New Vehicle"
             android:theme="@style/NotitleTheme" />
         <activity
-            android:name="com.caknow.android.customer.app.activity.PaymentActivity"
+            android:name="com.caknow.android.customer.app.payment.PaymentActivity"
             android:label="New Vehicle"
             android:theme="@style/NotitleTheme" />
     </application>

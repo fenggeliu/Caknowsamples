@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.caknow.android.customer.app.activity.GarageActivity"
+    tools:context="com.caknow.android.customer.app.garage.GarageActivity"
     tools:showIn="@layout/fragment_garage"
     android:background="@drawable/bg_homepage_2x">
 

@@ -1,7 +1,6 @@
 package com.caknow.android.customer.app.util;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.multidex.MultiDexApplication;
 
 import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;

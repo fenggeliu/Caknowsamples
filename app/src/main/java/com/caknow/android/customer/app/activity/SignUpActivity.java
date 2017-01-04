@@ -3,6 +3,7 @@ package com.caknow.android.customer.app.activity;
 
 import android.os.Build;
 
+import com.caknow.android.customer.app.BaseActivity;
 import com.caknow.app.R;
 
 /**

@@ -85,12 +85,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.caknow.android.customer.app.provider.LoadMoreListView
+            <com.caknow.android.customer.app.home.LoadMoreListView
                 android:id="@+id/load_more_refresh_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </com.caknow.android.customer.app.provider.LoadMoreListView>
+            </com.caknow.android.customer.app.home.LoadMoreListView>
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </FrameLayout>

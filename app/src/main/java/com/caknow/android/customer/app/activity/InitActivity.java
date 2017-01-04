@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.caknow.android.customer.app.BaseActivity;
 import com.caknow.android.customer.app.home.HomeActivity;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;

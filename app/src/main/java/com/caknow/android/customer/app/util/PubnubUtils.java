@@ -4,8 +4,6 @@ package com.caknow.android.customer.app.util;
  * Created by wesson_wxy on 2016/12/20.
  */
 
-import com.pubnub.api.Pubnub;
-
 import com.pubnub.api.Callback;
 import com.pubnub.api.Pubnub;
 import com.pubnub.api.PubnubError;

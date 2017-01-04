@@ -5,8 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.caknow.android.customer.app.model.Payment;
-import com.caknow.android.customer.app.model.Vehicle;
+import com.caknow.android.customer.app.payment.Payment;
 import com.caknow.app.R;
 
 import butterknife.BindView;

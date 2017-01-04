@@ -6,9 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-
-import com.caknow.android.customer.app.activity.BaseActivity;
-import com.caknow.android.customer.app.fragment.settings.SettingsFragment;
+import com.caknow.android.customer.app.BaseActivity;
 import com.caknow.app.R;
 
 import butterknife.BindView;

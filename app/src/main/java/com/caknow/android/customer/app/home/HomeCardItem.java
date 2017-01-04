@@ -1,7 +1,6 @@
 package com.caknow.android.customer.app.home;
 
 import android.text.TextUtils;
-import android.widget.ImageView;
 
 /**
  * Created by junu on 1/1/17.

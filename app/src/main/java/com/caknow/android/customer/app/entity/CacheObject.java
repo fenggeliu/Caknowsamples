@@ -4,8 +4,6 @@ package com.caknow.android.customer.app.entity;
  * Created by wesson_wxy on 2016/12/27.
  */
 
-import android.test.suitebuilder.annotation.Suppress;
-
 import com.caknow.android.customer.app.util.ObjectUtils;
 
 import java.io.Serializable;

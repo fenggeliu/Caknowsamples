@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.caknow.android.customer.app.model.Vehicle;
+import com.caknow.android.customer.app.garage.Vehicle;
 import com.caknow.app.R;
 
 import butterknife.BindView;

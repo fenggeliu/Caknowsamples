@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import com.caknow.android.customer.app.BaseActivity;
 import com.caknow.android.customer.app.home.HomeActivity;
 import com.caknow.app.R;
 

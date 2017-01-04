@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.caknow.android.customer.app.BaseActivity;
 import com.caknow.android.customer.app.net.AuthenticationAPI;
 import com.caknow.android.customer.app.net.AuthenticationRequest;
 import com.caknow.android.customer.app.net.AuthenticationResponse;
