@@ -20,21 +20,18 @@ import com.caknow.android.customer.app.garage.GarageActivity;
 import com.caknow.android.customer.app.history.HistoryActivity;
 import com.caknow.android.customer.app.payment.PaymentActivity;
 import com.caknow.android.customer.app.promo.PromoActivity;
+import com.caknow.android.customer.app.quote.QuoteActivity;
 import com.caknow.android.customer.app.settings.SettingsActivity;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
 
     private RecyclerView.LayoutManager mLayoutManager;
-    private HomeCardAdapter mAdapter;
     private NavigationView navigationView;
     @BindView(R.id.home_recyclerview) RecyclerView mRecyclerView;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
@@ -86,8 +83,6 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void initData() {
-        List<HomeCardItem> items = new ArrayList<>();
-        mAdapter = new HomeCardAdapter(items);
 
     }
 
@@ -173,6 +168,9 @@ public class HomeActivity extends BaseActivity
     }
 
 
-
-
+    @Override
+    public void onListFragmentInteraction(HomeCardItem item) {
+        Intent intent = new Intent(this, QuoteActivity.class);
+        startActivity(intent);
+    }
 }

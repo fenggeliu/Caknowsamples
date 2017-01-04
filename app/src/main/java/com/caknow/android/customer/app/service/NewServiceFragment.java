@@ -41,12 +41,22 @@ public class NewServiceFragment extends Fragment {
 
     @OnClick(R.id.nsr_maintenance_layout)
     void startMaintenance(){
-
+        NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
+        ServiceTypeFragment fragment = new ServiceTypeFragment();
+        fragment.setArguments(new Bundle());
+        homeActivity.replaceFragment(R.id.flContent,
+                new ServiceTypeFragment(),
+                ServiceTypeFragment.FRAGMENT_TAG, "serviceTypeFragment");
     }
 
     @OnClick(R.id.nsr_emergency_layout)
     void startEmergency(){
-
+        NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
+        ServiceTypeFragment fragment = new ServiceTypeFragment();
+        fragment.setArguments(new Bundle());
+        homeActivity.replaceFragment(R.id.flContent,
+                new ServiceTypeFragment(),
+                ServiceTypeFragment.FRAGMENT_TAG, "serviceTypeFragment");
     }
 
 

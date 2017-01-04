@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.caknow.android.customer.app.garage.AddVehicleFragment;
+import com.caknow.android.customer.app.garage.VehicleType;
 import com.caknow.app.R;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class HomeFragment extends Fragment {
     FrameLayout emptyGarageLayout;
 
     HomeCardAdapter homeCardAdapter;
-
+    OnListFragmentInteractionListener mListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,19 +45,35 @@ public class HomeFragment extends Fragment {
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         homeCardRV.setLayoutManager(llm);
-        this.homeCardAdapter = new HomeCardAdapter(createTestData());
+        this.homeCardAdapter = new HomeCardAdapter(createTestData(), mListener);
         if(homeCardAdapter.getItemCount() == 0){
             emptyGarageLayout.setVisibility(View.VISIBLE);
         }
         homeCardRV.setAdapter(homeCardAdapter);
+
         return v;
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         getActivity().setTitle("CAKNOW");
+
+        if (context instanceof HomeFragment.OnListFragmentInteractionListener) {
+            mListener = (HomeFragment.OnListFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
 
     //TODO REMOVE!
     private List<HomeCardItem> createTestData(){
@@ -65,5 +83,20 @@ public class HomeFragment extends Fragment {
         cardItemList.add(new HomeCardItem("status2", "vehicleId", "vehicleType", "date", "detailInfo", "action" ));
 
         return cardItemList;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnListFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(HomeCardItem item);
     }
 }

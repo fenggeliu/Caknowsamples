@@ -87,19 +87,23 @@
             android:theme="@style/NotitleTheme" />
         <activity
             android:name="com.caknow.android.customer.app.promo.PromoActivity"
-            android:label="New Vehicle"
+            android:label="Share to Earn"
             android:theme="@style/NotitleTheme" />
         <activity
             android:name="com.caknow.android.customer.app.history.HistoryActivity"
-            android:label="New Vehicle"
+            android:label="History"
             android:theme="@style/NotitleTheme" />
         <activity
             android:name="com.caknow.android.customer.app.feedback.FeedbackActivity"
-            android:label="New Vehicle"
+            android:label="Help"
             android:theme="@style/NotitleTheme" />
         <activity
             android:name="com.caknow.android.customer.app.payment.PaymentActivity"
-            android:label="New Vehicle"
+            android:label="Credit Cards"
+            android:theme="@style/NotitleTheme" />
+        <activity
+            android:name="com.caknow.android.customer.app.quote.QuoteActivity"
+            android:label="Quotes"
             android:theme="@style/NotitleTheme" />
     </application>
 
