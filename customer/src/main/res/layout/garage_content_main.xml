@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/garage_content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.caknow.customer.garage.GarageActivity"
+    tools:showIn="@layout/fragment_garage"
+    android:background="@drawable/bg_homepage_2x">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/home_empty_garage_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/gbf_add_vehicle_btn_height"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="@dimen/gbf_add_vehicle_btn_width"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circle_red_2x"
+                    android:text="@string/gbf_add_vehicle_btn_text"
+                    android:textColor="@color/white_full"
+                    android:textSize="@dimen/gbf_add_vehicle_btn_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/vehicle_display"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"></GridView>
+    </FrameLayout>
+
+</LinearLayout>

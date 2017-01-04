@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- init layout -->
+    <string name="init_layout_login_btn">Sign in</string>
+    <string name="init_layout_create_btn">Create new account</string>
+    <string name="init_layout_social_btn">login with social account</string>
+
+    <!-- sign up info layout -->
+    <string name="suil_sign_up_btn">Sign up</string>
+    <!-- log in layout -->
+    <string name="login_layout_sign_in_btn">Sign in</string>
+    <!-- forgot password popup -->
+    <string name="fpl_send_btn"><b>Send</b></string>
+    <string name="fpl_cancel_btn"><b>Cancel</b></string>
+    <!-- add car submit layout -->
+    <string name="acsl_submit_btn">Submit</string>
+    <!-- garage blank fragment -->
+    <string name="gbf_add_vehicle_btn_text">ADD A VEHICLE</string>
+    <!-- credit card blank fragment -->
+    <string name="ccbf_add_card_text">Add a card</string>
+    <!-- modify phone layout -->
+    <string name="setting_update_submit_btn_text">Submit</string>
+    <!-- modify password layout -->
+    <string name="mpwd_submit_btn_text">Submit</string>
+    <!-- manage garage layout -->
+    <string name="mgl_edit_btn_text">Edit</string>
+    <string name="mgl_add_vehicle_btn_text">+ New Vehicle</string>
+    <!-- add new card layout -->
+    <string name="ancl_add_card_btn">Add card</string>
+    <!-- share to earn layout -->
+    <string name="stel_promotion_invite_btn">Email invite</string>
+    <!-- invite confirm layout -->
+    <string name="icl_ok_btn_text">OK</string>
+    <!-- service request content layout -->
+    <string name="srcl_new_request_btn">+ New Service</string>
+    <!-- location layout -->
+    <string name="location_layout_next_btn">Next</string>
+    <!-- list content select layout -->
+    <string name="lcsl_next_btn">Next</string>
+    <!-- request detail layout -->
+    <string name="rdl_submit_btn">SUBMIT</string>
+</resources>
