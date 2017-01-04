@@ -53,7 +53,7 @@ public class GarageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.tool_bar_layout, container, false);
+        View v = inflater.inflate(R.layout.fragment_garage, container, false);
         ButterKnife.bind(this, v);
 
         // TODO: If garage has cars, hide addNewCar button
@@ -66,7 +66,7 @@ public class GarageFragment extends Fragment {
                 VehicleServiceFragment vehicleServiceFragment = new VehicleServiceFragment();
                 Vehicle vehicle = new Vehicle("01", "Super Duper Fast Car", "www.google.com");
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("vehicle", vehicle);
+                bundle.putParcelable(Vehicle.PARCELABLE_KEY, vehicle);
                 vehicleServiceFragment.setArguments(bundle);
 
                 GarageActivity activity = (GarageActivity) getActivity();

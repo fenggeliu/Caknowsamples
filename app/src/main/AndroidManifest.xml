@@ -80,11 +80,11 @@
         <activity
             android:name="com.caknow.android.customer.app.activity.GarageActivity"
             android:label="Garage"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/NotitleTheme" />
         <activity
             android:name="com.caknow.android.customer.app.activity.NewVehicleActivity"
             android:label="New Vehicle"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/NotitleTheme" />
         <activity
             android:name="com.caknow.android.customer.app.activity.PromoActivity"
             android:label="New Vehicle"

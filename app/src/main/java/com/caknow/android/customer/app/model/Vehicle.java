@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class Vehicle implements Parcelable {
+    public static final String PARCELABLE_KEY = Vehicle.class.getName();
     private final String _id;
     private final String name;
     private final String imageUrl;

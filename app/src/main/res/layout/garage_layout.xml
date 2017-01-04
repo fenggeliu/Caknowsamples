@@ -11,7 +11,7 @@
     >
 
     <include
-        layout="@layout/tool_bar_layout"
+        layout="@layout/fragment_garage"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

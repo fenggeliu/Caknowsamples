@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.caknow.android.customer.app.activity.NewServiceRequestActivity;
+import com.caknow.android.customer.app.model.Vehicle;
 import com.caknow.app.R;
 
 import java.util.ArrayList;
@@ -33,9 +37,24 @@ public class VehicleServiceFragment extends Fragment {
     @BindView(R.id.vehicle_service_name)
     TextView vehicleName;
 
+    @BindView(R.id.srcl_car_logo_display)
+    ImageView vehicleLogo;
+
     @BindView(R.id.new_vehicle_service_button)
     Button submitButton;
 
+    @BindView(R.id.no_service_request)
+    LinearLayout noServiceRequestLayout;
+
+
+    @BindView(R.id.service_request_repair_list)
+    ListView serviceRepairList;
+
+
+
+    /**
+     * Launches New Service Request
+     */
     @OnClick(R.id.new_vehicle_service_button)
     void startNewService(){
         Intent intent = new Intent(getActivity(), NewServiceRequestActivity.class);
@@ -45,12 +64,14 @@ public class VehicleServiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Retrieve the vehicle data from the previous GarageFragment
         Bundle bundle = getArguments();
-        displayName = bundle.getString("displayName", "SOMETHING WENT WRONG");
+        Vehicle vehicle = bundle.getParcelable(Vehicle.PARCELABLE_KEY);
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vehicleservice, container, false);
         ButterKnife.bind(this, v);
-        vehicleName.setText(displayName);
+        vehicleName.setText(vehicle.getName());
+        vehicleLogo.setImageResource(R.drawable.alfa_romeo);
         return v;
     }
 
