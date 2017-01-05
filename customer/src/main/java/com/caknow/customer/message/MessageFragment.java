@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.BuildConfig;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuAdapter;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
@@ -105,6 +106,7 @@ public class MessageFragment extends BaseFragment {
             return false;
         });
         messageListAdapter = new MessagesAdapter(getActivity(), DummyMessageContent.ITEMS);
-        listView.setAdapter(messageListAdapter);
+        SwipeMenuAdapter swipeMenuAdapter = new SwipeMenuAdapter(getActivity(), messageListAdapter);
+        listView.setAdapter(swipeMenuAdapter);
     }
 }
