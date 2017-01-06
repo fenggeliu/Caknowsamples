@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/blue_title"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/history_layout_back_btn_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/history_layout_back_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/history_layout_back_btn_margin_bottom"
+                android:layout_marginEnd="@dimen/history_layout_back_btn_margin_end"
+                android:layout_marginStart="@dimen/history_layout_back_btn_margin_start"
+                android:layout_marginTop="@dimen/history_layout_back_btn_margin_top"
+                android:background="@drawable/ic_action_close"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/history_layout_title"
+                android:textColor="@color/white_full"
+                android:textSize="@dimen/history_layout_title_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/history_content_display"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+
+        <LinearLayout
+            android:id="@+id/no_history_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="@dimen/history_layout_image_width"
+                android:layout_height="@dimen/history_layout_image_height"
+                android:layout_gravity="center"
+                android:background="@drawable/history_no_2x"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/history_layout_text_margin_top"
+                android:gravity="center"
+                android:text="@string/history_layout_no_history_text"
+                android:textColor="@color/description_gray"
+                android:textSize="@dimen/history_layout_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/history_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/history_layout_margin_right"
+            android:layout_marginStart="@dimen/history_layout_margin_left"
+            android:background="#00000000"
+            android:divider="#00000000"
+            android:listSelector="#00000000"
+            android:scrollbars="none" />
+        <!-- divider attribute set #00000000 -->
+        <!-- background attribute set #00000000  -->
+        <!-- listSelector attribute set #0000000 -->
+
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- sign up info layout -->
+    <string name="suil_welcome_description">Welcome to join CAKNOW</string>
+    <string name="suil_term_decription"><font color="black"><b>By logging in or signing up, I agree to CAKNOW</b></font></string>
+    <string name="suil_term_privacy_description"><font color="black"><a href="https://www.caknow.com/privacy-policy">Privacy policy</a>,</font> </string>
+    <string name="suil_term_service_description"><font color="black"><a href="https://www.caknow.com/affiliates/terms-of-service">&#160;terms of service</a> and </font></string>
+    <string name="suil_term_condition_description"><font color="black"><a href="https://www.caknow.com/promotions-terms">&#160;terms and conditions</a></font></string>
+
+    <!-- about us layout -->
+    <string name="aul_rating_text">Rate us in the app store</string>
+    <string name="aul_about_us_text">About us</string>
+    <string name="aul_legal_text">Legal</string>
+    <string name="aul_facebook_text">Like us on Facebook</string>
+
+    <!-- legal layout -->
+    <string name="legal_layout_privacy_policy_text">Privacy policy</string>
+    <string name="legal_layout_term_service_text">Terms of service</string>
+    <string name="legal_layout_term_condition_text">Terms &amp; condition</string>
+
+    <!-- help layout -->
+    <string name="help_layout_description_head"><b>If you have any question or want to report an issue, please call us:</b></string>
+    <string name="help_layout_description_phone"><b><u>(866)900-8900</u></b></string>
+    <string name="help_layout_description_phone_number"><b><u>8669008900</u></b></string>
+    <string name="help_layout_description_time_zone"><b>( 8AM - 6PM PST )</b></string>
+    <string name="help_layout_description_sub_head"><b>Or leave message to us:</b></string>
+
+    <!-- settings layout -->
+    <string name="settings_layout_account_title">Account:</string>
+    <string name="settings_layout_garage_title">My garage:</string>
+    <string name="settings_layout_system_title">System:</string>
+    <string name="settings_layout_email_content">Email:</string>
+    <string name="settings_layout_phone_content">Phone:</string>
+    <string name="settings_layout_password_content">Password:</string>
+    <string name="settings_layout_car_content">Manage my car</string>
+    <string name="settings_layout_sign_out_title">Sign out</string>
+
+    <!-- log in layout -->
+    <string name="login_layout_welcome">Welcome back</string>
+    <string name="login_layout_forgot_password">Forgot Password</string>
+    <string name="login_layout_description_head"><b>By Logging in or signing up, I agree to CAKNOW</b></string>
+    <string name="login_layout_privacy_policy"><font color="black"><a href="https://www.caknow.com/privacy-policy">Privacy policy</a>, </font></string>
+    <string name="login_layout_terms_of_service"><font color="black"><a href="https://www.caknow.com/affiliates/terms-of-service">&#160;terms of Service</a> and </font></string>
+    <string name="login_layout_terms_and_condition"><font color="black"><a href="https://www.caknow.com/promotions-terms">&#160;terms and conditions</a></font></string>
+
+    <!-- garage layout -->
+    <string name="garage_layout_about_us">About us</string>
+    <string name="garage_layout_version">Version</string>
+
+    <!-- pull to get more -->
+    <string name="ptgm_content">More content</string>
+
+    <!-- message layout -->
+    <string name="history_layout_no_message_text">NO MESSAGE</string>
+
+    <!-- history layout -->
+    <string name="history_layout_no_history_text">NO HISTORY</string>
+
+    <!-- history list item -->
+    <string name="hli_vehicle_description">Your vehicle</string>
+
+    <!-- credit card blank fragment -->
+    <string name="ccbf_description_text">You haven\'t added any credit cards to your account yet!</string>
+    <!-- credit card list item -->
+    <string name="ccli_expire_day_text">Expire Day</string>
+
+    <!-- modify phone layout -->
+    <string name="setting_update_description_text">Your phone number</string>
+    <!-- modify password layout -->
+    <string name="mpwd_current_password_text">Current password</string>
+    <string name="mpwd_new_password_text">New password</string>
+
+    <!-- add new card layout -->
+    <string name="ancl_card_number_text">Card Number</string>
+    <string name="ancl_card_expiration_text">Expiration</string>
+    <string name="ancl_card_cvc_text">CVC</string>
+    <string name="ancl_card_holder_name_text">Name on card</string>
+
+    <!-- share to earn layout -->
+    <string name="stel_head_description_text">Give a friend $15 discount on CAKNOW and you will get $5 after they using.</string>
+    <string name="stel_sub_description_text">Terms &#38; Condition</string>
+    <string name="stel_promotion_head_description_text">SEND YOUR PROMO CODE</string>
+
+    <!-- invite confirm layout -->
+    <string name="icl_description_text">Invitation has been send out! Thanks for your sharing!</string>
+
+    <!-- service request content layout -->
+    <string name="srcl_no_service_request">NO SERVICE REQUEST</string>
+
+    <!-- location layout -->
+    <string name="location_layout_why_description">Why this is important?</string>
+    <string name="location_layout_warning_description">Locating your vehicle will be helpful in finding local shops for you.</string>
+
+    <!-- new service request -->
+    <string name="nsr_repair_title">Repair</string>
+    <string name="nsr_maintenance_title">Maintenance</string>
+    <string name="nsr_emergency_title">Emergency</string>
+
+    <!-- repair content list layout -->
+    <string name="rcll_title">Repair</string>
+
+    <!-- maintenance content list layout -->
+    <string name="mcll_title">Maintenance</string>
+
+    <!-- list content select layout -->
+    <string name="lcsl_diagnose_description">Already know diagnostic code?</string>
+    <string name="lcsl_diagnose_code">Diagnostic code</string>
+
+    <!-- request detail layout -->
+    <string name="rdl_warning_description">Description and Photos are helpful for accurate  for the price</string>
+
+
+    <string name="url_default">http://www.caknow.com/</string>
+    <string name="urL_promo_terms">https://www.caknow.com/promotions-terms</string>
+    <string name="url_terms_and_conditions">http://www.caknow.com/</string>
+    <string name="url_aboutus">https://www.caknow.com/about-us?l=en</string>
+    <string name="url_privacy_policy">https://www.caknow.com/privacy-policy</string>
+    <string name="url_terms_of_service">https://www.caknow.com/consumers/terms-of-service</string>
+    <string name="url_phone">callto:8669008900</string>
+</resources>

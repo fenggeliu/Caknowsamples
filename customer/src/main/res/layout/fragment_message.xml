@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/messages_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+
+        <LinearLayout
+            android:id="@+id/no_history_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="@dimen/message_layout_no_message_width"
+                android:layout_height="@dimen/message_layout_no_message_height"
+                android:layout_gravity="center"
+                android:background="@drawable/message_no_2x"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/message_layout_text_margin_top"
+                android:gravity="center"
+                android:text="@string/history_layout_no_message_text"
+                android:textColor="@color/description_gray"
+                android:textSize="@dimen/message_layout_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.caknow.customer.home.LoadMoreListView
+                android:id="@+id/load_more_refresh_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </com.caknow.customer.home.LoadMoreListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

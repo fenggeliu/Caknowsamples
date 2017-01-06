@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_register_2x">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/blue_title"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/suil_sign_up_title"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/suil_sign_up_title_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_close_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/suil_button_close"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/suil_sign_up_back_btn_margin_bottom"
+                android:layout_marginEnd="@dimen/suil_sign_up_back_btn_margin_end"
+                android:layout_marginStart="@dimen/suil_sign_up_back_btn_margin_start"
+                android:layout_marginTop="@dimen/suil_sign_up_back_btn_margin_top"
+                android:background="@drawable/ic_action_close"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="13"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/suil_welcome_description_margin_bottom"
+                    android:layout_marginEnd="@dimen/suil_welcome_description_margin_end"
+                    android:layout_marginStart="@dimen/suil_welcome_description_margin_start"
+                    android:layout_marginTop="@dimen/suil_welcome_description_margin_top"
+                    android:gravity="center"
+                    android:text="@string/suil_welcome_description"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/suil_welcome_description_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/name_register_3x" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/suil_first_name_input_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <EditText
+                                android:id="@+id/suil_first_name_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:backgroundTint="@color/white"
+                                android:backgroundTintMode="screen"
+                                android:ems="10"
+                                android:gravity="center_vertical"
+                                android:hint="@string/suil_first_name_input_hint"
+                                android:paddingEnd="@dimen/suil_first_name_hint_padding_right"
+                                android:paddingStart="@dimen/suil_first_name_hint_padding_left"
+                                android:paddingTop="@dimen/suil_first_name_hint_padding_top"
+                                android:maxLines="1"
+                                android:textColorHint="#999999"
+                                android:textSize="@dimen/suil_first_name_hint_text_size"
+                                android:nextFocusDown="@+id/suil_last_name_input"
+                                android:inputType="textCapWords"
+                                >
+
+                                <requestFocus />
+                            </EditText>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent">
+
+                            <View
+                                android:layout_width="1px"
+                                android:layout_height="fill_parent"
+                                android:background="@android:color/darker_gray" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/suit_last_name_input_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <EditText
+                                android:id="@+id/suil_last_name_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:ems="10"
+                                android:gravity="center_vertical"
+                                android:hint="@string/suil_last_name_input_hint"
+                                android:paddingEnd="@dimen/suil_last_name_hint_padding_right"
+                                android:paddingStart="@dimen/suil_last_name_hint_padding_left"
+                                android:paddingTop="@dimen/suil_last_name_hint_padding_top"
+                                android:maxLines="1"
+                                android:textColorHint="#999999"
+                                android:textSize="@dimen/suil_last_name_hint_text_size"
+                                android:nextFocusDown="@+id/suil_email_input"
+                                android:inputType="textCapWords"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="@android:color/darker_gray"></View>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/message_home_3x" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/suil_email_input_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6">
+
+                        <EditText
+                            android:id="@+id/suil_email_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:ems="10"
+                            android:gravity="center_vertical"
+                            android:hint="@string/suil_email_address_input_hint"
+                            android:paddingEnd="@dimen/suil_email_address_hint_padding_right"
+                            android:paddingStart="@dimen/suil_email_address_hint_padding_left"
+                            android:paddingTop="@dimen/suil_email_address_hint_padding_top"
+                            android:maxLines="1"
+                            android:textColorHint="#999999"
+                            android:textSize="@dimen/suil_email_address_hint_text_size"
+                            android:nextFocusDown="@+id/suil_phone_input"
+                            android:inputType="textEmailAddress"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="@android:color/darker_gray"></View>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/phone_register_3x" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/suil_phone_input_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6">
+
+                        <EditText
+                            android:id="@+id/suil_phone_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:ems="10"
+                            android:gravity="center_vertical"
+                            android:hint="@string/suil_phone_number_input_hint"
+                            android:nextFocusDown="@+id/suil_password_input"
+                            android:paddingEnd="@dimen/suil_phone_number_hint_padding_right"
+                            android:paddingStart="@dimen/suil_phone_number_hint_padding_left"
+                            android:paddingTop="@dimen/suil_phone_number_hint_padding_top"
+                            android:maxLines="1"
+                            android:textColorHint="#999999"
+                            android:textSize="@dimen/suil_phone_number_hint_text_size"
+                            android:inputType="phone"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="@android:color/darker_gray"></View>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/password_register_3x" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/suil_password_input_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="5">
+
+                            <EditText
+                                android:id="@+id/suil_password_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:ems="10"
+                                android:focusable="true"
+                                android:gravity="center_vertical"
+                                android:hint="@string/suil_password_input_hint"
+                                android:inputType="textPassword"
+                                android:paddingEnd="@dimen/suil_password_hint_padding_right"
+                                android:paddingStart="@dimen/suil_password_hint_padding_left"
+                                android:paddingTop="@dimen/suil_password_hint_padding_top"
+                                android:maxLines="1"
+                                android:textColorHint="#999999"
+                                android:textSize="@dimen/suil_password_hint_text_size"
+                                android:imeActionId="@integer/go"
+                                android:imeActionLabel="@string/title_activity_signup"
+                                android:imeOptions="actionSend"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/suil_display_password_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/suil_display_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/beyes_icon_3x_2" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:background="@android:color/darker_gray" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <Button
+                    android:id="@+id/suil_sign_up_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_start_2x"
+                    android:gravity="center"
+                    android:text="@string/suil_sign_up_btn"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_full"
+                    android:textSize="@dimen/suil_sign_up_btn_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/suil_term_decription"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/suil_term_description_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/suil_term_description_privacy_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/sign_up_privacy_policy_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center_horizontal"
+                            android:text="@string/suil_term_privacy_description"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/suil_term_description_privacy_text_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/suil_term_description_term_service_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/sign_up_terms_of_service_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center_horizontal"
+                            android:text="@string/suil_term_service_description"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/suil_term_description_term_service_text_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sign_up_terms_and_conditions_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/suil_term_description_term_condition_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center_horizontal"
+                            android:text="@string/suil_term_condition_description"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/suil_term_description_term_condition_text_size" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

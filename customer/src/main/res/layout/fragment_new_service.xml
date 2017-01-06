@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/nsr_repair_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nsr_repair_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repair_image_2x"
+                android:gravity="center"
+                android:text="@string/nsr_repair_title"
+                android:textColor="@color/white_full"
+                android:textSize="@dimen/nsr_repair_title_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nsr_space_height" />
+
+        <LinearLayout
+            android:id="@+id/nsr_maintenance_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nsr_maintenance_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/maintenance_image_2x"
+                android:gravity="center"
+                android:text="@string/nsr_maintenance_title"
+                android:textColor="@color/white_full"
+                android:textSize="@dimen/nsr_maintenance_title_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nsr_space_height" />
+
+        <LinearLayout
+            android:id="@+id/nsr_emergency_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/emergency_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/emergancy_image_2x"
+                android:gravity="center"
+                android:text="@string/nsr_emergency_title"
+                android:textColor="@color/white_full"
+                android:textSize="@dimen/nsr_emergency_title_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
