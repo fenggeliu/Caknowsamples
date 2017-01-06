@@ -293,7 +293,7 @@
                             android:background="@null"
                             android:ems="10"
                             android:hint="@string/ancl_credit_card_holder_name"
-                            android:singleLine="true"
+                            android:maxLines="1"
                             android:textColorHint="#999999"
                             android:textSize="@dimen/ancl_holder_name_text_size"></EditText>
                     </LinearLayout>

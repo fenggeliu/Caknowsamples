@@ -142,7 +142,7 @@
                         android:ems="10"
                         android:gravity="center_vertical"
                         android:hint="@string/rdl_cur_mile"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColorHint="#999999"
                         android:textSize="@dimen/rdl_cur_mile_text_size"></EditText>
                 </LinearLayout>
@@ -276,7 +276,7 @@
                     android:layout_marginStart="@dimen/rdl_icon_margin_left"
                     android:layout_marginTop="@dimen/rdl_icon_margin_top"
                     android:layout_weight="1"
-                    android:background="@drawable/warnning_icon_2x" />
+                    android:background="@drawable/ic_action_alert_dark" />
 
                 <LinearLayout
                     android:layout_width="0dp"

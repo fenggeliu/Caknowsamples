@@ -65,7 +65,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="xxxx xxxx xxxx 1853"
+                            android:text="@string/sample_cc_number_placeholder"
                             android:textColor="@color/white_full"
                             android:textSize="@dimen/ccli_card_number_text_size" />
 

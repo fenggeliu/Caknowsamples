@@ -166,7 +166,7 @@
                                 android:layout_marginEnd="@dimen/login_layout_forgot_icon_margin_end"
                                 android:layout_marginStart="@dimen/login_layout_forgot_icon_margin_start"
                                 android:layout_marginTop="@dimen/login_layout_forgot_icon_margin_top"
-                                android:background="@drawable/warnning_icon_2x"
+                                android:background="@drawable/ic_action_alert_dark"
                                 android:gravity="center" />
                         </LinearLayout>
 

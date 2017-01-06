@@ -87,7 +87,7 @@
                 android:paddingEnd="@dimen/setting_update_text_padding_end"
                 android:paddingStart="@dimen/setting_update_text_padding_start"
                 android:paddingTop="@dimen/setting_update_text_padding_top"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColorHint="#999999"
                 android:textSize="@dimen/setting_update_text_size" />
         </LinearLayout>

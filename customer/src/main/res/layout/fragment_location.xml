@@ -110,7 +110,7 @@
                         android:layout_marginEnd="@dimen/location_layout_warning_margin_end"
                         android:layout_marginTop="@dimen/location_layout_warning_margin_top"
                         android:layout_weight="1"
-                        android:background="@drawable/warnning_icon_2x" />
+                        android:background="@drawable/ic_action_alert_dark" />
                 </LinearLayout>
 
                 <LinearLayout

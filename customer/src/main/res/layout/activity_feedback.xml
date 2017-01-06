@@ -99,7 +99,7 @@
                     android:paddingLeft="@dimen/help_layout_edit_text_padding_left"
                     android:paddingRight="@dimen/help_layout_edit_text_padding_right"
                     android:paddingTop="0dp"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:textColorHint="#999999"
                     android:textSize="@dimen/help_layout_edit_text_size" />
             </LinearLayout>
@@ -129,7 +129,7 @@
                     android:paddingLeft="@dimen/help_layout_edit_text_padding_left"
                     android:paddingRight="@dimen/help_layout_edit_text_padding_right"
                     android:paddingTop="@dimen/help_layout_edit_text_padding_top"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:textColorHint="#999999"
                     android:textSize="@dimen/help_layout_edit_text_size" />
             </LinearLayout>
@@ -163,7 +163,7 @@
                     android:paddingTop="@dimen/help_layout_edit_text_padding_top"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:scrollbarStyle="outsideOverlay"
-                    android:singleLine="true"
+                    android:maxLines="1"
 
                     android:textColorHint="#999999"
                     android:textSize="@dimen/help_layout_edit_text_size" />

@@ -88,7 +88,7 @@
                 android:paddingEnd="@dimen/iel_full_name_hint_padding_right"
                 android:paddingStart="@dimen/iel_full_name_hint_padding_left"
                 android:paddingTop="@dimen/iel_full_name_hint_padding_top"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColorHint="#999999"
                 android:textSize="@dimen/iel_full_name_hint_text_size" />
 
@@ -114,7 +114,7 @@
                 android:paddingEnd="@dimen/iel_email_address_hint_padding_right"
                 android:paddingStart="@dimen/iel_email_address_hint_padding_left"
                 android:paddingTop="@dimen/iel_email_address_hint_padding_top"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColorHint="#999999"
                 android:textSize="@dimen/iel_email_address_hint_text_size" />
 

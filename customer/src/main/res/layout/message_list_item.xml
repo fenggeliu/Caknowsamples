@@ -69,7 +69,7 @@
                             android:id="@+id/message_item_clock"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/time_black_2x" />
+                            android:src="@drawable/ic_action_time_dark" />
                     </LinearLayout>
 
                     <LinearLayout
