@@ -32,6 +32,7 @@ import com.caknow.customer.BaseActivity;
 import com.caknow.customer.BaseApplication;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
+import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.net.AuthenticationAPI;
 import com.caknow.customer.util.net.AuthenticationPayload;
 import com.caknow.customer.util.net.AuthenticationResponse;
@@ -176,22 +177,6 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
             });
-            httpClient.addNetworkInterceptor(chain -> {
-                Request request = chain.request();
-
-                long t1 = System.nanoTime();
-                Log.d("OkHttp", String.format("Sending %s request %s on %s%n%s BODY %n%s",
-                        request.method(), request.url(), chain.connection(), request.headers(), request.body().toString()));
-
-                Response response = chain.proceed(request);
-
-                long t2 = System.nanoTime();
-                Log.d("OkHttp", String.format("Received response for %s in %.1fms%n%s %n%s",
-                        response.request().url(), (t2 - t1) / 1e6d, response.headers(), response.body().string()));
-
-                return response;
-            });
-
             client = httpClient.build();
         }
         if (retrofit == null) {
@@ -474,20 +459,21 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     @Override
     public void onResponse(Call<AuthenticationResponse> call, retrofit2.Response<AuthenticationResponse> response) {
         if (response.isSuccessful()) {
-//            Toast.makeText(LoginActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
-//            AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
-//
-//            SettingSharedPreUtils.getInstance().put(BaseApplication.get(), PreferenceKeys.ACCESS_TOKEN, authPayload.getToken());
-//            SettingSharedPreUtils.getInstance().put(BaseApplication.get(), PreferenceKeys.USER_FNAME, authPayload.getfName());
-//            SettingSharedPreUtils.getInstance().put(BaseApplication.get(), PreferenceKeys.USER_ID, authPayload.get_id());
-//            SettingSharedPreUtils.getInstance().put(BaseApplication.get(), PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
-//            SettingSharedPreUtils.getInstance().put(BaseApplication.get(), PreferenceKeys.USER_VERIFICATION_STATUS, authPayload.getVerificationStatus());
-//            SettingSharedPreUtils.getInstance().put(BaseApplication.get(), PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
-//            SettingSharedPreUtils.getInstance().put(BaseApplication.get(), PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
+            Toast.makeText(LoginActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
+            AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
+
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.ACCESS_TOKEN, authPayload.getToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_FNAME, authPayload.getfName());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_ID, authPayload.get_id());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_VERIFICATION_STATUS, authPayload.getVerificationStatus());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
 
             final Intent intent = new Intent(this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            this.finish();
         }
     }
 

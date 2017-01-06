@@ -138,28 +138,6 @@ public class HomeActivity extends BaseActivity
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addNetworkInterceptor(new StethoInterceptor());
             httpClient.addInterceptor(new BaseRequestInterceptor());
-            httpClient.addNetworkInterceptor(chain -> {
-                Request request = chain.request();
-                long t1 = 0 ,t2 = 0;
-                try {
-                     t1 = System.nanoTime();
-                    Log.d("OkHttp", String.format("Sending %s request %s on %s%n%s",
-                            request.method(), request.url(), chain.connection(), request.headers()));
-                } catch (Exception e){
-                    //
-                }
-                Response response = chain.proceed(request);
-                try {
-                    t2 = System.nanoTime();
-                    Log.d("OkHttp", String.format("Received response for %s in %.1fms%n%s",
-                            response.request().url(), (t2 - t1) / 1e6d, response.headers()));
-
-                } catch (Exception e){
-                    //
-                }
-                return response;
-            });
-
             client = httpClient.build();
         }
         if (retrofit == null) {

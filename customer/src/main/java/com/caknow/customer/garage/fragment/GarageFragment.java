@@ -48,6 +48,16 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
     @BindView(R.id.home_empty_garage_view)
     LinearLayout emptyGarageView;
 
+    @OnClick(R.id.home_empty_garage_view)
+    void addNewCar(){
+        try {
+            Intent intent = new Intent(getActivity(), NewVehicleActivity.class);
+            startActivity(intent);
+        } catch (Exception e){
+
+        }
+    }
+
     @BindView(R.id.vehicle_display)
     GridView vehicleGridView;
 
@@ -86,23 +96,16 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
         }
     }
 
-    private List<Vehicle> createDummyData(){
-        List<Vehicle> dummyData = new ArrayList<>();
-        dummyData.add(new Vehicle("0001", "car1", "www.google.com"));
-        dummyData.add(new Vehicle("0002", "car2", "www.google.com"));
-        dummyData.add(new Vehicle("0003", "car3", "www.google.com"));
-        dummyData.add(new Vehicle("0004", "car4", "www.google.com"));
-        return dummyData;
-    }
 
     @Override
     public void onResponse(Call<GarageResponse> call, Response<GarageResponse> response) {
 
         List<Vehicle> vehicles;
         try{
-            emptyGarageView.setVisibility(View.GONE);
             vehicles = response.body().getGaragePayload().getVehicles();
-            emptyGarageView.setVisibility(View.GONE);
+            if(vehicles.size() > 0) {
+                emptyGarageView.setVisibility(View.GONE);
+            }
             gridViewAdapter = new GarageAdapter(getContext(), vehicles);
             vehicleGridView.setAdapter(gridViewAdapter);
             vehicleGridView.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -115,6 +118,7 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
                 HomeActivity activity = (HomeActivity) getActivity();
                 activity.replaceFragment(R.id.flContent, vehicleServiceFragment, VehicleServiceFragment.FRAGMENT_TAG, "vehicle");
             });
+            vehicleGridView.invalidate();
         } catch (Exception e){
             //
         }
