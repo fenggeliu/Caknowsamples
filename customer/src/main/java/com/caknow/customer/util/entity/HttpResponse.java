@@ -5,10 +5,10 @@ package com.caknow.customer.util.entity;
  */
 
 
-import com.caknow.customer.util.constant.HttpConstants;
 import com.caknow.customer.util.HttpUtils;
 import com.caknow.customer.util.StringUtils;
 import com.caknow.customer.util.TimeUtils;
+import com.caknow.customer.util.constant.HttpConstants;
 
 import java.util.HashMap;
 import java.util.Map;

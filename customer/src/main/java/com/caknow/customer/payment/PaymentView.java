@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.caknow.customer.payment.Payment;
 import com.caknow.app.R;
 
 import butterknife.BindView;

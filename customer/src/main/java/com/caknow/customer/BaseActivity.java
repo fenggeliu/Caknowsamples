@@ -6,16 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import com.caknow.app.R;
 
 import butterknife.ButterKnife;
 
@@ -46,15 +45,28 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void configView();
 
+    /**
+     *
+     */
+    protected abstract void setTitle();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        try {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.abs_layout);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button).setOnClickListener(view -> this.onBackPressed());
+        } catch (Exception e) {
+            //
+        }
         this.initContentView();
         this.initView();
         this.initData();
         this.configView();
+        this.setTitle();
 
     }
 

@@ -5,27 +5,24 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuAdapter;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.caknow.customer.BaseFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
+import com.baoyz.swipemenulistview.SwipeMenuAdapter;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
 import com.caknow.customer.home.LoadMoreListView;
 import com.caknow.customer.message.dummy.DummyMessageContent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by junu on 1/1/17.
@@ -44,6 +41,7 @@ public class MessageFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.message_layout, container, false);
         ButterKnife.bind(this, v);
         emptyMessagesView.setVisibility(View.GONE);
+        setupMenuCreator();
         setupListview();
         return v;
     }
@@ -58,7 +56,7 @@ public class MessageFragment extends BaseFragment {
         SwipeMenuCreator creator = menu -> {
             // create "open" item
             SwipeMenuItem openItem = new SwipeMenuItem(
-                    getApplicationContext());
+                    getContext());
             // set item background
             openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
                     0xCE)));
@@ -75,7 +73,7 @@ public class MessageFragment extends BaseFragment {
 
             // create "delete" item
             SwipeMenuItem deleteItem = new SwipeMenuItem(
-                    getApplicationContext());
+                    getContext());
             // set item background
             deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
                     0x3F, 0x25)));

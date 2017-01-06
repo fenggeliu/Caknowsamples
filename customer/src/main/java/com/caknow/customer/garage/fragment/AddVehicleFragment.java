@@ -1,9 +1,8 @@
-package com.caknow.customer.garage;
+package com.caknow.customer.garage.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import com.caknow.customer.BaseFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
+import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.garage.adapter.AddVehicleAdapter;
 
 import java.util.ArrayList;

@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.caknow.customer.garage.AddVehicleFragment"
+    tools:context="com.caknow.customer.garage.fragment.AddVehicleFragment"
     tools:listitem="@layout/fragment_addvehicle" />

@@ -1,13 +1,10 @@
 package com.caknow.customer.promo;
 
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-import com.caknow.customer.BaseActivity;
 import com.caknow.app.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.caknow.customer.BaseActivity;
 
 /**
  * Created by junu on 1/2/2017.
@@ -15,24 +12,10 @@ import butterknife.OnClick;
 
 public class PromoActivity extends BaseActivity {
 
-    @BindView(R.id.stel_back_btn)
-    Button button;
-
-    @OnClick(R.id.stel_back_btn)
-    void close(){
-        if(!PromoActivity.this.isFinishing()) PromoActivity.this.finish();
-    }
-
-
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_promo);
-        ButterKnife.bind(this);
-        try {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        } catch(Exception e){
-            //
-        }
+        addFragment(R.id.promoContent, new PromoFragment(), PromoFragment.FRAGMENT_TAG);
     }
 
     @Override
@@ -48,5 +31,15 @@ public class PromoActivity extends BaseActivity {
     @Override
     protected void configView() {
 
+    }
+
+    @Override
+    protected void setTitle() {
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Share To Earn");
+            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
+            //
+        }
     }
 }

@@ -22,7 +22,7 @@ import static com.caknow.customer.settings.fragment.SettingsFragment.TITLE_KEY;
  * Created by junu on 1/1/17.
  */
 
-public class UpdateSettingFragment extends BaseFragment {
+public class ManageCarFragment extends BaseFragment {
 
     @BindView(R.id.setting_update_title_tv)
     TextView titleView;
@@ -31,7 +31,7 @@ public class UpdateSettingFragment extends BaseFragment {
     EditText updateField;
 
     private String title, hint;
-    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + UpdateSettingFragment.class.getName();
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ManageCarFragment.class.getName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

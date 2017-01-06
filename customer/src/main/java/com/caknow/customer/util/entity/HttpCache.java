@@ -4,12 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 
-import com.caknow.customer.util.constant.HttpConstants;
 import com.caknow.customer.util.ArrayUtils;
 import com.caknow.customer.util.HttpUtils;
 import com.caknow.customer.util.SqliteUtils;
 import com.caknow.customer.util.StringUtils;
 import com.caknow.customer.util.SystemUtils;
+import com.caknow.customer.util.constant.HttpConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

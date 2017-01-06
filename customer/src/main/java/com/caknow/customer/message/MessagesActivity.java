@@ -1,25 +1,28 @@
-package com.caknow.customer.payment;
+package com.caknow.customer.message;
 
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by junu on 1/2/2017.
  */
 
-public class PaymentActivity extends BaseActivity implements PaymentMethodFragment.OnListFragmentInteractionListener{
+public class MessagesActivity extends BaseActivity {
 
-
+    @BindView(R.id.messages_activity_container)
+    FrameLayout content;
     @Override
     protected void initContentView() {
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_message);
         ButterKnife.bind(this);
-        addFragment(R.id.flContent, new PaymentMethodFragment(), PaymentMethodFragment.FRAGMENT_TAG);
+        addFragment(R.id.messages_activity_container, new MessageFragment(), MessageFragment.FRAGMENT_TAG);
     }
 
     @Override
@@ -40,15 +43,10 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Credit Cards");
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Messages");
             ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
-    }
-
-    @Override
-    public void onListFragmentInteraction(Payment item) {
-
     }
 }

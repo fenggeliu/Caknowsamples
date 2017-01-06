@@ -2,7 +2,6 @@ package com.caknow.customer;
 
 import android.support.v4.app.Fragment;
 
-
 import butterknife.Unbinder;
 
 /**

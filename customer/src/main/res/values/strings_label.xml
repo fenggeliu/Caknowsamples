@@ -3,7 +3,7 @@
     <!-- sign up info layout -->
     <string name="suil_welcome_description">Welcome to join CAKNOW</string>
     <string name="suil_term_decription"><font color="black"><b>By logging in or signing up, I agree to CAKNOW</b></font></string>
-    <string name="suil_term_privacy_description"><font color="black"><a href="https://www.caknow.com/privacy-policy">Privacy policy</a>,</font></string>
+    <string name="suil_term_privacy_description"><font color="black"><a href="https://www.caknow.com/privacy-policy">Privacy policy</a>,</font> </string>
     <string name="suil_term_service_description"><font color="black"><a href="https://www.caknow.com/affiliates/terms-of-service">&#160;terms of service</a> and </font></string>
     <string name="suil_term_condition_description"><font color="black"><a href="https://www.caknow.com/promotions-terms">&#160;terms and conditions</a></font></string>
 
@@ -109,4 +109,12 @@
     <!-- request detail layout -->
     <string name="rdl_warning_description">Description and Photos are helpful for accurate  for the price</string>
 
+
+    <string name="url_default">http://www.caknow.com/</string>
+    <string name="urL_promo_terms">https://www.caknow.com/promotions-terms</string>
+    <string name="url_terms_and_conditions">http://www.caknow.com/</string>
+    <string name="url_aboutus">https://www.caknow.com/about-us?l=en</string>
+    <string name="url_privacy_policy">https://www.caknow.com/privacy-policy</string>
+    <string name="url_terms_of_service">https://www.caknow.com/consumers/terms-of-service</string>
+    <string name="url_phone">callto:8669008900</string>
 </resources>

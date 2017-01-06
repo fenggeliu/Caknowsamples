@@ -1,9 +1,8 @@
-package com.caknow.customer.garage;
+package com.caknow.customer.garage.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import com.caknow.customer.BaseFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,12 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.TextView;
 
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
+import com.caknow.customer.garage.GarageActivity;
+import com.caknow.customer.garage.NewVehicleActivity;
+import com.caknow.customer.garage.Vehicle;
 import com.caknow.customer.garage.adapter.GarageAdapter;
 
 import java.util.ArrayList;

@@ -2,13 +2,13 @@ package com.caknow.customer.service.fragment;
 
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import com.caknow.customer.BaseFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
 import com.caknow.customer.service.NewServiceRequestActivity;
 
 import butterknife.BindView;
@@ -66,7 +66,7 @@ public class NewServiceFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.new_service_request, container, false);
+        View v = inflater.inflate(R.layout.fragment_new_service, container, false);
         unbinder = ButterKnife.bind(this, v);
         return v;
     }

@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import com.caknow.customer.BaseFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.caknow.customer.garage.GarageActivity;
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
+import com.caknow.customer.garage.GarageActivity;
 import com.caknow.customer.settings.SettingsActivity;
 
 import butterknife.ButterKnife;

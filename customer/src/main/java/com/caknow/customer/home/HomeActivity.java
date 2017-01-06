@@ -12,34 +12,35 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.caknow.app.BuildConfig;
+import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.feedback.FeedbackActivity;
 import com.caknow.customer.garage.GarageActivity;
 import com.caknow.customer.history.HistoryActivity;
-import com.caknow.customer.message.MessageActivity;
+import com.caknow.customer.message.MessagesActivity;
 import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.promo.PromoActivity;
 import com.caknow.customer.quote.QuoteActivity;
 import com.caknow.customer.settings.SettingsActivity;
-import com.caknow.app.BuildConfig;
-import com.caknow.app.R;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.webview.WebViewActivity;
-
 
 import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener {
 
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     DrawerLayout drawer;
 
     private int lastCheckedItem = R.id.nav_messages;
+
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_home);
@@ -52,8 +53,7 @@ public class HomeActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         try {
-            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            getSupportActionBar().setCustomView(R.layout.abs_layout);
+            getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button).setVisibility(View.GONE);
         } catch(Exception e){
             //
         }
@@ -64,7 +64,12 @@ public class HomeActivity extends BaseActivity
         // Set up Header
         TextView nameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.shopper_name);
         ImageView userPhoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.user_photo);
-
+        userPhoto.setOnClickListener(view -> addFragment(R.id.flContent,
+                new HomeFragment(),
+                HomeFragment.FRAGMENT_TAG));
+        nameView.setOnClickListener(view -> addFragment(R.id.flContent,
+                new HomeFragment(),
+                HomeFragment.FRAGMENT_TAG));
         //TODO: set user info here
         nameView.setText("John Doe");
         userPhoto.setImageDrawable(getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
@@ -86,14 +91,14 @@ public class HomeActivity extends BaseActivity
     }
 
     @OnClick(R.id.user_photo)
-    void returnHome(){
+    void returnHome() {
         addFragment(R.id.flContent,
                 new HomeFragment(),
                 HomeFragment.FRAGMENT_TAG);
     }
 
     @OnClick(R.id.shopper_name)
-    void returnHome2(){
+    void returnHome2() {
         addFragment(R.id.flContent,
                 new HomeFragment(),
                 HomeFragment.FRAGMENT_TAG);
@@ -111,6 +116,11 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void configView() {
+
+    }
+
+    @Override
+    protected void setTitle() {
 
     }
 
@@ -164,7 +174,7 @@ public class HomeActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_messages) {
-            Intent intent = new Intent(this, MessageActivity.class);
+            Intent intent = new Intent(this, MessagesActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_payment) {
             Intent intent = new Intent(this, PaymentActivity.class);

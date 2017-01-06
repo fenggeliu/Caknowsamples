@@ -4,8 +4,6 @@ package com.caknow.customer.service.model;
  * Created by jkang on 1/4/17.
  */
 
-import android.os.Parcelable;
-
 /**
  * A dummy item representing a piece of content.
  */

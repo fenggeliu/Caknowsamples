@@ -54,7 +54,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/garage_content_main" />
+    <include layout="@layout/content_garage" />
 
 
 </android.support.design.widget.CoordinatorLayout>

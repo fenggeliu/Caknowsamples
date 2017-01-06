@@ -3,7 +3,6 @@ package com.caknow.customer.payment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import com.caknow.customer.BaseFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;

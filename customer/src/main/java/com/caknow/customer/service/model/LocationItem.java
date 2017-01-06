@@ -6,9 +6,9 @@ import android.os.Parcelable;
 /**
  * Created by jkang on 1/4/17.
  */
-public class Location implements Parcelable{
+public class LocationItem implements Parcelable{
 
-    public static final String PARCELABLE_KEY = Location.class.getName();
+    public static final String PARCELABLE_KEY = LocationItem.class.getName();
     // ===========================================================
     // Constants
     // ===========================================================
@@ -36,14 +36,14 @@ public class Location implements Parcelable{
         dest.writeString(this.state);
     }
 
-    public Location(String address1, String address2, String city, String zip) {
+    public LocationItem(String address1, String address2, String city, String zip) {
         this.address1 = address1;
         this.address2 = address2;
         this.city = city;
         this.zip = zip;
     }
 
-    protected Location(Parcel in) {
+    protected LocationItem(Parcel in) {
         this.address1 = in.readString();
         this.address2 = in.readString();
         this.city = in.readString();
@@ -51,15 +51,15 @@ public class Location implements Parcelable{
         this.state = in.readString();
     }
 
-    public static final Creator<Location> CREATOR = new Creator<Location>() {
+    public static final Creator<LocationItem> CREATOR = new Creator<LocationItem>() {
         @Override
-        public Location createFromParcel(Parcel source) {
-            return new Location(source);
+        public LocationItem createFromParcel(Parcel source) {
+            return new LocationItem(source);
         }
 
         @Override
-        public Location[] newArray(int size) {
-            return new Location[size];
+        public LocationItem[] newArray(int size) {
+            return new LocationItem[size];
         }
     };
 }

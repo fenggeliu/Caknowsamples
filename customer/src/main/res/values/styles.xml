@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/blue_title</item>
         <item name="colorPrimaryDark">@color/blue_title</item>
         <item name="colorAccent">@color/white</item>
+        <item name="windowActionBar">true</item>
     </style>
 
     <style name="NotitleTheme" parent="Theme.AppCompat.Light.NoActionBar">

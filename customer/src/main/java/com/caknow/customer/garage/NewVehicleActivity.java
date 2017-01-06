@@ -1,14 +1,15 @@
 package com.caknow.customer.garage;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import com.caknow.customer.BaseFragment;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-import com.caknow.customer.BaseActivity;
 import com.caknow.app.R;
+import com.caknow.customer.BaseActivity;
+import com.caknow.customer.garage.fragment.AddVehicleFragment;
+import com.caknow.customer.garage.fragment.ConfirmVehicleFragment;
 
 import butterknife.ButterKnife;
 
@@ -35,11 +36,7 @@ public class NewVehicleActivity extends BaseActivity implements AddVehicleFragme
         addFragment(R.id.flContent,
                 fragment,
                 AddVehicleFragment.FRAGMENT_TAG);
-        try {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        } catch(Exception e){
-            //Log.e(e.getMessage());
-        }
+
     }
 
     @Override
@@ -55,6 +52,16 @@ public class NewVehicleActivity extends BaseActivity implements AddVehicleFragme
     @Override
     protected void configView() {
 
+    }
+
+    @Override
+    protected void setTitle() {
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("New Vehicle");
+            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
+            //
+        }
     }
 
 

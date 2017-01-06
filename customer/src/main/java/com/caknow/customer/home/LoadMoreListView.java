@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ListView;
 
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.caknow.app.R;

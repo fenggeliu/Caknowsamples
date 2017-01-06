@@ -20,14 +20,15 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.util.net.AuthenticationAPI;
 import com.caknow.customer.util.net.AuthenticationRequest;
 import com.caknow.customer.util.net.AuthenticationResponse;
-import com.caknow.app.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -82,12 +83,6 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     @BindView(R.id.login_layout_sign_in_btn)
     Button mLoginFormView;
 
-    @OnClick(R.id.login_back_btn)
-    void closeLoginActivity(){
-        if(!LoginActivity.this.isFinishing()){
-            this.finish();
-        }
-    }
 
     @OnClick(R.id.login_layout_sign_in_btn)
     void loginClicked(){
@@ -112,7 +107,13 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
     @Override
     protected void initContentView() {
-
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            TextView title = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext);
+            title.setText("Sign In");
+        } catch (Exception e) {
+            //
+        }
     }
 
     @Override
@@ -160,6 +161,16 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     @Override
     protected void configView() {
 
+    }
+
+    @Override
+    protected void setTitle() {
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign In");
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
+            //
+        }
     }
 
     @Override

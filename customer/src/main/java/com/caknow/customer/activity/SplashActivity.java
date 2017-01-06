@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.home.HomeActivity;
-import com.caknow.app.R;
 
 /**
  * Created by wesson_wxy on 2016/12/5.
@@ -39,6 +39,11 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void configView() {
         animate(findViewById(R.id.splash), 1000);
+    }
+
+    @Override
+    protected void setTitle() {
+
     }
 
     private class FadeInListener implements Animation.AnimationListener {

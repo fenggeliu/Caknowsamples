@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.caknow.customer.BaseActivity;
 import com.caknow.app.R;
+import com.caknow.customer.BaseActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,19 +19,6 @@ import butterknife.OnClick;
  */
 
 public class FeedbackActivity extends BaseActivity {
-
-
-    @OnClick(R.id.help_layout_back_btn)
-    void close() {
-        if (!FeedbackActivity.this.isFinishing()) {
-            FeedbackActivity.this.finish();
-        }
-    }
-
-    @OnClick(R.id.help_submit_button)
-    void submit() {
-
-    }
 
     @OnClick(R.id.phone_number_display)
     void call() {
@@ -66,5 +55,16 @@ public class FeedbackActivity extends BaseActivity {
     @Override
     protected void configView() {
 
+    }
+
+    @Override
+    protected void setTitle() {
+        try {
+
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Help");
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
+            //
+        }
     }
 }

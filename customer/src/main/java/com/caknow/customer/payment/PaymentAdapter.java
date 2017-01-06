@@ -49,8 +49,10 @@ public class PaymentAdapter extends BaseAdapter {
         //Timber.d("position =" + position);
         if (convertView == null ) {
             if(this.inflater != null) {
-                convertView = this.inflater.inflate(R.layout.credit_card_list_item, parent, false);
+                convertView = this.inflater.inflate(R.layout.list_item_cc, parent, false);
                 viewHolder = new PaymentView(convertView, paymentList.get(position), position);
+                //TODO: Edit Mode
+                convertView.findViewById(R.id.no_edit_card).setVisibility(View.GONE);
                 convertView.setTag(viewHolder);
             }
         } else {

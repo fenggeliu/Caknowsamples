@@ -432,7 +432,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/suil_term_description_privacy"
+                            android:id="@+id/sign_up_privacy_policy_tv"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -449,7 +449,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/suil_term_description_term_service"
+                            android:id="@+id/sign_up_terms_of_service_tv"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -461,7 +461,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/suil_term_description_term_condition"
+                        android:id="@+id/sign_up_terms_and_conditions_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
 

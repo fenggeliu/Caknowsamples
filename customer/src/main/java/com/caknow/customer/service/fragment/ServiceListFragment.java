@@ -2,7 +2,6 @@ package com.caknow.customer.service.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import com.caknow.customer.BaseFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
 import com.caknow.customer.service.model.ServiceItem;
 import com.caknow.customer.service.model.ServiceItemAdapter;
 import com.caknow.customer.service.model.dummy.DummyServiceContent;

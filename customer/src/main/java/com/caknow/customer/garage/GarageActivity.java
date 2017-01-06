@@ -1,14 +1,15 @@
 package com.caknow.customer.garage;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import com.caknow.customer.BaseFragment;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.widget.TextView;
 
-import com.caknow.customer.BaseActivity;
 import com.caknow.app.R;
+import com.caknow.customer.BaseActivity;
+import com.caknow.customer.garage.fragment.AddVehicleFragment;
+import com.caknow.customer.garage.fragment.ConfirmVehicleFragment;
+import com.caknow.customer.garage.fragment.GarageFragment;
 
 import butterknife.ButterKnife;
 
@@ -49,6 +50,15 @@ public class GarageActivity extends BaseActivity implements AddVehicleFragment.O
     @Override
     protected void configView() {
 
+    }
+
+    @Override
+    protected void setTitle() {
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
+        } catch (NullPointerException e){
+            //
+        }
     }
 
 

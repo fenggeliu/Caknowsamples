@@ -4,10 +4,11 @@ package com.caknow.customer.settings;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBar;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.caknow.customer.BaseActivity;
 import com.caknow.app.R;
+import com.caknow.customer.BaseActivity;
 import com.caknow.customer.settings.fragment.SettingsFragment;
 
 import butterknife.BindString;
@@ -37,15 +38,6 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void initContentView() {
-        try {
-            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            getSupportActionBar().setCustomView(R.layout.abs_layout);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setIcon(R.drawable.ic_menu_back);
-        } catch (NullPointerException e){
-            //
-        }
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
         titleTv.setText(titleString);
@@ -66,5 +58,15 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void configView() {
 
+    }
+
+    @Override
+    protected void setTitle() {
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Settings");
+            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
+            //
+        }
     }
 }

@@ -48,7 +48,7 @@
             android:name="com.caknow.customer.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName="com.caknow.customer.activity.InitActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -58,7 +58,7 @@
             android:name="com.caknow.customer.activity.SignUpActivity"
             android:label="@string/title_activity_signup"
             android:parentActivityName="com.caknow.customer.activity.InitActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -80,55 +80,62 @@
 
         </activity>
         <activity
-            android:name="com.caknow.customer.message.MessageActivity"
+            android:name="com.caknow.customer.message.MessagesActivity"
             android:label="Messages"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.caknow.customer.home.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.caknow.customer.service.NewServiceRequestActivity"
             android:label="Service Request"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.caknow.customer.garage.GarageActivity"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.caknow.customer.garage.GarageActivity"
             android:label="Garage"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.caknow.customer.home.HomeActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.caknow.customer.garage.NewVehicleActivity"
             android:label="New Vehicle"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.caknow.customer.garage.GarageActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.caknow.customer.promo.PromoActivity"
             android:label="Share to Earn"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.caknow.customer.home.HomeActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.caknow.customer.history.HistoryActivity"
             android:label="History"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.caknow.customer.home.HomeActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.caknow.customer.feedback.FeedbackActivity"
             android:label="Help"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.caknow.customer.home.HomeActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.caknow.customer.payment.PaymentActivity"
             android:label="Credit Cards"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.caknow.customer.quote.QuoteActivity"
             android:label="Quotes"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.caknow.customer.webview.WebViewActivity"
             android:label="About Us"
-            android:theme="@style/NotitleTheme"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
     </application>
 

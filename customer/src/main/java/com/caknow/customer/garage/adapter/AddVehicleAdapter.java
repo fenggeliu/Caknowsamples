@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.caknow.customer.garage.AddVehicleFragment;
+import com.caknow.app.R;
 import com.caknow.customer.garage.VehicleType;
+import com.caknow.customer.garage.fragment.AddVehicleFragment;
 import com.caknow.customer.home.HomeCardItem;
 import com.caknow.customer.home.HomeFragment;
-import com.caknow.app.R;
 
 import java.util.List;
 

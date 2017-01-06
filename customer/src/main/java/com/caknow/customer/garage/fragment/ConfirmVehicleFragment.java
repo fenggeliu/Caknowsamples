@@ -1,8 +1,7 @@
-package com.caknow.customer.garage;
+package com.caknow.customer.garage.fragment;
 
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import com.caknow.customer.BaseFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.caknow.app.R;
+import com.caknow.customer.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;

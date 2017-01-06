@@ -4,13 +4,18 @@ package com.caknow.customer.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.caknow.customer.BaseActivity;
 import com.caknow.app.R;
+import com.caknow.customer.BaseActivity;
 import com.caknow.customer.home.HomeActivity;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.webview.WebViewActivity;
 
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,6 +34,28 @@ public class SignUpActivity extends BaseActivity {
             R.id.suil_password_input
     })
     List<EditText> editTextList;
+
+    @BindString(R.string.url_privacy_policy) String urlPrivacyPolicy;
+    @BindString(R.string.url_terms_and_conditions) String urlTermsConditions;
+    @BindString(R.string.url_terms_of_service) String urlTermsService;
+
+    @OnClick({R.id.sign_up_privacy_policy_tv, R.id.sign_up_terms_and_conditions_tv, R.id.sign_up_terms_of_service_tv})
+    void launchWebViewActivity(TextView view){
+        final Intent webViewIntent = new Intent(this, WebViewActivity.class);
+        String urlToLoad = "";
+        switch(view.getId()){
+            case R.id.sign_up_privacy_policy_tv:
+                urlToLoad = urlPrivacyPolicy;
+                break;
+            case R.id.sign_up_terms_and_conditions_tv:
+                urlToLoad = urlTermsConditions;
+                break;
+            case R.id.sign_up_terms_of_service_tv:
+                urlToLoad = urlTermsService;
+                break;
+        }
+        webViewIntent.putExtra(Constants.URL_PARCEL_KEY, urlToLoad);
+    }
 
     @OnClick(R.id.suil_sign_up_btn)
     void executeSignUp(){
@@ -64,6 +91,17 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     protected void configView() {
+
+    }
+
+    @Override
+    protected void setTitle() {
+        try {
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign Up");
+        } catch (Exception e) {
+            //
+        }
 
     }
 

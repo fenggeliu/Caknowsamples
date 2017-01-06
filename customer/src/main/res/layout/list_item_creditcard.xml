@@ -15,7 +15,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/ccli_layout_height"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/ccli_layout_margin_bottom"
@@ -34,10 +34,9 @@
 
             <LinearLayout
                 android:id="@+id/edit_card"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/ccli_layout_height"
                 android:layout_marginBottom="@dimen/ccli_layout_margin_bottom"
-
                 android:layout_marginTop="@dimen/ccli_layout_margin_top"
                 android:background="@drawable/card_black_2x"
                 android:gravity="center"
@@ -137,7 +136,7 @@
 
         <LinearLayout
             android:id="@+id/no_edit_card"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/ccli_layout_height"
             android:layout_marginBottom="@dimen/ccli_layout_margin_bottom"
             android:layout_marginEnd="@dimen/ccli_layout_margin_end"
@@ -145,6 +144,7 @@
             android:layout_marginTop="@dimen/ccli_layout_margin_top"
             android:background="@drawable/card_black_2x"
             android:gravity="center"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <LinearLayout

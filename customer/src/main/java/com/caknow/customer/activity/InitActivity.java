@@ -1,14 +1,15 @@
 package com.caknow.customer.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.caknow.customer.BaseActivity;
-import com.caknow.customer.home.HomeActivity;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
+import com.caknow.customer.BaseActivity;
+import com.caknow.customer.home.HomeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,8 +54,12 @@ public class InitActivity extends BaseActivity {
     }
 
     @Override
-    public void initContentView() {
+    public void onCreate(Bundle savedInstanceState){
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void initContentView() {
         setContentView(R.layout.activity_init);
         ButterKnife.bind(this);
     }
@@ -71,6 +76,11 @@ public class InitActivity extends BaseActivity {
 
     @Override
     public void configView() {
+
+    }
+
+    @Override
+    protected void setTitle() {
 
     }
 }

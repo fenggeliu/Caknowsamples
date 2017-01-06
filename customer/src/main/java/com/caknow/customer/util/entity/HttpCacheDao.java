@@ -3,10 +3,10 @@ package com.caknow.customer.util.entity;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.caknow.customer.util.constant.DbConstants;
 import com.caknow.customer.util.SqliteUtils;
 import com.caknow.customer.util.StringUtils;
 import com.caknow.customer.util.TimeUtils;
+import com.caknow.customer.util.constant.DbConstants;
 
 import java.util.Map;
 

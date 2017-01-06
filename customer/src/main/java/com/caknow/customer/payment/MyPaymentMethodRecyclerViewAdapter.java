@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.caknow.customer.payment.PaymentMethodFragment.OnListFragmentInteractionListener;
 import com.caknow.app.R;
+import com.caknow.customer.payment.PaymentMethodFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
