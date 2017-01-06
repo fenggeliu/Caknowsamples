@@ -62,12 +62,6 @@ public class SignUpActivity extends BaseActivity {
         registrationSuccess();
     }
 
-    @OnClick(R.id.suil_button_close)
-    void closeSignUp(){
-        if(!SignUpActivity.this.isFinishing()){
-            SignUpActivity.this.finish();
-        }
-    }
 
     @Override
     protected void initContentView() {

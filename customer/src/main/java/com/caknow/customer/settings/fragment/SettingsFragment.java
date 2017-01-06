@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
+import com.caknow.customer.activity.InitActivity;
 import com.caknow.customer.garage.GarageActivity;
 import com.caknow.customer.settings.SettingsActivity;
+import com.caknow.customer.util.SessionPreferences;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,9 +57,16 @@ public class SettingsFragment extends BaseFragment {
 
     @OnClick(R.id.settings_sign_out_container)
     void signOut(){
-        UpdateSettingFragment updateFragment = new UpdateSettingFragment();
-        SettingsActivity settingsActivity = (SettingsActivity) getActivity();
-        settingsActivity.finish();
+        try {
+            if (getActivity() != null & !getActivity().isFinishing()) {
+                SessionPreferences.INSTANCE.resetCredentials();
+                final Intent intent = new Intent(getActivity(), InitActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getActivity().finish();
+            }
+        } catch (NullPointerException e){
+            //
+        }
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

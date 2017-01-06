@@ -10,34 +10,57 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.feedback.FeedbackActivity;
 import com.caknow.customer.garage.GarageActivity;
+import com.caknow.customer.garage.NewVehicleActivity;
+import com.caknow.customer.garage.fragment.GarageFragment;
 import com.caknow.customer.history.HistoryActivity;
 import com.caknow.customer.message.MessagesActivity;
 import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.promo.PromoActivity;
 import com.caknow.customer.quote.QuoteActivity;
 import com.caknow.customer.settings.SettingsActivity;
+import com.caknow.customer.util.PreferenceKeys;
+import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
+
+import com.caknow.customer.util.net.BaseRequestInterceptor;
 import com.caknow.customer.webview.WebViewActivity;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
 
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     DrawerLayout drawer;
+    OkHttpClient client;
+    public Retrofit retrofit;
 
     private int lastCheckedItem = R.id.nav_messages;
 
@@ -65,13 +88,13 @@ public class HomeActivity extends BaseActivity
         TextView nameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.shopper_name);
         ImageView userPhoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.user_photo);
         userPhoto.setOnClickListener(view -> addFragment(R.id.flContent,
-                new HomeFragment(),
-                HomeFragment.FRAGMENT_TAG));
+                new GarageFragment(),
+                GarageFragment.FRAGMENT_TAG));
         nameView.setOnClickListener(view -> addFragment(R.id.flContent,
-                new HomeFragment(),
-                HomeFragment.FRAGMENT_TAG));
+                new GarageFragment(),
+                GarageFragment.FRAGMENT_TAG));
         //TODO: set user info here
-        nameView.setText("John Doe");
+        nameView.setText(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.USER_FNAME));
         userPhoto.setImageDrawable(getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
 
 
@@ -93,15 +116,15 @@ public class HomeActivity extends BaseActivity
     @OnClick(R.id.user_photo)
     void returnHome() {
         addFragment(R.id.flContent,
-                new HomeFragment(),
-                HomeFragment.FRAGMENT_TAG);
+                new GarageFragment(),
+                GarageFragment.FRAGMENT_TAG);
     }
 
     @OnClick(R.id.shopper_name)
     void returnHome2() {
         addFragment(R.id.flContent,
-                new HomeFragment(),
-                HomeFragment.FRAGMENT_TAG);
+                new GarageFragment(),
+                GarageFragment.FRAGMENT_TAG);
     }
 
     @Override
@@ -111,8 +134,46 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void initData() {
+        if (client == null) {
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addNetworkInterceptor(new StethoInterceptor());
+            httpClient.addInterceptor(new BaseRequestInterceptor());
+            httpClient.addNetworkInterceptor(chain -> {
+                Request request = chain.request();
+                long t1 = 0 ,t2 = 0;
+                try {
+                     t1 = System.nanoTime();
+                    Log.d("OkHttp", String.format("Sending %s request %s on %s%n%s",
+                            request.method(), request.url(), chain.connection(), request.headers()));
+                } catch (Exception e){
+                    //
+                }
+                Response response = chain.proceed(request);
+                try {
+                    t2 = System.nanoTime();
+                    Log.d("OkHttp", String.format("Received response for %s in %.1fms%n%s",
+                            response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+
+                } catch (Exception e){
+                    //
+                }
+                return response;
+            });
+
+            client = httpClient.build();
+        }
+        if (retrofit == null) {
+            Gson gson = new GsonBuilder().create();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(Constants.ENDPOINT)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(client)
+                    .build();
+
+        }
 
     }
+
 
     @Override
     protected void configView() {
@@ -121,7 +182,11 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void setTitle() {
-
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
+        } catch (NullPointerException e){
+            //
+        }
     }
 
     @Override
@@ -129,8 +194,8 @@ public class HomeActivity extends BaseActivity
         super.onCreate(savedInstanceState);
 
         addFragment(R.id.flContent,
-                new HomeFragment(),
-                HomeFragment.FRAGMENT_TAG);
+                new GarageFragment(),
+                GarageFragment.FRAGMENT_TAG);
     }
 
     @Override
@@ -159,7 +224,7 @@ public class HomeActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_start_new_service) {
-            final Intent intent = new Intent(this, GarageActivity.class);
+            Intent intent = new Intent(this, NewVehicleActivity.class);
             startActivity(intent);
             return true;
         }
@@ -205,4 +270,6 @@ public class HomeActivity extends BaseActivity
         Intent intent = new Intent(this, QuoteActivity.class);
         startActivity(intent);
     }
+
+
 }
