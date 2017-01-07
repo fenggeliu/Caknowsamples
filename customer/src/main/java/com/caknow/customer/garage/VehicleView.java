@@ -28,11 +28,15 @@ public class VehicleView {
     @BindView(R.id.gli_quote_display)
     TextView quoteBubble;
 
-    public VehicleView(final View view, @NonNull final Vehicle vehicle, int quoteCount) {
+    public VehicleView(final View view, @NonNull final Vehicle vehicle) {
         this.vehicle = vehicle;
         ButterKnife.bind(this, view);
         context = view.getContext();
-        displayName.setText(vehicle.getName());
+
+        StringBuilder name = new StringBuilder();
+        name.append(vehicle.getYear()).append(vehicle.getMake()).append(vehicle.getModel());
+        quoteCount = vehicle.getQuoteCount();
+        displayName.setText(name.toString());
         if(quoteCount == 0){
             quoteBubble.setVisibility(View.GONE);
         }

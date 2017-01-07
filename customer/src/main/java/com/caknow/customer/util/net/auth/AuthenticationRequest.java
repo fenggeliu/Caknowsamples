@@ -1,4 +1,4 @@
-package com.caknow.customer.util.net;
+package com.caknow.customer.util.net.auth;
 
 /**
  * Created by junu on 1/1/17.

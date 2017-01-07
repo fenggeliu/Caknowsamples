@@ -1,6 +1,7 @@
 package com.caknow.customer.util.dagger;
 
-import com.caknow.customer.util.net.AuthenticationAPI;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.auth.AuthenticationAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -24,7 +25,7 @@ public class AuthenticationModule {
     public Retrofit provideRetrofit(OkHttpClient client){
         Gson gson = new GsonBuilder().create();
         return new Retrofit.Builder()
-                .baseUrl(AuthenticationAPI.ENDPOINT)
+                .baseUrl(Constants.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();

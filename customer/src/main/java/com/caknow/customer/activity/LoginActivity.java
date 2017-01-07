@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,25 +25,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
-import com.caknow.customer.util.net.AuthenticationAPI;
-import com.caknow.customer.util.net.AuthenticationRequest;
-import com.caknow.customer.util.net.AuthenticationResponse;
+import com.caknow.customer.home.HomeActivity;
+import com.caknow.customer.util.PreferenceKeys;
+import com.caknow.customer.util.SessionPreferences;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.auth.AuthenticationAPI;
+import com.caknow.customer.util.net.auth.AuthenticationPayload;
+import com.caknow.customer.util.net.auth.AuthenticationResponse;
+import com.caknow.customer.util.net.content.LoginRequestPayload;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -51,9 +58,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity implements Callback<AuthenticationResponse>,  LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements Callback<AuthenticationResponse>, LoaderCallbacks<Cursor> {
 
-    /**
+    /**f
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
@@ -72,6 +79,8 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
     private OkHttpClient client;
     private Retrofit retrofit;
+    private String email;
+    private String password;
     // UI references.
     @BindView(R.id.login_user_pwd)
     EditText mPasswordView;
@@ -85,18 +94,38 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
 
     @OnClick(R.id.login_layout_sign_in_btn)
-    void loginClicked(){
+    void loginClicked() {
 
         // prepare call in Retrofit 2.0
         AuthenticationAPI authenticationAPI = retrofit.create(AuthenticationAPI.class);
+        email = mEmailView.getText().toString();
+        password = mPasswordView.getText().toString();
 
-        Call<AuthenticationResponse> call = authenticationAPI.login(new AuthenticationRequest("asdf@caknow.com", "helloworld"));
-        //asynchronous call
-        call.enqueue(this);
+        if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
 
+
+            String text = LoginRequestPayload.getJsonString(new LoginRequestPayload(email, password));
+            RequestBody body =
+                    RequestBody.create(MediaType.parse("application/json"), text);
+
+            Call<AuthenticationResponse> call = authenticationAPI.login(body);
+            //asynchronous call
+            call.enqueue(this);
+        } else if(BuildConfig.DEBUG){
+
+            String text = LoginRequestPayload.getJsonString(new LoginRequestPayload("asdf@caknow.com", "helloworld"));
+            RequestBody body =
+                    RequestBody.create(MediaType.parse("application/json"), text);
+
+            Call<AuthenticationResponse> call = authenticationAPI.login(body);
+            //asynchronous call
+            call.enqueue(this);
+        } else{
+            Toast.makeText(this, "Invalid Credentials!", Toast.LENGTH_SHORT);
+        }
         // synchronous call would be with execute, in this case you
         // would have to perform this outside the main thread
-        // call.execute()
+//         call.execute();
 
         // to cancel a running request
         // call.cancel();
@@ -108,9 +137,9 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     @Override
     protected void initContentView() {
         try {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             TextView title = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext);
             title.setText("Sign In");
+            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (Exception e) {
             //
         }
@@ -122,39 +151,39 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
     }
 
-    private void displayKeyboard(View view){
+    private void displayKeyboard(View view) {
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInputFromWindow(view.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
         }
     }
 
     @Override
     protected void initData() {
-        if(client == null) {
+        if (client == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Interceptor.Chain chain) throws IOException {
-                    Request original = chain.request();
+            httpClient.addNetworkInterceptor(new StethoInterceptor());
+            httpClient.addInterceptor(chain -> {
+                Request original = chain.request();
 
-                    // Request customization: add request headers
-                    Request.Builder requestBuilder = original.newBuilder()
-                            .header("x-api-key", "sJvVmx9uyJD7eE1bZraPEUfsm6BpzyOlgDZ04eqRyUs="); // <-- this is the important line
+                // Request customization: add request headers
+                Request.Builder requestBuilder = original.newBuilder()
+                        .header("x-api-key", "sJvVmx9uyJD7eE1bZraPEUfsm6BpzyOlgDZ04eqRyUs=") // <-- this is the important line
+                        .header("Content-Type", "application/json");
 
-                    Request request = requestBuilder.build();
-                    return chain.proceed(request);
-                }
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
             });
             client = httpClient.build();
         }
-        if(retrofit == null){
+        if (retrofit == null) {
             Gson gson = new GsonBuilder().create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(AuthenticationAPI.ENDPOINT)
+                    .baseUrl(Constants.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
+
         }
     }
 
@@ -166,9 +195,9 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign In");
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e){
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign In");
+            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e) {
             //
         }
     }
@@ -178,7 +207,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         im.showSoftInput(mEmailView, 0);
         mEmailView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -398,40 +427,57 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     }
 
 
+    private boolean login() {
 
-    private boolean login(){
+        // prepare call in Retrofit 2.0
+        AuthenticationAPI authenticationAPI = retrofit.create(AuthenticationAPI.class);
+        String text = LoginRequestPayload.getJsonString(new LoginRequestPayload("asdf@caknow.com", "helloworld"));
+        RequestBody body =
+                RequestBody.create(MediaType.parse("application/json"), text);
 
-    // prepare call in Retrofit 2.0
-    AuthenticationAPI authenticationAPI = retrofit.create(AuthenticationAPI.class);
+        Call<AuthenticationResponse> call = authenticationAPI.login(body);
+        //asynchronous call
+        call.enqueue(this);
 
-    Call<AuthenticationResponse> call = authenticationAPI.login(new AuthenticationRequest("asdf@caknow.com", "helloworld"));
-    //asynchronous call
-    call.enqueue(this);
+        // synchronous call would be with execute, in this case you
+        // would have to perform this outside the main thread
+        // call.execute()
 
-    // synchronous call would be with execute, in this case you
-    // would have to perform this outside the main thread
-    // call.execute()
+        // to cancel a running request
+        // call.cancel();
+        // calls can only be used once but you can easily clone them
+        //Call<StackOverflowQuestions> c = call.clone();
+        //c.enqueue(this);
 
-    // to cancel a running request
-    // call.cancel();
-    // calls can only be used once but you can easily clone them
-    //Call<StackOverflowQuestions> c = call.clone();
-    //c.enqueue(this);
-
-    return true;
-}
+        return true;
+    }
 
 
     @Override
     public void onResponse(Call<AuthenticationResponse> call, retrofit2.Response<AuthenticationResponse> response) {
-        if(response.isSuccessful()){
+        if (response.isSuccessful()) {
             Toast.makeText(LoginActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
+            AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
+
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.ACCESS_TOKEN, authPayload.getToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_FNAME, authPayload.getfName());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_ID, authPayload.get_id());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_VERIFICATION_STATUS, authPayload.getVerificationStatus());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
+
+            final Intent intent = new Intent(this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            this.finish();
         }
     }
 
     @Override
     public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
-        Toast.makeText(LoginActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(LoginActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
 
     }
 

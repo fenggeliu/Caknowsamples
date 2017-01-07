@@ -2,6 +2,7 @@ package com.caknow.customer.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -9,6 +10,8 @@ import android.view.animation.Animation;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.home.HomeActivity;
+import com.caknow.customer.util.PreferenceKeys;
+import com.caknow.customer.util.SessionPreferences;
 
 /**
  * Created by wesson_wxy on 2016/12/5.
@@ -24,7 +27,8 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initContentView() {
-        setContentView(R.layout.splash_layout);}
+        setContentView(R.layout.splash_layout);
+    }
 
     @Override
     public void initView() {
@@ -75,7 +79,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void route() {
-        boolean loggedIn = false;
+        boolean loggedIn = !TextUtils.isEmpty(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.ACCESS_TOKEN));
 
         if (!loggedIn) {
             Intent intent = new Intent(this,

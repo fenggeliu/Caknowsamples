@@ -1,5 +1,6 @@
-package com.caknow.customer.util.net;
+package com.caknow.customer.util.net.auth;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -13,6 +14,6 @@ public interface AuthenticationAPI {
     String ENDPOINT = "http://dev.caknow.com";
 
     @POST("/consumer")
-    Call<AuthenticationResponse> login(@Body AuthenticationRequest postBody);
+    Call<AuthenticationResponse> login(@Body RequestBody postBody);
 
 }

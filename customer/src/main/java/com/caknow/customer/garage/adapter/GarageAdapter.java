@@ -51,7 +51,7 @@ public class GarageAdapter extends BaseAdapter {
         if (convertView == null ) {
             if(this.inflater != null) {
                 convertView = this.inflater.inflate(R.layout.list_item_garage, parent, false);
-                viewHolder = new VehicleView(convertView, vehicleList.get(position), position);
+                viewHolder = new VehicleView(convertView, vehicleList.get(position));
                 convertView.setTag(viewHolder);
             }
         } else {
