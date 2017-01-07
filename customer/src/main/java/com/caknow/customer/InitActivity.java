@@ -1,4 +1,4 @@
-package com.caknow.customer.activity;
+package com.caknow.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.widget.ImageView;
 
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
 import com.caknow.customer.home.HomeActivity;
+import com.caknow.customer.registration.SignUpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.caknow.customer.activity;
+package com.caknow.customer.registration;
 
 
 import android.content.Intent;
@@ -14,10 +14,8 @@ import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
-import com.caknow.customer.util.net.auth.AuthenticationAPI;
 import com.caknow.customer.util.net.auth.AuthenticationPayload;
 import com.caknow.customer.util.net.auth.AuthenticationResponse;
-import com.caknow.customer.util.net.content.LoginRequestPayload;
 import com.caknow.customer.util.net.reg.RegistrationAPI;
 import com.caknow.customer.util.net.reg.RegistrationRequest;
 import com.caknow.customer.webview.WebViewActivity;

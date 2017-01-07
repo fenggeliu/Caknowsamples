@@ -1,4 +1,4 @@
-package com.caknow.customer.activity;
+package com.caknow.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;

@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAgmaaDAJSr6mALBYtwqaxEe1GeOQjK8fo"/>
         <activity
-            android:name="com.caknow.customer.activity.SplashActivity"
+            android:name="com.caknow.customer.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/NotitleTheme"
             android:screenOrientation="portrait">
@@ -41,28 +41,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.caknow.customer.activity.InitActivity"
+            android:name="com.caknow.customer.InitActivity"
             android:theme="@style/NotitleTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.caknow.customer.activity.LoginActivity"
+            android:name="com.caknow.customer.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName="com.caknow.customer.activity.InitActivity"
+            android:parentActivityName="com.caknow.customer.InitActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.caknow.customer.activity.InitActivity" />
+                android:value="com.caknow.customer.InitActivity" />
         </activity>
         <activity
-            android:name="com.caknow.customer.activity.SignUpActivity"
+            android:name="com.caknow.customer.registration.SignUpActivity"
             android:label="@string/title_activity_signup"
-            android:parentActivityName="com.caknow.customer.activity.InitActivity"
+            android:parentActivityName="com.caknow.customer.InitActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.caknow.customer.activity.InitActivity" />
+                android:value="com.caknow.customer.InitActivity" />
         </activity>
         <activity
             android:name="com.caknow.customer.home.HomeActivity"

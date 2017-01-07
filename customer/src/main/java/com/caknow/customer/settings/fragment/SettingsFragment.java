@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
-import com.caknow.customer.activity.InitActivity;
+import com.caknow.customer.InitActivity;
 import com.caknow.customer.garage.GarageActivity;
 import com.caknow.customer.settings.SettingsActivity;
 import com.caknow.customer.util.SessionPreferences;
