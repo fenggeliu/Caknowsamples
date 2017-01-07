@@ -6,33 +6,24 @@ import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
-import com.caknow.customer.garage.GarageActivity;
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.Vehicle;
 import com.caknow.customer.garage.adapter.GarageAdapter;
 import com.caknow.customer.home.HomeActivity;
-import com.caknow.customer.util.net.AuthenticationAPI;
-import com.caknow.customer.util.net.AuthenticationResponse;
-import com.caknow.customer.util.net.content.LoginRequestPayload;
 import com.caknow.customer.util.net.garage.GarageAPI;
 import com.caknow.customer.util.net.garage.GarageResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

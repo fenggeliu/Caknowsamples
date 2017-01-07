@@ -1,4 +1,4 @@
-package com.caknow.customer.util.net;
+package com.caknow.customer.util.net.auth;
 
 import android.text.TextUtils;
 

@@ -1,6 +1,6 @@
 package com.caknow.customer.util.dagger;
 
-import com.caknow.customer.util.net.AuthenticationAPI;
+import com.caknow.customer.util.net.auth.AuthenticationAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

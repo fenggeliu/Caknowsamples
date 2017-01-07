@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -29,15 +28,13 @@ import android.widget.Toast;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
-import com.caknow.customer.BaseApplication;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
-import com.caknow.customer.util.net.AuthenticationAPI;
-import com.caknow.customer.util.net.AuthenticationPayload;
-import com.caknow.customer.util.net.AuthenticationResponse;
+import com.caknow.customer.util.net.auth.AuthenticationAPI;
+import com.caknow.customer.util.net.auth.AuthenticationPayload;
+import com.caknow.customer.util.net.auth.AuthenticationResponse;
 import com.caknow.customer.util.net.content.LoginRequestPayload;
-import com.caknow.customer.util.sharedPreference.SettingSharedPreUtils;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,7 +49,6 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -63,7 +59,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class LoginActivity extends BaseActivity implements Callback<AuthenticationResponse>, LoaderCallbacks<Cursor> {
 
-    /**
+    /**f
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
