@@ -31,6 +31,7 @@ import com.caknow.customer.BaseActivity;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
+import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.auth.AuthenticationAPI;
 import com.caknow.customer.util.net.auth.AuthenticationPayload;
 import com.caknow.customer.util.net.auth.AuthenticationResponse;
@@ -178,7 +179,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
         if (retrofit == null) {
             Gson gson = new GsonBuilder().create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(AuthenticationAPI.ENDPOINT)
+                    .baseUrl(Constants.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

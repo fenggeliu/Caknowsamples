@@ -123,7 +123,7 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
         if (retrofit == null) {
             Gson gson = new GsonBuilder().create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(AuthenticationAPI.ENDPOINT)
+                    .baseUrl(Constants.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
@@ -150,7 +150,14 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
     private void register(){
         // prepare call in Retrofit 2.0
         RegistrationAPI registrationAPI = retrofit.create(RegistrationAPI.class);
-        String text = RegistrationRequest.getJsonString(new RegistrationRequest("asdf@caknow.com", "helloworld", "firstname", "lastName", "5555555555", "refCode"));
+        String text = RegistrationRequest.getJsonString(
+                new RegistrationRequest(
+                        editTextList.get(2).getText().toString(),
+                        editTextList.get(4).getText().toString(),
+                        editTextList.get(0).getText().toString(),
+                        editTextList.get(1).getText().toString(),
+                        editTextList.get(3).getText().toString(),
+                        "refCode"));
         RequestBody body =
                 RequestBody.create(MediaType.parse("application/json"), text);
 

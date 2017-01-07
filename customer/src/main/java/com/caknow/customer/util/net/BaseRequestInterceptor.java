@@ -2,6 +2,7 @@ package com.caknow.customer.util.net;
 
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
+import com.caknow.customer.util.constant.Constants;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class BaseRequestInterceptor implements Interceptor {
 
         newRequest = request.newBuilder()
                 .addHeader("Content-Type", "application/json")
-                .addHeader(HeadersContract.HEADER_X_API_KEY, "sJvVmx9uyJD7eE1bZraPEUfsm6BpzyOlgDZ04eqRyUs=")
+                .addHeader(HeadersContract.HEADER_X_API_KEY, Constants.apiKey)
                 .addHeader(HeadersContract.HEADER_X_ACCESS_TOKEN, SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.ACCESS_TOKEN))
                 .build();
         return chain.proceed(newRequest);

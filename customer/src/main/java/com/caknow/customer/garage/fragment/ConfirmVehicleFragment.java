@@ -13,6 +13,7 @@ import com.caknow.customer.BaseFragment;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
+import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.HeadersContract;
 import com.caknow.customer.util.net.auth.AuthenticationAPI;
 import com.caknow.customer.util.net.auth.AuthenticationResponse;
@@ -82,7 +83,7 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
         if (retrofit == null) {
             Gson gson = new GsonBuilder().create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(AuthenticationAPI.ENDPOINT)
+                    .baseUrl(Constants.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
