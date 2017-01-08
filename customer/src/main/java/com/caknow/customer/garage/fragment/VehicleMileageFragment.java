@@ -15,19 +15,13 @@ import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.HeadersContract;
-import com.caknow.customer.util.net.auth.AuthenticationAPI;
-import com.caknow.customer.util.net.auth.AuthenticationResponse;
-import com.caknow.customer.util.net.content.LoginRequestPayload;
 import com.caknow.customer.util.net.garage.AddVehicleRequest;
 import com.caknow.customer.util.net.garage.AddVehicleResponse;
 import com.caknow.customer.util.net.garage.GarageAPI;
-import com.caknow.customer.util.net.garage.GarageResponse;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -47,9 +41,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by junu on 1/1/17.
  */
 
-public class ConfirmVehicleFragment extends BaseFragment implements Callback<AddVehicleResponse> {
+public class VehicleMileageFragment extends BaseFragment implements Callback<AddVehicleResponse> {
 
-    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ConfirmVehicleFragment.class.getName();
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + VehicleMileageFragment.class.getName();
 
     private String displayName;
     private AddVehicleFragment payload;

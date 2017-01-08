@@ -462,7 +462,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_FNAME, authPayload.getfName());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_ID, authPayload.get_id());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_VERIFICATION_STATUS, authPayload.getVerificationStatus());
+            SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, authPayload.getVerificationStatus());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
 

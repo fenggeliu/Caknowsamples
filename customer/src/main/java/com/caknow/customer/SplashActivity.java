@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 
 import com.caknow.app.R;
 import com.caknow.customer.home.HomeActivity;
+import com.caknow.customer.registration.VerificationActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
 
@@ -79,12 +80,17 @@ public class SplashActivity extends BaseActivity {
 
     private void route() {
         boolean loggedIn = !TextUtils.isEmpty(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.ACCESS_TOKEN));
-
+        SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, true);
+        boolean verified = SessionPreferences.INSTANCE.getBooleanPref(PreferenceKeys.BOOL_VERIFICATION_STATUS);
         if (!loggedIn) {
             Intent intent = new Intent(this,
                     InitActivity.class);
             startActivity(intent);
-        } else {
+        } else if (!verified){
+            Intent intent = new Intent(this, VerificationActivity.class);
+            startActivity(intent);
+        }
+        else {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }

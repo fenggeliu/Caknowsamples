@@ -48,4 +48,8 @@ public class VehicleView {
             quoteBubble.setText(String.valueOf(quoteCount).concat(quoteString));
         }
     }
+
+    public Vehicle getVehicle(){
+        return this.vehicle;
+    }
 }

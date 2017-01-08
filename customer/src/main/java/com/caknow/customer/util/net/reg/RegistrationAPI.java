@@ -17,4 +17,7 @@ public interface RegistrationAPI {
     @PUT("/consumer")
     Call<AuthenticationResponse> register(@Body RequestBody postBody);
 
+    @POST("/consumer/validate")
+    Call<VerificationResponse> verify(@Body RequestBody postBody);
+
 }

@@ -6,24 +6,19 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.feedback.FeedbackActivity;
-import com.caknow.customer.garage.GarageActivity;
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.fragment.GarageFragment;
 import com.caknow.customer.history.HistoryActivity;
@@ -43,13 +38,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import butterknife.OnClick;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

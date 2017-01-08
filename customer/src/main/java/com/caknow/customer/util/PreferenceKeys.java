@@ -12,9 +12,10 @@ public class PreferenceKeys {
     public static final String USER_ID = PREFERENCES + ".user_id";
     public static final String USER_FNAME = PREFERENCES + ".user_firstName";
     public static final String USER_LNAME = PREFERENCES + ".user_lname";
-    public static final String USER_VERIFICATION_STATUS = PREFERENCES + ".user_verification_status";
+    public static final String BOOL_VERIFICATION_STATUS = PREFERENCES + ".user_verification_status";
     public static final String PUBNUB_CHANNEL = PREFERENCES + ".pubnub_channel";
     public static final String STRIPE_TOKEN = PREFERENCES + ".user_stripe_token";
 
 
+    public static final String USER_VERIFICATION_CODE = PREFERENCES + ".user_verification_code";
 }

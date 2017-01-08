@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.caknow.customer.service.model.ServiceItem;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class Vehicle implements Parcelable {
     private long year;
     private String make;
     @SerializedName("logo") private String imageUrl;
-    private final String _id;
+    private String _id;
     private boolean active;
     private long mileage;
     private int quoteCount;
@@ -74,6 +75,17 @@ public class Vehicle implements Parcelable {
         this._id = id;
         this.imageUrl = imageUrl;
 
+    }
+
+    public Vehicle(String year, String make, String model, String trim){
+        try {
+            this.year = Long.valueOf(year);
+        } catch(NumberFormatException e){
+            //
+        }
+        this.make = make;
+        this.model = model;
+        this.trim = trim;
     }
 
     /**

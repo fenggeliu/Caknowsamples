@@ -28,7 +28,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         BaseApplication.INSTANCE = this;
         Stetho.initializeWithDefaults(this);
-        this.appComponent = DaggerAppComponent.builder().build();
+       // this.appComponent = DaggerAppComponent.builder().build();
         SessionPreferences.INSTANCE.init(this);
     }
 

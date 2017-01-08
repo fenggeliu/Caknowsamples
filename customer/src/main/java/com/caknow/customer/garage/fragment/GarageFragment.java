@@ -14,8 +14,10 @@ import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.Vehicle;
+import com.caknow.customer.garage.VehicleServiceActivity;
 import com.caknow.customer.garage.adapter.GarageAdapter;
 import com.caknow.customer.home.HomeActivity;
+import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.garage.GarageAPI;
 import com.caknow.customer.util.net.garage.GarageResponse;
 
@@ -35,11 +37,13 @@ import retrofit2.Response;
 public class GarageFragment extends BaseFragment implements Callback<GarageResponse> {
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + GarageFragment.class.getName();
 
+    /**
+     * Butterknife Annotated View Bindings
+     */
+    @BindView(R.id.home_empty_garage_view) LinearLayout emptyGarageView;
+    @BindView(R.id.vehicle_display) GridView vehicleGridView;
 
-    @BindView(R.id.home_empty_garage_view)
-    LinearLayout emptyGarageView;
-
-    @OnClick(R.id.home_empty_garage_view)
+    @OnClick(R.id.home_empty_garage_add_button)
     void addNewCar(){
         try {
             Intent intent = new Intent(getActivity(), NewVehicleActivity.class);
@@ -49,12 +53,9 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
         }
     }
 
-    @BindView(R.id.vehicle_display)
-    GridView vehicleGridView;
-
     HomeActivity homeActivity;
+    GarageAdapter gridViewAdapter;
 
-    ListAdapter gridViewAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,20 +95,21 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
         List<Vehicle> vehicles;
         try{
             vehicles = response.body().getGaragePayload().getVehicles();
-            if(vehicles.size() > 0) {
-                emptyGarageView.setVisibility(View.GONE);
+            if(vehicles.size() == 0) {
+                emptyGarageView.setVisibility(View.VISIBLE);
             }
             gridViewAdapter = new GarageAdapter(getContext(), vehicles);
             vehicleGridView.setAdapter(gridViewAdapter);
             vehicleGridView.setOnItemClickListener((adapterView, view, i, l) -> {
-                VehicleServiceFragment vehicleServiceFragment = new VehicleServiceFragment();
-                Vehicle vehicle = new Vehicle("01", "Super Duper Fast Car", "www.google.com");
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Vehicle.PARCELABLE_KEY, vehicle);
-                vehicleServiceFragment.setArguments(bundle);
-
-                HomeActivity activity = (HomeActivity) getActivity();
-                activity.replaceFragment(R.id.flContent, vehicleServiceFragment, VehicleServiceFragment.FRAGMENT_TAG, "vehicle");
+                try {
+                    final Intent intent = new Intent(getActivity(), VehicleServiceActivity.class);
+                    final Bundle extras = new Bundle();
+                    extras.putParcelable(Constants.VEHICLE_PARCEL_KEY, gridViewAdapter.getItem(i));
+                    intent.putExtras(extras);
+                    getActivity().startActivity(intent);
+                } catch(Exception e){
+                    //
+                }
             });
             vehicleGridView.invalidate();
         } catch (Exception e){

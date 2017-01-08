@@ -16,9 +16,11 @@ import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.Vehicle;
 import com.caknow.customer.service.NewServiceRequestActivity;
+import com.caknow.customer.util.constant.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,13 +68,12 @@ public class VehicleServiceFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Retrieve the vehicle data from the previous GarageFragment
         Bundle bundle = getArguments();
-        Vehicle vehicle = bundle.getParcelable(Vehicle.PARCELABLE_KEY);
+        Vehicle vehicle = bundle.getParcelable(Constants.VEHICLE_PARCEL_KEY);
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vehicleservice, container, false);
         unbinder = ButterKnife.bind(this, v);
-        StringBuilder name = new StringBuilder();
-        name.append(vehicle.getYear()).append(vehicle.getMake()).append(vehicle.getModel());
-        vehicleName.setText(name.toString());
+        String name = String.format(Locale.getDefault(), "%s %s %s %s", vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getTrim() );
+        vehicleName.setText(name);
         vehicleLogo.setImageResource(R.drawable.alfa_romeo);
         return v;
     }

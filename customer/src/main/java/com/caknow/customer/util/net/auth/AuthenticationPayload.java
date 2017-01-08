@@ -35,7 +35,7 @@ public class AuthenticationPayload {
         return language;
     }
 
-    public String getVerificationStatus() {
+    public boolean getVerificationStatus() {
         return verificationStatus;
     }
 
@@ -47,6 +47,11 @@ public class AuthenticationPayload {
         return lName;
     }
 
+    public boolean getHasEMail() {
+        return hasEmail;
+    }
+
+
     String _id;
     @SerializedName("token") String accessToken;
     String refreshToken;
@@ -54,7 +59,8 @@ public class AuthenticationPayload {
     String stripeCusToken;
     boolean verified;
     int language;
-    String verificationStatus;
+    boolean verificationStatus;
+    boolean hasEmail;
     String fName;
     String lName;
 }

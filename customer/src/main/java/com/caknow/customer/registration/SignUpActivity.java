@@ -155,7 +155,7 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
                         editTextList.get(0).getText().toString(),
                         editTextList.get(1).getText().toString(),
                         editTextList.get(3).getText().toString(),
-                        "refCode"));
+                        ""));
         RequestBody body =
                 RequestBody.create(MediaType.parse("application/json"), text);
 
@@ -175,9 +175,10 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_FNAME, authPayload.getfName());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_ID, authPayload.get_id());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_VERIFICATION_STATUS, authPayload.getVerificationStatus());
+            SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, authPayload.getVerificationStatus());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_VERIFICATION_CODE, authPayload.getPubnubChnl());
 
             final Intent intent = new Intent(this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

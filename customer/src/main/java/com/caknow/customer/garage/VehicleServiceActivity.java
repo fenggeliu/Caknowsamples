@@ -3,6 +3,7 @@ package com.caknow.customer.garage;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
@@ -10,6 +11,10 @@ import com.caknow.customer.BaseActivity;
 import com.caknow.customer.garage.fragment.AddVehicleFragment;
 import com.caknow.customer.garage.fragment.ConfirmVehicleFragment;
 import com.caknow.customer.garage.fragment.GarageFragment;
+import com.caknow.customer.garage.fragment.VehicleServiceFragment;
+import com.caknow.customer.util.constant.Constants;
+
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 
@@ -17,24 +22,27 @@ import butterknife.ButterKnife;
  * Created by junu on 1/1/17.
  */
 
-public class GarageActivity extends BaseActivity implements AddVehicleFragment.OnListFragmentInteractionListener {
+public class VehicleServiceActivity extends BaseActivity implements AddVehicleFragment.OnListFragmentInteractionListener {
 
     protected String make;
     protected String model;
     protected String year;
+    protected String trim;
+
+    Vehicle vehicle;
 
     @Override
     protected void initContentView() {
-        setContentView(R.layout.activity_garage);
+        setContentView(R.layout.activity_vehicle_history);
         ButterKnife.bind(this);
+        vehicle = getIntent().getExtras().getParcelable(Constants.VEHICLE_PARCEL_KEY);
+        VehicleServiceFragment fragment = new VehicleServiceFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.VEHICLE_PARCEL_KEY, vehicle);
+        fragment.setArguments(bundle);
         addFragment(R.id.flContent,
-                new GarageFragment(),
-                GarageFragment.FRAGMENT_TAG);
-        try {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        } catch(Exception e){
-            //Log.e(e.getMessage());
-        }
+                fragment,
+                VehicleServiceFragment.FRAGMENT_TAG);
     }
 
     @Override
@@ -56,6 +64,7 @@ public class GarageActivity extends BaseActivity implements AddVehicleFragment.O
     protected void setTitle() {
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
@@ -84,6 +93,10 @@ public class GarageActivity extends BaseActivity implements AddVehicleFragment.O
                     valueString = "year";
                     year = item.getDisplayName();
                     break;
+                case 3:
+                    valueString = "trim";
+                    trim = item.getDisplayName();
+                    break;
                 default:
                     valueString = "";
                     break;
@@ -92,10 +105,13 @@ public class GarageActivity extends BaseActivity implements AddVehicleFragment.O
                 bundle.putString(valueString, item.getId());
             }
 
-            if(item.getType() == 2){
+            if(item.getType() == 3){
                 ConfirmVehicleFragment confirmFragment = new ConfirmVehicleFragment();
                 Bundle confirmBundle = new Bundle();
-                confirmBundle.putString("displayName", this.make.concat(this.model).concat(this.year));
+                confirmBundle.putString("year", this.year);
+                confirmBundle.putString("make", this.make);
+                confirmBundle.putString("model", this.model);
+                confirmBundle.putString("trim", this.trim);
                 confirmFragment.setArguments(confirmBundle);
                 replaceFragment(R.id.flContent, confirmFragment, AddVehicleFragment.FRAGMENT_TAG, "confirmation");
             }

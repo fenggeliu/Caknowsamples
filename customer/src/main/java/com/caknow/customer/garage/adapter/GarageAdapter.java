@@ -34,7 +34,7 @@ public class GarageAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Vehicle getItem(int position) {
         return vehicleList.get(position);
     }
 

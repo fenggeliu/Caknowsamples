@@ -11,12 +11,15 @@ import android.view.ViewGroup;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.InitActivity;
-import com.caknow.customer.garage.GarageActivity;
+import com.caknow.customer.garage.VehicleServiceActivity;
 import com.caknow.customer.settings.SettingsActivity;
 import com.caknow.customer.util.SessionPreferences;
+import com.caknow.customer.util.net.garage.GarageAPI;
+import com.caknow.customer.util.net.garage.GarageResponse;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 /**
  * Created by junu on 1/1/17.
@@ -26,6 +29,7 @@ public class SettingsFragment extends BaseFragment {
     static final String TITLE_KEY = "title";
     static final String HINT_KEY = "hint";
 
+    SettingsActivity settingsActivity;
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + SettingsFragment.class.getName();
 
     @OnClick(R.id.settings_layout_phone_layout)
@@ -50,9 +54,9 @@ public class SettingsFragment extends BaseFragment {
 
     @OnClick(R.id.settings_layout_car_layout)
     void openGarage(){
-        UpdateSettingFragment updateFragment = new UpdateSettingFragment();
+        ManageCarFragment manageCarFragment = new ManageCarFragment();
         SettingsActivity settingsActivity = (SettingsActivity) getActivity();
-        settingsActivity.startActivity(new Intent(settingsActivity, GarageActivity.class));
+        settingsActivity.startActivity(new Intent(settingsActivity, VehicleServiceActivity.class));
     }
 
     @OnClick(R.id.settings_sign_out_container)
@@ -74,6 +78,7 @@ public class SettingsFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
         unbinder = ButterKnife.bind(this, v);
+        settingsActivity = (SettingsActivity) getActivity();
         return v;
     }
 
@@ -82,4 +87,7 @@ public class SettingsFragment extends BaseFragment {
         super.onAttach(context);
         getActivity().setTitle("History");
     }
+
+
+
 }

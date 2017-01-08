@@ -60,9 +60,16 @@
             android:parentActivityName="com.caknow.customer.InitActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.caknow.customer.InitActivity" />
+
+        </activity>
+
+        <activity
+            android:name="com.caknow.customer.registration.VerificationActivity"
+            android:label="@string/title_activity_signup"
+            android:parentActivityName="com.caknow.customer.InitActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name="com.caknow.customer.home.HomeActivity"
@@ -89,11 +96,11 @@
             android:name="com.caknow.customer.service.NewServiceRequestActivity"
             android:label="Service Request"
             android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.garage.GarageActivity"
+            android:parentActivityName="com.caknow.customer.garage.VehicleServiceActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.caknow.customer.garage.GarageActivity"
+            android:name="com.caknow.customer.garage.VehicleServiceActivity"
             android:label="Garage"
             android:theme="@style/AppTheme"
             android:parentActivityName="com.caknow.customer.home.HomeActivity"
@@ -102,7 +109,7 @@
             android:name="com.caknow.customer.garage.NewVehicleActivity"
             android:label="New Vehicle"
             android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.garage.GarageActivity"
+            android:parentActivityName="com.caknow.customer.garage.VehicleServiceActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.caknow.customer.promo.PromoActivity"

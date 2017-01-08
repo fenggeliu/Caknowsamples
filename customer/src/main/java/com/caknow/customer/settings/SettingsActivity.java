@@ -10,10 +10,18 @@ import android.widget.TextView;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.settings.fragment.SettingsFragment;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.BaseRequestInterceptor;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -36,6 +44,8 @@ public class SettingsActivity extends BaseActivity {
     @BindView(R.id.settingsContent)
     FrameLayout content;
 
+    public Retrofit retrofit;
+    OkHttpClient client;
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_settings);
@@ -52,7 +62,21 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        if (client == null) {
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addNetworkInterceptor(new StethoInterceptor());
+            httpClient.addInterceptor(new BaseRequestInterceptor());
+            client = httpClient.build();
+        }
+        if (retrofit == null) {
+            Gson gson = new GsonBuilder().create();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(Constants.ENDPOINT)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(client)
+                    .build();
 
+        }
     }
 
     @Override
