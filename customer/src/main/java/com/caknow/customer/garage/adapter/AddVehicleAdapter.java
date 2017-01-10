@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.caknow.app.R;
+import com.caknow.customer.garage.MMY;
+import com.caknow.customer.garage.Make;
 import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.garage.fragment.AddVehicleFragment;
 import com.caknow.customer.home.HomeCardItem;
@@ -21,12 +23,14 @@ import java.util.List;
  */
 public class AddVehicleAdapter extends RecyclerView.Adapter<AddVehicleAdapter.ViewHolder> {
 
-    private final List<VehicleType> mValues;
+    private final List<MMY> mValues;
     private final AddVehicleFragment.OnListFragmentInteractionListener mListener;
+    AddVehicleFragment.ListTypes type;
 
-    public AddVehicleAdapter(List<VehicleType> items, AddVehicleFragment.OnListFragmentInteractionListener listener) {
+    public AddVehicleAdapter(List<MMY> items, AddVehicleFragment.OnListFragmentInteractionListener listener, AddVehicleFragment.ListTypes type) {
         mValues = items;
         mListener = listener;
+        this.type = type;
     }
 
     @Override
@@ -39,8 +43,8 @@ public class AddVehicleAdapter extends RecyclerView.Adapter<AddVehicleAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
-        holder.mContentView.setText(mValues.get(position).getDisplayName());
+        holder.mIdView.setText(mValues.get(position).getNiceName());
+        holder.mContentView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +60,9 @@ public class AddVehicleAdapter extends RecyclerView.Adapter<AddVehicleAdapter.Vi
 
     @Override
     public int getItemCount() {
+        if(mValues == null){
+            return 0;
+        }
         return mValues.size();
     }
 
@@ -63,7 +70,7 @@ public class AddVehicleAdapter extends RecyclerView.Adapter<AddVehicleAdapter.Vi
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public VehicleType mItem;
+        public MMY mItem;
 
         public ViewHolder(View view) {
             super(view);

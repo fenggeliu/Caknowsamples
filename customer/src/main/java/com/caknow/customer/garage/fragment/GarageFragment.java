@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
 import com.caknow.app.R;
+import com.caknow.customer.Application;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.Vehicle;
@@ -23,12 +24,15 @@ import com.caknow.customer.util.net.garage.GarageResponse;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by junu on 1/1/17.
@@ -43,6 +47,8 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
     @BindView(R.id.home_empty_garage_view) LinearLayout emptyGarageView;
     @BindView(R.id.vehicle_display) GridView vehicleGridView;
 
+    @Inject
+    Retrofit retrofit;
     @OnClick(R.id.home_empty_garage_add_button)
     void addNewCar(){
         try {
@@ -64,7 +70,7 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
         unbinder = ButterKnife.bind(this, v);
         homeActivity = (HomeActivity) getActivity();
         loadData();
-
+        Application.get().getNetComponent().inject(this);
         return v;
     }
 

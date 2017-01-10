@@ -1,15 +1,18 @@
 package com.caknow.customer.util.dagger;
 
-import java.io.IOException;
+import com.caknow.customer.Application;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.BaseRequestInterceptor;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by junu on 1/1/17.
@@ -17,24 +20,15 @@ import okhttp3.Response;
 
 @Module
 public class AppModule {
+    Application application;
+
+    public AppModule(Application application){
+        this.application = application;
+    }
 
     @Provides
-    @Singleton
-    public OkHttpClient provideOkHttpClient(){
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
-                Request original = chain.request();
-
-                // Request customization: add request headers
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header("x-api-key", "sJvVmx9uyJD7eE1bZraPEUfsm6BpzyOlgDZ04eqRyUs="); // <-- this is the important line
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
-        });
-        return httpClient.build();
+    Application provideApplication(){
+        return this.application;
     }
+
 }

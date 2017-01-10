@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
+import com.caknow.customer.Application;
 import com.caknow.customer.feedback.FeedbackActivity;
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.fragment.GarageFragment;
@@ -37,6 +38,8 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.inject.Inject;
+
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -49,6 +52,7 @@ public class HomeActivity extends BaseActivity
     RecyclerView mRecyclerView;
     DrawerLayout drawer;
     OkHttpClient client;
+    @Inject
     public Retrofit retrofit;
 
     private int lastCheckedItem = R.id.nav_messages;
@@ -58,6 +62,7 @@ public class HomeActivity extends BaseActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Application.get().getNetComponent().inject(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -123,21 +128,21 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void initData() {
-        if (client == null) {
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addNetworkInterceptor(new StethoInterceptor());
-            httpClient.addInterceptor(new BaseRequestInterceptor());
-            client = httpClient.build();
-        }
-        if (retrofit == null) {
-            Gson gson = new GsonBuilder().create();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build();
-
-        }
+//        if (client == null) {
+//            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+//            httpClient.addNetworkInterceptor(new StethoInterceptor());
+//            httpClient.addInterceptor(new BaseRequestInterceptor());
+//            client = httpClient.build();
+//        }
+//        if (retrofit == null) {
+//            Gson gson = new GsonBuilder().create();
+//            retrofit = new Retrofit.Builder()
+//                    .baseUrl(Constants.ENDPOINT)
+//                    .addConverterFactory(GsonConverterFactory.create(gson))
+//                    .client(client)
+//                    .build();
+//
+//        }
 
     }
 

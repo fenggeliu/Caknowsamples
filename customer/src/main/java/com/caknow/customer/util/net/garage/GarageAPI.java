@@ -22,4 +22,7 @@ public interface GarageAPI {
 
     @DELETE("/consume/vehicles/{id}")
     Call<GarageResponse> deleteVehicle(@Path("id") String vehicleId);
+
+    @GET("/client/mmy")
+    Call<MMYResponse> getMMY();
 }

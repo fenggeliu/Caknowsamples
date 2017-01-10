@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
+import com.caknow.customer.garage.MMY;
 import com.caknow.customer.garage.Vehicle;
+import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.util.constant.Constants;
 
@@ -30,7 +32,8 @@ import butterknife.OnClick;
  * Created by junu on 1/1/17.
  */
 
-public class VehicleServiceFragment extends BaseFragment {
+public class
+VehicleServiceFragment extends BaseFragment {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + VehicleServiceFragment.class.getName();
 
@@ -95,4 +98,9 @@ public class VehicleServiceFragment extends BaseFragment {
         return strings;
     }
 
+
+    public interface OnListFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(VehicleType item);
+    }
 }

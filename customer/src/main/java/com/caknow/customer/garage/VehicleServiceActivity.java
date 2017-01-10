@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by junu on 1/1/17.
  */
 
-public class VehicleServiceActivity extends BaseActivity implements AddVehicleFragment.OnListFragmentInteractionListener {
+public class VehicleServiceActivity extends BaseActivity implements VehicleServiceFragment.OnListFragmentInteractionListener {
 
     protected String make;
     protected String model;

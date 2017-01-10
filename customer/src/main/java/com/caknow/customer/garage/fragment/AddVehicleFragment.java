@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
+import com.caknow.customer.garage.MMY;
+import com.caknow.customer.garage.Make;
+import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.garage.adapter.AddVehicleAdapter;
 
@@ -34,7 +37,9 @@ public class AddVehicleFragment extends BaseFragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private ListTypes listType;
-    private enum ListTypes{
+    List<Make> makeList;
+    List itemList;
+    public enum ListTypes{
         MAKE, MODEL, YEAR, DONE
     }
     /**
@@ -59,7 +64,7 @@ public class AddVehicleFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        makeList = ((NewVehicleActivity) getActivity()).getMakeList();
         if (getArguments() != null) {
             final Bundle bundle = getArguments();
             mColumnCount = bundle.getInt(ARG_COLUMN_COUNT);
@@ -67,14 +72,19 @@ public class AddVehicleFragment extends BaseFragment {
             switch(type){
                 case 0:
                     listType = ListTypes.MAKE;
+                    itemList = ((NewVehicleActivity) getActivity()).getMakeList();
                     break;
 
                 case 1:
                     listType = ListTypes.MODEL;
+                    itemList = ((NewVehicleActivity) getActivity()).getModelList();
+
                     break;
 
                 case 2:
                     listType = ListTypes.YEAR;
+                    itemList = ((NewVehicleActivity) getActivity()).getYearList();
+
                     break;
 
                 case 3:
@@ -101,7 +111,9 @@ public class AddVehicleFragment extends BaseFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AddVehicleAdapter(createDummyData(), mListener));
+
+            recyclerView.setAdapter(new AddVehicleAdapter(itemList, mListener, listType));
+
         }
         return view;
     }
@@ -171,6 +183,6 @@ public class AddVehicleFragment extends BaseFragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(VehicleType item);
+        void onListFragmentInteraction(MMY item);
     }
 }
