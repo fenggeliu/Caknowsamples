@@ -32,11 +32,8 @@ public class VehicleView {
         this.vehicle = vehicle;
         ButterKnife.bind(this, view);
         context = view.getContext();
-
-        StringBuilder name = new StringBuilder();
-        name.append(vehicle.getYear()).append(vehicle.getMake()).append(vehicle.getModel());
         quoteCount = vehicle.getQuoteCount();
-        displayName.setText(name.toString());
+        displayName.setText(vehicle.getDisplayName());
         if(quoteCount == 0){
             quoteBubble.setVisibility(View.GONE);
         }

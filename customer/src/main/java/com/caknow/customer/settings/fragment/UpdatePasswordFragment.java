@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
+import com.caknow.customer.settings.SettingsActivity;
 
 import butterknife.ButterKnife;
 
@@ -31,7 +32,7 @@ public class UpdatePasswordFragment extends BaseFragment {
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        getActivity().setTitle("Change Password");
+        ((SettingsActivity) getActivity()).updateTitle("Phone Number");
     }
 
 

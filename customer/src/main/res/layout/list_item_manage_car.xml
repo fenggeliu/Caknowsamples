@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="@dimen/mclv_list_item_height">
+
+<LinearLayout
+    android:id="@+id/no_allow_car_del"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/plate_submit_2x"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/mclv_list_car_logo_width"
+                android:layout_height="@dimen/mclv_list_car_logo_height"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/mclv_list_car_logo_margin_top"
+                android:background="@drawable/no_request_2x" />
+
+            <TextView
+                android:id="@+id/manage_vehicle_display_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/mclv_list_car_description_margin_top"
+                android:text="@string/vehicle_name_placeholder"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/mclv_list_car_description_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></LinearLayout>
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/manage_vehicle_delete_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/manage_vehicle_delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/mclv_list_delete_car_btn_margin_bottom"
+            android:layout_marginEnd="@dimen/mclv_list_delete_car_btn_margin_end"
+            android:layout_marginStart="@dimen/mclv_list_delete_car_btn_margin_start"
+            android:layout_marginTop="@dimen/mclv_list_delete_car_btn_margin_top"
+            android:background="@drawable/delete_card_2x"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/plate_submit_2x"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/mclv_list_car_logo_width"
+                android:layout_height="@dimen/mclv_list_car_logo_height"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/mclv_list_car_logo_margin_top"
+                android:background="@drawable/no_request_2x" />
+
+            <TextView
+                android:id="@+id/manage_vehicle_display_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/mclv_list_car_description_margin_top"
+                android:text="@string/vehicle_name_placeholder"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/mclv_list_car_description_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></LinearLayout>
+</LinearLayout>
+</FrameLayout>

@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by junu on 1/2/2017.
@@ -53,6 +54,10 @@ public class Vehicle implements Parcelable {
 
     public int getQuoteCount() {
         return quoteCount;
+    }
+
+    public String getDisplayName(){
+        return String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
     }
 
     public List<ServiceItem> getServiceItemList() {

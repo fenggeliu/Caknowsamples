@@ -56,7 +56,7 @@ public class SettingsFragment extends BaseFragment {
     void openGarage(){
         ManageCarFragment manageCarFragment = new ManageCarFragment();
         SettingsActivity settingsActivity = (SettingsActivity) getActivity();
-        settingsActivity.startActivity(new Intent(settingsActivity, VehicleServiceActivity.class));
+        settingsActivity.replaceFragment(R.id.settingsContent, manageCarFragment, ManageCarFragment.FRAGMENT_TAG, "manage_Car");
     }
 
     @OnClick(R.id.settings_sign_out_container)
@@ -85,7 +85,7 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        getActivity().setTitle("History");
+        ((SettingsActivity) getActivity()).updateTitle("Phone Number");
     }
 
 

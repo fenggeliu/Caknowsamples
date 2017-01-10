@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
+import com.caknow.customer.settings.SettingsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +54,7 @@ public class UpdateSettingFragment extends BaseFragment {
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        getActivity().setTitle("History");
+       ((SettingsActivity) getActivity()).updateTitle("Phone Number");
     }
 
 
