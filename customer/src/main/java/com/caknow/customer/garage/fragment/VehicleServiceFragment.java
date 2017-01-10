@@ -24,9 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Retrofit;
 
 /**
  * Created by junu on 1/1/17.
@@ -55,7 +58,8 @@ VehicleServiceFragment extends BaseFragment {
     @BindView(R.id.service_request_repair_list)
     ListView serviceRepairList;
 
-
+    @Inject
+    Retrofit retrofit;
 
     /**
      * Launches New Service Request

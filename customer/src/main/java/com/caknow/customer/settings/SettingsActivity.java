@@ -93,4 +93,13 @@ public class SettingsActivity extends BaseActivity {
             //
         }
     }
+
+    public void updateTitle(String titleText){
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
+        } catch (NullPointerException e){
+            //
+        }
+    }
 }

@@ -3,17 +3,26 @@ package com.caknow.customer.settings.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
+import android.support.v4.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
+import com.caknow.customer.garage.Vehicle;
+import com.caknow.customer.garage.adapter.GarageAdapter;
+import com.caknow.customer.settings.ManageGarageAdapter;
 import com.caknow.customer.settings.SettingsActivity;
 import com.caknow.customer.util.net.garage.GarageAPI;
 import com.caknow.customer.util.net.garage.GarageResponse;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,29 +39,22 @@ import static com.caknow.customer.settings.fragment.SettingsFragment.TITLE_KEY;
 
 public class ManageCarFragment extends BaseFragment implements Callback<GarageResponse> {
 
-    @BindView(R.id.setting_update_title_tv)
-    TextView titleView;
+    @BindView(R.id.manage_car_listview)
+    ListView carListView;
 
-    @BindView(R.id.setting_update_et)
-    EditText updateField;
+    ManageGarageAdapter garageAdapter;
 
-    private String title, hint;
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ManageCarFragment.class.getName();
     SettingsActivity settingsActivity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_update_setting, container, false);
+        View v = inflater.inflate(R.layout.fragment_manage_car, container, false);
         final Bundle bundle = getArguments();
         unbinder = ButterKnife.bind(this, v);
         settingsActivity = (SettingsActivity) getActivity();
-        if(bundle != null) {
-            title = bundle.getString(TITLE_KEY, "Unknown");
-            hint = bundle.getString(HINT_KEY, "Hint");
-            titleView.setText(title);
-            updateField.setHint(hint);
-        }
+        loadData();
         return v;
     }
 
@@ -85,11 +87,25 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
 
     @Override
     public void onResponse(Call<GarageResponse> call, Response<GarageResponse> response) {
+        List<Vehicle> vehicleList = response.body().getGaragePayload().getVehicles();
+        garageAdapter = new ManageGarageAdapter(getActivity(), vehicleList);
+        carListView.setAdapter(garageAdapter);
+        carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+        carListView.invalidate();
 
     }
 
     @Override
     public void onFailure(Call<GarageResponse> call, Throwable t) {
-
+        try {
+            Toast.makeText(getActivity(), "Unable to load vehicles", Toast.LENGTH_SHORT).show();
+        }    catch(Exception e){
+            // Thread safe
+        }
     }
 }
