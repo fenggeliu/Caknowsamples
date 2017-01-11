@@ -252,7 +252,7 @@ public class HttpUtils {
     /**
      * htp post
      * @param httpUrl
-     * @param parasMap paras map, key is para name, value is para value. will be transform to String by
+     * @param parasMap paras map, key is para niceName, value is para value. will be transform to String by
      *                 {@link HttpUtils#joinParas(Map)}
      * @return the content of the url, if null represents http error
      * @see HttpUtils#httpPost(HttpRequest)
@@ -271,7 +271,7 @@ public class HttpUtils {
      *     getUrlWithParas("caknow.com",{(a,b),(i,j),(c,d)})    = "caknow.com?a=b&i=j&c=d";
      * </pre>
      * @param url url
-     * @param parasMap paras map,key is para name, value is para value
+     * @param parasMap paras map,key is para niceName, value is para value
      * @return if url is null, process it as empty string
      */
     public static String getUrlWithParas(String url, Map<String, String> parasMap) {
@@ -302,7 +302,7 @@ public class HttpUtils {
 
     /**
      * join paras
-     * @param parasMap paras map, key is para name, value is para value
+     * @param parasMap paras map, key is para niceName, value is para value
      * @return join key and value with {@link #EQUAL_SIGN}, join keys with {@link #PARAMETERS_SEPARATOR}
      */
     public static String joinParas(Map<String, String> parasMap) {

@@ -85,9 +85,15 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        ((SettingsActivity) getActivity()).updateTitle("Phone Number");
     }
 
+
+    @Override
+    public void onResume(){
+        ((SettingsActivity) getActivity()).updateTitle("Settings");
+        super.onResume();
+
+    }
 
 
 }

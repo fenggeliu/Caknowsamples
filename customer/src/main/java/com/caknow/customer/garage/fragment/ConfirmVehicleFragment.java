@@ -15,19 +15,13 @@ import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.HeadersContract;
-import com.caknow.customer.util.net.auth.AuthenticationAPI;
-import com.caknow.customer.util.net.auth.AuthenticationResponse;
-import com.caknow.customer.util.net.content.LoginRequestPayload;
 import com.caknow.customer.util.net.garage.AddVehicleRequest;
 import com.caknow.customer.util.net.garage.AddVehicleResponse;
 import com.caknow.customer.util.net.garage.GarageAPI;
-import com.caknow.customer.util.net.garage.GarageResponse;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -52,7 +46,7 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ConfirmVehicleFragment.class.getName();
 
     private String displayName;
-    private AddVehicleFragment payload;
+    private AddVehicleMakeFragment payload;
     private OkHttpClient client;
     private Retrofit retrofit;
 
@@ -110,9 +104,8 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
         if(bundle != null){
             year = bundle.getString("year", "year");
             make = bundle.getString("make", "make");
-            model = bundle.getString("make", "make");
-            trim = bundle.getString("make", "make");
-            displayName = String.format(Locale.getDefault(), "%s %s %s %s", this.year, this.make, this.model, this.trim);
+            model = bundle.getString("model", "model");
+            displayName = String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
         }
         else{
             displayName = "ERROR!";

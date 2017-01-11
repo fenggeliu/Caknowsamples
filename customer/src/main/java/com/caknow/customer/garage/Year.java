@@ -1,19 +1,42 @@
 package com.caknow.customer.garage;
 
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
- * Created by junu on 1/7/2017.
+ * Created by junu on 1/10/2017.
  */
 
-public class Year extends MMY {
+public class Year implements Parcelable{
+    public final String value;
 
+    public Year(final String value){
+        this.value = value;
+    }
 
-    List<String> years;
-    public Year(){
-        this.type = 2;
+    @Override
+    public int describeContents() {
+        return 0;
     }
-    public List<String> getYears(){
-        return this.years;
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.value);
     }
+
+    protected Year(Parcel in) {
+        this.value = in.readString();
+    }
+
+    public static final Creator<Year> CREATOR = new Creator<Year>() {
+        @Override
+        public Year createFromParcel(Parcel source) {
+            return new Year(source);
+        }
+
+        @Override
+        public Year[] newArray(int size) {
+            return new Year[size];
+        }
+    };
 }

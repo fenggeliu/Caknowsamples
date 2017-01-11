@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 
 import com.caknow.app.R;
-import com.caknow.customer.Application;
+import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.Vehicle;
@@ -70,7 +69,7 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
         unbinder = ButterKnife.bind(this, v);
         homeActivity = (HomeActivity) getActivity();
         loadData();
-        Application.get().getNetComponent().inject(this);
+        CAKNOWApplication.get().getNetComponent().inject(this);
         return v;
     }
 

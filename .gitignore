@@ -2,7 +2,7 @@
 # Created by https://www.gitignore.io/api/android
 
 ### Android ###
-# Built application files
+# Built CAKNOWApplication files
 *.apk
 *.ap_
 

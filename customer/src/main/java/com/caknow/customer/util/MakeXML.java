@@ -15,8 +15,8 @@ public class MakeXML {
     private final static float dw = 320f;
     private final static float dh = 480f;
 
-    private final static String WTemplate = "<dimen name=\"x{0}\">{1}px</dimen>\n";
-    private final static String HTemplate = "<dimen name=\"y{0}\">{1}px</dimen>\n";
+    private final static String WTemplate = "<dimen niceName=\"x{0}\">{1}px</dimen>\n";
+    private final static String HTemplate = "<dimen niceName=\"y{0}\">{1}px</dimen>\n";
 
     public static void main(String[] args) {
         makeString(320, 480);

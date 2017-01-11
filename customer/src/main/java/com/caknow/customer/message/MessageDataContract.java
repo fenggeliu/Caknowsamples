@@ -2,7 +2,7 @@ package com.caknow.customer.message;
 
 import android.provider.BaseColumns;
 
-/** Defines the table name and column names for a single table.
+/** Defines the table niceName and column names for a single table.
  *
  * https://developer.android.com/training/basics/data-storage/databases.html
  * Created by jkang on 1/5/17.

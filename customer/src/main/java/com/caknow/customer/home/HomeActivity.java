@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
-import com.caknow.customer.Application;
+import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.feedback.FeedbackActivity;
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.fragment.GarageFragment;
@@ -32,18 +32,13 @@ import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
 
-import com.caknow.customer.util.net.BaseRequestInterceptor;
 import com.caknow.customer.webview.WebViewActivity;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import javax.inject.Inject;
 
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
@@ -62,7 +57,7 @@ public class HomeActivity extends BaseActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Application.get().getNetComponent().inject(this);
+        CAKNOWApplication.get().getNetComponent().inject(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

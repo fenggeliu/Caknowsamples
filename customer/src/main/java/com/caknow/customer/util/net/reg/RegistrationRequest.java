@@ -45,8 +45,8 @@ public class RegistrationRequest {
      *
      * @param email email adress
      * @param password password
-     * @param fName first name
-     * @param lName last name
+     * @param fName first niceName
+     * @param lName last niceName
      * @param phone phone number
      * @param referralCode referral code
      */

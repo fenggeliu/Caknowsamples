@@ -2,6 +2,7 @@ package com.caknow.customer;
 
 import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.fragment.GarageFragment;
+import com.caknow.customer.garage.fragment.VehicleServiceFragment;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.dagger.AppModule;
 import com.caknow.customer.util.dagger.NetModule;
@@ -28,4 +29,6 @@ public interface NetComponent {
         void inject(GarageFragment garageFragment);
 
         void inject(NewVehicleActivity newVehicleActivity);
+
+        void inject(VehicleServiceFragment vehicleServiceFragment);
 }

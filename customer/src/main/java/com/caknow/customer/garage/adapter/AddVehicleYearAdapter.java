@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.MMY;
-import com.caknow.customer.garage.Make;
-import com.caknow.customer.garage.VehicleType;
-import com.caknow.customer.garage.fragment.AddVehicleFragment;
+import com.caknow.customer.garage.Year;
+import com.caknow.customer.garage.fragment.AddVehicleModelFragment;
+import com.caknow.customer.garage.fragment.AddVehicleYearFragment;
 import com.caknow.customer.home.HomeCardItem;
 import com.caknow.customer.home.HomeFragment;
 
@@ -21,16 +20,14 @@ import java.util.List;
  * specified {@link HomeFragment.OnListFragmentInteractionListener}.
  *
  */
-public class AddVehicleAdapter extends RecyclerView.Adapter<AddVehicleAdapter.ViewHolder> {
+public class AddVehicleYearAdapter extends RecyclerView.Adapter<AddVehicleYearAdapter.ViewHolder> {
 
-    private final List<MMY> mValues;
-    private final AddVehicleFragment.OnListFragmentInteractionListener mListener;
-    AddVehicleFragment.ListTypes type;
+    private final List<Year> mValues;
+    private final AddVehicleYearFragment.OnListFragmentInteractionListener mListener;
 
-    public AddVehicleAdapter(List<MMY> items, AddVehicleFragment.OnListFragmentInteractionListener listener, AddVehicleFragment.ListTypes type) {
+    public AddVehicleYearAdapter(List<Year> items, AddVehicleYearFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
-        this.type = type;
     }
 
     @Override
@@ -43,8 +40,8 @@ public class AddVehicleAdapter extends RecyclerView.Adapter<AddVehicleAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getNiceName());
-        holder.mContentView.setText(mValues.get(position).getName());
+
+        holder.mContentView.setText(mValues.get(position).value);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +67,7 @@ public class AddVehicleAdapter extends RecyclerView.Adapter<AddVehicleAdapter.Vi
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public MMY mItem;
+        public Year mItem;
 
         public ViewHolder(View view) {
             super(view);

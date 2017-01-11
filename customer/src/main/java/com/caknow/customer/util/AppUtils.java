@@ -15,7 +15,7 @@ public class AppUtils {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
     /**
-     * get the app name
+     * get the app niceName
      * @param context
      * @return
      */
@@ -32,7 +32,7 @@ public class AppUtils {
     }
 
     /**
-     * get the app version name
+     * get the app version niceName
      * @param context
      * @return
      */

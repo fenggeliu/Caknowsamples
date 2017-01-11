@@ -83,7 +83,7 @@ public class HomeFragment extends BaseFragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // TODO: Update argument type and niceName
         void onListFragmentInteraction(HomeCardItem item);
     }
 }

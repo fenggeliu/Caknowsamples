@@ -12,31 +12,36 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
-import com.caknow.customer.garage.MMY;
+import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.garage.Vehicle;
+import com.caknow.customer.garage.VehicleServiceResponse;
 import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.service.NewServiceRequestActivity;
+import com.caknow.customer.service.VehicleServicePayload;
 import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.garage.GarageAPI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
  * Created by junu on 1/1/17.
  */
 
-public class
-VehicleServiceFragment extends BaseFragment {
+public class VehicleServiceFragment extends BaseFragment  implements Callback<VehicleServiceResponse> {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + VehicleServiceFragment.class.getName();
 
@@ -61,6 +66,7 @@ VehicleServiceFragment extends BaseFragment {
     @Inject
     Retrofit retrofit;
 
+    private Vehicle vehicle;
     /**
      * Launches New Service Request
      */
@@ -74,15 +80,24 @@ VehicleServiceFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Retrieve the vehicle data from the previous GarageFragment
+        CAKNOWApplication.get().getNetComponent().inject(this);
         Bundle bundle = getArguments();
-        Vehicle vehicle = bundle.getParcelable(Constants.VEHICLE_PARCEL_KEY);
+        vehicle = bundle.getParcelable(Constants.VEHICLE_PARCEL_KEY);
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vehicleservice, container, false);
         unbinder = ButterKnife.bind(this, v);
-        String name = String.format(Locale.getDefault(), "%s %s %s %s", vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getTrim() );
-        vehicleName.setText(name);
-        vehicleLogo.setImageResource(R.drawable.alfa_romeo);
+        loadData(vehicle);
         return v;
+    }
+
+    private void loadData(Vehicle vehicle){
+        GarageAPI garageAPI = retrofit.create(GarageAPI.class);
+
+        Call<VehicleServiceResponse> call = garageAPI.getServiceRequestsByVehicleId(vehicle.getId());
+        //asynchronous call
+        call.enqueue(this);
+
+
     }
 
     //TODO DELETE
@@ -102,9 +117,27 @@ VehicleServiceFragment extends BaseFragment {
         return strings;
     }
 
+    @Override
+    public void onResponse(Call<VehicleServiceResponse> call, Response<VehicleServiceResponse> response) {
+        VehicleServicePayload serviceResponse = response.body().getServiceRequests();
+//        serviceResponse.getMaintenanceList();
+//        serviceResponse.getRepairList();
+        Glide.with(this).load(serviceResponse.getVehicleLogo()).into(vehicleLogo);
+        vehicleName.setText(serviceResponse.getVehicleSummary());
+        vehicleName.invalidate();
+        vehicleLogo.invalidate();
+
+
+    }
+
+    @Override
+    public void onFailure(Call<VehicleServiceResponse> call, Throwable t) {
+
+    }
+
 
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // TODO: Update argument type and niceName
         void onListFragmentInteraction(VehicleType item);
     }
 }

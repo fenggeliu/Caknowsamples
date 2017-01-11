@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "contactsManager";
 
-    // Contacts table name
+    // Contacts table niceName
     private static final String TABLE_CONTACTS = "contacts";
 
 

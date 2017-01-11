@@ -102,7 +102,7 @@ public class Vehicle implements Parcelable {
     }
 
     /**
-     * Returns the display name for the vehicle
+     * Returns the display niceName for the vehicle
      * @return
      */
 

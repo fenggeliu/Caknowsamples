@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class SharedPreferencesUtils {
     /**
-     * the file name saved in phone
+     * the file niceName saved in phone
      */
     public static final String FILE_NAME = "CAKNOW_CUSTOMER";
 

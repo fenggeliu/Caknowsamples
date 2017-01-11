@@ -1,20 +1,16 @@
 package com.caknow.customer.garage;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
-import com.caknow.customer.garage.fragment.AddVehicleFragment;
+import com.caknow.customer.garage.fragment.AddVehicleMakeFragment;
 import com.caknow.customer.garage.fragment.ConfirmVehicleFragment;
-import com.caknow.customer.garage.fragment.GarageFragment;
 import com.caknow.customer.garage.fragment.VehicleServiceFragment;
 import com.caknow.customer.util.constant.Constants;
-
-import java.util.Locale;
 
 import butterknife.ButterKnife;
 
@@ -76,7 +72,7 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
         String selectedMake = item.getDisplayName();
 
         if(item.getType() < 3) {
-            AddVehicleFragment modelFragment = new AddVehicleFragment();
+            AddVehicleMakeFragment modelFragment = new AddVehicleMakeFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("type", item.getType() + 1);
             String valueString;
@@ -113,11 +109,11 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
                 confirmBundle.putString("model", this.model);
                 confirmBundle.putString("trim", this.trim);
                 confirmFragment.setArguments(confirmBundle);
-                replaceFragment(R.id.flContent, confirmFragment, AddVehicleFragment.FRAGMENT_TAG, "confirmation");
+                replaceFragment(R.id.flContent, confirmFragment, AddVehicleMakeFragment.FRAGMENT_TAG, "confirmation");
             }
             else{
                 modelFragment.setArguments(bundle);
-                replaceFragment(R.id.flContent, modelFragment, AddVehicleFragment.FRAGMENT_TAG, valueString);
+                replaceFragment(R.id.flContent, modelFragment, AddVehicleMakeFragment.FRAGMENT_TAG, valueString);
             }
 
         }

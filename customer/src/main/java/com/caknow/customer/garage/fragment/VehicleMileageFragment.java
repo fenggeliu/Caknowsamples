@@ -46,7 +46,7 @@ public class VehicleMileageFragment extends BaseFragment implements Callback<Add
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + VehicleMileageFragment.class.getName();
 
     private String displayName;
-    private AddVehicleFragment payload;
+    private AddVehicleMakeFragment payload;
     private OkHttpClient client;
     private Retrofit retrofit;
 

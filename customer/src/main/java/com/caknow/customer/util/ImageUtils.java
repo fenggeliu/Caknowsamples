@@ -159,7 +159,7 @@ public class ImageUtils {
 
     /**
      * load image from asset
-     * @param imageName the image name with extension
+     * @param imageName the image niceName with extension
      * @param imageView
      */
     public void displayFromAssets(String imageName,ImageView imageView) {
