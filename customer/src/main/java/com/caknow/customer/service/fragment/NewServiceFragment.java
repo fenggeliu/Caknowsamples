@@ -13,7 +13,7 @@ import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.service.ServiceAPI;
-import com.caknow.customer.util.net.service.ServiceList;
+import com.caknow.customer.util.net.service.Services;
 import com.caknow.customer.util.net.service.ServiceTypeResponse;
 
 import java.util.ArrayList;
@@ -65,6 +65,11 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
         loadDataOnClick(3);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(false);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +100,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     private void openNextFragment(final int typeId, final ArrayList parcelableArrayList){
         if(getActivity() != null) {
             NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
+            homeActivity.setType(typeId);
             ServiceTypeFragment fragment = new ServiceTypeFragment();
             Bundle args = new Bundle();
             args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, parcelableArrayList);
@@ -108,7 +114,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
 
     @Override
     public void onResponse(Call<ServiceTypeResponse> call, Response<ServiceTypeResponse> response) {
-        ArrayList<ServiceList> parcelableArrayList = new ArrayList<ServiceList>();
+        ArrayList<Services> parcelableArrayList = new ArrayList<Services>();
         parcelableArrayList.addAll(response.body().getPayload().getList());
         openNextFragment(this.typeId, parcelableArrayList);
     }

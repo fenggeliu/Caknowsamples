@@ -63,7 +63,11 @@ public class ServiceLocationFragment extends BaseFragment {
         }
     }
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(false);
+    }
 
     @OnClick(R.id.service_location_next_button)
     void startServiceSelection(){

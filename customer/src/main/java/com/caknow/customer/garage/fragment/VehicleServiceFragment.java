@@ -75,6 +75,7 @@ public class VehicleServiceFragment extends BaseFragment  implements Callback<Ve
     @OnClick(R.id.new_vehicle_service_button)
     void startNewService(){
         Intent intent = new Intent(getActivity(), NewServiceRequestActivity.class);
+        intent.putExtra("vehicleId", vehicle.getId());
         getActivity().startActivity(intent);
     }
 

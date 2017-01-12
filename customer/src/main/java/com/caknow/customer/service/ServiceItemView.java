@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.caknow.app.R;
-import com.caknow.customer.util.net.service.ServiceList;
+import com.caknow.customer.util.net.service.Services;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class ServiceItemView extends View {
 
-    private ServiceList item;
+    private Services item;
     private Context context;
     private String id;
 
@@ -28,7 +28,7 @@ public class ServiceItemView extends View {
 
     @BindView(R.id.repair_item_name)
     TextView nameView;
-    public ServiceItemView(final View view, @NonNull final ServiceList item) {
+    public ServiceItemView(final View view, @NonNull final Services item) {
         super(view.getContext());
         this.item = item;
         ButterKnife.bind(this, view);
@@ -45,7 +45,7 @@ public class ServiceItemView extends View {
         Glide.with(context).load(url).into(repairItemImageView);
     }
 
-    public void setItem(ServiceList item){
+    public void setItem(Services item){
         this.item = item;
         id = item.getCatagoryId();
     }

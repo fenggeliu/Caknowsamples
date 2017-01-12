@@ -12,12 +12,10 @@ import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.service.NewServiceRequestActivity;
-import com.caknow.customer.service.ServiceItemView;
 import com.caknow.customer.service.adapter.ServiceTypeAdapter;
-import com.caknow.customer.service.model.ServiceItem;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.service.ServiceAPI;
-import com.caknow.customer.util.net.service.ServiceList;
+import com.caknow.customer.util.net.service.Services;
 import com.caknow.customer.util.net.service.ServiceTypeResponse;
 
 import java.util.ArrayList;
@@ -48,11 +46,12 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     private int typeId;
 
     private ServiceTypeAdapter adapter;
-    private ArrayList<ServiceList> itemsToDisplay;
+    private ArrayList<Services> itemsToDisplay;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         CAKNOWApplication.get().getNetComponent().inject(this);
+        ((NewServiceRequestActivity) getActivity()).updateTitle("Choose Service Type", R.drawable.ic_action_back);
         Bundle args = getArguments();
         if(args!=null){
            itemsToDisplay = args.getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
@@ -64,7 +63,7 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
         adapter = new ServiceTypeAdapter(this.getContext(), itemsToDisplay);
 
         serviceAPI = retrofit.create(ServiceAPI.class);
-
+        setHasOptionsMenu(false);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
         repairLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ServiceList item = itemsToDisplay.get(i);
+                Services item = itemsToDisplay.get(i);
                 loadDataOnClick(ServiceTypeFragment.this.typeId, item.getCatagoryId());
             }
         });
@@ -101,22 +100,24 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     private void openNextFragment(ArrayList parcelableArrayList){
         if(getActivity() != null) {
             NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
-            ServiceTypeFragment fragment = new ServiceTypeFragment();
+            ServiceListFragment fragment = new ServiceListFragment();
             Bundle args = new Bundle();
             args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, parcelableArrayList);
-            fragment.setArguments(new Bundle());
+            fragment.setArguments(args);
             homeActivity.replaceFragment(R.id.flContent,
-                    new ServiceTypeFragment(),
-                    ServiceTypeFragment.FRAGMENT_TAG, "serviceTypeFragment");
+                    fragment,
+                    ServiceListFragment.FRAGMENT_TAG, "serviceList");
         }
     }
 
 
     @Override
     public void onResponse(Call<ServiceTypeResponse> call, Response<ServiceTypeResponse> response) {
-        ArrayList<ServiceList> parcelableArrayList = new ArrayList<ServiceList>();
+        ArrayList<Services> parcelableArrayList = new ArrayList<Services>();
         parcelableArrayList.addAll(response.body().getPayload().getList());
-        openNextFragment(parcelableArrayList);
+        if(parcelableArrayList.size() > 0) {
+            openNextFragment(parcelableArrayList);
+        }
     }
 
     @Override

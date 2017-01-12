@@ -25,7 +25,7 @@ public class HomeContent {
      */
     public static final Map<String, HomeCardItem> ITEM_MAP = new HashMap<String, HomeCardItem>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 250;
 
     static {
         // Add some sample items.
@@ -35,10 +35,8 @@ public class HomeContent {
     }
 
     private static void addItem(HomeCardItem item) {
-        for(int i = 0; i < 10; i++) {
             ITEMS.add(item);
             ITEM_MAP.put(item.getVehicleId(), item);
-        }
     }
 
     private static HomeCardItem createDummyItem(int position) {

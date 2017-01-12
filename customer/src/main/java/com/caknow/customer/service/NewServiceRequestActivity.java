@@ -1,23 +1,35 @@
 package com.caknow.customer.service;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
+import com.caknow.customer.garage.NewVehicleActivity;
+import com.caknow.customer.service.fragment.ServiceDetailsFragment;
+import com.caknow.customer.service.fragment.ServiceListFragment;
 import com.caknow.customer.service.fragment.ServiceLocationFragment;
+import com.caknow.customer.util.net.service.Address;
+import com.caknow.customer.util.net.service.Geolocation;
+import com.caknow.customer.util.net.service.Services;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -25,11 +37,24 @@ import butterknife.ButterKnife;
  * Created by junu on 1/1/17.
  */
 
-public class NewServiceRequestActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class NewServiceRequestActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ServiceListFragment.OnListFragmentInteractionListener{
 
+    private String vehicleId;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
+    Geolocation geolocation;
+    Address serviceAddress;
+    private int typeId;
+    String[] services;
+
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 13;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        services = new String[1];
+        vehicleId = getIntent().getStringExtra("vehicleId");
+    }
 
     @Override
     public void onStart() {
@@ -160,6 +185,59 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+
+    public void updateTitle(String titleText, final int drawableId){
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(drawableId);
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
+        } catch (NullPointerException e){
+            //
+        }
+    }
+
+    @Override
+    public void onListFragmentInteraction(Services item) {
+        services[0] = item.getCatagoryId();
+        ServiceDetailsFragment fragment = new ServiceDetailsFragment();
+        Bundle args = new Bundle();
+        args.putString("vehicleId", vehicleId);
+        args.putInt("typeId", typeId);
+        args.putString("description", item.getName());
+        args.putParcelable("address", serviceAddress);
+        args.putParcelable("geolocation", geolocation);
+        fragment.setArguments(args);
+        replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
+    }
+
+    public void setType(final int typeId){
+        this.typeId = typeId;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.service_details, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_start_new_service) {
+            Intent intent = new Intent(this, NewVehicleActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

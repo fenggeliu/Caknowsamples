@@ -18,7 +18,7 @@ public class Payload implements Serializable, Parcelable
 
     @SerializedName("list")
     @Expose
-    private java.util.List<ServiceList> list = null;
+    private java.util.List<Services> list = null;
     public final static Parcelable.Creator<Payload> CREATOR = new Creator<Payload>() {
 
 
@@ -27,7 +27,7 @@ public class Payload implements Serializable, Parcelable
         })
         public Payload createFromParcel(Parcel in) {
             Payload instance = new Payload();
-            in.readList(instance.list, (ServiceList.class.getClassLoader()));
+            in.readList(instance.list, (Services.class.getClassLoader()));
             return instance;
         }
 
@@ -39,11 +39,11 @@ public class Payload implements Serializable, Parcelable
             ;
     private final static long serialVersionUID = 6633465839727654875L;
 
-    public java.util.List<ServiceList> getList() {
+    public java.util.List<Services> getList() {
         return list;
     }
 
-    public void setList(java.util.List<ServiceList> list) {
+    public void setList(java.util.List<Services> list) {
         this.list = list;
     }
 

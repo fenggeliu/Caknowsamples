@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * Created by junu on 1/11/2017.
  */
-public class ServiceList implements Serializable, Parcelable
+public class Services implements Serializable, Parcelable
 {
 
     @SerializedName("catagoryId")
@@ -26,14 +26,14 @@ public class ServiceList implements Serializable, Parcelable
     @SerializedName("type")
     @Expose
     private long type;
-    public final static Parcelable.Creator<ServiceList> CREATOR = new Creator<ServiceList>() {
+    public final static Parcelable.Creator<Services> CREATOR = new Creator<Services>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public ServiceList createFromParcel(Parcel in) {
-            ServiceList instance = new ServiceList();
+        public Services createFromParcel(Parcel in) {
+            Services instance = new Services();
             instance.catagoryId = ((String) in.readValue((String.class.getClassLoader())));
             instance.name = ((String) in.readValue((String.class.getClassLoader())));
             instance.icon = ((String) in.readValue((String.class.getClassLoader())));
@@ -41,8 +41,8 @@ public class ServiceList implements Serializable, Parcelable
             return instance;
         }
 
-        public ServiceList[] newArray(int size) {
-            return (new ServiceList[size]);
+        public Services[] newArray(int size) {
+            return (new Services[size]);
         }
 
     }

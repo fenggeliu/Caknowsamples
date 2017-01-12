@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
 import com.caknow.customer.service.fragment.ServiceListFragment;
 import com.caknow.customer.service.model.ServiceItem;
+import com.caknow.customer.util.net.service.Services;
 
 import java.util.List;
 
@@ -21,10 +23,10 @@ import butterknife.ButterKnife;
  */
 public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.ViewHolder> {
 
-    private final List<ServiceItem> mValues;
+    private final List<Services> mValues;
     private final ServiceListFragment.OnListFragmentInteractionListener mListener;
 
-    public ServiceItemAdapter(List<ServiceItem> items, ServiceListFragment.OnListFragmentInteractionListener listener) {
+    public ServiceItemAdapter(List<Services> items, ServiceListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -39,9 +41,11 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
+        holder.mIdView.setText(mValues.get(position).getCatagoryId());
+        holder.mContentView.setText(mValues.get(position).getName());
+        if(BuildConfig.DEBUG){
+            holder.mIdView.setVisibility(View.VISIBLE);
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +67,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         final View mView;
         final TextView mIdView;
         final TextView mContentView;
-        ServiceItem mItem;
+        Services mItem;
 
         public ViewHolder(View view) {
             super(view);

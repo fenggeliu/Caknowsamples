@@ -2,6 +2,7 @@ package com.caknow.customer.service.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.BuildConfig;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +12,9 @@ import android.view.ViewGroup;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
-import com.caknow.customer.service.model.ServiceItem;
 import com.caknow.customer.service.adapter.ServiceItemAdapter;
-import com.caknow.customer.service.model.dummy.DummyServiceContent;
 import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.service.Services;
 
 import java.util.ArrayList;
 
@@ -26,12 +26,15 @@ import java.util.ArrayList;
  */
 public class ServiceListFragment extends BaseFragment {
 
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ServiceListFragment.class.getName();
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private ServiceItemAdapter adapter;
+    ArrayList list;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -52,7 +55,7 @@ public class ServiceListFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList list;
+        setHasOptionsMenu(false);
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             list = getArguments().getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
@@ -64,18 +67,15 @@ public class ServiceListFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_serviceitem_list, container, false);
-
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ServiceItemAdapter(DummyServiceContent.ITEMS, mListener));
+        Context context = view.getContext();
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
@@ -109,6 +109,6 @@ public class ServiceListFragment extends BaseFragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and niceName
-        void onListFragmentInteraction(ServiceItem item);
+        void onListFragmentInteraction(Services item);
     }
 }

@@ -97,5 +97,6 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="vehicle_name_placeholder">BMW 5 SERIES</string>
     <string name="sample_cc_number_placeholder">xxxx xxxx xxxx 1853</string>
+    <string name="action_submit">SUBMIT</string>
 
 </resources>

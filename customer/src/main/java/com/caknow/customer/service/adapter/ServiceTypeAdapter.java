@@ -7,14 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.Vehicle;
-import com.caknow.customer.garage.VehicleView;
 import com.caknow.customer.service.ServiceItemView;
-import com.caknow.customer.service.model.ServiceItem;
-import com.caknow.customer.util.net.service.ServiceList;
+import com.caknow.customer.util.net.service.Services;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by junu on 1/2/2017.
@@ -22,11 +18,11 @@ import java.util.List;
 
 public class ServiceTypeAdapter extends BaseAdapter {
 
-    private ArrayList<ServiceList> serviceItemList;
+    private ArrayList<Services> serviceItemList;
     private Context mContext;
     private LayoutInflater inflater;
 
-     public ServiceTypeAdapter(Context context, ArrayList<ServiceList> serviceItems){
+     public ServiceTypeAdapter(Context context, ArrayList<Services> serviceItems){
         this.serviceItemList = serviceItems;
          this.mContext = context;
          this.inflater = (LayoutInflater) this.mContext
@@ -38,7 +34,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
     }
 
     @Override
-    public ServiceList getItem(int position) {
+    public Services getItem(int position) {
         return serviceItemList.get(position);
     }
 
@@ -59,7 +55,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
         } else {
             viewHolder = (ServiceItemView) convertView.getTag();
         }
-        ServiceList item = serviceItemList.get(position);
+        Services item = serviceItemList.get(position);
         viewHolder.setTitle(item.getName());
         viewHolder.setImage(item.getIcon());
         viewHolder.setItem(item);
