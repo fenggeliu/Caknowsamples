@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by junu on 1/11/2017.
  */
 
-public class ServiceItemView {
+public class ServiceItemView extends View {
 
     private ServiceList item;
     private Context context;
@@ -29,9 +29,11 @@ public class ServiceItemView {
     @BindView(R.id.repair_item_name)
     TextView nameView;
     public ServiceItemView(final View view, @NonNull final ServiceList item) {
+        super(view.getContext());
         this.item = item;
         ButterKnife.bind(this, view);
         context = view.getContext();
+
     }
 
 

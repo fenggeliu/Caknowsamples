@@ -49,6 +49,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
 
     ServiceAPI serviceAPI;
 
+    private int typeId = 0;
     @OnClick(R.id.nsr_repair_layout)
     void startRepair(){
         loadDataOnClick(1);
@@ -80,7 +81,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     }
 
     private void loadDataOnClick(final int typeId){
-
+        this.typeId = typeId;
         Call<ServiceTypeResponse> call = serviceAPI.getServiceTypeList(typeId, null);
         //asynchronous call
         call.enqueue(this);
@@ -91,7 +92,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
      * Load the first list of service types with a null parentId
      * @param parcelableArrayList
      */
-    private void openNextFragment(ArrayList parcelableArrayList){
+    private void openNextFragment(final int typeId, final ArrayList parcelableArrayList){
         if(getActivity() != null) {
             NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
             ServiceTypeFragment fragment = new ServiceTypeFragment();
@@ -109,7 +110,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     public void onResponse(Call<ServiceTypeResponse> call, Response<ServiceTypeResponse> response) {
         ArrayList<ServiceList> parcelableArrayList = new ArrayList<ServiceList>();
         parcelableArrayList.addAll(response.body().getPayload().getList());
-        openNextFragment(parcelableArrayList);
+        openNextFragment(this.typeId, parcelableArrayList);
     }
 
     @Override

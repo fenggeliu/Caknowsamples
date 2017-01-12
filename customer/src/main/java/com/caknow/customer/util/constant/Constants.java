@@ -21,5 +21,11 @@ public class Constants {
     public static final String ACCOUNT_TYPE_FACEBOOK = "FACEBOOK_USER";
     public static final String ACCOUNT_TYPE_GOOGLE   = "GOOGLE_USER";
     public static final String ACCOUNT_TYPE_CAKNOW = "CAKNOW_USER";
+    public static final String SERVICE_TYPE_KEY = "service.type";
+    public static final int SERVICE_TYPE_REPAIR = 1;
+    public static final int SERVICE_TYPE_MAINTENANCE = 2;
+    public static final int SERVICE_TYPE_EMERGENCY = 3;
+
+
 
 }

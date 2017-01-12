@@ -5,13 +5,16 @@ import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.service.NewServiceRequestActivity;
+import com.caknow.customer.service.ServiceItemView;
 import com.caknow.customer.service.adapter.ServiceTypeAdapter;
+import com.caknow.customer.service.model.ServiceItem;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.util.net.service.ServiceList;
@@ -39,11 +42,10 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     @BindView(R.id.rcll_grid_view)
     GridView repairLayout;
 
-
     @Inject
     Retrofit retrofit;
     ServiceAPI serviceAPI;
-
+    private int typeId;
 
     private ServiceTypeAdapter adapter;
     private ArrayList<ServiceList> itemsToDisplay;
@@ -54,11 +56,13 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
         Bundle args = getArguments();
         if(args!=null){
            itemsToDisplay = args.getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
+            typeId = args.getInt(Constants.SERVICE_TYPE_KEY, 1);
         }
         if(itemsToDisplay == null){
             itemsToDisplay = new ArrayList();
         }
         adapter = new ServiceTypeAdapter(this.getContext(), itemsToDisplay);
+
         serviceAPI = retrofit.create(ServiceAPI.class);
 
     }
@@ -71,14 +75,20 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
         unbinder = ButterKnife.bind(this, v);
 
         repairLayout.setAdapter(adapter);
-
+        repairLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ServiceList item = itemsToDisplay.get(i);
+                loadDataOnClick(ServiceTypeFragment.this.typeId, item.getCatagoryId());
+            }
+        });
         return v;
     }
 
 
-    private void loadDataOnClick(final int typeId){
+    private void loadDataOnClick(final int typeId, final String parentId){
 
-        Call<ServiceTypeResponse> call = serviceAPI.getServiceTypeList(typeId, null);
+        Call<ServiceTypeResponse> call = serviceAPI.getServiceTypeList(typeId, parentId);
         //asynchronous call
         call.enqueue(this);
 

@@ -14,6 +14,9 @@ import com.caknow.customer.BaseFragment;
 import com.caknow.customer.service.model.ServiceItem;
 import com.caknow.customer.service.adapter.ServiceItemAdapter;
 import com.caknow.customer.service.model.dummy.DummyServiceContent;
+import com.caknow.customer.util.constant.Constants;
+
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -28,7 +31,7 @@ public class ServiceListFragment extends BaseFragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
+    private ServiceItemAdapter adapter;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -49,9 +52,11 @@ public class ServiceListFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ArrayList list;
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            list = getArguments().getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
+            adapter = new ServiceItemAdapter(list, mListener);
         }
     }
 
