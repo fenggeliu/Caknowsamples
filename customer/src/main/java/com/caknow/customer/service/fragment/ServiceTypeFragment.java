@@ -44,7 +44,7 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     Retrofit retrofit;
     ServiceAPI serviceAPI;
     private int typeId;
-
+    private String serviceId;
     private ServiceTypeAdapter adapter;
     private ArrayList<Services> itemsToDisplay;
     @Override
@@ -78,7 +78,8 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Services item = itemsToDisplay.get(i);
-                loadDataOnClick(ServiceTypeFragment.this.typeId, item.getCatagoryId());
+                serviceId = item.getCatagoryId();
+                loadDataOnClick(ServiceTypeFragment.this.typeId, serviceId);
             }
         });
         return v;
@@ -117,6 +118,19 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
         parcelableArrayList.addAll(response.body().getPayload().getList());
         if(parcelableArrayList.size() > 0) {
             openNextFragment(parcelableArrayList);
+        }
+        else{
+            String[] services = new String[1];
+            services[0] = serviceId;
+            ServiceDetailsFragment fragment = new ServiceDetailsFragment();
+            Bundle args = new Bundle();
+//            args.putString("vehicleId", vehicleId);
+//            args.putInt("typeId", typeId);
+//            args.putString("description", item.getName());
+//            args.putParcelable("address", serviceAddress);
+//            args.putParcelable("geolocation", geolocation);
+            fragment.setArguments(args);
+//            replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
         }
     }
 

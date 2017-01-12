@@ -193,6 +193,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
             ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(drawableId);
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
+
         } catch (NullPointerException e){
             //
         }
