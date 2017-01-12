@@ -31,7 +31,7 @@
     <string name="stel_promotion_invite_btn">Email invite</string>
     <!-- invite confirm layout -->
     <string name="icl_ok_btn_text">OK</string>
-    <!-- service request content layout -->
+    <!-- Service request content layout -->
     <string name="srcl_new_request_btn">+ New Service</string>
     <!-- location layout -->
     <string name="location_layout_next_btn">Next</string>

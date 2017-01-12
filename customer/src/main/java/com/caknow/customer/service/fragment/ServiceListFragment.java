@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.service.model.ServiceItem;
-import com.caknow.customer.service.model.ServiceItemAdapter;
+import com.caknow.customer.service.adapter.ServiceItemAdapter;
 import com.caknow.customer.service.model.dummy.DummyServiceContent;
 
 /**

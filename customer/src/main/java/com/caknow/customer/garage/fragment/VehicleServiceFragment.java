@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,13 +18,15 @@ import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.garage.Vehicle;
 import com.caknow.customer.garage.VehicleServiceResponse;
 import com.caknow.customer.garage.VehicleType;
+import com.caknow.customer.service.model.Maintenance;
 import com.caknow.customer.service.NewServiceRequestActivity;
-import com.caknow.customer.service.VehicleServicePayload;
+import com.caknow.customer.service.model.Repair;
+import com.caknow.customer.service.model.VehicleServicePayload;
+import com.caknow.customer.service.adapter.VehicleServiceAdapter;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.garage.GarageAPI;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -36,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by junu on 1/1/17.
@@ -56,17 +58,17 @@ public class VehicleServiceFragment extends BaseFragment  implements Callback<Ve
     @BindView(R.id.new_vehicle_service_button)
     Button submitButton;
 
-    @BindView(R.id.no_service_request)
+    @BindView(R.id.no_service_request_layout)
     LinearLayout noServiceRequestLayout;
 
-
-    @BindView(R.id.service_request_repair_list)
-    ListView serviceRepairList;
+    @BindView(R.id.vehicle_service_sticky_list)
+    StickyListHeadersListView serviceListView;
 
     @Inject
     Retrofit retrofit;
 
     private Vehicle vehicle;
+    private VehicleServiceAdapter adapter;
     /**
      * Launches New Service Request
      */
@@ -100,36 +102,42 @@ public class VehicleServiceFragment extends BaseFragment  implements Callback<Ve
 
     }
 
-    //TODO DELETE
-
-    private List<String> createDummyData(){
-        List<String> strings = new ArrayList<>();
-        strings.add("AM General");
-        strings.add("Acura");
-        strings.add("Alfa Romeo");
-        strings.add("Aston Martin");
-        strings.add("Audi");
-        strings.add("Acura");
-        strings.add("BMW");
-        strings.add("Bentley");
-        strings.add("Bugatti");
-        strings.add("Chevrolet");
-        return strings;
-    }
-
     @Override
     public void onResponse(Call<VehicleServiceResponse> call, Response<VehicleServiceResponse> response) {
         VehicleServicePayload serviceResponse = response.body().getServiceRequests();
-//        serviceResponse.getMaintenanceList();
-//        serviceResponse.getRepairList();
+
         Glide.with(this).load(serviceResponse.getVehicleLogo()).into(vehicleLogo);
         vehicleName.setText(serviceResponse.getVehicleSummary());
         vehicleName.invalidate();
         vehicleLogo.invalidate();
-
+//        if(serviceResponse.getMaintenanceList().isEmpty() && serviceResponse.getRepairList().isEmpty()){
+//            noServiceRequestLayout.setVisibility(View.VISIBLE);
+//        }
+//        else{
+            adapter = new VehicleServiceAdapter(getContext(), createDummyRepairData(), createDummyMaintenanceData());
+            serviceListView.setAdapter(adapter);
+            serviceListView.invalidate();
+//        }
 
     }
 
+    private ArrayList<Repair> createDummyRepairData(){
+        //TODO REMOVE!
+        ArrayList<Repair> testRepairList = new ArrayList<>();
+        Repair dummyRepair = new Repair();
+        dummyRepair.setOrderNo("123455");
+        testRepairList.add(dummyRepair);
+        return testRepairList;
+    }
+
+    private ArrayList<Maintenance> createDummyMaintenanceData(){
+        //TODO REMOVE!
+        ArrayList<Maintenance> testMaintenanceList = new ArrayList<>();
+        Maintenance dummyMaintenance = new Maintenance();
+        dummyMaintenance.setOrderNo("123455");
+        testMaintenanceList.add(dummyMaintenance);
+        return testMaintenanceList;
+    }
     @Override
     public void onFailure(Call<VehicleServiceResponse> call, Throwable t) {
 

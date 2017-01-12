@@ -8,12 +8,16 @@ import android.os.Parcelable;
  */
 
 public class Year implements Parcelable{
-    public final String value;
+
+     String value;
 
     public Year(final String value){
         this.value = value;
     }
 
+    public String getValue(){
+        return this.value;
+    }
     @Override
     public int describeContents() {
         return 0;

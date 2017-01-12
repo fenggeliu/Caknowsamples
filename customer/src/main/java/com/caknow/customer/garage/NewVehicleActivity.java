@@ -124,7 +124,7 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
     private ArrayList<Year> parseYearData(List<String> yearsList){
         ArrayList<Year> years = new ArrayList();
         for(int i=0; i<yearsList.size(); i++){
-            years.add(new Year(year));
+            years.add(new Year(yearsList.get(i)));
         }
         return years;
     }
@@ -145,11 +145,12 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
     public void onListFragmentInteraction(Model item) {
         model = item.getName();
         modelNiceName = item.getNiceName();
-        AddVehicleModelFragment fragment = new AddVehicleModelFragment();
-        ArrayList<Year> models = parseYearData(item.getYears());
+        AddVehicleYearFragment fragment = new AddVehicleYearFragment();
+        ArrayList<Year> years = parseYearData(item.getYears());
         Bundle args = new Bundle();
-        args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, models);
-        this.replaceFragment(R.id.flContent, fragment, AddVehicleModelFragment.FRAGMENT_TAG, "model");
+        args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, years);
+        fragment.setArguments(args);
+        this.replaceFragment(R.id.flContent, fragment, AddVehicleYearFragment.FRAGMENT_TAG, "year");
     }
 
     @Override
@@ -158,8 +159,11 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
         year = item.value;
         Bundle args = new Bundle();
         args.putString("make", make);
+        args.putString("makeNN", makeNiceName);
         args.putString("model", model);
+        args.putString("modelNN", modelNiceName);
         args.putString("year", year);
+        fragment.setArguments(args);
         this.replaceFragment(R.id.flContent, fragment, AddVehicleModelFragment.FRAGMENT_TAG, "model");
     }
 }

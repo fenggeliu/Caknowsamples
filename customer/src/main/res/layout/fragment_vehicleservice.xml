@@ -45,7 +45,7 @@
                         android:id="@+id/vehicle_service_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="BMW 3 Series ndsofsdiofs fsdofi sdfois"
+                        android:text=""
                         android:textColor="@color/font_black"
                         android:textSize="@dimen/srcl_car_information_text_size" />
                 </LinearLayout>
@@ -58,10 +58,11 @@
             android:layout_weight="5">
 
             <LinearLayout
-                android:id="@+id/no_service_request"
+                android:id="@+id/no_service_request_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
@@ -80,83 +81,10 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <ScrollView
-                android:id="@+id/have_service_request"
+            <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+                android:id="@+id/vehicle_service_sticky_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/service_request_repair"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="visible">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/srcl_repair_title_height"
-                            android:background="@color/description_title"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:id="@+id/service_repair_name"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/srcl_repair_title_margin_left"
-                                android:textColor="#fff"
-                                android:textSize="@dimen/srcl_repair_title_text_size" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ListView
-                                android:id="@+id/service_request_repair_list"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/service_request_maintenance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="visible">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/srcl_maintenance_title_height"
-                            android:background="@color/description_title"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:id="@+id/service_maintenance_name"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/srcl_maintenance_title_margin_left"
-                                android:textColor="#fff"
-                                android:textSize="@dimen/srcl_maintenance_title_text_size" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ListView
-                                android:id="@+id/service_request_maintenance_list"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </ScrollView>
+                android:layout_height="match_parent"/>
 
         </FrameLayout>
     </LinearLayout>

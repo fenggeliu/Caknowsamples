@@ -1,4 +1,4 @@
-package com.caknow.customer.service.model;
+package com.caknow.customer.service.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.service.fragment.ServiceListFragment;
+import com.caknow.customer.service.model.ServiceItem;
 
 import java.util.List;
 

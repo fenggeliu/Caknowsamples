@@ -58,7 +58,7 @@ public class ServiceLocationFragment extends BaseFragment {
                     nameViews.get(3).setText(addresses.get(0).getPostalCode());
                 }
             } catch (Exception e) {
-                Toast.makeText(getActivity(), "Unable to determine address", Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "Device GeoCoder is acting weird. Please try restarting your device for best results.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -68,11 +68,11 @@ public class ServiceLocationFragment extends BaseFragment {
     @OnClick(R.id.service_location_next_button)
     void startServiceSelection(){
         NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
-        ServiceSelectFragment fragment = new ServiceSelectFragment();
+        NewServiceFragment fragment = new NewServiceFragment();
         final Bundle bundle = new Bundle();
         bundle.putParcelable(LocationItem.PARCELABLE_KEY, new LocationItem("address1", "address2", "city", "90035"));
         fragment.setArguments(bundle);
-        activity.replaceFragment(R.id.flContent, fragment, ServiceSelectFragment.FRAGMENT_TAG, "service_type");
+        activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
     }
 
     @BindView(R.id.service_location_find_me_button)

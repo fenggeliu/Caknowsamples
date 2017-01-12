@@ -75,7 +75,7 @@
     <dimen name="ppw_back_btn_margin_start">18dp</dimen>
     <dimen name="ppw_back_btn_margin_end">18dp</dimen>
 
-    <!-- terms of service -->
+    <!-- terms of Service -->
     <dimen name="tos_title_text_size">24sp</dimen>
     <dimen name="tos_back_btn_margin_top">15dp</dimen>
     <dimen name="tos_back_btn_margin_bottom">15dp</dimen>
@@ -502,7 +502,7 @@
     <dimen name="gli_car_model_text_size">20sp</dimen>
 
 
-    <!-- service request content layout -->
+    <!-- Service request content layout -->
     <dimen name="srcl_title_text_size">24sp</dimen>
     <dimen name="srcl_back_btn_margin_top">15dp</dimen>
     <dimen name="srcl_back_btn_margin_bottom">15dp</dimen>
@@ -526,7 +526,7 @@
     <dimen name="srcl_maintenance_title_margin_left">20dp</dimen>
     <dimen name="srcl_new_service_request_btn_text_size">24sp</dimen>
 
-    <!-- service request list item layout -->
+    <!-- Service request list item layout -->
     <dimen name="srli_list_item_layout_height">80dp</dimen>
     <dimen name="srli_item_image_layout_width">80dp</dimen>
     <dimen name="srli_item_image_circle_margin">10dp</dimen>
@@ -596,7 +596,7 @@
     <dimen name="location_layout_left_arrow_margin_left">15dp</dimen>
     <dimen name="location_layout_left_arrow_margin_right">15dp</dimen>
 
-    <!-- new service request -->
+    <!-- new Service request -->
     <dimen name="nsr_title_text_size">24sp</dimen>
     <dimen name="nsr_back_btn_margin_top">15dp</dimen>
     <dimen name="nsr_back_btn_margin_bottom">15dp</dimen>

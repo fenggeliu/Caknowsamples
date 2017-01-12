@@ -1,5 +1,7 @@
-package com.caknow.customer.service;
+package com.caknow.customer.service.model;
 
+import com.caknow.customer.service.model.Maintenance;
+import com.caknow.customer.service.model.Repair;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

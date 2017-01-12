@@ -84,14 +84,14 @@
     <!-- invite confirm layout -->
     <string name="icl_description_text">Invitation has been send out! Thanks for your sharing!</string>
 
-    <!-- service request content layout -->
+    <!-- Service request content layout -->
     <string name="srcl_no_service_request">NO SERVICE REQUEST</string>
 
     <!-- location layout -->
     <string name="location_layout_why_description">Why this is important?</string>
     <string name="location_layout_warning_description">Locating your vehicle will be helpful in finding local shops for you.</string>
 
-    <!-- new service request -->
+    <!-- new Service request -->
     <string name="nsr_repair_title">Repair</string>
     <string name="nsr_maintenance_title">Maintenance</string>
     <string name="nsr_emergency_title">Emergency</string>

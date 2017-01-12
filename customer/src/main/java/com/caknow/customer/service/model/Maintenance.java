@@ -1,4 +1,4 @@
-package com.caknow.customer.service;
+package com.caknow.customer.service.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by junu on 1/10/2017.
  */
 
-public class Maintenance {
+public class Maintenance implements VehicleServiceInterface{
 
 
     @SerializedName("serviceRequestId")
@@ -16,7 +16,7 @@ public class Maintenance {
     private String serviceRequestId;
     @SerializedName("createTime")
     @Expose
-    private Integer createTime;
+    private Long createTime;
     @SerializedName("orderNo")
     @Expose
     private String orderNo;
@@ -47,13 +47,6 @@ public class Maintenance {
         this.serviceRequestId = serviceRequestId;
     }
 
-    public Integer getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Integer createTime) {
-        this.createTime = createTime;
-    }
 
     public String getOrderNo() {
         return orderNo;
@@ -111,5 +104,19 @@ public class Maintenance {
         this.type = type;
     }
 
+    @Override
+    public String getDisplayTitle() {
+        return this.serviceCatagory;
+    }
+
+    @Override
+    public String getDisplayIconUrl() {
+        return this.iconUrl;
+    }
+
+    @Override
+    public Long getDate() {
+        return this.createTime;
+    }
 }
 

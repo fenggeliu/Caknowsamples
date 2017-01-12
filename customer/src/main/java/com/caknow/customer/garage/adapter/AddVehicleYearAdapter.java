@@ -41,7 +41,7 @@ public class AddVehicleYearAdapter extends RecyclerView.Adapter<AddVehicleYearAd
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.mContentView.setText(mValues.get(position).value);
+        holder.mContentView.setText(mValues.get(position).getValue());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
+import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
@@ -23,6 +25,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +52,8 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     private String displayName;
     private AddVehicleMakeFragment payload;
     private OkHttpClient client;
-    private Retrofit retrofit;
 
-    private String year, make, model, trim;
+    private String year, make, model, makeNN, modelNN;
 
     @BindView(R.id.acsl_vehicle_name)
     TextView vehicleName;
@@ -58,37 +61,14 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @BindView(R.id.acsl_submit_btn)
     Button submitButton;
 
+    @Inject
+    Retrofit retrofit;
+
     @OnClick(R.id.acsl_submit_btn)
     void addCarToGarage(){
-        if (client == null) {
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addNetworkInterceptor(new StethoInterceptor());
-            httpClient.addInterceptor(chain -> {
-                Request original = chain.request();
-
-                // Request customization: add request headers
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header(HeadersContract.HEADER_X_API_KEY, "sJvVmx9uyJD7eE1bZraPEUfsm6BpzyOlgDZ04eqRyUs=") // <-- this is the important line
-                        .header(HeadersContract.HEADER_X_ACCESS_TOKEN, SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.ACCESS_TOKEN)) // <-- this is the important line
-                        .header("Content-Type", "application/json");
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            });
-            client = httpClient.build();
-        }
-        if (retrofit == null) {
-            Gson gson = new GsonBuilder().create();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build();
-
-        }
 
         GarageAPI garageAPI = retrofit.create(GarageAPI.class);
-        String text = AddVehicleRequest.getJsonString(new AddVehicleRequest(this.year, this.make, this.model, this.trim, "100"));
+        String text = AddVehicleRequest.getJsonString(new AddVehicleRequest(this.year, this.make, this.model, "", "100"));
         RequestBody body =
                 RequestBody.create(MediaType.parse("application/json"), text);
 
@@ -100,11 +80,13 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        CAKNOWApplication.get().getNetComponent().inject(this);
         Bundle bundle = getArguments();
         if(bundle != null){
-            year = bundle.getString("year", "year");
             make = bundle.getString("make", "make");
             model = bundle.getString("model", "model");
+            year = bundle.getString("year", "year");
+
             displayName = String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
         }
         else{
@@ -134,6 +116,6 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
 
     @Override
     public void onFailure(Call<AddVehicleResponse> call, Throwable t) {
-
+        Toast.makeText(getContext(), "Error adding car!", Toast.LENGTH_SHORT).show();
     }
 }

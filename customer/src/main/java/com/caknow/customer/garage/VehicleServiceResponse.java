@@ -1,6 +1,6 @@
 package com.caknow.customer.garage;
 
-import com.caknow.customer.service.VehicleServicePayload;
+import com.caknow.customer.service.model.VehicleServicePayload;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

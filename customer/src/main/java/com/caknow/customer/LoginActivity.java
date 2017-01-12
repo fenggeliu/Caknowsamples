@@ -384,7 +384,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            // TODO: attempt authentication against a network Service.
 
             try {
                 // Simulate network access.
