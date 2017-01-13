@@ -11,41 +11,6 @@ import java.io.Serializable;
 
 public class List implements Serializable, Parcelable {
 
-    public final static Parcelable.Creator<List> CREATOR = new Creator<List>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public List createFromParcel(Parcel in) {
-            List instance = new List();
-            instance.serviceRequestId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.affiliateId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.status = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.ut = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.ct = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.shopName = ((String) in.readValue((String.class.getClassLoader())));
-            instance.averageRating = ((String) in.readValue((String.class.getClassLoader())));
-            instance.reviewId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.shopImage = ((String) in.readValue((String.class.getClassLoader())));
-            instance.serviceCategory = ((String) in.readValue((String.class.getClassLoader())));
-            instance.shopPhone = ((String) in.readValue((String.class.getClassLoader())));
-            instance.shopAddress = ((String) in.readValue((String.class.getClassLoader())));
-            instance.updateTime = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.orderNo = ((String) in.readValue((String.class.getClassLoader())));
-            instance.serviceFee = ((String) in.readValue((String.class.getClassLoader())));
-            instance.vehicle = ((Vehicle) in.readValue((Vehicle.class.getClassLoader())));
-            in.readList(instance.serviceList, (com.caknow.customer.util.net.history.ServiceList.class.getClassLoader()));
-            return instance;
-        }
-
-        public List[] newArray(int size) {
-            return (new List[size]);
-        }
-
-    };
-    private final static long serialVersionUID = -6223191523323149301L;
     @SerializedName("serviceRequestId")
     @Expose
     private String serviceRequestId;
@@ -100,6 +65,41 @@ public class List implements Serializable, Parcelable {
     @SerializedName("serviceList")
     @Expose
     private java.util.List<ServiceList> serviceList = null;
+    public final static Parcelable.Creator<List> CREATOR = new Creator<List>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public List createFromParcel(Parcel in) {
+            List instance = new List();
+            instance.serviceRequestId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.affiliateId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.status = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.ut = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.ct = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.shopName = ((String) in.readValue((String.class.getClassLoader())));
+            instance.averageRating = ((String) in.readValue((String.class.getClassLoader())));
+            instance.reviewId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.shopImage = ((String) in.readValue((String.class.getClassLoader())));
+            instance.serviceCategory = ((String) in.readValue((String.class.getClassLoader())));
+            instance.shopPhone = ((String) in.readValue((String.class.getClassLoader())));
+            instance.shopAddress = ((String) in.readValue((String.class.getClassLoader())));
+            instance.updateTime = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.orderNo = ((String) in.readValue((String.class.getClassLoader())));
+            instance.serviceFee = ((String) in.readValue((String.class.getClassLoader())));
+            instance.vehicle = ((Vehicle) in.readValue((Vehicle.class.getClassLoader())));
+            in.readList(instance.serviceList, (com.caknow.customer.util.net.history.ServiceList.class.getClassLoader()));
+            return instance;
+        }
+
+        public List[] newArray(int size) {
+            return (new List[size]);
+        }
+
+    };
+    private final static long serialVersionUID = -6223191523323149301L;
 
     public String getServiceRequestId() {
         return serviceRequestId;

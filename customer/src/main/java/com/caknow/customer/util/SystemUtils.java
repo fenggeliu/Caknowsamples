@@ -6,9 +6,7 @@ package com.caknow.customer.util;
 
 public class SystemUtils {
 
-    /**
-     * recommend default thread pool size according to system available processor, {@link #getDefaultThreadPoolSize}
-     **/
+    /** recommend default thread pool size according to system available processor, {@link #getDefaultThreadPoolSize} **/
     public static final int DEFAULT_THREAD_POOL_SIZE = getDefaultThreadPoolSize();
 
 
@@ -18,7 +16,6 @@ public class SystemUtils {
 
     /**
      * get recommend default thread pool size
-     *
      * @return if 2 * availableProcessors + 1 less than 8, return it, else return 8;
      * @see {@link #getDefaultThreadPoolSize(int)} max is 8
      */
@@ -28,7 +25,6 @@ public class SystemUtils {
 
     /**
      * get recommend default thread pool size
-     *
      * @param max
      * @return if 2 * availableProcessors + 1 less than max, return it, else return max;
      */

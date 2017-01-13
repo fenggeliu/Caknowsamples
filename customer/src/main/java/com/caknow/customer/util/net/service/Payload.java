@@ -13,8 +13,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Payload implements Serializable, Parcelable {
+public class Payload implements Serializable, Parcelable
+{
 
+    @SerializedName("list")
+    @Expose
+    private java.util.List<Services> list = null;
     public final static Parcelable.Creator<Payload> CREATOR = new Creator<Payload>() {
 
 
@@ -31,11 +35,9 @@ public class Payload implements Serializable, Parcelable {
             return (new Payload[size]);
         }
 
-    };
+    }
+            ;
     private final static long serialVersionUID = 6633465839727654875L;
-    @SerializedName("list")
-    @Expose
-    private java.util.List<Services> list = null;
 
     public java.util.List<Services> getList() {
         return list;

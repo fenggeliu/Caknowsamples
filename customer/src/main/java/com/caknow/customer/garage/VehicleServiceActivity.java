@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
 import com.caknow.customer.garage.fragment.AddVehicleMakeFragment;
+import com.caknow.customer.garage.fragment.ConfirmVehicleFragment;
+import com.caknow.customer.garage.fragment.VehicleServiceFragment;
 import com.caknow.customer.util.constant.Constants;
 
 import butterknife.ButterKnife;
@@ -57,9 +59,9 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
     @Override
     protected void setTitle() {
         try {
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
-            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e) {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
             //
         }
     }
@@ -69,7 +71,7 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
     public void onListFragmentInteraction(VehicleType item) {
         String selectedMake = item.getDisplayName();
 
-        if (item.getType() < 3) {
+        if(item.getType() < 3) {
             AddVehicleMakeFragment modelFragment = new AddVehicleMakeFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("type", item.getType() + 1);
@@ -99,7 +101,7 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
                 bundle.putString(valueString, item.getId());
             }
 
-            if (item.getType() == 3) {
+            if(item.getType() == 3){
                 ConfirmVehicleFragment confirmFragment = new ConfirmVehicleFragment();
                 Bundle confirmBundle = new Bundle();
                 confirmBundle.putString("year", this.year);
@@ -108,7 +110,8 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
                 confirmBundle.putString("trim", this.trim);
                 confirmFragment.setArguments(confirmBundle);
                 replaceFragment(R.id.flContent, confirmFragment, AddVehicleMakeFragment.FRAGMENT_TAG, "confirmation");
-            } else {
+            }
+            else{
                 modelFragment.setArguments(bundle);
                 replaceFragment(R.id.flContent, modelFragment, AddVehicleMakeFragment.FRAGMENT_TAG, valueString);
             }

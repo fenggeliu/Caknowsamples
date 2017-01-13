@@ -226,6 +226,8 @@
                         android:layout_weight="1">
 
                         <Spinner
+                            android:spinnerMode="dialog"
+                            android:prompt="@string/spinner_prompt_state"
                             android:id="@+id/spinner_state"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

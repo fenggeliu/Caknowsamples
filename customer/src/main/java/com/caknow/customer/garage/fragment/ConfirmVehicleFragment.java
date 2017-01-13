@@ -40,21 +40,26 @@ import retrofit2.Retrofit;
 public class ConfirmVehicleFragment extends BaseFragment implements Callback<AddVehicleResponse> {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ConfirmVehicleFragment.class.getName();
-    @BindView(R.id.acsl_vehicle_name)
-    TextView vehicleName;
-    @BindView(R.id.acsl_submit_btn)
-    Button submitButton;
-    @Inject
-    Retrofit retrofit;
+
     private String displayName;
     private AddVehicleMakeFragment payload;
     private OkHttpClient client;
+
     private String year, make, model, makeNN, modelNN;
 
-    @OnClick(R.id.acsl_submit_btn)
-    void addCarToGarage() {
+    @BindView(R.id.acsl_vehicle_name)
+    TextView vehicleName;
 
-        ((NewVehicleActivity) getActivity()).showProgress();
+    @BindView(R.id.acsl_submit_btn)
+    Button submitButton;
+
+    @Inject
+    Retrofit retrofit;
+
+    @OnClick(R.id.acsl_submit_btn)
+    void addCarToGarage(){
+
+        ((NewVehicleActivity)getActivity()).showProgress();
         String logoUrl = Constants.LOGOURL.concat(makeNN);
         GarageAPI garageAPI = retrofit.create(GarageAPI.class);
         String text = AddVehicleRequest.getJsonString(new AddVehicleRequest(this.year, this.make, this.model, "", "0", logoUrl));
@@ -71,13 +76,14 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
                              Bundle savedInstanceState) {
         CAKNOWApplication.get().getNetComponent().inject(this);
         Bundle bundle = getArguments();
-        if (bundle != null) {
+        if(bundle != null){
             make = bundle.getString("make", "make");
             model = bundle.getString("model", "model");
             year = bundle.getString("year", "year");
             makeNN = bundle.getString("makeNN", "make");
             displayName = String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
-        } else {
+        }
+        else{
             displayName = "ERROR!";
         }
 
@@ -91,17 +97,17 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
 
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
-        ((NewVehicleActivity) getActivity()).updateTitle("Add Vehicle");
+        ((NewVehicleActivity)getActivity()).updateTitle("Add Vehicle");
     }
 
     @Override
     public void onResponse(Call<AddVehicleResponse> call, Response<AddVehicleResponse> response) {
-        try {
-            ((NewVehicleActivity) getActivity()).showProgress();
+        try{
+            ((NewVehicleActivity)getActivity()).showProgress();
             getActivity().finish();
-        } catch (Exception e) {
+        } catch(Exception e){
 
         }
 
@@ -109,10 +115,10 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
 
     @Override
     public void onFailure(Call<AddVehicleResponse> call, Throwable t) {
-        try {
-            ((NewVehicleActivity) getActivity()).showProgress();
+        try{
+            ((NewVehicleActivity)getActivity()).showProgress();
             getActivity().finish();
-        } catch (Exception e) {
+        } catch(Exception e){
 
         }
         Toast.makeText(getContext(), "Error adding car!", Toast.LENGTH_SHORT).show();

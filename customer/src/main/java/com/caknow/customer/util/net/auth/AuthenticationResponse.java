@@ -7,16 +7,16 @@ import android.text.TextUtils;
  */
 
 public class AuthenticationResponse {
-    boolean success;
     private String _id;
-    private String message;
-    private AuthenticationPayload payload;
+    boolean success;
+    private  String message;
+    private  AuthenticationPayload payload;
 
-    public String getUserId() {
+    public String getUserId(){
         return TextUtils.isEmpty(this._id) ? "" : this._id;
     }
 
-    public AuthenticationPayload getAuthenticationPayload() {
+    public AuthenticationPayload getAuthenticationPayload(){
         return this.payload;
     }
 }

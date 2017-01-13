@@ -7,7 +7,7 @@ package com.caknow.customer.util.net.reg;
 public class VerificationPayload {
     boolean verified;
 
-    public boolean isVerified() {
+    public boolean isVerified(){
         return this.verified;
     }
 }

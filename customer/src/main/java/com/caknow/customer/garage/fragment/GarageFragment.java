@@ -43,25 +43,25 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
     /**
      * Butterknife Annotated View Bindings
      */
-    @BindView(R.id.home_empty_garage_view)
-    LinearLayout emptyGarageView;
-    @BindView(R.id.vehicle_display)
-    GridView vehicleGridView;
+    @BindView(R.id.home_empty_garage_view) LinearLayout emptyGarageView;
+    @BindView(R.id.vehicle_display) GridView vehicleGridView;
 
     @Inject
     Retrofit retrofit;
-    HomeActivity homeActivity;
-    GarageAdapter gridViewAdapter;
-
     @OnClick(R.id.home_empty_garage_view)
-    void addNewCar() {
+    void addNewCar(){
         try {
             Intent intent = new Intent(getActivity(), NewVehicleActivity.class);
             startActivity(intent);
-        } catch (Exception e) {
+        } catch (Exception e){
 
         }
     }
+
+
+
+    HomeActivity homeActivity;
+    GarageAdapter gridViewAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,14 +76,14 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
         loadData();
     }
 
-    private void loadData() {
+    private void loadData(){
         // prepare call in Retrofit 2.0
-        if (homeActivity != null) {
+        if(homeActivity != null) {
             GarageAPI garageAPI = homeActivity.retrofit.create(GarageAPI.class);
             Call<GarageResponse> call = garageAPI.getVehicles();
             //asynchronous call
@@ -106,11 +106,12 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
     public void onResponse(Call<GarageResponse> call, Response<GarageResponse> response) {
 
         List<Vehicle> vehicles;
-        try {
+        try{
             vehicles = response.body().getGaragePayload().getVehicles();
-            if (vehicles.size() == 0) {
+            if(vehicles.size() == 0) {
                 emptyGarageView.setVisibility(View.VISIBLE);
-            } else {
+            }
+            else{
                 emptyGarageView.setVisibility(View.INVISIBLE);
             }
             gridViewAdapter = new GarageAdapter(getContext(), vehicles);
@@ -122,13 +123,13 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
                     extras.putParcelable(Constants.VEHICLE_PARCEL_KEY, gridViewAdapter.getItem(i));
                     intent.putExtras(extras);
                     getActivity().startActivity(intent);
-                } catch (Exception e) {
+                } catch(Exception e){
                     //
                 }
             });
             vehicleGridView.invalidate();
             ((HomeActivity) getActivity()).hideProgress();
-        } catch (Exception e) {
+        } catch (Exception e){
             //
         }
 

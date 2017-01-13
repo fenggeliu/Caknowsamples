@@ -12,20 +12,9 @@ import java.io.Serializable;
  * Created by junu on 1/10/2017.
  */
 
-public class Repair implements VehicleServiceInterface, Serializable, Parcelable {
+public class Repair implements VehicleServiceInterface, Serializable, Parcelable{
 
 
-    public static final Creator<Repair> CREATOR = new Creator<Repair>() {
-        @Override
-        public Repair createFromParcel(Parcel source) {
-            return new Repair(source);
-        }
-
-        @Override
-        public Repair[] newArray(int size) {
-            return new Repair[size];
-        }
-    };
     @SerializedName("serviceRequestId")
     @Expose
     private String serviceRequestId;
@@ -53,21 +42,6 @@ public class Repair implements VehicleServiceInterface, Serializable, Parcelable
     @SerializedName("type")
     @Expose
     private Integer type;
-
-    public Repair() {
-    }
-
-    protected Repair(Parcel in) {
-        this.serviceRequestId = in.readString();
-        this.createTime = (Long) in.readValue(Long.class.getClassLoader());
-        this.orderNo = in.readString();
-        this.serviceCatagory = in.readString();
-        this.serviceField = in.readString();
-        this.iconUrl = in.readString();
-        this.quoteCount = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.status = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.type = (Integer) in.readValue(Integer.class.getClassLoader());
-    }
 
     public String getServiceRequestId() {
         return serviceRequestId;
@@ -165,4 +139,31 @@ public class Repair implements VehicleServiceInterface, Serializable, Parcelable
         dest.writeValue(this.status);
         dest.writeValue(this.type);
     }
+
+    public Repair() {
+    }
+
+    protected Repair(Parcel in) {
+        this.serviceRequestId = in.readString();
+        this.createTime = (Long) in.readValue(Long.class.getClassLoader());
+        this.orderNo = in.readString();
+        this.serviceCatagory = in.readString();
+        this.serviceField = in.readString();
+        this.iconUrl = in.readString();
+        this.quoteCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.status = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.type = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    public static final Creator<Repair> CREATOR = new Creator<Repair>() {
+        @Override
+        public Repair createFromParcel(Parcel source) {
+            return new Repair(source);
+        }
+
+        @Override
+        public Repair[] newArray(int size) {
+            return new Repair[size];
+        }
+    };
 }

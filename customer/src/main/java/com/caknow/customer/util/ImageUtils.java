@@ -33,7 +33,6 @@ public class ImageUtils {
 
     /**
      * get display image options
-     *
      * @param roundPixels
      * @return options
      */
@@ -54,7 +53,6 @@ public class ImageUtils {
 
     /**
      * get the image by cache in memory
-     *
      * @param roundPixels
      * @return options
      */
@@ -76,7 +74,6 @@ public class ImageUtils {
 
     /**
      * get the image by cache on disc
-     *
      * @param roundPixels
      * @return options
      */
@@ -98,57 +95,51 @@ public class ImageUtils {
 
     /**
      * display image
-     *
      * @param imageUrl
      * @param imageView
      */
-    public void displayImage(String imageUrl, ImageView imageView) {
-        if (imageUrl != null && !imageUrl.equals("") && imageView != null) {
+    public void displayImage(String imageUrl,ImageView imageView) {
+        if(imageUrl != null && !imageUrl.equals("") && imageView != null ) {
             imageLoader.displayImage(imageUrl, imageView);
         }
     }
 
     /**
      * display image
-     *
      * @param imageUrl
      * @param imageView
      * @param options
      */
-    public void displayImage(String imageUrl, ImageView imageView, DisplayImageOptions options) {
-        if (imageView != null) {
+    public void displayImage(String imageUrl,ImageView imageView,DisplayImageOptions options) {
+        if(imageView != null) {
             imageLoader.displayImage(imageUrl, imageView, options);
         }
     }
 
     /**
      * display image
-     *
      * @param imageUrl
      * @param imageView
      * @param options
      * @param listener
      */
     public void displayImage(String imageUrl, ImageView imageView, DisplayImageOptions options, ImageLoadingListener listener) {
-        if (imageUrl != null && imageUrl.equals("") && imageView != null) {
-            imageLoader.displayImage(imageUrl, imageView, options, new ImageLoadingListener() {
+        if(imageUrl != null && imageUrl.equals("") && imageView != null) {
+            imageLoader.displayImage(imageUrl, imageView, options, new ImageLoadingListener(){
                 @Override
-                public void onLoadingStarted(String s, View v) {
+                public void onLoadingStarted(String s,View v) {
 
                 }
-
                 @Override
-                public void onLoadingFailed(String s, View v, FailReason failReason) {
+                public void onLoadingFailed(String s,View v,FailReason failReason) {
 
                 }
-
                 @Override
-                public void onLoadingComplete(String s, View v, Bitmap loadedImage) {
+                public void onLoadingComplete(String s,View v,Bitmap loadedImage) {
 
                 }
-
                 @Override
-                public void onLoadingCancelled(String s, View v) {
+                public void onLoadingCancelled(String s,View v) {
 
                 }
             });
@@ -161,43 +152,40 @@ public class ImageUtils {
      * @param uri
      * @param imageView
      */
-    public void displayFromSDCard(String uri, ImageView imageView) {
+    public void displayFromSDCard(String uri,ImageView imageView) {
         // String imageUri = "file:///mnt/sdcard/image.png";    // from SD card
-        ImageLoader.getInstance().displayImage("file://" + uri, imageView);
+        ImageLoader.getInstance().displayImage("file://" + uri,imageView);
     }
 
     /**
      * load image from asset
-     *
      * @param imageName the image niceName with extension
      * @param imageView
      */
-    public void displayFromAssets(String imageName, ImageView imageView) {
+    public void displayFromAssets(String imageName,ImageView imageView) {
         // String imageUri = "asset://image/png"    // from assets
-        ImageLoader.getInstance().displayImage("asset://" + imageName, imageView);
+        ImageLoader.getInstance().displayImage("asset://" + imageName,imageView);
     }
 
     /**
      * load image from drawable
-     *
      * @param imageId
      * @param imageView
      */
-    public void displayFromDrawable(int imageId, ImageView imageView) {
+    public void displayFromDrawable(int imageId,ImageView imageView) {
         // String imageUri = "drawable://" + R.drawable.image;    // from drawables
         // (only images, non-9patch)
-        ImageLoader.getInstance().displayImage("drawable://" + imageId, imageView);
+        ImageLoader.getInstance().displayImage("drawable://" + imageId,imageView);
     }
 
     /**
      * load image from content provider
-     *
      * @param imageUri
      * @param imageView
      */
-    public void displayFromContent(String imageUri, ImageView imageView) {
+    public void displayFromContent(String imageUri,ImageView imageView) {
         // String imageUri = "content://media/external/audio/albumart/13"    // from content provider
-        ImageLoader.getInstance().displayImage("content://" + imageUri, imageView);
+        ImageLoader.getInstance().displayImage("content://" + imageUri,imageView);
     }
 
 }

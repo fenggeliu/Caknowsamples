@@ -47,7 +47,6 @@ public class QuoteMapFragment extends BaseFragment implements
 
     /**
      * Setup map
-     *
      * @param googleMap
      */
     @Override
@@ -56,15 +55,15 @@ public class QuoteMapFragment extends BaseFragment implements
         mMap = googleMap;
         // Adding Test data
         markerList.add(mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(34.035761, -118.3520387))
+                .position(new LatLng(34.035761,-118.3520387))
                 .title("$555.55")
         ));
         markerList.add(mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(34.035761, -118.3520388))
+                .position(new LatLng(34.035761,-118.3520388))
                 .title("$555.55")
         ));
         markerList.add(mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(34.035761, -118.3520389))
+                .position(new LatLng(34.035761,-118.3520389))
                 .title("$555.55")
         ));
 
@@ -72,9 +71,7 @@ public class QuoteMapFragment extends BaseFragment implements
 
     }
 
-    /**
-     * Called when the user clicks a marker.
-     */
+    /** Called when the user clicks a marker. */
     @Override
     public boolean onMarkerClick(final Marker marker) {
 

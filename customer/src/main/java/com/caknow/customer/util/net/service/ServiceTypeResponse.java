@@ -14,18 +14,6 @@ import java.io.Serializable;
 
 public class ServiceTypeResponse implements Serializable, Parcelable {
 
-    public static final Creator<ServiceTypeResponse> CREATOR = new Creator<ServiceTypeResponse>() {
-        @Override
-        public ServiceTypeResponse createFromParcel(Parcel source) {
-            return new ServiceTypeResponse(source);
-        }
-
-        @Override
-        public ServiceTypeResponse[] newArray(int size) {
-            return new ServiceTypeResponse[size];
-        }
-    };
-    private final static long serialVersionUID = -1027863414252002434L;
     @SerializedName("success")
     @Expose
     private boolean success;
@@ -35,15 +23,7 @@ public class ServiceTypeResponse implements Serializable, Parcelable {
     @SerializedName("payload")
     @Expose
     private Payload payload;
-
-    public ServiceTypeResponse() {
-    }
-
-    protected ServiceTypeResponse(Parcel in) {
-        this.success = in.readByte() != 0;
-        this.message = in.readString();
-        this.payload = in.readParcelable(Payload.class.getClassLoader());
-    }
+    private final static long serialVersionUID = -1027863414252002434L;
 
     public boolean isSuccess() {
         return success;
@@ -80,4 +60,25 @@ public class ServiceTypeResponse implements Serializable, Parcelable {
         dest.writeString(this.message);
         dest.writeParcelable(this.payload, flags);
     }
+
+    public ServiceTypeResponse() {
+    }
+
+    protected ServiceTypeResponse(Parcel in) {
+        this.success = in.readByte() != 0;
+        this.message = in.readString();
+        this.payload = in.readParcelable(Payload.class.getClassLoader());
+    }
+
+    public static final Creator<ServiceTypeResponse> CREATOR = new Creator<ServiceTypeResponse>() {
+        @Override
+        public ServiceTypeResponse createFromParcel(Parcel source) {
+            return new ServiceTypeResponse(source);
+        }
+
+        @Override
+        public ServiceTypeResponse[] newArray(int size) {
+            return new ServiceTypeResponse[size];
+        }
+    };
 }

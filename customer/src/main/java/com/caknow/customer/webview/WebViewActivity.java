@@ -18,18 +18,15 @@ import butterknife.ButterKnife;
 
 public class WebViewActivity extends BaseActivity {
 
-    @BindView(R.id.custom_webview)
-    ProgressWebView webView;
-    @BindString(R.string.url_default)
-    String defaultUrl;
+    @BindView(R.id.custom_webview) ProgressWebView webView;
+    @BindString(R.string.url_default) String defaultUrl;
     String urlToLoad;
-
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
         final Bundle extras = getIntent().getExtras();
-        if (extras == null) {
+        if(extras == null){
             urlToLoad = defaultUrl;
         } else {
             urlToLoad = extras.getString(Constants.URL_PARCEL_KEY, defaultUrl);
@@ -58,8 +55,8 @@ public class WebViewActivity extends BaseActivity {
 
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("About Us");
-        } catch (NullPointerException e) {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("About Us");
+        } catch (NullPointerException e){
             //
         }
     }

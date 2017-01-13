@@ -16,61 +16,8 @@ import java.util.Locale;
 
 public class Vehicle implements Parcelable {
     public static final String PARCELABLE_KEY = Vehicle.class.getName();
-    public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
-        @Override
-        public Vehicle createFromParcel(Parcel source) {
-            return new Vehicle(source);
-        }
-
-        @Override
-        public Vehicle[] newArray(int size) {
-            return new Vehicle[size];
-        }
-    };
     private long ut;
     private long ct;
-    private String trim;
-    private String model;
-    private long year;
-    private String make;
-    @SerializedName("logo")
-    private String imageUrl;
-    private String _id;
-    private boolean active;
-    private long mileage;
-    private int quoteCount;
-    private List<ServiceItem> serviceItemList;
-
-    public Vehicle(String id, String name, String imageUrl) {
-        this._id = id;
-        this.imageUrl = imageUrl;
-
-    }
-    public Vehicle(String year, String make, String model, String trim) {
-        try {
-            this.year = Long.valueOf(year);
-        } catch (NumberFormatException e) {
-            //
-        }
-        this.make = make;
-        this.model = model;
-        this.trim = trim;
-    }
-    protected Vehicle(Parcel in) {
-        this.ut = in.readLong();
-        this.ct = in.readLong();
-        this.trim = in.readString();
-        this.model = in.readString();
-        this.year = in.readLong();
-        this.make = in.readString();
-        this.imageUrl = in.readString();
-        this._id = in.readString();
-        this.active = in.readByte() != 0;
-        this.mileage = in.readLong();
-        this.quoteCount = in.readInt();
-        this.serviceItemList = new ArrayList<ServiceItem>();
-        in.readList(this.serviceItemList, ServiceItem.class.getClassLoader());
-    }
 
     public String getTrim() {
         return trim;
@@ -108,30 +55,57 @@ public class Vehicle implements Parcelable {
         return quoteCount;
     }
 
-    public String getDisplayName() {
-        return String.format(Locale.getDefault(), "%s %s", this.make, this.model);
+    public String getDisplayName(){
+        return String.format(Locale.getDefault(), "%s %s",  this.make, this.model);
     }
 
     public List<ServiceItem> getServiceItemList() {
         return serviceItemList;
     }
 
+    private String trim;
+    private String model;
+    private long year;
+    private String make;
+    @SerializedName("logo") private String imageUrl;
+    private String _id;
+    private boolean active;
+    private long mileage;
+    private int quoteCount;
+    private List<ServiceItem> serviceItemList;
+
+
+    public Vehicle(String id, String name, String imageUrl){
+        this._id = id;
+        this.imageUrl = imageUrl;
+
+    }
+
+    public Vehicle(String year, String make, String model, String trim){
+        try {
+            this.year = Long.valueOf(year);
+        } catch(NumberFormatException e){
+            //
+        }
+        this.make = make;
+        this.model = model;
+        this.trim = trim;
+    }
+
     /**
      * Returns the unique id for vehicle
-     *
      * @return
      */
-    public String getId() {
+    public String getId(){
         return this._id;
     }
 
     /**
      * Returns the display niceName for the vehicle
-     *
      * @return
      */
 
-    public String getImageUrl() {
+    public String getImageUrl(){
         return this.imageUrl;
     }
 
@@ -155,4 +129,32 @@ public class Vehicle implements Parcelable {
         dest.writeInt(this.quoteCount);
         dest.writeList(this.serviceItemList);
     }
+
+    protected Vehicle(Parcel in) {
+        this.ut = in.readLong();
+        this.ct = in.readLong();
+        this.trim = in.readString();
+        this.model = in.readString();
+        this.year = in.readLong();
+        this.make = in.readString();
+        this.imageUrl = in.readString();
+        this._id = in.readString();
+        this.active = in.readByte() != 0;
+        this.mileage = in.readLong();
+        this.quoteCount = in.readInt();
+        this.serviceItemList = new ArrayList<ServiceItem>();
+        in.readList(this.serviceItemList, ServiceItem.class.getClassLoader());
+    }
+
+    public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
+        @Override
+        public Vehicle createFromParcel(Parcel source) {
+            return new Vehicle(source);
+        }
+
+        @Override
+        public Vehicle[] newArray(int size) {
+            return new Vehicle[size];
+        }
+    };
 }

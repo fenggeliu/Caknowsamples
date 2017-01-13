@@ -5,12 +5,12 @@ package com.caknow.customer.util.net.reg;
  */
 
 public class VerificationResponse {
-    boolean success;
     private String _id;
-    private String message;
+    boolean success;
+    private  String message;
     private VerificationPayload payload;
 
-    public VerificationPayload getPayload() {
+    public VerificationPayload getPayload(){
         return this.payload;
     }
 

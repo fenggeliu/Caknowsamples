@@ -11,8 +11,21 @@ import java.io.Serializable;
 /**
  * Created by junu on 1/11/2017.
  */
-public class Services implements Serializable, Parcelable {
+public class Services implements Serializable, Parcelable
+{
 
+    @SerializedName("catagoryId")
+    @Expose
+    private String catagoryId;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("icon")
+    @Expose
+    private String icon;
+    @SerializedName("type")
+    @Expose
+    private long type;
     public final static Parcelable.Creator<Services> CREATOR = new Creator<Services>() {
 
 
@@ -32,20 +45,9 @@ public class Services implements Serializable, Parcelable {
             return (new Services[size]);
         }
 
-    };
+    }
+            ;
     private final static long serialVersionUID = -5663899923799530039L;
-    @SerializedName("catagoryId")
-    @Expose
-    private String catagoryId;
-    @SerializedName("name")
-    @Expose
-    private String name;
-    @SerializedName("icon")
-    @Expose
-    private String icon;
-    @SerializedName("type")
-    @Expose
-    private long type;
 
     public String getCatagoryId() {
         return catagoryId;

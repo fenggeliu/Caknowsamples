@@ -14,55 +14,40 @@ import java.io.Serializable;
 public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> {
     private static final long serialVersionUID = 1l;
 
-    /**
-     * time first put into cache, in mills
-     **/
-    protected long createTime;
-    /**
-     * time last used(got), in mills
-     **/
-    protected long lastTime;
-    /**
-     * used(got) count
-     **/
-    protected long usedCount;
-    /**
-     * priority, default is zero
-     **/
-    protected int priority;
+    /** time first put into cache, in mills **/
+    protected long               createTime;
+    /** time last used(got), in mills **/
+    protected long               lastTime;
+    /** used(got) count **/
+    protected long               usedCount;
+    /** priority, default is zero **/
+    protected int                priority;
 
-    /**
-     * whether has expired, default is false
-     **/
-    protected boolean isExpired;
-    /**
-     * whether is valid forever, default is false
-     **/
-    protected boolean isForever;
+    /** whether has expired, default is false **/
+    protected boolean            isExpired;
+    /** whether is valid forever, default is false **/
+    protected boolean            isForever;
 
 
-    /**
-     * data
-     **/
-    protected V data;
+    /** data **/
+    protected V                  data;
 
     public CacheObject() {
-        this.createTime = System.currentTimeMillis();
-        this.lastTime = System.currentTimeMillis();
-        this.usedCount = 0;
-        this.priority = 0;
-        this.isExpired = false;
-        this.isForever = false;
+        this.createTime   = System.currentTimeMillis();
+        this.lastTime     = System.currentTimeMillis();
+        this.usedCount    = 0;
+        this.priority     = 0;
+        this.isExpired    = false;
+        this.isForever    = false;
     }
 
     public CacheObject(V data) {
         this();
-        this.data = data;
+        this.data         = data;
     }
 
     /**
      * get time first put into cache, in mills
-     *
      * @return
      */
     public long getCreateTime() {
@@ -71,7 +56,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * set time first put int o cache, in mills
-     *
      * @param createTime
      */
     public void setCreateTime(long createTime) {
@@ -80,7 +64,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * get time last used(got), in mills
-     *
      * @return
      */
     public long getLastTime() {
@@ -89,7 +72,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * set time last used(got), in mills
-     *
      * @param lastTime
      */
     public void setLastTime(long lastTime) {
@@ -98,7 +80,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * get used(got) count
-     *
      * @return
      */
     public long getUsedCount() {
@@ -107,7 +88,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * set used(got) count
-     *
      * @param usedCount
      * @return
      */
@@ -117,7 +97,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * Atomically increments by one the used(got) count
-     *
      * @return the previous used(got) count
      */
     public synchronized long getAndIncrementUsedCount() {
@@ -126,7 +105,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * get priority, default is zero
-     *
      * @return
      */
     public int getPriority() {
@@ -135,7 +113,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * set priority, default is zero
-     *
      * @param priority
      */
     public void setPrioroty(int priority) {
@@ -144,7 +121,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * get whether has expired, default is false
-     *
      * @return
      */
     public boolean isExpired() {
@@ -153,7 +129,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * set whether has expired, default is false
-     *
      * @param isExpired
      */
     public void setExpired(boolean isExpired) {
@@ -162,7 +137,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * get whether is valid forever, default is false
-     *
      * @return
      */
     public boolean isForever() {
@@ -170,9 +144,8 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
     }
 
     /**
-     * set whether is valid forever, default is false
-     *
-     * @param isForever
+     *  set whether is valid forever, default is false
+     *  @param isForever
      */
     public void setForever(boolean isForever) {
         this.isForever = isForever;
@@ -180,7 +153,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * get data
-     *
      * @return
      */
     public V getData() {
@@ -189,7 +161,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * set data
-     *
      * @param data
      */
     public void setData(V data) {
@@ -198,7 +169,6 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * compare with data
-     *
      * @param o
      * @return
      */
@@ -209,20 +179,19 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
 
     /**
      * if data, createTime, priority, isExpired, isForever all equals
-     *
      * @param o
      * @return
      */
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object o) {
-        if (o == null) {
+        if(o == null) {
             return false;
         }
 
-        CacheObject<V> obj = (CacheObject<V>) (o);
-        return (ObjectUtils.isEquals(this.data, obj.data) && this.createTime == obj.createTime && this.priority == obj.priority
-                && this.isExpired == obj.isExpired && this.isForever == obj.isForever);
+        CacheObject<V> obj = (CacheObject<V>)(o);
+        return (ObjectUtils.isEquals(this.data,obj.data) && this.createTime == obj.createTime && this.priority == obj.priority
+        && this.isExpired == obj.isExpired && this.isForever == obj.isForever);
     }
 
     @Override

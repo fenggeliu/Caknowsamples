@@ -12,8 +12,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class HistoryResponse implements Serializable, Parcelable {
+public class HistoryResponse implements Serializable, Parcelable
+{
 
+    @SerializedName("success")
+    @Expose
+    private Boolean success;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("payload")
+    @Expose
+    private Payload payload;
     public final static Parcelable.Creator<HistoryResponse> CREATOR = new Creator<HistoryResponse>() {
 
 
@@ -32,17 +42,9 @@ public class HistoryResponse implements Serializable, Parcelable {
             return (new HistoryResponse[size]);
         }
 
-    };
+    }
+            ;
     private final static long serialVersionUID = 5862500599210071311L;
-    @SerializedName("success")
-    @Expose
-    private Boolean success;
-    @SerializedName("message")
-    @Expose
-    private String message;
-    @SerializedName("payload")
-    @Expose
-    private Payload payload;
 
     public Boolean getSuccess() {
         return success;

@@ -35,7 +35,7 @@ public class GarageContent {
     }
 
     private static void addItem(HomeCardItem item) {
-        for (int i = 0; i < 10; i++) {
+        for(int i = 0; i < 10; i++) {
             ITEMS.add(item);
             ITEM_MAP.put(item.getVehicleId(), item);
         }

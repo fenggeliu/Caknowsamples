@@ -35,8 +35,8 @@ public class HomeContent {
     }
 
     private static void addItem(HomeCardItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.getVehicleId(), item);
+            ITEMS.add(item);
+            ITEM_MAP.put(item.getVehicleId(), item);
     }
 
     private static HomeCardItem createDummyItem(int position) {

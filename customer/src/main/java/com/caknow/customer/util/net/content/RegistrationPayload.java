@@ -9,8 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class RegistrationPayload {
 
     AccountType accountType;
-    @SerializedName("token3st")
-    String thirdPartyToken;
+    @SerializedName("token3st") String thirdPartyToken;
     String phone;
     String referralCode;
     //Only required if not using third party login
@@ -20,8 +19,9 @@ public class RegistrationPayload {
     String lName;
 
 
+
     // Default should be caknow user
-    enum AccountType {
-        FACEBOOK_USER, GOOGLE_USER, CAKNOW_USER;
+    enum AccountType{
+         FACEBOOK_USER, GOOGLE_USER, CAKNOW_USER;
     }
 }

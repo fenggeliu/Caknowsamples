@@ -25,9 +25,11 @@ import butterknife.OnClick;
 public class PaymentFragment extends BaseFragment {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + PaymentFragment.class.getName();
+
+    private String displayName;
+
     @BindView(R.id.credit_card_content_list_view)
     RecyclerView cardsRecyclerView;
-    private String displayName;
 
     @OnClick(R.id.ccl_have_card_add_btn)
     void addCard() {

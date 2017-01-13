@@ -14,35 +14,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class ServiceRequestPayload implements Serializable, Parcelable {
+public class ServiceRequestPayload implements Serializable, Parcelable
+{
 
-    public final static Parcelable.Creator<ServiceRequestPayload> CREATOR = new Creator<ServiceRequestPayload>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public ServiceRequestPayload createFromParcel(Parcel in) {
-            ServiceRequestPayload instance = new ServiceRequestPayload();
-            instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
-            in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
-            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.mileage = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.type = ((int) in.readValue((Long.class.getClassLoader())));
-            instance.description = ((String) in.readValue((String.class.getClassLoader())));
-            instance.priority = ((int) in.readValue((Long.class.getClassLoader())));
-            in.readList(instance.imageList, (java.lang.String.class.getClassLoader()));
-            instance.diagnosticCode = ((String) in.readValue((String.class.getClassLoader())));
-            instance.address = ((ServiceAddress) in.readValue((ServiceAddress.class.getClassLoader())));
-            return instance;
-        }
-
-        public ServiceRequestPayload[] newArray(int size) {
-            return (new ServiceRequestPayload[size]);
-        }
-
-    };
-    private final static long serialVersionUID = -1837018652848126229L;
     @SerializedName("geolocation")
     @Expose
     private Geolocation geolocation;
@@ -73,12 +47,34 @@ public class ServiceRequestPayload implements Serializable, Parcelable {
     @SerializedName("address")
     @Expose
     private ServiceAddress address;
+    public final static Parcelable.Creator<ServiceRequestPayload> CREATOR = new Creator<ServiceRequestPayload>() {
 
-    public static String getJsonString(ServiceRequestPayload payload) {
-        Gson gson = new Gson();
 
-        return gson.toJson(payload);
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public ServiceRequestPayload createFromParcel(Parcel in) {
+            ServiceRequestPayload instance = new ServiceRequestPayload();
+            instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
+            in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
+            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.mileage = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.type = ((int) in.readValue((Long.class.getClassLoader())));
+            instance.description = ((String) in.readValue((String.class.getClassLoader())));
+            instance.priority = ((int) in.readValue((Long.class.getClassLoader())));
+            in.readList(instance.imageList, (java.lang.String.class.getClassLoader()));
+            instance.diagnosticCode = ((String) in.readValue((String.class.getClassLoader())));
+            instance.address = ((ServiceAddress) in.readValue((ServiceAddress.class.getClassLoader())));
+            return instance;
+        }
+
+        public ServiceRequestPayload[] newArray(int size) {
+            return (new ServiceRequestPayload[size]);
+        }
+
     }
+            ;
+    private final static long serialVersionUID = -1837018652848126229L;
 
     public Geolocation getGeolocation() {
         return geolocation;
@@ -175,6 +171,11 @@ public class ServiceRequestPayload implements Serializable, Parcelable {
 
     public int describeContents() {
         return 0;
+    }
+    public static String getJsonString(ServiceRequestPayload payload){
+        Gson gson = new Gson();
+
+        return gson.toJson(payload);
     }
 
 }

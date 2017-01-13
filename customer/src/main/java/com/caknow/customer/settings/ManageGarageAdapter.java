@@ -27,13 +27,13 @@ import retrofit2.Retrofit;
 
 public class ManageGarageAdapter extends BaseAdapter {
 
-    @Inject
-    Retrofit retrofit;
     private List<Vehicle> vehicleList;
     private Context mContext;
     private LayoutInflater inflater;
+    @Inject
+    Retrofit retrofit;
 
-    public ManageGarageAdapter(Context context, List<Vehicle> vehicles) {
+    public ManageGarageAdapter(Context context, List<Vehicle> vehicles){
         this.vehicleList = vehicles;
         this.mContext = context;
         this.inflater = (LayoutInflater) this.mContext
@@ -62,10 +62,10 @@ public class ManageGarageAdapter extends BaseAdapter {
         final ManageVehicleView viewHolder;
 
         //Timber.d("position =" + position);
-        if (convertView == null) {
-            convertView = this.inflater.inflate(R.layout.list_item_manage_car, parent, false);
-            viewHolder = new ManageVehicleView(convertView, vehicleList.get(position));
-            convertView.setTag(viewHolder);
+        if (convertView == null ) {
+                convertView = this.inflater.inflate(R.layout.list_item_manage_car, parent, false);
+                viewHolder = new ManageVehicleView(convertView, vehicleList.get(position));
+                convertView.setTag(viewHolder);
 
         } else {
             viewHolder = (ManageVehicleView) convertView.getTag();
@@ -74,7 +74,7 @@ public class ManageGarageAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void delete(String vehicleId) {
+    private void delete(String vehicleId){
         Call<GarageResponse> call = retrofit.create(GarageAPI.class).deleteVehicle(vehicleId);
 
         call.enqueue(new Callback<GarageResponse>() {

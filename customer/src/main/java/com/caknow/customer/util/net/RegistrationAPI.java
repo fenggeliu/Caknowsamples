@@ -17,12 +17,12 @@ public interface RegistrationAPI {
 
     /**
      * Create a new consumer
-     *
      * @param postBody
      * @return
      */
     @PUT("/consumer")
     Call<AuthenticationResponse> login(@Body RequestBody postBody);
+
 
 
 }

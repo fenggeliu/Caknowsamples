@@ -17,7 +17,8 @@
     </string>
     <string name="title_activity_signup">Sign Up</string>
     <string name="title_activity_home">Garage</string>
-
+    <string name="spinner_prompt_priority">How soon do you need service?</string>
+    <string name="spinner_prompt_state">State</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -70,6 +71,13 @@
         <item>-1</item>
     </string-array>
 
+    <string-array name="priorities_array">
+        <item>ASAP</item>
+        <item>One Day</item>
+        <item>Two Days</item>
+        <item>Three Days</item>
+        <item>A Week</item>
+    </string-array>
     <string-array name="list_preference_entries">
         <item>Entry 1</item>
         <item>Entry 2</item>

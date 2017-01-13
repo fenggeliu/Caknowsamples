@@ -12,8 +12,15 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Geolocation implements Serializable, Parcelable {
+public class Geolocation implements Serializable, Parcelable
+{
 
+    @SerializedName("longitude")
+    @Expose
+    private Double longitude;
+    @SerializedName("latitude")
+    @Expose
+    private Double latitude;
     public final static Parcelable.Creator<Geolocation> CREATOR = new Creator<Geolocation>() {
 
 
@@ -31,14 +38,9 @@ public class Geolocation implements Serializable, Parcelable {
             return (new Geolocation[size]);
         }
 
-    };
+    }
+            ;
     private final static long serialVersionUID = 4757083563858546654L;
-    @SerializedName("longitude")
-    @Expose
-    private Double longitude;
-    @SerializedName("latitude")
-    @Expose
-    private Double latitude;
 
     public Double getLongitude() {
         return longitude;

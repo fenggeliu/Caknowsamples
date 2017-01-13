@@ -22,13 +22,14 @@ import butterknife.OnClick;
  */
 
 public class SettingsFragment extends BaseFragment {
-    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + SettingsFragment.class.getName();
     static final String TITLE_KEY = "title";
     static final String HINT_KEY = "hint";
+
     SettingsActivity settingsActivity;
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + SettingsFragment.class.getName();
 
     @OnClick(R.id.settings_layout_phone_layout)
-    void openPhoneSetting() {
+    void openPhoneSetting(){
         UpdateSettingFragment updateFragment = new UpdateSettingFragment();
         final Bundle bundle = new Bundle();
         bundle.putString(TITLE_KEY, "Phone");
@@ -38,7 +39,7 @@ public class SettingsFragment extends BaseFragment {
     }
 
     @OnClick(R.id.settings_layout_password_layout)
-    void openPasswordSetting() {
+    void openPasswordSetting(){
         UpdatePasswordFragment updatePasswordFragment = new UpdatePasswordFragment();
         final Bundle bundle = new Bundle();
 
@@ -48,14 +49,14 @@ public class SettingsFragment extends BaseFragment {
     }
 
     @OnClick(R.id.settings_layout_car_layout)
-    void openGarage() {
+    void openGarage(){
         ManageCarFragment manageCarFragment = new ManageCarFragment();
         SettingsActivity settingsActivity = (SettingsActivity) getActivity();
         settingsActivity.replaceFragment(R.id.settingsContent, manageCarFragment, ManageCarFragment.FRAGMENT_TAG, "manage_Car");
     }
 
     @OnClick(R.id.settings_sign_out_container)
-    void signOut() {
+    void signOut(){
         try {
             if (getActivity() != null & !getActivity().isFinishing()) {
                 SessionPreferences.INSTANCE.resetCredentials();
@@ -63,11 +64,10 @@ public class SettingsFragment extends BaseFragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 getActivity().finish();
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException e){
             //
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,13 +79,13 @@ public class SettingsFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context){
         super.onAttach(context);
     }
 
 
     @Override
-    public void onResume() {
+    public void onResume(){
         ((SettingsActivity) getActivity()).updateTitle("Settings");
         super.onResume();
 

@@ -28,7 +28,7 @@ public class Displayer extends RoundedBitmapDisplayer {
     // display bitmap
     @Override
     public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-        imageAware.setImageDrawable(new CircleDrawable(bitmap, margin));
+        imageAware.setImageDrawable(new CircleDrawable(bitmap,margin));
     }
 
     public static class CircleDrawable extends Drawable {
@@ -38,11 +38,11 @@ public class Displayer extends RoundedBitmapDisplayer {
         private final Paint paint;
         private RectF mBitmapRect;
 
-        public CircleDrawable(Bitmap bitmap, int margin) {
+        public CircleDrawable(Bitmap bitmap,int margin) {
             this.margin = 0;
             // create bitmap shader
-            bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-            mBitmapRect = new RectF(margin, margin, bitmap.getWidth() - margin, bitmap.getHeight() - margin);
+            bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP,Shader.TileMode.CLAMP);
+            mBitmapRect = new RectF(margin,margin,bitmap.getWidth() - margin,bitmap.getHeight() - margin);
             // settings paint
             paint = new Paint();
             paint.setAntiAlias(true);
@@ -53,11 +53,11 @@ public class Displayer extends RoundedBitmapDisplayer {
         @Override
         protected void onBoundsChange(Rect bounds) {
             super.onBoundsChange(bounds);
-            mRect.set(margin, margin, bounds.width() - margin, bounds.height() - margin);
+            mRect.set(margin,margin,bounds.width() - margin,bounds.height() - margin);
 
             //adjust the bitmap
             Matrix shaderMatrix = new Matrix();
-            shaderMatrix.setRectToRect(mBitmapRect, mRect, Matrix.ScaleToFit.FILL);
+            shaderMatrix.setRectToRect(mBitmapRect,mRect,Matrix.ScaleToFit.FILL);
             // setting shader matrix
             bitmapShader.setLocalMatrix(shaderMatrix);
         }
@@ -65,7 +65,7 @@ public class Displayer extends RoundedBitmapDisplayer {
         // draw the bolder
         @Override
         public void draw(Canvas canvas) {
-            canvas.drawRoundRect(mRect, mRect.width() / 2, mRect.height() / 2, paint);
+            canvas.drawRoundRect(mRect,mRect.width() / 2,mRect.height() / 2,paint);
         }
 
         /**
@@ -73,9 +73,9 @@ public class Displayer extends RoundedBitmapDisplayer {
          * return value is PixelFormat
          */
         @Override
-        public int getOpacity() {
+        public int getOpacity(){
             //  return unknown
-            return PixelFormat.UNKNOWN;
+             return PixelFormat.UNKNOWN;
             //  return translucent
             // return PixelFormat.TRANSLUCENT;
             //  return transparent
@@ -86,7 +86,6 @@ public class Displayer extends RoundedBitmapDisplayer {
 
         /**
          * set the alpha
-         *
          * @param alpha
          */
         @Override
@@ -96,7 +95,6 @@ public class Displayer extends RoundedBitmapDisplayer {
 
         /**
          * set color filter
-         *
          * @param cf
          */
         @Override

@@ -7,10 +7,6 @@ import java.io.Serializable;
  */
 
 public class CAKResponse<T> implements Serializable {
-    private boolean success;
-    private String message;
-    private T payload;
-
     public boolean isSuccess() {
         return success;
     }
@@ -34,4 +30,8 @@ public class CAKResponse<T> implements Serializable {
     public void setPayload(T payload) {
         this.payload = payload;
     }
+
+    private boolean success;
+    private String message;
+    private T payload;
 }

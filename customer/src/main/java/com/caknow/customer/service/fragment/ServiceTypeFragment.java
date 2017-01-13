@@ -46,18 +46,17 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     private String serviceId;
     private ServiceTypeAdapter adapter;
     private ArrayList<Services> itemsToDisplay;
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         CAKNOWApplication.get().getNetComponent().inject(this);
         ((NewServiceRequestActivity) getActivity()).updateTitle("Choose Service Type", R.drawable.ic_action_back);
         Bundle args = getArguments();
-        if (args != null) {
-            itemsToDisplay = args.getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
+        if(args!=null){
+           itemsToDisplay = args.getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
             typeId = args.getInt(Constants.SERVICE_TYPE_KEY, 1);
         }
-        if (itemsToDisplay == null) {
+        if(itemsToDisplay == null){
             itemsToDisplay = new ArrayList();
         }
         adapter = new ServiceTypeAdapter(this.getContext(), itemsToDisplay);
@@ -67,10 +66,10 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
         String typeString = "";
-        switch (typeId) {
+        switch(typeId){
             case 1:
                 typeString = "Repair";
                 break;
@@ -81,7 +80,7 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
                 typeString = "Emergency";
                 break;
         }
-        ((NewServiceRequestActivity) getActivity()).updateTitle(typeString, R.drawable.ic_action_back);
+        ((NewServiceRequestActivity)getActivity()).updateTitle(typeString, R.drawable.ic_action_back);
     }
 
     @Override
@@ -101,7 +100,7 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     }
 
 
-    private void loadDataOnClick(final int typeId, final String parentId) {
+    private void loadDataOnClick(final int typeId, final String parentId){
         ((NewServiceRequestActivity) getActivity()).showProgress();
         Call<ServiceTypeResponse> call = serviceAPI.getServiceTypeList(typeId, parentId);
         //asynchronous call
@@ -111,11 +110,10 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
 
     /**
      * Load the first list of service types with a null parentId
-     *
      * @param parcelableArrayList
      */
-    private void openNextFragment(ArrayList parcelableArrayList) {
-        if (getActivity() != null) {
+    private void openNextFragment(ArrayList parcelableArrayList){
+        if(getActivity() != null) {
             NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
             ServiceListFragment fragment = new ServiceListFragment();
             Bundle args = new Bundle();
@@ -130,26 +128,31 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
 
     @Override
     public void onResponse(Call<ServiceTypeResponse> call, Response<ServiceTypeResponse> response) {
-        try {
+        try{
             ((NewServiceRequestActivity) getActivity()).hideProgress();
-        } catch (Exception e) {
+        } catch(Exception e){
             // Thread safe
         }
         ArrayList<Services> parcelableArrayList = new ArrayList<Services>();
         parcelableArrayList.addAll(response.body().getPayload().getList());
-        if (parcelableArrayList.size() > 0) {
-            openNextFragment(parcelableArrayList);
-            ((NewServiceRequestActivity) getActivity()).setServiceId(serviceId);
+        // If there are no more sub items to display...
+        if(parcelableArrayList.size() > 0) {
 
-        } else {
+            ((NewServiceRequestActivity) getActivity()).setServiceId(serviceId);
+            ((NewServiceRequestActivity) getActivity()).setServiceDescription(serviceId);
+
+            openNextFragment(parcelableArrayList);
+
+        }
+        else{
 
             ServiceDetailsFragment fragment = new ServiceDetailsFragment();
             Bundle args = new Bundle();
 
             fragment.setArguments(args);
             try {
-                ((NewServiceRequestActivity) getActivity()).replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
-            } catch (Exception e) {
+                ((NewServiceRequestActivity)getActivity()).replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
+            } catch (Exception e){
                 //
             }
         }
@@ -157,9 +160,9 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
 
     @Override
     public void onFailure(Call<ServiceTypeResponse> call, Throwable t) {
-        try {
+        try{
             ((NewServiceRequestActivity) getActivity()).hideProgress();
-        } catch (Exception e) {
+        } catch(Exception e){
             // Thread safe
         }
     }

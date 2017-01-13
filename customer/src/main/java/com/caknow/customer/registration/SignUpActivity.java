@@ -53,22 +53,19 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
     })
     List<EditText> editTextList;
 
-    @BindString(R.string.url_privacy_policy)
-    String urlPrivacyPolicy;
-    @BindString(R.string.url_terms_and_conditions)
-    String urlTermsConditions;
-    @BindString(R.string.url_terms_of_service)
-    String urlTermsService;
+    @BindString(R.string.url_privacy_policy) String urlPrivacyPolicy;
+    @BindString(R.string.url_terms_and_conditions) String urlTermsConditions;
+    @BindString(R.string.url_terms_of_service) String urlTermsService;
 
 
     private OkHttpClient client;
     private Retrofit retrofit;
 
     @OnClick({R.id.sign_up_privacy_policy_tv, R.id.sign_up_terms_and_conditions_tv, R.id.sign_up_terms_of_service_tv})
-    void launchWebViewActivity(TextView view) {
+    void launchWebViewActivity(TextView view){
         final Intent webViewIntent = new Intent(this, WebViewActivity.class);
         String urlToLoad = "";
-        switch (view.getId()) {
+        switch(view.getId()){
             case R.id.sign_up_privacy_policy_tv:
                 urlToLoad = urlPrivacyPolicy;
                 break;
@@ -83,7 +80,7 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
     }
 
     @OnClick(R.id.suil_sign_up_btn)
-    void executeSignUp() {
+    void executeSignUp(){
         register();
     }
 
@@ -140,15 +137,15 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
     @Override
     protected void setTitle() {
         try {
-            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign Up");
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign Up");
         } catch (Exception e) {
             //
         }
 
     }
 
-    private void register() {
+    private void register(){
         // prepare call in Retrofit 2.0
         RegistrationAPI registrationAPI = retrofit.create(RegistrationAPI.class);
         String text = RegistrationRequest.getJsonString(

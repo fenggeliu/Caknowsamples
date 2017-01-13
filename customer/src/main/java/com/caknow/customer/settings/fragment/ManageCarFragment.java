@@ -32,12 +32,13 @@ import retrofit2.Response;
 
 public class ManageCarFragment extends BaseFragment implements Callback<GarageResponse> {
 
-    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ManageCarFragment.class.getName();
     @BindView(R.id.manage_car_listview)
     ListView carListView;
-    ManageGarageAdapter garageAdapter;
-    SettingsActivity settingsActivity;
 
+    ManageGarageAdapter garageAdapter;
+
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ManageCarFragment.class.getName();
+    SettingsActivity settingsActivity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,14 +52,14 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context){
         super.onAttach(context);
         getActivity().setTitle("History");
     }
 
-    private void loadData() {
+    private void loadData(){
         // prepare call in Retrofit 2.0
-        if (settingsActivity != null) {
+        if(settingsActivity != null) {
             GarageAPI garageAPI = settingsActivity.retrofit.create(GarageAPI.class);
             Call<GarageResponse> call = garageAPI.getVehicles();
             //asynchronous call
@@ -96,7 +97,7 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
     public void onFailure(Call<GarageResponse> call, Throwable t) {
         try {
             Toast.makeText(getActivity(), "Unable to load vehicles", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
+        }    catch(Exception e){
             // Thread safe
         }
     }

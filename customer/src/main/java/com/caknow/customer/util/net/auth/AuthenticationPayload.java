@@ -7,19 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class AuthenticationPayload {
-    String _id;
-    @SerializedName("token")
-    String accessToken;
-    String refreshToken;
-    String pubnubChnl;
-    String stripeCusToken;
-    boolean verified;
-    int language;
-    boolean verificationStatus;
-    boolean hasEmail;
-    String fName;
-    String lName;
-
     public String get_id() {
         return _id;
     }
@@ -63,4 +50,17 @@ public class AuthenticationPayload {
     public boolean getHasEMail() {
         return hasEmail;
     }
+
+
+    String _id;
+    @SerializedName("token") String accessToken;
+    String refreshToken;
+    String pubnubChnl;
+    String stripeCusToken;
+    boolean verified;
+    int language;
+    boolean verificationStatus;
+    boolean hasEmail;
+    String fName;
+    String lName;
 }

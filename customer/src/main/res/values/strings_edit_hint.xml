@@ -37,11 +37,11 @@
 
     <!-- location layout -->
     <string name="location_layout_line1">Line 1 (street address, P.O. box)</string>
-    <string name="location_layout_line2">Line 2 (apt,suite,unit, etc.)</string>
+    <string name="location_layout_line2">Line 2 (apt, suite, unit… )</string>
     <string name="location_layout_city">City</string>
     <string name="location_layout_zip_code">Zip code</string>
 
     <!-- request detail layout -->
-    <string name="rdl_cur_mile">Current miles</string>
-    <string name="rdl_description">Description (Optional)</string>
+    <string name="rdl_cur_mile">Current mileage</string>
+    <string name="rdl_description">Add additional details… (Optional)</string>
 </resources>

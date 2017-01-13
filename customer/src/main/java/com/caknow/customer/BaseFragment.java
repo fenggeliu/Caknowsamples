@@ -14,9 +14,9 @@ public class BaseFragment extends Fragment {
     // Constants
     // ===========================================================
     @Override
-    public void onDetach() {
+    public void onDetach(){
         super.onDetach();
-        if (unbinder != null) {
+        if(unbinder != null){
             unbinder.unbind();
         }
     }

@@ -38,7 +38,6 @@ public class StringUtils {
 
     /**
      * is empty or string length is 0
-     *
      * @param str
      * @return if string is null or its size is 0, return true, else return false.
      */
@@ -48,14 +47,13 @@ public class StringUtils {
 
     /**
      * compare two string
-     *
      * @param actual
      * @param expected
      * @return
-     * @see ObjectUtils#isEquals(Object, Object)
+     * @see ObjectUtils#isEquals(Object,Object)
      */
-    public static boolean isEquals(String actual, String expected) {
-        return ObjectUtils.isEquals(actual, expected);
+    public static boolean isEquals(String actual,String expected) {
+        return ObjectUtils.isEquals(actual,expected);
     }
 
     /**
@@ -65,7 +63,6 @@ public class StringUtils {
      *     length(\"\")     = 0
      *     length(\"abc\")  = 3
      * </pre>
-     *
      * @param str
      * @return str is null or empty, return 0, else return {@link CharSequence#length()}
      */
@@ -80,12 +77,11 @@ public class StringUtils {
      *     nullStrToEmpty(&quot;&quot;)      = &quot;&quot;
      *     nullStrToEmpty(&quot;aa&quot;)    = &quot;aa&quot;
      * </pre>
-     *
      * @param str
      * @return
      */
     public static String nullStrToEmpty(Object str) {
-        return (str == null ? "" : (str instanceof String ? (String) str : str.toString()));
+        return (str == null ? "" : (str instanceof String ? (String)str:str.toString()));
     }
 
 
@@ -99,12 +95,11 @@ public class StringUtils {
      *     capitalizeFirstLetter("ab")         = "ab"
      *     capitalizeFirstLetter("ABC")        = "ABC"
      * </pre>
-     *
      * @param str
      * @return
      */
     public static String capitalizeFirstLetter(String str) {
-        if (isEmpty(str)) {
+        if(isEmpty(str)) {
             return str;
         }
 
@@ -120,17 +115,16 @@ public class StringUtils {
      *     utf8Encode("")                    = ""
      *     utf8Encode("aa")                  = "aa"
      * </pre>
-     *
      * @param str
      * @return
      * @throws UnsupportedEncodingException if an error occurs
      */
     public static String utf8Encode(String str) {
-        if (!isEmpty(str) && str.getBytes().length != str.length()) {
+        if(!isEmpty(str) && str.getBytes().length != str.length()) {
             try {
-                return URLEncoder.encode(str, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException("UnsupportedEncodingException occurred,", e);
+                return URLEncoder.encode(str,"UTF-8");
+            } catch(UnsupportedEncodingException e) {
+                throw new RuntimeException("UnsupportedEncodingException occurred,",e);
             }
         }
         return str;
@@ -138,16 +132,15 @@ public class StringUtils {
 
     /**
      * encode in utf-8, if exception, return defaultReturn
-     *
      * @param str
      * @param defaultReturn
      * @return
      */
-    public static String utf8Encode(String str, String defaultReturn) {
-        if (!isEmpty(str) && str.getBytes().length != str.length()) {
+    public static String utf8Encode(String str,String defaultReturn) {
+        if(!isEmpty(str) && str.getBytes().length != str.length()) {
             try {
-                return URLEncoder.encode(str, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
+                return URLEncoder.encode(str,"UTF-8");
+            } catch(UnsupportedEncodingException e) {
                 return defaultReturn;
             }
         }
@@ -169,23 +162,22 @@ public class StringUtils {
      *     getHrefInnerHtml("jack&lt;a&gt;innerHtml&lt;/a&gt;&lt;/a&gt;")                     = "innerHtml"
      *     getHrefInnerHtml("&lt;a&gt;innerHtml1&lt;/a&gt;&lt;a&gt;innerHtml2&lt;/a&gt;")     = "innerHtml2"
      * </pre>
-     *
      * @param href
      * @return <ul>
-     * <li>if href is null, return ""</li>
-     * <li>if not match regx, return source</li>
-     * <li>return the last string that match regx</li>
+     *     <li>if href is null, return ""</li>
+     *     <li>if not match regx, return source</li>
+     *     <li>return the last string that match regx</li>
      * </ul>
      */
     public static String getHrefInnerHtml(String href) {
-        if (isEmpty(href)) {
+        if(isEmpty(href)) {
             return "";
         }
 
         String hrefReg = ".*<[\\s]*a[\\s]*.*>(.+?)<[\\s]*/a[\\s]*>.*";
-        Pattern hrefPattern = Pattern.compile(hrefReg, Pattern.CASE_INSENSITIVE);
+        Pattern hrefPattern = Pattern.compile(hrefReg,Pattern.CASE_INSENSITIVE);
         Matcher hrefMatcher = hrefPattern.matcher(href);
-        if (hrefMatcher.matches()) {
+        if(hrefMatcher.matches()) {
             return hrefMatcher.group(1);
         }
         return href;
@@ -193,7 +185,7 @@ public class StringUtils {
 
     /**
      * process special char in html
-     * <p>
+     *
      * <pre>
      *     htmlEscapeCharsToString(null)                                = null
      *     htmlEscapeCharsToString("")                                  = ""
@@ -204,39 +196,37 @@ public class StringUtils {
      *     htmlEscapeCharsToString("mp3&quot;mp4")                      = "mp3\"mp4"
      *     htmlEscapeCharsToString("mp3&lt;&gt;&amp;&quot;mp4")         = "mp3\<\>&\"mp4"
      * </pre>
-     *
      * @param source
      * @return
      */
     public static String htmlEscapeCharsToString(String source) {
-        return StringUtils.isEmpty(source) ? source : source.replaceAll("&lt;", "<").replaceAll("&gt;", ">")
-                .replaceAll("&amp", "&").replaceAll("&quot;", "\"");
+        return StringUtils.isEmpty(source) ? source : source.replaceAll("&lt;","<").replaceAll("&gt;",">")
+                .replaceAll("&amp","&").replaceAll("&quot;","\"");
     }
 
     /**
      * transform half width char to full width char
-     * <p>
+     *
      * <pre>
      *     fullWidthToHalfWidth(null)                            = null
      *     fullWidthToHalfWidth("")                              = ""
      *     fullWidthToHalfWidth(new String(new char[] {12288}))  = ""
      *     fullWidthToHalfWidth("!"#$%&")                        = "!\"#$%&"
      * </pre>
-     *
      * @param s
      * @return
      */
     public static String fullWidthToHalfWidth(String s) {
-        if (isEmpty(s)) {
+        if(isEmpty(s)) {
             return s;
         }
 
         char[] source = s.toCharArray();
-        for (int i = 0; i < source.length; i++) {
-            if (source[i] == 12288) {
+        for(int i = 0;i < source.length;i++) {
+            if(source[i] == 12288) {
                 source[i] = ' ';
-            } else if (source[i] >= 65281 && source[i] <= 65374) {
-                source[i] = (char) (source[i] - 65248);
+            } else if(source[i] >= 65281 && source[i] <= 65374) {
+                source[i] = (char)(source[i] - 65248);
             } else {
                 source[i] = source[i];
             }
@@ -252,21 +242,20 @@ public class StringUtils {
      *     halfWidthToFullWidth(" ")                  = new String(new char[] {12288})
      *     halfWidthToFullWidth("!\"#$%&)             = "！＂＃＄％＆"
      * </pre>
-     *
      * @param s
      * @return
      */
     public static String halfWidthToFullWidth(String s) {
-        if (!isEmpty(s)) {
+        if(!isEmpty(s)){
             return s;
         }
 
         char[] source = s.toCharArray();
-        for (int i = 0; i < source.length; i++) {
-            if (source[i] == ' ') {
-                source[i] = (char) 12288;
-            } else if (source[i] >= 33 && source[i] <= 126) {
-                source[i] = (char) (source[i] + 65248);
+        for(int i = 0;i < source.length;i++) {
+            if(source[i] == ' ') {
+                source[i] = (char)12288;
+            } else if(source[i] >= 33 && source[i] <= 126) {
+                source[i] = (char)(source[i] + 65248);
             } else {
                 source[i] = source[i];
             }

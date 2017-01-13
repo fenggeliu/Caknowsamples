@@ -50,33 +50,6 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    private void animate(final View v, final long duration) {
-
-        Animation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(duration);
-        anim.setAnimationListener(new FadeInListener());
-        v.setAnimation(anim);
-
-    }
-
-    private void route() {
-        boolean loggedIn = !TextUtils.isEmpty(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.ACCESS_TOKEN));
-        SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, true);
-        boolean verified = SessionPreferences.INSTANCE.getBooleanPref(PreferenceKeys.BOOL_VERIFICATION_STATUS);
-        if (!loggedIn) {
-            Intent intent = new Intent(this,
-                    InitActivity.class);
-            startActivity(intent);
-        } else if (!verified) {
-            Intent intent = new Intent(this, VerificationActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-        }
-        SplashActivity.this.finish();
-    }
-
     private class FadeInListener implements Animation.AnimationListener {
 
         @Override
@@ -94,6 +67,34 @@ public class SplashActivity extends BaseActivity {
 
         }
 
+    }
+
+    private void animate(final View v, final long duration) {
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(duration);
+        anim.setAnimationListener(new FadeInListener());
+        v.setAnimation(anim);
+
+    }
+
+    private void route() {
+        boolean loggedIn = !TextUtils.isEmpty(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.ACCESS_TOKEN));
+        SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, true);
+        boolean verified = SessionPreferences.INSTANCE.getBooleanPref(PreferenceKeys.BOOL_VERIFICATION_STATUS);
+        if (!loggedIn) {
+            Intent intent = new Intent(this,
+                    InitActivity.class);
+            startActivity(intent);
+        } else if (!verified){
+            Intent intent = new Intent(this, VerificationActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+        SplashActivity.this.finish();
     }
 
 }

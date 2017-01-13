@@ -12,11 +12,10 @@ import java.io.Serializable;
 public class VehicleServiceResponse implements Serializable {
     boolean success;
     String message;
-    @SerializedName("payload")
-    VehicleServicePayload payload;
+    @SerializedName("payload")VehicleServicePayload payload;
 
 
-    public VehicleServicePayload getServiceRequests() {
+    public VehicleServicePayload getServiceRequests(){
         return this.payload;
     }
 }

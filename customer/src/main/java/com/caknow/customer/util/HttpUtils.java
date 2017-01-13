@@ -24,50 +24,42 @@ import java.util.Map;
 /**
  * HttpUtils
  * <ul>
- * <strong>Http get, you can use {@link HttpCache}</strong>
- * <li>{@link #httpGet(HttpRequest)} http get synchronous</li>
- * <li>{@link #httpGet(String)} http get synchronous</li>
- * <li>{@link #httpGetString(String)} http get synchronous, response is String</li>
- * <li>{@link #httpGet(HttpRequest, HttpListener)} http get asynchronous</li>
- * <li>{@link #httpGet(String, HttpListener)} http get asynchronous</li>
+ *     <strong>Http get, you can use {@link HttpCache}</strong>
+ *     <li>{@link #httpGet(HttpRequest)} http get synchronous</li>
+ *     <li>{@link #httpGet(String)} http get synchronous</li>
+ *     <li>{@link #httpGetString(String)} http get synchronous, response is String</li>
+ *     <li>{@link #httpGet(HttpRequest, HttpListener)} http get asynchronous</li>
+ *     <li>{@link #httpGet(String, HttpListener)} http get asynchronous</li>
  * </ul>
  * <ul>
- * <strong>Http post</strong>
- * <li>{@link #httpPost(HttpRequest)}</li>
- * <li>{@link #httpPost(String)}</li>
- * <li>{@link #httpPostString(String)}</li>
- * <li>{@link #httpPostString(String, Map)}</li>
+ *     <strong>Http post</strong>
+ *     <li>{@link #httpPost(HttpRequest)}</li>
+ *     <li>{@link #httpPost(String)}</li>
+ *     <li>{@link #httpPostString(String)}</li>
+ *     <li>{@link #httpPostString(String, Map)}</li>
  * </ul>
  * <ul>
- * <strong>Http params</strong>
- * <li>{@link #getUrlWithParas(String, Map)}</li>
- * <li>{@link #getUrlWithValueEncodeParas(String, Map)}</li>
- * <li>{@link #joinParas(Map)}</li>
- * <li>{@link #joinParasWithEncodeValue(Map)}</li>
- * <li>{@link #appendParaToUrl(String, String, String)}</li>
- * <li>{@link #parseGmtTime(String)}</li>
+ *     <strong>Http params</strong>
+ *     <li>{@link #getUrlWithParas(String, Map)}</li>
+ *     <li>{@link #getUrlWithValueEncodeParas(String, Map)}</li>
+ *     <li>{@link #joinParas(Map)}</li>
+ *     <li>{@link #joinParasWithEncodeValue(Map)}</li>
+ *     <li>{@link #appendParaToUrl(String, String, String)}</li>
+ *     <li>{@link #parseGmtTime(String)}</li>
  * </ul>
  */
 
 public class HttpUtils {
 
-    /**
-     * url and para separator
-     **/
-    public static final String URL_AND_PARA_SEPARATOR = "?";
-    /**
-     * parameters separator
-     **/
-    public static final String PARAMETERS_SEPARATOR = "&";
-    /**
-     * paths separator
-     **/
-    public static final String PATHS_SEPARATOR = "/";
-    /**
-     * equal sign
-     **/
-    public static final String EQUAL_SIGN = "=";
-    private static final SimpleDateFormat GMT_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+    /** url and para separator **/
+    public static final String URL_AND_PARA_SEPARATOR     = "?";
+    /** parameters separator **/
+    public static final String PARAMETERS_SEPARATOR       = "&";
+    /** paths separator **/
+    public static final String PATHS_SEPARATOR            = "/";
+    /** equal sign **/
+    public static final String EQUAL_SIGN                 = "=";
+
 
     private HttpUtils() {
         throw new AssertionError();
@@ -76,15 +68,14 @@ public class HttpUtils {
     /**
      * http get synchronous
      * <ul>
-     * <li>use gzip compression default</li>
-     * <li>use bufferedReader to improve the reading speed</li>
+     *     <li>use gzip compression default</li>
+     *     <li>use bufferedReader to improve the reading speed</li>
      * </ul>
-     *
      * @param request
      * @return the response of the url, if null represents http error
      */
     public static HttpResponse httpGet(HttpRequest request) {
-        if (request == null) {
+        if(request == null) {
             return null;
         }
 
@@ -96,27 +87,27 @@ public class HttpUtils {
             try {
                 HttpResponse response = new HttpResponse(request.getUrl());
                 // default gzip encode
-                con = (HttpURLConnection) url.openConnection();
-                setURLConnection(request, con);
+                con = (HttpURLConnection)url.openConnection();
+                setURLConnection(request,con);
                 input = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String s;
-                while ((s = input.readLine()) != null) {
+                while((s = input.readLine()) != null) {
                     sb.append(s).append("\n");
                 }
                 response.setResponseBody(sb.toString());
-                setHttpResponse(con, response);
+                setHttpResponse(con,response);
                 return response;
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
-        } catch (MalformedURLException el) {
+        } catch(MalformedURLException el) {
             el.printStackTrace();
         } finally {
             // close buffered
             IOUtils.closeQuietly(input);
             //disconnecting releases the resources held by a connection so they may be closed or reused
-            if (con != null) {
+            if(con != null) {
                 con.disconnect();
             }
         }
@@ -125,7 +116,6 @@ public class HttpUtils {
 
     /**
      * http get synchronous
-     *
      * @param httpUrl
      * @return the response of the url, if null represents http error
      * @see HttpUtils#httpGet(HttpRequest)
@@ -136,7 +126,6 @@ public class HttpUtils {
 
     /**
      * http get synchronous
-     *
      * @param request
      * @return the content of the url, if null represents http error
      * @see HttpUtils#httpGet(HttpRequest)
@@ -148,7 +137,6 @@ public class HttpUtils {
 
     /**
      * http get synchronous
-     *
      * @param httpUrl
      * @return the content of the url, if null represents http error
      * @see HttpUtils#httpGet(HttpRequest)
@@ -161,43 +149,39 @@ public class HttpUtils {
     /**
      * http get asynchronous
      * <ul>
-     * <li>it gets data from network asynchronous</li>
-     * <li>if you want get data synchronous, use {@link #httpGet(HttpRequest)} or {@link #httpGetString(HttpRequest)}</li>
+     *     <li>it gets data from network asynchronous</li>
+     *     <li>if you want get data synchronous, use {@link #httpGet(HttpRequest)} or {@link #httpGetString(HttpRequest)}</li>
      * </ul>
-     *
      * @param url
      * @param listener listener which can do something before or after HttpGet, this can be null if you not want to do something
      */
-    public static void httpGet(String url, HttpListener listener) {
+    public static void httpGet(String url,HttpListener listener) {
         new HttpStringAsyncTask(listener).execute(url);
     }
 
     /**
      * http get asynchronous
      * <ul>
-     * <li>if gets data from network asynchronous</li>
-     * <li>if you want get data synchronous, use {@link HttpCache#httpGet(HttpRequest)} or {@link HttpCache#httpGetString(HttpRequest)}</li>
+     *     <li>if gets data from network asynchronous</li>
      * </ul>
-     *
      * @param request
      * @param listener listener which can do something before or after HttpGet, this can be null if you not want to do something
      */
-    public static void httpGet(HttpRequest request, HttpListener listener) {
+    public static void httpGet(HttpRequest request,HttpListener listener) {
         new HttpRequestAsyncTask(listener).execute(request);
     }
 
     /**
      * http post
      * <ul>
-     * <li>use gzip compression default</li>
-     * <li>use bufferedReader to improve the reading speed</li>
+     *     <li>use gzip compression default</li>
+     *     <li>use bufferedReader to improve the reading speed</li>
      * </ul>
-     *
      * @param request
      * @return the response of the url, if null represents http error
      */
     public static HttpResponse httpPost(HttpRequest request) {
-        if (request == null) {
+        if(request == null) {
             return null;
         }
 
@@ -210,32 +194,32 @@ public class HttpUtils {
             try {
                 HttpResponse response = new HttpResponse(request.getUrl());
                 //default gzip encode
-                con = (HttpURLConnection) url.openConnection();
+                con = (HttpURLConnection)url.openConnection();
                 setURLConnection(request, con);
                 con.setRequestMethod("POST");
                 String paras = request.getParas();
-                if (!StringUtils.isEmpty(paras)) {
+                if(!StringUtils.isEmpty(paras)) {
                     con.getOutputStream().write(paras.getBytes());
                 }
                 input = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String s;
-                while ((s = input.readLine()) != null) {
+                while((s = input.readLine()) != null) {
                     sb.append(s).append("\n");
                 }
                 response.setResponseBody(sb.toString());
-                setHttpResponse(con, response);
+                setHttpResponse(con,response);
                 return response;
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
-        } catch (MalformedURLException el) {
+        } catch(MalformedURLException el) {
             el.printStackTrace();
         } finally {
             //close buffered
             IOUtils.closeQuietly(input);
             // disconnecting releases the resources held by a connection so they may be closed or reused
-            if (con != null) {
+            if(con != null) {
                 con.disconnect();
             }
         }
@@ -245,7 +229,6 @@ public class HttpUtils {
 
     /**
      * http post
-     *
      * @param httpUrl
      * @return the response of the url, if null represents http error
      * @see HttpUtils#httpPost(HttpRequest)
@@ -256,7 +239,6 @@ public class HttpUtils {
 
     /**
      * http post
-     *
      * @param httpUrl
      * @return the content of the url, if null represents http error
      * @see HttpUtils#httpPost(HttpRequest)
@@ -268,7 +250,6 @@ public class HttpUtils {
 
     /**
      * htp post
-     *
      * @param httpUrl
      * @param parasMap paras map, key is para niceName, value is para value. will be transform to String by
      *                 {@link HttpUtils#joinParas(Map)}
@@ -276,7 +257,7 @@ public class HttpUtils {
      * @see HttpUtils#httpPost(HttpRequest)
      */
     public static String httpPostString(String httpUrl, Map<String, String> parasMap) {
-        HttpResponse response = httpPost(new HttpRequest(httpUrl, parasMap));
+        HttpResponse response = httpPost(new HttpRequest(httpUrl,parasMap));
         return response == null ? null : response.getResponseBody();
     }
 
@@ -288,15 +269,14 @@ public class HttpUtils {
      *     getUrlWithParas("caknow.com",{(a,b),(i,j)})          = "caknow.com?a=b&i=j";
      *     getUrlWithParas("caknow.com",{(a,b),(i,j),(c,d)})    = "caknow.com?a=b&i=j&c=d";
      * </pre>
-     *
-     * @param url      url
+     * @param url url
      * @param parasMap paras map,key is para niceName, value is para value
      * @return if url is null, process it as empty string
      */
     public static String getUrlWithParas(String url, Map<String, String> parasMap) {
         StringBuilder urlWithParas = new StringBuilder(StringUtils.isEmpty(url) ? "" : url);
         String paras = joinParas(parasMap);
-        if (!StringUtils.isEmpty(paras)) {
+        if(!StringUtils.isEmpty(paras)) {
             urlWithParas.append(URL_AND_PARA_SEPARATOR).append(paras);
         }
         return urlWithParas.toString();
@@ -304,17 +284,16 @@ public class HttpUtils {
 
     /**
      * join url and encode paras
-     *
      * @param url
      * @param parasMap
      * @return
-     * @see #getUrlWithParas(String, Map)
+     * @see #getUrlWithParas(String,Map)
      * @see StringUtils#utf8Encode(String)
      */
     public static String getUrlWithValueEncodeParas(String url, Map<String, String> parasMap) {
         StringBuilder urlWithParas = new StringBuilder(StringUtils.isEmpty(url) ? "" : url);
         String paras = joinParasWithEncodeValue(parasMap);
-        if (!StringUtils.isEmpty(paras)) {
+        if(!StringUtils.isEmpty(paras)) {
             urlWithParas.append(URL_AND_PARA_SEPARATOR).append(paras);
         }
         return urlWithParas.toString();
@@ -322,21 +301,20 @@ public class HttpUtils {
 
     /**
      * join paras
-     *
      * @param parasMap paras map, key is para niceName, value is para value
      * @return join key and value with {@link #EQUAL_SIGN}, join keys with {@link #PARAMETERS_SEPARATOR}
      */
     public static String joinParas(Map<String, String> parasMap) {
-        if (parasMap == null || parasMap.size() == 0) {
+        if(parasMap == null || parasMap.size() == 0) {
             return null;
         }
 
         StringBuilder paras = new StringBuilder();
         Iterator<Map.Entry<String, String>> ite = parasMap.entrySet().iterator();
-        while (ite.hasNext()) {
+        while(ite.hasNext()) {
             Map.Entry<String, String> entry = ite.next();
             paras.append(entry.getKey()).append(EQUAL_SIGN).append(entry.getValue());
-            if (ite.hasNext()) {
+            if(ite.hasNext()) {
                 paras.append(PARAMETERS_SEPARATOR);
             }
         }
@@ -345,25 +323,24 @@ public class HttpUtils {
 
     /**
      * join paras with encoded value
-     *
      * @param parasMap
      * @return
      * @see #joinParas(Map)
      * @see StringUtils#utf8Encode(String)
      */
-    public static String joinParasWithEncodeValue(Map<String, String> parasMap) {
+    public static String joinParasWithEncodeValue(Map<String,String> parasMap) {
         StringBuilder paras = new StringBuilder("");
-        if (parasMap != null && parasMap.size() == 0) {
+        if(parasMap != null && parasMap.size() == 0) {
             Iterator<Map.Entry<String, String>> ite = parasMap.entrySet().iterator();
             try {
-                while (ite.hasNext()) {
+                while(ite.hasNext()) {
                     Map.Entry<String, String> entry = ite.next();
                     paras.append(entry.getKey()).append(EQUAL_SIGN).append(StringUtils.utf8Encode(entry.getValue()));
-                    if (ite.hasNext()) {
+                    if(ite.hasNext()) {
                         paras.append(PARAMETERS_SEPARATOR);
                     }
                 }
-            } catch (Exception e) {
+            } catch(Exception e) {
                 e.printStackTrace();
             }
         }
@@ -372,19 +349,18 @@ public class HttpUtils {
 
     /**
      * append a key and value pair to url
-     *
      * @param url
      * @param paraKey
      * @param paraValue
      * @return
      */
     public static String appendParaToUrl(String url, String paraKey, String paraValue) {
-        if (StringUtils.isEmpty(url)) {
+        if(StringUtils.isEmpty(url)) {
             return url;
         }
 
         StringBuilder sb = new StringBuilder(url);
-        if (!url.contains(URL_AND_PARA_SEPARATOR)) {
+        if(!url.contains(URL_AND_PARA_SEPARATOR)) {
             sb.append(URL_AND_PARA_SEPARATOR);
         } else {
             sb.append(PARAMETERS_SEPARATOR);
@@ -393,16 +369,18 @@ public class HttpUtils {
         return sb.append(paraKey).append(EQUAL_SIGN).append(paraValue).toString();
     }
 
+
+    private static final SimpleDateFormat GMT_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+
     /**
      * parse gmt time to long
-     *
      * @param gmtTime likes Thu,11 Apr 2013 10:20:30 GMT
      * @return represents exception otherwise time in milliseconds
      */
     public static long parseGmtTime(String gmtTime) {
         try {
             return GMT_FORMAT.parse(gmtTime).getTime();
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return -1;
@@ -411,66 +389,63 @@ public class HttpUtils {
 
     /**
      * set HttpRequest to HttpURLConnection
-     *
-     * @param request       source request
+     * @param request source request
      * @param urlConnection destin url connection
      */
-    private static void setURLConnection(HttpRequest request, HttpURLConnection urlConnection) {
-        if (request == null || urlConnection == null) {
-            return;
+    private static void setURLConnection(HttpRequest request,HttpURLConnection urlConnection) {
+        if(request == null || urlConnection == null) {
+            return ;
         }
 
-        setURLConnection(request.getRequestProperties(), urlConnection);
-        if (request.getConnectTimeout() >= 0) {
+        setURLConnection(request.getRequestProperties(),urlConnection);
+        if(request.getConnectTimeout() >= 0) {
             urlConnection.setConnectTimeout(request.getConnectTimeout());
         }
-        if (request.getReadTimeout() >= 0) {
+        if(request.getReadTimeout() >= 0) {
             urlConnection.setReadTimeout(request.getReadTimeout());
         }
     }
 
     /**
      * set HttpURLConnection property
-     *
      * @param requestProperties
      * @param urlConnection
      */
-    private static void setURLConnection(Map<String, String> requestProperties, HttpURLConnection urlConnection) {
-        if (MapUtils.isEmpty(requestProperties) || urlConnection == null) {
-            return;
+    private static void setURLConnection(Map<String,String> requestProperties, HttpURLConnection urlConnection) {
+        if(MapUtils.isEmpty(requestProperties) || urlConnection == null) {
+            return ;
         }
 
-        for (Map.Entry<String, String> entry : requestProperties.entrySet()) {
-            if (!StringUtils.isEmpty(entry.getKey())) {
-                urlConnection.setRequestProperty(entry.getKey(), entry.getValue());
+        for(Map.Entry<String,String> entry : requestProperties.entrySet()) {
+            if(!StringUtils.isEmpty(entry.getKey())) {
+                urlConnection.setRequestProperty(entry.getKey(),entry.getValue());
             }
         }
     }
 
     /**
      * set HttpURLConnection to HttpResponse
-     *
      * @param urlConnection source url connection
-     * @param response      destin response
+     * @param response destin response
      */
     private static void setHttpResponse(HttpURLConnection urlConnection, HttpResponse response) {
-        if (response == null || urlConnection == null) {
+        if(response == null || urlConnection == null) {
             return;
         }
         try {
             response.setResponseCode(urlConnection.getResponseCode());
-        } catch (IOException e) {
+        } catch(IOException e) {
             response.setResponseCode(-1);
         }
-        response.setResponseHeader(HttpConstants.EXPIRES, urlConnection.getHeaderField("Expires"));
-        response.setResponseHeader(HttpConstants.CACHE_CONTROL, urlConnection.getHeaderField("Cache-Control"));
+        response.setResponseHeader(HttpConstants.EXPIRES,urlConnection.getHeaderField("Expires"));
+        response.setResponseHeader(HttpConstants.CACHE_CONTROL,urlConnection.getHeaderField("Cache-Control"));
     }
 
 
     /**
      * AsyncTask to get data by String url
      */
-    private static class HttpStringAsyncTask extends AsyncTask<String, Void, HttpResponse> {
+    private static class HttpStringAsyncTask extends AsyncTask<String,Void,HttpResponse> {
         private HttpListener listener;
 
         public HttpStringAsyncTask(HttpListener listener) {
@@ -478,20 +453,20 @@ public class HttpUtils {
         }
 
         protected HttpResponse doInBackground(String... url) {
-            if (ArrayUtils.isEmpty(url)) {
+            if(ArrayUtils.isEmpty(url)) {
                 return null;
             }
             return httpGet(url[0]);
         }
 
         protected void onPreExecute() {
-            if (listener != null) {
+            if(listener != null) {
                 listener.onPreGet();
             }
         }
 
         protected void onPostExecute(HttpResponse httpResponse) {
-            if (listener != null) {
+            if(listener != null) {
                 listener.onPostGet(httpResponse);
             }
         }
@@ -500,7 +475,7 @@ public class HttpUtils {
     /**
      * AsyncTask to get data by HttpRequest
      */
-    private static class HttpRequestAsyncTask extends AsyncTask<HttpRequest, Void, HttpResponse> {
+    private static class HttpRequestAsyncTask extends AsyncTask<HttpRequest,Void,HttpResponse> {
         private HttpListener listener;
 
         public HttpRequestAsyncTask(HttpListener listener) {
@@ -508,20 +483,20 @@ public class HttpUtils {
         }
 
         protected HttpResponse doInBackground(HttpRequest... httpRequest) {
-            if (ArrayUtils.isEmpty(httpRequest)) {
+            if(ArrayUtils.isEmpty(httpRequest)) {
                 return null;
             }
             return httpGet(httpRequest[0]);
         }
 
-        protected void onPreExecute() {
-            if (listener != null) {
+        protected void onPreExecute(){
+            if(listener != null) {
                 listener.onPreGet();
             }
         }
 
         protected void onPostExecute(HttpResponse httpResponse) {
-            if (listener != null) {
+            if(listener != null) {
                 listener.onPostGet(httpResponse);
             }
         }
@@ -534,21 +509,18 @@ public class HttpUtils {
         /**
          * Runs on the UI thread before httpGet.<br/>
          * <ul>
-         * <li>this can be null if you not want to do something</li>
+         *     <li>this can be null if you not want to do something</li>
          * </ul>
          */
-        protected void onPreGet() {
-        }
+        protected void onPreGet() {}
 
         /**
          * Runs on the UI thread after httpGet. The httpResponse is returned by httpGet.
          * <ul>
-         * <li>this can be null if you not want to do something</li>
+         *     <li>this can be null if you not want to do something</li>
          * </ul>
-         *
          * @param httpResponse httpResponse get by the url
          */
-        protected void onPostGet(HttpResponse httpResponse) {
-        }
+        protected void onPostGet(HttpResponse httpResponse) {}
     }
 }

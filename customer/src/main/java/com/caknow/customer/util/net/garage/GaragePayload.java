@@ -11,7 +11,7 @@ import java.util.List;
 public class GaragePayload {
     List<Vehicle> vehicles;
 
-    public List<Vehicle> getVehicles() {
+    public List<Vehicle> getVehicles(){
         return this.vehicles;
     }
 }

@@ -12,7 +12,7 @@ public class MMYPayload {
 
     List<Make> makes;
 
-    public List<Make> getMakes() {
+    public List<Make> getMakes(){
         return this.makes;
     }
 }

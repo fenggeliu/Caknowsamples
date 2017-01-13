@@ -31,12 +31,9 @@ import butterknife.ButterKnife;
 public class MessageFragment extends BaseFragment {
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + MessageFragment.class.getName();
 
-    @BindView(R.id.load_more_refresh_view)
-    LoadMoreListView listView;
-    @BindView(R.id.no_history_display)
-    LinearLayout emptyMessagesView;
+    @BindView(R.id.load_more_refresh_view) LoadMoreListView listView;
+    @BindView(R.id.no_history_display) LinearLayout emptyMessagesView;
     private ListAdapter messageListAdapter;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,12 +47,12 @@ public class MessageFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context){
         super.onAttach(context);
         getActivity().setTitle("Messages");
     }
 
-    private void setupMenuCreator() {
+    private void setupMenuCreator(){
         SwipeMenuCreator creator = menu -> {
             // create "open" item
             SwipeMenuItem openItem = new SwipeMenuItem(
@@ -93,7 +90,7 @@ public class MessageFragment extends BaseFragment {
         listView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
     }
 
-    private void setupListview() {
+    private void setupListview(){
         listView.setOnMenuItemClickListener((position, menu, index) -> {
             switch (index) {
                 case 0:

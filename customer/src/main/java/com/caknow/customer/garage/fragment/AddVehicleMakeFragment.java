@@ -31,18 +31,22 @@ public class AddVehicleMakeFragment extends BaseFragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    List<Make> makeList;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private ListTypes listType;
-
+    List<Make> makeList;
+    public enum ListTypes{
+        MAKE, MODEL, YEAR, DONE
+    }
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public AddVehicleMakeFragment() {
     }
+
+
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -66,9 +70,9 @@ public class AddVehicleMakeFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
-        ((NewVehicleActivity) getActivity()).updateTitle("Select Make");
+        ((NewVehicleActivity)getActivity()).updateTitle("Select Make");
     }
 
     @Override
@@ -77,19 +81,20 @@ public class AddVehicleMakeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_addvehicle_list, container, false);
         // Set the adapter
 
-        Context context = view.getContext();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-        if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        }
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
 
-        recyclerView.setAdapter(new AddVehicleMakeAdapter(makeList, mListener, listType));
+            recyclerView.setAdapter(new AddVehicleMakeAdapter(makeList, mListener, listType));
 
 
         return view;
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -106,10 +111,6 @@ public class AddVehicleMakeFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public enum ListTypes {
-        MAKE, MODEL, YEAR, DONE
     }
 
 

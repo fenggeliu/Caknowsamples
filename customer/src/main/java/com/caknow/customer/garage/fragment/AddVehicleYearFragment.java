@@ -31,18 +31,22 @@ public class AddVehicleYearFragment extends BaseFragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    List<Year> itemList;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private ListTypes listType;
-
+    List<Year> itemList;
+    public enum ListTypes{
+        MAKE, MODEL, YEAR, DONE
+    }
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public AddVehicleYearFragment() {
     }
+
+
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -65,12 +69,12 @@ public class AddVehicleYearFragment extends BaseFragment {
         }
 
     }
-
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
-        ((NewVehicleActivity) getActivity()).updateTitle("Select Year");
+        ((NewVehicleActivity)getActivity()).updateTitle("Select Year");
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,11 +91,12 @@ public class AddVehicleYearFragment extends BaseFragment {
         }
 
 
-        recyclerView.setAdapter(new AddVehicleYearAdapter(itemList, mListener));
+            recyclerView.setAdapter(new AddVehicleYearAdapter(itemList, mListener));
 
 
         return view;
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -110,9 +115,6 @@ public class AddVehicleYearFragment extends BaseFragment {
         mListener = null;
     }
 
-    public enum ListTypes {
-        MAKE, MODEL, YEAR, DONE
-    }
 
 
     /**

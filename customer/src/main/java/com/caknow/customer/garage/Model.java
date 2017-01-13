@@ -12,6 +12,15 @@ import java.util.List;
 
 public class Model implements Serializable, Parcelable {
 
+    @SerializedName("name")
+    @Expose
+    private  String name;
+    @SerializedName("niceName")
+    @Expose
+    private String niceName;
+    @SerializedName("years")
+    @Expose
+    private List<String> years;
     public final static Parcelable.Creator<Model> CREATOR = new Creator<Model>() {
 
 
@@ -32,15 +41,6 @@ public class Model implements Serializable, Parcelable {
 
     };
     private final static long serialVersionUID = -7192033946044348695L;
-    @SerializedName("name")
-    @Expose
-    private String name;
-    @SerializedName("niceName")
-    @Expose
-    private String niceName;
-    @SerializedName("years")
-    @Expose
-    private List<String> years;
 
     public String getName() {
         return name;

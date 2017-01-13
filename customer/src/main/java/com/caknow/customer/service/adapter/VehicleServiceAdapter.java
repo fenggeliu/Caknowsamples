@@ -28,6 +28,7 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
     List<VehicleServiceInterface> combinedList;
 
 
+
     private LayoutInflater inflater;
 
     public VehicleServiceAdapter(Context context, List<Repair> repairList, List<Maintenance> maintenanceList) {
@@ -41,7 +42,7 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
 
     @Override
     public int getCount() {
-        if (combinedList == null) {
+        if(combinedList == null){
             return 0;
         }
         return combinedList.size();
@@ -87,9 +88,10 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
             holder = (HeaderViewHolder) convertView.getTag();
         }
         String headerText;
-        if (position < repairsList.size() - 1) {
+        if(position < repairsList.size()-1){
             headerText = "Repairs";
-        } else {
+        }
+        else{
             headerText = "Maintenance";
 
         }
@@ -100,9 +102,10 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
 
     @Override
     public long getHeaderId(int position) {
-        if (position < repairsList.size() - 1) {
+        if(position < repairsList.size()-1){
             return 'A';
-        } else {
+        }
+        else{
             return 'B';
         }
 

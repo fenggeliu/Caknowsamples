@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link HomeCardItem} and makes a call to the
  * specified {@link HomeFragment.OnListFragmentInteractionListener}.
+ *
  */
 public class AddVehicleMakeAdapter extends RecyclerView.Adapter<AddVehicleMakeAdapter.ViewHolder> {
 
@@ -69,7 +70,7 @@ public class AddVehicleMakeAdapter extends RecyclerView.Adapter<AddVehicleMakeAd
 
     @Override
     public int getItemCount() {
-        if (mValues == null) {
+        if(mValues == null){
             return 0;
         }
         return mValues.size();

@@ -11,12 +11,12 @@ public class LoginRequestPayload {
     String email;
 
 
-    public LoginRequestPayload(final String user, final String pass) {
+    public LoginRequestPayload(final String user, final String pass){
         this.email = user;
         this.password = pass;
     }
 
-    public static String getJsonString(LoginRequestPayload payload) {
+    public static String getJsonString(LoginRequestPayload payload){
         Gson gson = new Gson();
 
         return gson.toJson(payload);

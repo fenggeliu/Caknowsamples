@@ -9,8 +9,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class ServiceList implements Serializable, Parcelable {
+public class ServiceList implements Serializable, Parcelable
+{
 
+    @SerializedName("icon")
+    @Expose
+    private String icon;
+    @SerializedName("catagory")
+    @Expose
+    private String catagory;
+    @SerializedName("field")
+    @Expose
+    private String field;
     public final static Parcelable.Creator<ServiceList> CREATOR = new Creator<ServiceList>() {
 
 
@@ -29,17 +39,9 @@ public class ServiceList implements Serializable, Parcelable {
             return (new ServiceList[size]);
         }
 
-    };
+    }
+            ;
     private final static long serialVersionUID = -4997352924890943698L;
-    @SerializedName("icon")
-    @Expose
-    private String icon;
-    @SerializedName("catagory")
-    @Expose
-    private String catagory;
-    @SerializedName("field")
-    @Expose
-    private String field;
 
     public String getIcon() {
         return icon;

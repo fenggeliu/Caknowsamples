@@ -26,7 +26,7 @@ public class AddVehicleRequest {
     }
 
 
-    public static String getJsonString(AddVehicleRequest request) {
+    public static String getJsonString(AddVehicleRequest request){
         Gson gson = new Gson();
 
         return gson.toJson(request);

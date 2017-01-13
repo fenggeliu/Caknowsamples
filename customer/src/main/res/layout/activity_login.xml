@@ -82,6 +82,7 @@
                             android:focusableInTouchMode="true"
                             android:hint="@string/login_layout_email"
                             android:maxLines="1"
+
                             android:paddingLeft="@dimen/login_layout_email_padding_left"
                             android:paddingRight="@dimen/login_layout_email_padding_right"
                             android:paddingTop="@dimen/login_layout_email_padding_top"

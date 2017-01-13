@@ -29,11 +29,11 @@ public class ServiceListFragment extends BaseFragment {
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ServiceListFragment.class.getName();
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    ArrayList list;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private ServiceItemAdapter adapter;
+    ArrayList list;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

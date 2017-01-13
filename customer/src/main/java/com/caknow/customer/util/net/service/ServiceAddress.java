@@ -8,8 +8,24 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class ServiceAddress implements Serializable, Parcelable {
+public class ServiceAddress implements Serializable, Parcelable
+{
 
+    @SerializedName("lineOne")
+    @Expose
+    private String lineOne;
+    @SerializedName("lineTwo")
+    @Expose
+    private String lineTwo;
+    @SerializedName("city")
+    @Expose
+    private String city;
+    @SerializedName("state")
+    @Expose
+    private String state;
+    @SerializedName("postalCode")
+    @Expose
+    private String postalCode;
     public final static Parcelable.Creator<ServiceAddress> CREATOR = new Creator<ServiceAddress>() {
 
 
@@ -30,23 +46,9 @@ public class ServiceAddress implements Serializable, Parcelable {
             return (new ServiceAddress[size]);
         }
 
-    };
+    }
+            ;
     private final static long serialVersionUID = -23467204884983325L;
-    @SerializedName("lineOne")
-    @Expose
-    private String lineOne;
-    @SerializedName("lineTwo")
-    @Expose
-    private String lineTwo;
-    @SerializedName("city")
-    @Expose
-    private String city;
-    @SerializedName("state")
-    @Expose
-    private String state;
-    @SerializedName("postalCode")
-    @Expose
-    private String postalCode;
 
     public String getLineOne() {
         return lineOne;

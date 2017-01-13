@@ -44,32 +44,40 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * Created by junu on 1/1/17.
  */
 
-public class VehicleServiceFragment extends BaseFragment implements Callback<VehicleServiceResponse> {
+public class VehicleServiceFragment extends BaseFragment  implements Callback<VehicleServiceResponse> {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + VehicleServiceFragment.class.getName();
+
+    private String displayName;
+
     @BindView(R.id.vehicle_service_name)
     TextView vehicleName;
+
     @BindView(R.id.srcl_car_logo_display)
     ImageView vehicleLogo;
+
     @BindView(R.id.new_vehicle_service_button)
     Button submitButton;
+
     @BindView(R.id.no_service_request_layout)
     LinearLayout noServiceRequestLayout;
+
     @BindView(R.id.vehicle_service_top_banner)
     LinearLayout bannerLayout;
+
     @BindView(R.id.vehicle_service_sticky_list)
     StickyListHeadersListView serviceListView;
+
     @Inject
     Retrofit retrofit;
-    private String displayName;
+
     private Vehicle vehicle;
     private VehicleServiceAdapter adapter;
-
     /**
      * Launches New Service Request
      */
     @OnClick(R.id.new_vehicle_service_button)
-    void startNewService() {
+    void startNewService(){
         Intent intent = new Intent(getActivity(), NewServiceRequestActivity.class);
         intent.putExtra("vehicleId", vehicle.getId());
         getActivity().startActivity(intent);
@@ -85,15 +93,20 @@ public class VehicleServiceFragment extends BaseFragment implements Callback<Veh
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vehicleservice, container, false);
         unbinder = ButterKnife.bind(this, v);
-        loadData(vehicle);
         Glide.with(getActivity()).load(vehicle.getImageUrl()).into(vehicleLogo);
         return v;
     }
 
-    private void loadData(Vehicle vehicle) {
-        try {
-            ((HomeActivity) getActivity()).showProgress();
-        } catch (Exception e) {
+    @Override
+    public void onResume(){
+        super.onResume();
+        loadData(vehicle);
+    }
+
+    private void loadData(Vehicle vehicle){
+        try{
+            ((HomeActivity)getActivity()).showProgress();
+        } catch(Exception e){
 
         }
         GarageAPI garageAPI = retrofit.create(GarageAPI.class);
@@ -119,14 +132,14 @@ public class VehicleServiceFragment extends BaseFragment implements Callback<Veh
 //            noServiceRequestLayout.setVisibility(View.VISIBLE);
 //        }
 //        else{
-        adapter = new VehicleServiceAdapter(getContext(), createDummyRepairData(), createDummyMaintenanceData());
-        serviceListView.setAdapter(adapter);
-        serviceListView.invalidate();
+            adapter = new VehicleServiceAdapter(getContext(), createDummyRepairData(), createDummyMaintenanceData());
+            serviceListView.setAdapter(adapter);
+            serviceListView.invalidate();
 //        }
 
     }
 
-    private ArrayList<Repair> createDummyRepairData() {
+    private ArrayList<Repair> createDummyRepairData(){
         //TODO REMOVE!
         ArrayList<Repair> testRepairList = new ArrayList<>();
         Repair dummyRepair = new Repair();
@@ -135,7 +148,7 @@ public class VehicleServiceFragment extends BaseFragment implements Callback<Veh
         return testRepairList;
     }
 
-    private ArrayList<Maintenance> createDummyMaintenanceData() {
+    private ArrayList<Maintenance> createDummyMaintenanceData(){
         //TODO REMOVE!
         ArrayList<Maintenance> testMaintenanceList = new ArrayList<>();
         Maintenance dummyMaintenance = new Maintenance();
@@ -143,7 +156,6 @@ public class VehicleServiceFragment extends BaseFragment implements Callback<Veh
         testMaintenanceList.add(dummyMaintenance);
         return testMaintenanceList;
     }
-
     @Override
     public void onFailure(Call<VehicleServiceResponse> call, Throwable t) {
 

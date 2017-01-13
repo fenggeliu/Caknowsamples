@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
  * Created by junu on 1/2/2017.
  */
 
-public class PaymentActivity extends BaseActivity implements PaymentMethodFragment.OnListFragmentInteractionListener {
+public class PaymentActivity extends BaseActivity implements PaymentMethodFragment.OnListFragmentInteractionListener{
 
 
     @Override
@@ -40,9 +40,9 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
     @Override
     protected void setTitle() {
         try {
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Credit Cards");
-            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e) {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Credit Cards");
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
             //
         }
     }

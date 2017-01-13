@@ -41,6 +41,8 @@
                     android:background="@drawable/edit_text_bolder_visible">
 
                     <Spinner
+                        android:spinnerMode="dialog"
+                        android:prompt="@string/spinner_prompt_priority"
                         android:id="@+id/spinner_time_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -74,6 +76,7 @@
                         android:ems="10"
                         android:inputType="number"
                         android:textCursorDrawable="@null"
+                        android:textColor="@color/font_black"
                         android:gravity="center_vertical"
                         android:hint="@string/rdl_cur_mile"
                         android:maxLines="1"
@@ -88,6 +91,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/service_request_description_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3.2"

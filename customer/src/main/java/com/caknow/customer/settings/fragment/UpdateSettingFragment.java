@@ -25,12 +25,14 @@ import static com.caknow.customer.settings.fragment.SettingsFragment.TITLE_KEY;
 
 public class UpdateSettingFragment extends BaseFragment {
 
-    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + UpdateSettingFragment.class.getName();
     @BindView(R.id.setting_update_title_tv)
     TextView titleView;
+
     @BindView(R.id.setting_update_et)
     EditText updateField;
+
     private String title, hint;
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + UpdateSettingFragment.class.getName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +42,7 @@ public class UpdateSettingFragment extends BaseFragment {
         final Bundle bundle = getArguments();
         unbinder = ButterKnife.bind(this, v);
 
-        if (bundle != null) {
+        if(bundle != null) {
             title = bundle.getString(TITLE_KEY, "Unknown");
             hint = bundle.getString(HINT_KEY, "Hint");
             titleView.setText(title);
@@ -50,9 +52,9 @@ public class UpdateSettingFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context){
         super.onAttach(context);
-        ((SettingsActivity) getActivity()).updateTitle("Phone Number");
+       ((SettingsActivity) getActivity()).updateTitle("Phone Number");
     }
 
 

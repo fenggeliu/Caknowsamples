@@ -50,19 +50,18 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     ServiceAPI serviceAPI;
 
     private int typeId = 0;
-
     @OnClick(R.id.nsr_repair_layout)
-    void startRepair() {
+    void startRepair(){
         loadDataOnClick(1);
     }
 
     @OnClick(R.id.nsr_maintenance_layout)
-    void startMaintenance() {
+    void startMaintenance(){
         loadDataOnClick(2);
     }
 
     @OnClick(R.id.nsr_emergency_layout)
-    void startEmergency() {
+    void startEmergency(){
         loadDataOnClick(3);
     }
 
@@ -73,11 +72,10 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
-        ((NewServiceRequestActivity) getActivity()).updateTitle("Select Type", R.drawable.ic_action_back);
+        ((NewServiceRequestActivity)getActivity()).updateTitle("Select Type", R.drawable.ic_action_back);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,11 +90,11 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
         return v;
     }
 
-    private void loadDataOnClick(final int typeId) {
-        try {
+    private void loadDataOnClick(final int typeId){
+        try{
             ((NewServiceRequestActivity) getActivity()).showProgress();
             ((NewServiceRequestActivity) getActivity()).setServiceType(typeId);
-        } catch (Exception e) {
+        } catch(Exception e){
             // Thread safe
         }
         this.typeId = typeId;
@@ -108,11 +106,10 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
 
     /**
      * Load the first list of service types with a null parentId
-     *
      * @param parcelableArrayList
      */
-    private void openNextFragment(final int typeId, final ArrayList parcelableArrayList) {
-        if (getActivity() != null) {
+    private void openNextFragment(final int typeId, final ArrayList parcelableArrayList){
+        if(getActivity() != null) {
             NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
             homeActivity.setServiceType(typeId);
             ServiceTypeFragment fragment = new ServiceTypeFragment();
@@ -131,18 +128,18 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
         ArrayList<Services> parcelableArrayList = new ArrayList<Services>();
         parcelableArrayList.addAll(response.body().getPayload().getList());
         openNextFragment(this.typeId, parcelableArrayList);
-        try {
+        try{
             ((NewServiceRequestActivity) getActivity()).hideProgress();
-        } catch (Exception e) {
+        } catch(Exception e){
             // Thread safe
         }
     }
 
     @Override
     public void onFailure(Call<ServiceTypeResponse> call, Throwable t) {
-        try {
+        try{
             ((NewServiceRequestActivity) getActivity()).hideProgress();
-        } catch (Exception e) {
+        } catch(Exception e){
             // Thread safe
         }
     }

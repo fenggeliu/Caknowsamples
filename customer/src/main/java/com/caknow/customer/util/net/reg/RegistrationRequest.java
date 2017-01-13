@@ -21,6 +21,7 @@ public class RegistrationRequest {
     String lName;
 
     /**
+     *
      * @param accountType
      * @param thirdPartyToken
      * @param phone
@@ -38,11 +39,12 @@ public class RegistrationRequest {
     }
 
     /**
-     * @param email        email adress
-     * @param password     password
-     * @param fName        first niceName
-     * @param lName        last niceName
-     * @param phone        phone number
+     *
+     * @param email email adress
+     * @param password password
+     * @param fName first niceName
+     * @param lName last niceName
+     * @param phone phone number
      * @param referralCode referral code
      */
     public RegistrationRequest(String email,
@@ -50,7 +52,7 @@ public class RegistrationRequest {
                                String fName,
                                String lName,
                                String phone,
-                               String referralCode) {
+                               String referralCode){
         this.accountType = Constants.ACCOUNT_TYPE_CAKNOW;
         this.email = email;
         this.password = password;
@@ -60,13 +62,13 @@ public class RegistrationRequest {
         this.referralCode = referralCode;
     }
 
-    public static String getJsonString(RegistrationRequest request) {
+    class AccountType{
+
+    }
+
+    public static String getJsonString(RegistrationRequest request){
         Gson gson = new Gson();
 
         return gson.toJson(request);
-    }
-
-    class AccountType {
-
     }
 }

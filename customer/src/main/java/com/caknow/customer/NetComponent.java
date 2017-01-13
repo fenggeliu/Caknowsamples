@@ -30,23 +30,23 @@ import dagger.Component;
 public interface NetComponent {
 
 
-    void inject(HomeActivity mainActivity);
+        void inject(HomeActivity mainActivity);
 
-    void inject(GarageFragment garageFragment);
+        void inject(GarageFragment garageFragment);
 
-    void inject(NewVehicleActivity newVehicleActivity);
+        void inject(NewVehicleActivity newVehicleActivity);
 
-    void inject(VehicleServiceFragment vehicleServiceFragment);
+        void inject(VehicleServiceFragment vehicleServiceFragment);
 
-    void inject(ConfirmVehicleFragment confirmVehicleFragment);
+        void inject(ConfirmVehicleFragment confirmVehicleFragment);
 
-    void inject(NewServiceFragment newServiceFragment);
+        void inject(NewServiceFragment newServiceFragment);
 
-    void inject(ServiceTypeFragment serviceTypeFragment);
+        void inject(ServiceTypeFragment serviceTypeFragment);
 
-    void inject(HistoryFragment historyFragment);
+        void inject(HistoryFragment historyFragment);
 
-    void inject(ManageGarageAdapter manageGarageAdapter);
+        void inject(ManageGarageAdapter manageGarageAdapter);
 
-    void inject(ServiceDetailsFragment serviceDetailsFragment);
+        void inject(ServiceDetailsFragment serviceDetailsFragment);
 }

@@ -77,7 +77,7 @@ public class MyPaymentMethodRecyclerViewAdapter extends RecyclerView.Adapter<MyP
 
         @Override
         public String toString() {
-            return super.toString() + " '" + "'";
+            return super.toString() + " '"  + "'";
         }
     }
 }

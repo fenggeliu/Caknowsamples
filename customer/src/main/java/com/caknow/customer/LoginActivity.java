@@ -60,8 +60,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class LoginActivity extends BaseActivity implements Callback<AuthenticationResponse>, LoaderCallbacks<Cursor> {
 
-    /**
-     * f
+    /**f
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
@@ -73,23 +72,26 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+    /**
+     * Keep track of the login task to ensure we can cancel it if requested.
+     */
+    private UserLoginTask mAuthTask = null;
+
+    private OkHttpClient client;
+    private Retrofit retrofit;
+    private String email;
+    private String password;
     // UI references.
     @BindView(R.id.login_user_pwd)
     EditText mPasswordView;
+
     @BindView(R.id.login_user_email)
     EditText mEmailView;
     @BindView(R.id.login_progress)
     View mProgressView;
     @BindView(R.id.login_layout_sign_in_btn)
     Button mLoginFormView;
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
-    private OkHttpClient client;
-    private Retrofit retrofit;
-    private String email;
-    private String password;
+
 
     @OnClick(R.id.login_layout_sign_in_btn)
     void loginClicked() {
@@ -99,7 +101,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
         email = mEmailView.getText().toString();
         password = mPasswordView.getText().toString();
 
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+        if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
 
 
             String text = LoginRequestPayload.getJsonString(new LoginRequestPayload(email, password));
@@ -109,7 +111,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
             Call<AuthenticationResponse> call = authenticationAPI.login(body);
             //asynchronous call
             call.enqueue(this);
-        } else if (BuildConfig.DEBUG) {
+        } else if(BuildConfig.DEBUG){
 
             String text = LoginRequestPayload.getJsonString(new LoginRequestPayload("asdf@caknow.com", "helloworld"));
             RequestBody body =
@@ -118,7 +120,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
             Call<AuthenticationResponse> call = authenticationAPI.login(body);
             //asynchronous call
             call.enqueue(this);
-        } else {
+        } else{
             Toast.makeText(this, "Invalid Credentials!", Toast.LENGTH_SHORT);
         }
         // synchronous call would be with execute, in this case you
@@ -356,62 +358,6 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
     }
 
-    private boolean login() {
-
-        // prepare call in Retrofit 2.0
-        AuthenticationAPI authenticationAPI = retrofit.create(AuthenticationAPI.class);
-        String text = LoginRequestPayload.getJsonString(new LoginRequestPayload("asdf@caknow.com", "helloworld"));
-        RequestBody body =
-                RequestBody.create(MediaType.parse("application/json"), text);
-
-        Call<AuthenticationResponse> call = authenticationAPI.login(body);
-        //asynchronous call
-        call.enqueue(this);
-
-        // synchronous call would be with execute, in this case you
-        // would have to perform this outside the main thread
-        // call.execute()
-
-        // to cancel a running request
-        // call.cancel();
-        // calls can only be used once but you can easily clone them
-        //Call<StackOverflowQuestions> c = call.clone();
-        //c.enqueue(this);
-
-        return true;
-    }
-
-    @Override
-    public void onResponse(Call<AuthenticationResponse> call, retrofit2.Response<AuthenticationResponse> response) {
-        showProgress(false);
-        if (response.isSuccessful()) {
-            Toast.makeText(LoginActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
-            AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
-
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.ACCESS_TOKEN, authPayload.getToken());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_FNAME, authPayload.getfName());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_ID, authPayload.get_id());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
-            SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, authPayload.getVerificationStatus());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
-
-            final Intent intent = new Intent(this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            this.finish();
-        }
-    }
-
-    @Override
-    public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
-        showProgress(false);
-
-        Toast.makeText(LoginActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
-
-    }
-
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -477,6 +423,63 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+
+    private boolean login() {
+
+        // prepare call in Retrofit 2.0
+        AuthenticationAPI authenticationAPI = retrofit.create(AuthenticationAPI.class);
+        String text = LoginRequestPayload.getJsonString(new LoginRequestPayload("asdf@caknow.com", "helloworld"));
+        RequestBody body =
+                RequestBody.create(MediaType.parse("application/json"), text);
+
+        Call<AuthenticationResponse> call = authenticationAPI.login(body);
+        //asynchronous call
+        call.enqueue(this);
+
+        // synchronous call would be with execute, in this case you
+        // would have to perform this outside the main thread
+        // call.execute()
+
+        // to cancel a running request
+        // call.cancel();
+        // calls can only be used once but you can easily clone them
+        //Call<StackOverflowQuestions> c = call.clone();
+        //c.enqueue(this);
+
+        return true;
+    }
+
+
+    @Override
+    public void onResponse(Call<AuthenticationResponse> call, retrofit2.Response<AuthenticationResponse> response) {
+        showProgress(false);
+        if (response.isSuccessful()) {
+            Toast.makeText(LoginActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
+            AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
+
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.ACCESS_TOKEN, authPayload.getToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_FNAME, authPayload.getfName());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_ID, authPayload.get_id());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
+            SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, authPayload.getVerificationStatus());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
+            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
+
+            final Intent intent = new Intent(this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            this.finish();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
+        showProgress(false);
+
+        Toast.makeText(LoginActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
+
     }
 
 

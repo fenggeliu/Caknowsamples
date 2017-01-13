@@ -35,15 +35,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class SettingsActivity extends BaseActivity {
 
-    public Retrofit retrofit;
     @BindString(R.string.settings_layout_title)
     String titleString;
+
     @BindView(R.id.mytext)
     TextView titleTv;
     @BindView(R.id.settingsContent)
     FrameLayout content;
-    OkHttpClient client;
 
+    public Retrofit retrofit;
+    OkHttpClient client;
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_settings);
@@ -85,18 +86,18 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void setTitle() {
         try {
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Settings");
-            ((ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e) {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Settings");
+            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
             //
         }
     }
 
-    public void updateTitle(String titleText) {
+    public void updateTitle(String titleText){
         try {
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
-        } catch (NullPointerException e) {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
+        } catch (NullPointerException e){
             //
         }
     }

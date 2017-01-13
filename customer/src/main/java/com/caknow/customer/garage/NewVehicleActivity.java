@@ -11,6 +11,7 @@ import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.garage.fragment.AddVehicleMakeFragment;
 import com.caknow.customer.garage.fragment.AddVehicleModelFragment;
 import com.caknow.customer.garage.fragment.AddVehicleYearFragment;
+import com.caknow.customer.garage.fragment.ConfirmVehicleFragment;
 import com.caknow.customer.garage.fragment.MMYListItem;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.garage.GarageAPI;
@@ -32,9 +33,9 @@ import retrofit2.Retrofit;
  */
 
 public class NewVehicleActivity extends BaseActivity implements Callback<MMYResponse>,
-        AddVehicleMakeFragment.OnListFragmentInteractionListener,
-        AddVehicleModelFragment.OnListFragmentInteractionListener,
-        AddVehicleYearFragment.OnListFragmentInteractionListener {
+AddVehicleMakeFragment.OnListFragmentInteractionListener,
+AddVehicleModelFragment.OnListFragmentInteractionListener,
+        AddVehicleYearFragment.OnListFragmentInteractionListener{
 
     protected String make, makeNiceName;
     protected String model, modelNiceName;
@@ -79,19 +80,19 @@ public class NewVehicleActivity extends BaseActivity implements Callback<MMYResp
     @Override
     protected void setTitle() {
         try {
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Select Make");
-            ((ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e) {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Select Make");
+            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
             //
         }
     }
 
 
-    public void updateTitle(String titleText) {
+    public void updateTitle(String titleText){
         try {
-            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
-            ((ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e) {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
+            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
             //
         }
     }
@@ -117,21 +118,21 @@ public class NewVehicleActivity extends BaseActivity implements Callback<MMYResp
         Toast.makeText(NewVehicleActivity.this, "ERROR RETRIEVING MMY", Toast.LENGTH_LONG);
     }
 
-    private ArrayList<Make> parseMakeData() {
+    private ArrayList<Make> parseMakeData(){
         ArrayList<Make> makes = new ArrayList<Make>();
         makes.addAll(payload);
         return makes;
     }
 
-    private ArrayList<Model> parseModelData(List<Model> modelsList) {
+    private ArrayList<Model> parseModelData(List<Model> modelsList){
         ArrayList<Model> models = new ArrayList();
         models.addAll(modelsList);
         return models;
     }
 
-    private ArrayList<Year> parseYearData(List<String> yearsList) {
+    private ArrayList<Year> parseYearData(List<String> yearsList){
         ArrayList<Year> years = new ArrayList();
-        for (int i = 0; i < yearsList.size(); i++) {
+        for(int i=0; i<yearsList.size(); i++){
             years.add(new Year(yearsList.get(i)));
         }
         return years;

@@ -22,21 +22,20 @@ public class PubnubUtils {
 
     public static void publish(final String chnl, final String msg) {
         try {
-            pubnub.subscribe(chnl, new Callback() {
+            pubnub.subscribe(chnl,new Callback() {
                 @Override
-                public void connectCallback(String channel, Object message) {
-                    pubnub.publish(chnl, msg, new Callback() {
+                public void connectCallback(String channel,Object message) {
+                    pubnub.publish(chnl,msg,new Callback() {
                     });
                 }
-
                 @Override
-                public void disconnectCallback(String channel, Object message) {
+                public void disconnectCallback(String channel,Object message) {
                     System.out.println("SUBSCRIBE: DISCONNECT on channel: "
                             + channel + " : " + message.getClass() + " : "
                             + message.toString());
                 }
 
-                public void reconnectCallback(String channel, Object message) {
+                public void reconnectCallback(String channel,Object message) {
                     System.out.println("SUBSCRIBE : RECONNECT on channel: "
                             + channel + " : " + message.getClass() + " : "
                             + message.toString());
@@ -48,7 +47,6 @@ public class PubnubUtils {
                             + message.getClass() + " : "
                             + message.toString());
                 }
-
                 @Override
                 public void errorCallback(String channel, PubnubError error) {
                     System.out.println("SUBSCRIBE : ERROR on channel: "
@@ -61,9 +59,9 @@ public class PubnubUtils {
             String message = "Hello PubNub!";
             String channel = "hello_world";
 
-            args.put("message", message);
-            args.put("channel", channel);
-        } catch (PubnubException e) {
+            args.put("message",message);
+            args.put("channel",channel);
+        } catch(PubnubException e) {
             System.out.println(e.toString());
         }
 
@@ -82,16 +80,16 @@ public class PubnubUtils {
 
     public static void listen(String channel) {
         try {
-            pubnub.subscribe(channel, new Callback() {
+            pubnub.subscribe(channel,new Callback() {
                 @Override
-                public void connectCallback(String channel, Object message) {
+                public void connectCallback(String channel,Object message) {
                     System.out.println("SUBSCRIBE : CONNECT on channel: "
                             + channel + " : " + message.getClass() + " : "
                             + message.toString());
                 }
 
                 @Override
-                public void disconnectCallback(String channel, Object message) {
+                public void disconnectCallback(String channel,Object message) {
                     System.out.println("SUBSCRIBE : DISCONNECT on channel: "
                             + channel + " : " + message.getClass() + " : "
                             + message.toString());
@@ -106,7 +104,7 @@ public class PubnubUtils {
                 @Override
                 public void successCallback(String channel, Object message) {
                     System.out.println("SUBSCRIBE : " + channel + " : "
-                            + message.getClass() + " : " + message.toString());
+                    + message.getClass() + " : " + message.toString());
                 }
 
                 @Override
@@ -117,18 +115,18 @@ public class PubnubUtils {
             });
 
             Hashtable args = new Hashtable(1);
-            args.put("channel", channel);
+            args.put("channel",channel);
         } catch (PubnubException e) {
             e.printStackTrace();
         }
     }
 
-    public static void listen(String channel, Callback callback) {
-        try {
+    public static void listen(String channel,Callback callback) {
+        try{
             pubnub.subscribe(channel, callback);
             //TODO what is this unresolved field 'openpath'
             //openPath.channelList.add(channel);
-        } catch (PubnubException e) {
+        } catch(PubnubException e) {
             e.printStackTrace();
         }
     }
@@ -151,15 +149,14 @@ public class PubnubUtils {
     }
 
     public static void presence(String channel) {
-        try {
+        try{
             pubnub.presence(channel, new Callback() {
                 public void sucessCallback(String channel, Object message) {
                 }
-
                 public void errorCallback(String channel, Object message) {
                 }
             });
-        } catch (PubnubException e) {
+        } catch(PubnubException e) {
             e.printStackTrace();
         }
     }
@@ -168,7 +165,6 @@ public class PubnubUtils {
         pubnub.hereNow(channel, new Callback() {
             public void successCallback(String channel, Object message) {
             }
-
             public void errorCallback(String channel, Object message) {
             }
         });

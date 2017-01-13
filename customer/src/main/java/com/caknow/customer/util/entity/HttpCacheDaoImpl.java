@@ -10,7 +10,6 @@ public interface HttpCacheDaoImpl {
 
     /**
      * insert httpResponse
-     *
      * @param httpResponse
      * @return the row ID of the newly inserted row, or -1 if an error occurred
      */
@@ -18,7 +17,6 @@ public interface HttpCacheDaoImpl {
 
     /**
      * get HttpResponse by url
-     *
      * @param url
      * @return
      */
@@ -26,7 +24,6 @@ public interface HttpCacheDaoImpl {
 
     /**
      * get HttpResponses by type
-     *
      * @param type
      * @return
      */
@@ -34,7 +31,6 @@ public interface HttpCacheDaoImpl {
 
     /**
      * delete all http response
-     *
      * @return
      */
     int deleteAllHttpResponse();

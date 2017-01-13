@@ -1,3 +1,4 @@
+
 package com.caknow.customer.garage;
 
 import android.os.Parcel;
@@ -8,8 +9,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class MMY implements Serializable, Parcelable {
+public class MMY implements Serializable, Parcelable
+{
 
+    @SerializedName("success")
+    @Expose
+    private  Boolean success;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("payload")
+    @Expose
+    private MMYPayload payload;
     public final static Parcelable.Creator<MMY> CREATOR = new Creator<MMY>() {
 
 
@@ -28,17 +39,9 @@ public class MMY implements Serializable, Parcelable {
             return (new MMY[size]);
         }
 
-    };
+    }
+            ;
     private final static long serialVersionUID = -3986240792328667826L;
-    @SerializedName("success")
-    @Expose
-    private Boolean success;
-    @SerializedName("message")
-    @Expose
-    private String message;
-    @SerializedName("payload")
-    @Expose
-    private MMYPayload payload;
 
     public Boolean getSuccess() {
         return success;
@@ -71,7 +74,7 @@ public class MMY implements Serializable, Parcelable {
     }
 
     public int describeContents() {
-        return 0;
+        return  0;
     }
 
 }

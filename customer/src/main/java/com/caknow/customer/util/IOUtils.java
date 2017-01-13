@@ -8,35 +8,33 @@ import java.io.IOException;
  */
 
 public class IOUtils {
-    private IOUtils() {
+    private IOUtils(){
         throw new AssertionError();
     }
 
     /**
      * Close closeable object and wrap {@link java.io.IOException} with {@link RuntimeException}
-     *
      * @param closeable closeable object
      */
     public static void close(Closeable closeable) {
-        if (closeable != null) {
+        if(closeable != null) {
             try {
                 closeable.close();
-            } catch (IOException e) {
-                throw new RuntimeException("IOException occurred.", e);
+            } catch(IOException e) {
+                throw new RuntimeException("IOException occurred.",e);
             }
         }
     }
 
     /**
      * Close closeable and hide possible {@link IOException}
-     *
      * @param closeable closeable object
      */
     public static void closeQuietly(Closeable closeable) {
-        if (closeable != null) {
+        if(closeable != null) {
             try {
                 closeable.close();
-            } catch (IOException e) {
+            } catch(IOException e) {
                 // Ignored
             }
         }

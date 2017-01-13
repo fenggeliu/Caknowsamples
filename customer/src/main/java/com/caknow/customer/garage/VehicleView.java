@@ -20,15 +20,17 @@ import butterknife.ButterKnife;
 
 public class VehicleView {
 
-    @BindView(R.id.vehicle_display_name)
-    TextView displayName;
-    @BindView(R.id.gli_car_logo_display)
-    ImageView logoView;
-    @BindView(R.id.gli_quote_display)
-    TextView quoteBubble;
     private Context context;
     private Vehicle vehicle;
     private int quoteCount;
+    @BindView(R.id.vehicle_display_name)
+    TextView displayName;
+
+    @BindView(R.id.gli_car_logo_display)
+    ImageView logoView;
+
+    @BindView(R.id.gli_quote_display)
+    TextView quoteBubble;
 
     public VehicleView(final View view, @NonNull final Vehicle vehicle) {
         this.vehicle = vehicle;
@@ -38,18 +40,19 @@ public class VehicleView {
         displayName.setText(vehicle.getDisplayName());
         String logoUrl = Constants.LOGOURL.concat(vehicle.getMake());
         Glide.with(CAKNOWApplication.get()).load(vehicle.getImageUrl()).into(logoView);
-        if (quoteCount == 0) {
+        if(quoteCount == 0){
             quoteBubble.setVisibility(View.GONE);
-        } else {
+        }
+        else {
             String quoteString = " Quote";
-            if (quoteCount > 1) {
+            if(quoteCount > 1){
                 quoteString = quoteString.concat("s");
             }
             quoteBubble.setText(String.valueOf(quoteCount).concat(quoteString));
         }
     }
 
-    public Vehicle getVehicle() {
+    public Vehicle getVehicle(){
         return this.vehicle;
     }
 }

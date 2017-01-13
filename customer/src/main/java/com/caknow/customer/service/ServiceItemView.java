@@ -19,14 +19,15 @@ import butterknife.ButterKnife;
 
 public class ServiceItemView extends View {
 
-    @BindView(R.id.repair_item_imageview)
-    ImageView repairItemImageView;
-    @BindView(R.id.repair_item_name)
-    TextView nameView;
     private Services item;
     private Context context;
     private String id;
 
+    @BindView(R.id.repair_item_imageview)
+    ImageView repairItemImageView;
+
+    @BindView(R.id.repair_item_name)
+    TextView nameView;
     public ServiceItemView(final View view, @NonNull final Services item) {
         super(view.getContext());
         this.item = item;
@@ -36,15 +37,15 @@ public class ServiceItemView extends View {
     }
 
 
-    public void setTitle(String name) {
+    public void setTitle(String name){
         nameView.setText(name);
     }
 
-    public void setImage(String url) {
+    public void setImage(String url){
         Glide.with(context).load(url).into(repairItemImageView);
     }
 
-    public void setItem(Services item) {
+    public void setItem(Services item){
         this.item = item;
         id = item.getCatagoryId();
     }

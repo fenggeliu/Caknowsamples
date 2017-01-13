@@ -43,7 +43,7 @@ public class ServiceLocationFragment extends BaseFragment {
     Geocoder geocoder;
     Geolocation geolocation;
 
-    @BindViews({R.id.service_location_address_1, R.id.service_location_address_2, R.id.service_location_city, R.id.service_location_zip})
+    @BindViews({ R.id.service_location_address_1, R.id.service_location_address_2, R.id.service_location_city, R.id.service_location_zip })
     List<EditText> nameViews;
 
     @BindView(R.id.service_location_next_button)
@@ -62,14 +62,14 @@ public class ServiceLocationFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
-        ((NewServiceRequestActivity) getActivity()).updateTitle("Location", R.drawable.ic_action_back);
+        ((NewServiceRequestActivity)getActivity()).updateTitle("Location", R.drawable.ic_action_back);
     }
 
     @OnClick(R.id.service_location_next_button)
-    void startServiceSelection() {
-        if (validate()) {
+    void startServiceSelection(){
+        if(validate()) {
             NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
             activity.setGeolocation(geolocation);
             NewServiceFragment fragment = new NewServiceFragment();
@@ -80,15 +80,15 @@ public class ServiceLocationFragment extends BaseFragment {
             address.setCity(nameViews.get(2).getText().toString());
             address.setPostalCode(nameViews.get(3).getText().toString());
             address.setState(stateSpinner.getSelectedItem().toString());
-            ((NewServiceRequestActivity) getActivity()).setServiceAddress(address);
+            ((NewServiceRequestActivity)getActivity()).setServiceAddress(address);
             fragment.setArguments(bundle);
             activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
-        } else {
+        } else{
             Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT);
         }
     }
 
-    boolean validate() {
+    boolean validate(){
 
         return !nameViews.get(0).getText().toString().isEmpty() && !nameViews.get(2).getText().toString().isEmpty() && !nameViews.get(3).getText().toString().isEmpty();
     }
@@ -105,12 +105,12 @@ public class ServiceLocationFragment extends BaseFragment {
         return v;
     }
 
-    private void addItemsToStateSpinner() {
+    private void addItemsToStateSpinner(){
 
         arrayAdapter = ArrayAdapter.createFromResource(getContext(), R.array.state_array, android.R.layout.simple_spinner_item);
         String[] stateabbrevarray = getResources().getStringArray(R.array.state_array);
         String[] statenamearray = getResources().getStringArray(R.array.statename_array);
-        for (int i = 0; i < statenamearray.length; i++) {
+        for(int i = 0; i < statenamearray.length; i++){
             stateMap.put(statenamearray[i], stateabbrevarray[i]);
         }
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -142,11 +142,11 @@ public class ServiceLocationFragment extends BaseFragment {
     }
 
 
-    void checkLocation() {
+    void checkLocation(){
         List<Address> addresses;
 
         NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
-        if (activity != null && !activity.isFinishing()) {
+        if(activity != null && !activity.isFinishing()) {
             try {
                 Location location = activity.requestLocation();
                 Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());

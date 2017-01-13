@@ -42,7 +42,7 @@ public class HomeFragment extends BaseFragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         homeCardRV.setLayoutManager(llm);
         this.homeCardAdapter = new HomeCardAdapter(HomeContent.ITEMS, mListener);
-        if (homeCardAdapter.getItemCount() == 0) {
+        if(homeCardAdapter.getItemCount() == 0){
             emptyGarageLayout.setVisibility(View.VISIBLE);
         }
         homeCardRV.setAdapter(homeCardAdapter);
@@ -68,6 +68,8 @@ public class HomeFragment extends BaseFragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
 
     /**

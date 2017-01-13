@@ -43,7 +43,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getCatagoryId());
         holder.mContentView.setText(mValues.get(position).getName());
-        if (BuildConfig.DEBUG) {
+        if(BuildConfig.DEBUG){
 //            holder.mIdView.setVisibility(View.VISIBLE);
         }
         holder.mView.setOnClickListener(new View.OnClickListener() {

@@ -19,19 +19,18 @@ public class CAKNOWApplication extends android.app.Application {
     private NetComponent netComponent;
 
 
-    public static CAKNOWApplication get(Context context) {
+    public static CAKNOWApplication get(Context context){
         return (CAKNOWApplication) context.getApplicationContext();
     }
 
-    public static CAKNOWApplication get() {
+    public static CAKNOWApplication get(){
         return CAKNOWApplication.INSTANCE;
     }
-
     public void onCreate() {
         super.onCreate();
         CAKNOWApplication.INSTANCE = this;
         Stetho.initializeWithDefaults(this);
-        // this.appComponent = DaggerAppComponent.builder().build();
+       // this.appComponent = DaggerAppComponent.builder().build();
         netComponent = DaggerNetComponent.builder()
                 .appModule(new AppModule(this))
                 .netModule(new NetModule("http://staging.caknow.com"))
@@ -39,11 +38,9 @@ public class CAKNOWApplication extends android.app.Application {
         SessionPreferences.INSTANCE.init(this);
     }
 
-    public NetComponent getNetComponent() {
-        return netComponent;
-    }
+    public NetComponent getNetComponent() { return netComponent; }
 
-    public AppComponent getAppComponent() {
+    public AppComponent getAppComponent(){
         return appComponent;
     }
 
