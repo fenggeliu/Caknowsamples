@@ -18,6 +18,7 @@ import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.garage.Vehicle;
 import com.caknow.customer.garage.VehicleServiceResponse;
 import com.caknow.customer.garage.VehicleType;
+import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.service.model.Maintenance;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.service.model.Repair;
@@ -61,6 +62,9 @@ public class VehicleServiceFragment extends BaseFragment  implements Callback<Ve
     @BindView(R.id.no_service_request_layout)
     LinearLayout noServiceRequestLayout;
 
+    @BindView(R.id.vehicle_service_top_banner)
+    LinearLayout bannerLayout;
+
     @BindView(R.id.vehicle_service_sticky_list)
     StickyListHeadersListView serviceListView;
 
@@ -94,6 +98,11 @@ public class VehicleServiceFragment extends BaseFragment  implements Callback<Ve
     }
 
     private void loadData(Vehicle vehicle){
+        try{
+            ((HomeActivity)getActivity()).showProgress();
+        } catch(Exception e){
+
+        }
         GarageAPI garageAPI = retrofit.create(GarageAPI.class);
 
         Call<VehicleServiceResponse> call = garageAPI.getServiceRequestsByVehicleId(vehicle.getId());
@@ -106,8 +115,10 @@ public class VehicleServiceFragment extends BaseFragment  implements Callback<Ve
     @Override
     public void onResponse(Call<VehicleServiceResponse> call, Response<VehicleServiceResponse> response) {
         VehicleServicePayload serviceResponse = response.body().getServiceRequests();
-
-        Glide.with(this).load(serviceResponse.getVehicleLogo()).into(vehicleLogo);
+        bannerLayout.setVisibility(View.VISIBLE);
+        submitButton.setVisibility(View.VISIBLE);
+        String logo = Constants.LOGOURL.concat(serviceResponse.getVehicleMake());
+        Glide.with(this).load(logo).into(vehicleLogo);
         vehicleName.setText(serviceResponse.getVehicleSummary());
         vehicleName.invalidate();
         vehicleLogo.invalidate();

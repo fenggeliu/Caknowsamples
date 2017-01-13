@@ -13,13 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.service.model.LocationItem;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.service.ServiceAddress;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,14 +61,27 @@ public class ServiceLocationFragment extends BaseFragment {
 
     @OnClick(R.id.service_location_next_button)
     void startServiceSelection(){
-        NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
-        NewServiceFragment fragment = new NewServiceFragment();
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(LocationItem.PARCELABLE_KEY, new LocationItem("address1", "address2", "city", "90035"));
-        fragment.setArguments(bundle);
-        activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
+        if(validate()) {
+            NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
+            NewServiceFragment fragment = new NewServiceFragment();
+            final Bundle bundle = new Bundle();
+            ServiceAddress address = new ServiceAddress();
+            address.setLineOne(nameViews.get(0).getText().toString());
+            address.setLineTwo(nameViews.get(1).getText().toString());
+            address.setCity(nameViews.get(2).getText().toString());
+            address.setPostalCode(nameViews.get(3).getText().toString());
+            ((NewServiceRequestActivity)getActivity()).setServiceAddress(address);
+            fragment.setArguments(bundle);
+            activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
+        } else{
+            Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT);
+        }
     }
 
+    boolean validate(){
+
+        return !nameViews.get(0).getText().toString().isEmpty() && !nameViews.get(2).getText().toString().isEmpty() && !nameViews.get(3).getText().toString().isEmpty();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

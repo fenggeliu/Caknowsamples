@@ -14,14 +14,16 @@ public class AddVehicleRequest {
     private String model;
     private String trim;
     private String mileage;
+    private String logo;
 
 
-    public AddVehicleRequest(String year, String make, String model, String trim, String mileage) {
+    public AddVehicleRequest(String year, String make, String model, String trim, String mileage, String logoUrl) {
         this.year = year;
         this.make = make;
         this.model = model;
         this.trim = trim;
         this.mileage = mileage;
+        this.logo = logoUrl;
     }
 
 

@@ -19,7 +19,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
     protected void initContentView() {
         setContentView(R.layout.activity_payment);
         ButterKnife.bind(this);
-        addFragment(R.id.flContent, new PaymentMethodFragment(), PaymentMethodFragment.FRAGMENT_TAG);
+        addFragment(R.id.paymentContent, new PaymentMethodFragment(), PaymentMethodFragment.FRAGMENT_TAG);
     }
 
     @Override

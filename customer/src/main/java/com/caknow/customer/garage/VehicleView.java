@@ -3,9 +3,13 @@ package com.caknow.customer.garage;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.caknow.app.R;
+import com.caknow.customer.CAKNOWApplication;
+import com.caknow.customer.util.constant.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +27,7 @@ public class VehicleView {
     TextView displayName;
 
     @BindView(R.id.gli_car_logo_display)
-    TextView logoView;
+    ImageView logoView;
 
     @BindView(R.id.gli_quote_display)
     TextView quoteBubble;
@@ -34,6 +38,8 @@ public class VehicleView {
         context = view.getContext();
         quoteCount = vehicle.getQuoteCount();
         displayName.setText(vehicle.getDisplayName());
+        String logoUrl = Constants.LOGOURL.concat(vehicle.getMake());
+        Glide.with(CAKNOWApplication.get()).load(vehicle.getImageUrl()).into(logoView);
         if(quoteCount == 0){
             quoteBubble.setVisibility(View.GONE);
         }

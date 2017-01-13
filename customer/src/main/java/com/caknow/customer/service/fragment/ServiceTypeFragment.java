@@ -92,20 +92,17 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
         unbinder = ButterKnife.bind(this, v);
 
         repairLayout.setAdapter(adapter);
-        repairLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Services item = itemsToDisplay.get(i);
-                serviceId = item.getCatagoryId();
-                loadDataOnClick(ServiceTypeFragment.this.typeId, serviceId);
-            }
+        repairLayout.setOnItemClickListener((adapterView, view, i, l) -> {
+            Services item = itemsToDisplay.get(i);
+            serviceId = item.getCatagoryId();
+            loadDataOnClick(ServiceTypeFragment.this.typeId, serviceId);
         });
         return v;
     }
 
 
     private void loadDataOnClick(final int typeId, final String parentId){
-
+        ((NewServiceRequestActivity) getActivity()).showProgress();
         Call<ServiceTypeResponse> call = serviceAPI.getServiceTypeList(typeId, parentId);
         //asynchronous call
         call.enqueue(this);
@@ -132,29 +129,39 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
 
     @Override
     public void onResponse(Call<ServiceTypeResponse> call, Response<ServiceTypeResponse> response) {
+        try{
+            ((NewServiceRequestActivity) getActivity()).hideProgress();
+        } catch(Exception e){
+            // Thread safe
+        }
         ArrayList<Services> parcelableArrayList = new ArrayList<Services>();
         parcelableArrayList.addAll(response.body().getPayload().getList());
         if(parcelableArrayList.size() > 0) {
             openNextFragment(parcelableArrayList);
+            ((NewServiceRequestActivity) getActivity()).setServiceId(serviceId);
+
         }
         else{
-            String[] services = new String[1];
-            services[0] = serviceId;
+
             ServiceDetailsFragment fragment = new ServiceDetailsFragment();
             Bundle args = new Bundle();
-//            args.putString("vehicleId", vehicleId);
-//            args.putInt("typeId", typeId);
-//            args.putString("description", item.getName());
-//            args.putParcelable("address", serviceAddress);
-//            args.putParcelable("geolocation", geolocation);
+
             fragment.setArguments(args);
-//            replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
+            try {
+                ((NewServiceRequestActivity)getActivity()).replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
+            } catch (Exception e){
+                //
+            }
         }
     }
 
     @Override
     public void onFailure(Call<ServiceTypeResponse> call, Throwable t) {
-
+        try{
+            ((NewServiceRequestActivity) getActivity()).hideProgress();
+        } catch(Exception e){
+            // Thread safe
+        }
     }
 
 }

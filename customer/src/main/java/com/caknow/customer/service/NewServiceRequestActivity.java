@@ -1,15 +1,12 @@
 package com.caknow.customer.service;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,19 +14,15 @@ import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseActivity;
-import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.service.fragment.ServiceDetailsFragment;
 import com.caknow.customer.service.fragment.ServiceListFragment;
 import com.caknow.customer.service.fragment.ServiceLocationFragment;
-import com.caknow.customer.util.net.service.Address;
+import com.caknow.customer.util.net.service.ServiceAddress;
 import com.caknow.customer.util.net.service.Geolocation;
 import com.caknow.customer.util.net.service.Services;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -43,7 +36,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Geolocation geolocation;
-    Address serviceAddress;
+    ServiceAddress serviceAddress;
     private int typeId;
     String[] services;
 
@@ -131,6 +124,29 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
        return getLastLocation();
     }
 
+    public void setServiceAddress(ServiceAddress address){
+        this.serviceAddress = address;
+    }
+
+    public ServiceAddress getServiceAddress(){
+        return this.serviceAddress;
+    }
+
+    public String getVehicleId(){
+        return this.vehicleId;
+    }
+
+    public void setServiceType(int type){
+        this.typeId = type;
+    }
+
+    public int getServiceType(){
+        return this.typeId;
+    }
+
+    public String[] getServiceId(){
+        return this.services;
+    }
     private Location getLastLocation(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
@@ -201,7 +217,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
 
     @Override
     public void onListFragmentInteraction(Services item) {
-        services[0] = item.getCatagoryId();
+        setServiceId(item.getCatagoryId());
         ServiceDetailsFragment fragment = new ServiceDetailsFragment();
         Bundle args = new Bundle();
         args.putString("vehicleId", vehicleId);
@@ -217,5 +233,8 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         this.typeId = typeId;
     }
 
+    public void setServiceId(final String serviceId){
+        services[0] = serviceId;
+    }
 
 }

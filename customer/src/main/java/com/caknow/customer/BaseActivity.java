@@ -1,5 +1,6 @@
 package com.caknow.customer;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
     Bitmap mid;
-
+    ProgressDialog progressDialog;
     /**
      * setContentView
      */
@@ -50,10 +51,25 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void setTitle();
 
+    public void showProgress(){
+        if(progressDialog != null){
+            progressDialog.show();
+        }
+    }
 
+    public void hideProgress(){
+        if(progressDialog != null){
+            progressDialog.hide();
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
         try {
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             getSupportActionBar().setCustomView(R.layout.abs_layout);
@@ -62,6 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } catch (Exception e) {
             //
         }
+        //progressDialog.show();
         this.initContentView();
         this.initView();
         this.initData();

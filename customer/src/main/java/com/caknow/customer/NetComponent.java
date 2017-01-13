@@ -4,9 +4,12 @@ import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.fragment.ConfirmVehicleFragment;
 import com.caknow.customer.garage.fragment.GarageFragment;
 import com.caknow.customer.garage.fragment.VehicleServiceFragment;
+import com.caknow.customer.history.HistoryFragment;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.service.fragment.NewServiceFragment;
+import com.caknow.customer.service.fragment.ServiceDetailsFragment;
 import com.caknow.customer.service.fragment.ServiceTypeFragment;
+import com.caknow.customer.settings.ManageGarageAdapter;
 import com.caknow.customer.util.dagger.AppModule;
 import com.caknow.customer.util.dagger.NetModule;
 
@@ -40,4 +43,10 @@ public interface NetComponent {
         void inject(NewServiceFragment newServiceFragment);
 
         void inject(ServiceTypeFragment serviceTypeFragment);
+
+        void inject(HistoryFragment historyFragment);
+
+        void inject(ManageGarageAdapter manageGarageAdapter);
+
+        void inject(ServiceDetailsFragment serviceDetailsFragment);
 }

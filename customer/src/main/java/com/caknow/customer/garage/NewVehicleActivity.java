@@ -80,13 +80,22 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("New Vehicle");
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Select Make");
             ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
     }
 
+
+    public void updateTitle(String titleText){
+        try {
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
+            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e){
+            //
+        }
+    }
 
 
     @Override
@@ -133,6 +142,7 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
     @Override
     public void onListFragmentInteraction(Make item) {
         make = item.getName();
+        makeNiceName = item.getNiceName();
         AddVehicleModelFragment fragment = new AddVehicleModelFragment();
         ArrayList<Model> models = parseModelData(item.getModels());
         Bundle args = new Bundle();

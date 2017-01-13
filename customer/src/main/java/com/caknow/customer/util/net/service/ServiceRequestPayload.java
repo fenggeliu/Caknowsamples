@@ -1,18 +1,21 @@
 package com.caknow.customer.util.net.service;
 
+/**
+ * Created by junu on 1/13/2017.
+ */
+
+import java.io.Serializable;
+import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Parcelable.Creator;
+
+import com.caknow.customer.util.net.content.LoginRequestPayload;
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-/**
- * Created by jkang on 1/12/17.
- */import java.io.Serializable;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class ServiceRequest implements Serializable, Parcelable
+public class ServiceRequestPayload implements Serializable, Parcelable
 {
 
     @SerializedName("geolocation")
@@ -35,7 +38,7 @@ public class ServiceRequest implements Serializable, Parcelable
     private String description;
     @SerializedName("priority")
     @Expose
-    private Long priority;
+    private int priority;
     @SerializedName("imageList")
     @Expose
     private List<String> imageList = null;
@@ -45,14 +48,14 @@ public class ServiceRequest implements Serializable, Parcelable
     @SerializedName("address")
     @Expose
     private ServiceAddress address;
-    public final static Parcelable.Creator<ServiceRequest> CREATOR = new Creator<ServiceRequest>() {
+    public final static Parcelable.Creator<ServiceRequestPayload> CREATOR = new Creator<ServiceRequestPayload>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public ServiceRequest createFromParcel(Parcel in) {
-            ServiceRequest instance = new ServiceRequest();
+        public ServiceRequestPayload createFromParcel(Parcel in) {
+            ServiceRequestPayload instance = new ServiceRequestPayload();
             instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
             in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
             instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
@@ -66,13 +69,13 @@ public class ServiceRequest implements Serializable, Parcelable
             return instance;
         }
 
-        public ServiceRequest[] newArray(int size) {
-            return (new ServiceRequest[size]);
+        public ServiceRequestPayload[] newArray(int size) {
+            return (new ServiceRequestPayload[size]);
         }
 
     }
             ;
-    private final static long serialVersionUID = 6945084301464069321L;
+    private final static long serialVersionUID = -1837018652848126229L;
 
     public Geolocation getGeolocation() {
         return geolocation;
@@ -126,7 +129,7 @@ public class ServiceRequest implements Serializable, Parcelable
         return priority;
     }
 
-    public void setPriority(Long priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
@@ -169,6 +172,11 @@ public class ServiceRequest implements Serializable, Parcelable
 
     public int describeContents() {
         return 0;
+    }
+    public static String getJsonString(ServiceRequestPayload payload){
+        Gson gson = new Gson();
+
+        return gson.toJson(payload);
     }
 
 }

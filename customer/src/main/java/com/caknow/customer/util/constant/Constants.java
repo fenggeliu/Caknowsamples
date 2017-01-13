@@ -8,6 +8,7 @@ public class Constants {
     public static final String URL_PARCEL_KEY = "url_parcel";
     public static final String VEHICLE_PARCEL_KEY = "vehicle";
     public static final String ITEM_LIST_PARCEL_KEY = ".addNew.itemList";
+    public static final String ADDRESS_PARCEL_KEY = "address";
     public static final String ENDPOINT =                           "http://staging.caknow.com/";
     public static final String contentType                          = "application/json";
     public static final String apiKey                               = "Ubi2Id/9+a1z3vlww4EoPPN6MYndtaqP8blgxSAlIag=";
@@ -17,7 +18,7 @@ public class Constants {
     public static final String svcType                              = caknowUrl + "client/svcReqs/svcTypes";
     public static final String cloudinaryUrl                        = caknowUrl + "cloudinary/images/signatures";
     public static final String cloudinaryServer                     = "http://res.cloudinary.com/caknow-app/image/upload/";
-
+    public static final String LOGOURL                              = "https://res.cloudinary.com/caknow/vehicle_logo/";
     public static final String ACCOUNT_TYPE_FACEBOOK = "FACEBOOK_USER";
     public static final String ACCOUNT_TYPE_GOOGLE   = "GOOGLE_USER";
     public static final String ACCOUNT_TYPE_CAKNOW = "CAKNOW_USER";

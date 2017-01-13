@@ -48,7 +48,7 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
 
     @Inject
     Retrofit retrofit;
-    @OnClick(R.id.home_empty_garage_add_button)
+    @OnClick(R.id.home_empty_garage_view)
     void addNewCar(){
         try {
             Intent intent = new Intent(getActivity(), NewVehicleActivity.class);
@@ -57,6 +57,8 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
 
         }
     }
+
+
 
     HomeActivity homeActivity;
     GarageAdapter gridViewAdapter;
@@ -68,9 +70,15 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
         View v = inflater.inflate(R.layout.content_garage, container, false);
         unbinder = ButterKnife.bind(this, v);
         homeActivity = (HomeActivity) getActivity();
-        loadData();
+
         CAKNOWApplication.get().getNetComponent().inject(this);
         return v;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        loadData();
     }
 
     private void loadData(){
@@ -103,6 +111,9 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
             if(vehicles.size() == 0) {
                 emptyGarageView.setVisibility(View.VISIBLE);
             }
+            else{
+                emptyGarageView.setVisibility(View.INVISIBLE);
+            }
             gridViewAdapter = new GarageAdapter(getContext(), vehicles);
             vehicleGridView.setAdapter(gridViewAdapter);
             vehicleGridView.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -117,6 +128,7 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
                 }
             });
             vehicleGridView.invalidate();
+            ((HomeActivity) getActivity()).hideProgress();
         } catch (Exception e){
             //
         }
@@ -127,5 +139,8 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
     @Override
     public void onFailure(Call<GarageResponse> call, Throwable t) {
         //Show Error
+
+        ((HomeActivity) getActivity()).hideProgress();
+
     }
 }

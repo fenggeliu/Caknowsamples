@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.CAKNOWApplication;
+import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
@@ -67,8 +68,10 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @OnClick(R.id.acsl_submit_btn)
     void addCarToGarage(){
 
+        ((NewVehicleActivity)getActivity()).showProgress();
+        String logoUrl = Constants.LOGOURL.concat(makeNN);
         GarageAPI garageAPI = retrofit.create(GarageAPI.class);
-        String text = AddVehicleRequest.getJsonString(new AddVehicleRequest(this.year, this.make, this.model, "", "100"));
+        String text = AddVehicleRequest.getJsonString(new AddVehicleRequest(this.year, this.make, this.model, "", "0", logoUrl));
         RequestBody body =
                 RequestBody.create(MediaType.parse("application/json"), text);
 
@@ -86,7 +89,7 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
             make = bundle.getString("make", "make");
             model = bundle.getString("model", "model");
             year = bundle.getString("year", "year");
-
+            makeNN = bundle.getString("makeNN", "make");
             displayName = String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
         }
         else{
@@ -103,19 +106,30 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
 
 
     @Override
+    public void onResume(){
+        super.onResume();
+        ((NewVehicleActivity)getActivity()).updateTitle("Add Vehicle");
+    }
+
+    @Override
     public void onResponse(Call<AddVehicleResponse> call, Response<AddVehicleResponse> response) {
-        try {
-            HomeActivity homeActivity = (HomeActivity) getActivity();
-            homeActivity.addFragment(R.id.flContent,
-                    new GarageFragment(),
-                    GarageFragment.FRAGMENT_TAG);
-        } catch (Exception e){
-            //
+        try{
+            ((NewVehicleActivity)getActivity()).showProgress();
+            getActivity().finish();
+        } catch(Exception e){
+
         }
+
     }
 
     @Override
     public void onFailure(Call<AddVehicleResponse> call, Throwable t) {
+        try{
+            ((NewVehicleActivity)getActivity()).showProgress();
+            getActivity().finish();
+        } catch(Exception e){
+
+        }
         Toast.makeText(getContext(), "Error adding car!", Toast.LENGTH_SHORT).show();
     }
 }

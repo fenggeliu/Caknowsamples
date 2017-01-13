@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.Make;
+import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.garage.adapter.AddVehicleMakeAdapter;
 import com.caknow.customer.garage.adapter.AddVehicleModelAdapter;
@@ -69,18 +70,22 @@ public class AddVehicleMakeFragment extends BaseFragment {
             makeList = bundle.getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
             int type = bundle.getInt("type");
         }
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NewVehicleActivity)getActivity()).updateTitle("Select Make");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_addvehicle_list, container, false);
-
         // Set the adapter
-        if (view instanceof RecyclerView) {
+
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -89,7 +94,7 @@ public class AddVehicleMakeFragment extends BaseFragment {
 
             recyclerView.setAdapter(new AddVehicleMakeAdapter(makeList, mListener, listType));
 
-        }
+
         return view;
     }
 

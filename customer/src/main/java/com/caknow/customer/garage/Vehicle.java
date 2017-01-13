@@ -57,7 +57,7 @@ public class Vehicle implements Parcelable {
     }
 
     public String getDisplayName(){
-        return String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
+        return String.format(Locale.getDefault(), "%s %s",  this.make, this.model);
     }
 
     public List<ServiceItem> getServiceItemList() {

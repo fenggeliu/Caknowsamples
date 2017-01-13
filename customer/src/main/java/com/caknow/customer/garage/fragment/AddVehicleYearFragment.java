@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.Model;
+import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.garage.Year;
 import com.caknow.customer.garage.adapter.AddVehicleModelAdapter;
@@ -72,25 +73,31 @@ public class AddVehicleYearFragment extends BaseFragment {
         }
 
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NewVehicleActivity)getActivity()).updateTitle("Select Year");
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_addvehicle_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        }
+
 
             recyclerView.setAdapter(new AddVehicleYearAdapter(itemList, mListener));
 
-        }
+
         return view;
     }
 

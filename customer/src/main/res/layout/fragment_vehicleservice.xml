@@ -16,8 +16,10 @@
             android:layout_weight="3">
 
             <LinearLayout
+                android:id="@+id/vehicle_service_top_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:background="@drawable/list_top_2x"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -101,6 +103,7 @@
             android:background="@drawable/button_red_2x"
             android:gravity="center"
             android:text="@string/srcl_new_request_btn"
+            android:visibility="gone"
             android:textColor="@color/white_full"
             android:textSize="@dimen/srcl_new_service_request_btn_text_size" />
     </LinearLayout>

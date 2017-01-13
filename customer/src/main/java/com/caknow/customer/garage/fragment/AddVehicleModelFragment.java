@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.Model;
+import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.garage.VehicleType;
 import com.caknow.customer.garage.adapter.AddVehicleMakeAdapter;
 import com.caknow.customer.garage.adapter.AddVehicleModelAdapter;
@@ -72,14 +73,19 @@ public class AddVehicleModelFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        ((NewVehicleActivity)getActivity()).updateTitle("Select Model");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_addvehicle_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
+
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -88,7 +94,7 @@ public class AddVehicleModelFragment extends BaseFragment {
 
             recyclerView.setAdapter(new AddVehicleModelAdapter(modelList, mListener));
 
-        }
+
         return view;
     }
 

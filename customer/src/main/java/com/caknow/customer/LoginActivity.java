@@ -17,6 +17,7 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -94,7 +95,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
     @OnClick(R.id.login_layout_sign_in_btn)
     void loginClicked() {
-
+        showProgress(true);
         // prepare call in Retrofit 2.0
         AuthenticationAPI authenticationAPI = retrofit.create(AuthenticationAPI.class);
         email = mEmailView.getText().toString();
@@ -206,8 +207,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        im.showSoftInput(mEmailView, 0);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         mEmailView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -454,6 +454,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
     @Override
     public void onResponse(Call<AuthenticationResponse> call, retrofit2.Response<AuthenticationResponse> response) {
+        showProgress(false);
         if (response.isSuccessful()) {
             Toast.makeText(LoginActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
             AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
@@ -475,6 +476,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
 
     @Override
     public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
+        showProgress(false);
 
         Toast.makeText(LoginActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
 

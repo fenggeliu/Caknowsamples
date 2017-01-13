@@ -86,7 +86,9 @@
                             android:paddingRight="@dimen/login_layout_email_padding_right"
                             android:paddingTop="@dimen/login_layout_email_padding_top"
                             android:textColorHint="#999999"
-                            android:textSize="@dimen/login_layout_email_text_size" />
+                            android:textSize="@dimen/login_layout_email_text_size" >
+                            <requestFocus/>
+                        </EditText>
                     </LinearLayout>
 
                     <LinearLayout

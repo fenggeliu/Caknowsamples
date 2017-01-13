@@ -14,10 +14,13 @@ import butterknife.ButterKnife;
 
 public class HistoryActivity extends BaseActivity {
 
+
     @Override
     protected void initContentView() {
+
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
+        addFragment(R.id.historyContent, new HistoryFragment(), HistoryFragment.FRAGMENT_TAG);
 
     }
 

@@ -3,11 +3,11 @@ package com.caknow.customer.util.net.service;
 import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Address implements Serializable, Parcelable
+public class ServiceAddress implements Serializable, Parcelable
 {
 
     @SerializedName("lineOne")
@@ -25,14 +25,14 @@ public class Address implements Serializable, Parcelable
     @SerializedName("postalCode")
     @Expose
     private String postalCode;
-    public final static Parcelable.Creator<Address> CREATOR = new Creator<Address>() {
+    public final static Parcelable.Creator<ServiceAddress> CREATOR = new Creator<ServiceAddress>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public Address createFromParcel(Parcel in) {
-            Address instance = new Address();
+        public ServiceAddress createFromParcel(Parcel in) {
+            ServiceAddress instance = new ServiceAddress();
             instance.lineOne = ((String) in.readValue((String.class.getClassLoader())));
             instance.lineTwo = ((String) in.readValue((String.class.getClassLoader())));
             instance.city = ((String) in.readValue((String.class.getClassLoader())));
@@ -41,8 +41,8 @@ public class Address implements Serializable, Parcelable
             return instance;
         }
 
-        public Address[] newArray(int size) {
-            return (new Address[size]);
+        public ServiceAddress[] newArray(int size) {
+            return (new ServiceAddress[size]);
         }
 
     }

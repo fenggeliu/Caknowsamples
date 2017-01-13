@@ -29,11 +29,12 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <ImageView
                     android:id="@+id/gli_car_logo_display"
                     android:layout_width="@dimen/gli_car_logo_display_width"
                     android:layout_height="@dimen/gli_car_logo_display_height"
-                    android:background="@drawable/alfa_romeo" />
+                    android:background="#00000000"
+                    />
 
             </LinearLayout>
         </LinearLayout>
@@ -70,7 +71,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3 Series"
                     android:maxLines="3"
                     android:gravity="center"
                     android:textColor="@color/font_black"

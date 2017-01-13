@@ -91,6 +91,12 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     }
 
     private void loadDataOnClick(final int typeId){
+        try{
+            ((NewServiceRequestActivity) getActivity()).showProgress();
+            ((NewServiceRequestActivity) getActivity()).setServiceType(typeId);
+        } catch(Exception e){
+            // Thread safe
+        }
         this.typeId = typeId;
         Call<ServiceTypeResponse> call = serviceAPI.getServiceTypeList(typeId, null);
         //asynchronous call
@@ -105,7 +111,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     private void openNextFragment(final int typeId, final ArrayList parcelableArrayList){
         if(getActivity() != null) {
             NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
-            homeActivity.setType(typeId);
+            homeActivity.setServiceType(typeId);
             ServiceTypeFragment fragment = new ServiceTypeFragment();
             Bundle args = new Bundle();
             args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, parcelableArrayList);
@@ -122,10 +128,19 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
         ArrayList<Services> parcelableArrayList = new ArrayList<Services>();
         parcelableArrayList.addAll(response.body().getPayload().getList());
         openNextFragment(this.typeId, parcelableArrayList);
+        try{
+            ((NewServiceRequestActivity) getActivity()).hideProgress();
+        } catch(Exception e){
+            // Thread safe
+        }
     }
 
     @Override
     public void onFailure(Call<ServiceTypeResponse> call, Throwable t) {
-
+        try{
+            ((NewServiceRequestActivity) getActivity()).hideProgress();
+        } catch(Exception e){
+            // Thread safe
+        }
     }
 }
