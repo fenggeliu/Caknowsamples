@@ -67,6 +67,24 @@ public class ServiceTypeFragment extends BaseFragment implements Callback<Servic
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        String typeString = "";
+        switch(typeId){
+            case 1:
+                typeString = "Repair";
+                break;
+            case 2:
+                typeString = "Maintenance";
+                break;
+            case 3:
+                typeString = "Emergency";
+                break;
+        }
+        ((NewServiceRequestActivity)getActivity()).updateTitle(typeString, R.drawable.ic_action_back);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

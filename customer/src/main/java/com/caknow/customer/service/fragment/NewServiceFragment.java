@@ -72,6 +72,11 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        ((NewServiceRequestActivity)getActivity()).updateTitle("Select Type", R.drawable.ic_action_back);
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

@@ -50,7 +50,12 @@ public class ServiceLocationFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        ((NewServiceRequestActivity) getActivity()).updateTitle("Service Location", R.drawable.ic_action_close);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NewServiceRequestActivity)getActivity()).updateTitle("Location", R.drawable.ic_action_back);
     }
 
     @OnClick(R.id.service_location_next_button)
@@ -63,8 +68,6 @@ public class ServiceLocationFragment extends BaseFragment {
         activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
     }
 
-    @BindView(R.id.service_location_find_me_button)
-    TextView findBeButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
