@@ -15,9 +15,10 @@ public class StringListAdapter implements ListAdapter {
 
     List<String> itemList;
 
-    public StringListAdapter(List<String> stringItems){
+    public StringListAdapter(List<String> stringItems) {
         this.itemList = stringItems;
     }
+
     @Override
     public boolean areAllItemsEnabled() {
         return true;

@@ -1,7 +1,5 @@
 package com.caknow.customer.util.net.reg;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by junu on 12/31/16.
  */
@@ -9,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 public class VerificationPayload {
     boolean verified;
 
-    public boolean isVerified(){
+    public boolean isVerified() {
         return this.verified;
     }
 }

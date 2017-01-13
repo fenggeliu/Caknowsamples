@@ -1,20 +1,31 @@
 package com.caknow.customer.util.net.service;
 
-import com.caknow.customer.util.net.garage.GaragePayload;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 /**
  * Created by junu on 12/31/16.
  */
 
-import java.io.Serializable;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class ServiceTypeResponse implements Serializable, Parcelable {
 
+    public static final Creator<ServiceTypeResponse> CREATOR = new Creator<ServiceTypeResponse>() {
+        @Override
+        public ServiceTypeResponse createFromParcel(Parcel source) {
+            return new ServiceTypeResponse(source);
+        }
+
+        @Override
+        public ServiceTypeResponse[] newArray(int size) {
+            return new ServiceTypeResponse[size];
+        }
+    };
+    private final static long serialVersionUID = -1027863414252002434L;
     @SerializedName("success")
     @Expose
     private boolean success;
@@ -24,7 +35,15 @@ public class ServiceTypeResponse implements Serializable, Parcelable {
     @SerializedName("payload")
     @Expose
     private Payload payload;
-    private final static long serialVersionUID = -1027863414252002434L;
+
+    public ServiceTypeResponse() {
+    }
+
+    protected ServiceTypeResponse(Parcel in) {
+        this.success = in.readByte() != 0;
+        this.message = in.readString();
+        this.payload = in.readParcelable(Payload.class.getClassLoader());
+    }
 
     public boolean isSuccess() {
         return success;
@@ -61,25 +80,4 @@ public class ServiceTypeResponse implements Serializable, Parcelable {
         dest.writeString(this.message);
         dest.writeParcelable(this.payload, flags);
     }
-
-    public ServiceTypeResponse() {
-    }
-
-    protected ServiceTypeResponse(Parcel in) {
-        this.success = in.readByte() != 0;
-        this.message = in.readString();
-        this.payload = in.readParcelable(Payload.class.getClassLoader());
-    }
-
-    public static final Creator<ServiceTypeResponse> CREATOR = new Creator<ServiceTypeResponse>() {
-        @Override
-        public ServiceTypeResponse createFromParcel(Parcel source) {
-            return new ServiceTypeResponse(source);
-        }
-
-        @Override
-        public ServiceTypeResponse[] newArray(int size) {
-            return new ServiceTypeResponse[size];
-        }
-    };
 }

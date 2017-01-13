@@ -3,25 +3,17 @@ package com.caknow.customer.util.net.history;
 /**
  * Created by junu on 1/12/2017.
  */
-import java.io.Serializable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class HistoryResponse implements Serializable, Parcelable
-{
+import java.io.Serializable;
 
-    @SerializedName("success")
-    @Expose
-    private Boolean success;
-    @SerializedName("message")
-    @Expose
-    private String message;
-    @SerializedName("payload")
-    @Expose
-    private Payload payload;
+public class HistoryResponse implements Serializable, Parcelable {
+
     public final static Parcelable.Creator<HistoryResponse> CREATOR = new Creator<HistoryResponse>() {
 
 
@@ -40,9 +32,17 @@ public class HistoryResponse implements Serializable, Parcelable
             return (new HistoryResponse[size]);
         }
 
-    }
-            ;
+    };
     private final static long serialVersionUID = 5862500599210071311L;
+    @SerializedName("success")
+    @Expose
+    private Boolean success;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("payload")
+    @Expose
+    private Payload payload;
 
     public Boolean getSuccess() {
         return success;

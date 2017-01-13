@@ -8,9 +8,7 @@ import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.garage.Model;
-import com.caknow.customer.garage.fragment.AddVehicleMakeFragment;
 import com.caknow.customer.garage.fragment.AddVehicleModelFragment;
-import com.caknow.customer.garage.fragment.MMYListItem;
 import com.caknow.customer.home.HomeCardItem;
 import com.caknow.customer.home.HomeFragment;
 
@@ -19,7 +17,6 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link HomeCardItem} and makes a call to the
  * specified {@link HomeFragment.OnListFragmentInteractionListener}.
- *
  */
 public class AddVehicleModelAdapter extends RecyclerView.Adapter<AddVehicleModelAdapter.ViewHolder> {
 
@@ -58,7 +55,7 @@ public class AddVehicleModelAdapter extends RecyclerView.Adapter<AddVehicleModel
 
     @Override
     public int getItemCount() {
-        if(mValues == null){
+        if (mValues == null) {
             return 0;
         }
         return mValues.size();

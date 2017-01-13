@@ -10,7 +10,7 @@ public class MMYResponse {
     String message;
     MMYPayload payload;
 
-    public MMYPayload getPayload(){
+    public MMYPayload getPayload() {
         return this.payload;
     }
 }

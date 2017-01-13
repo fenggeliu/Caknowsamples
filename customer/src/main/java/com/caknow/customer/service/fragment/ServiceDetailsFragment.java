@@ -1,6 +1,5 @@
 package com.caknow.customer.service.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
@@ -9,15 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.CAKNOWApplication;
-import com.caknow.customer.garage.NewVehicleActivity;
 import com.caknow.customer.service.NewServiceRequestActivity;
-import com.caknow.customer.util.net.content.LoginRequestPayload;
+import com.caknow.customer.util.net.service.Geolocation;
 import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.util.net.service.ServiceAddress;
 import com.caknow.customer.util.net.service.ServiceRequestPayload;
@@ -30,7 +28,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -50,8 +47,13 @@ public class ServiceDetailsFragment extends BaseFragment implements Callback<Ser
     List<String> services;
     String[] serviceId;
     String vehicleId;
+    Geolocation geolocation;
     @Inject
     Retrofit retrofit;
+
+
+    @BindView(R.id.service_detail_mileage_editext)
+    EditText mileageEditText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,11 +62,12 @@ public class ServiceDetailsFragment extends BaseFragment implements Callback<Ser
         View v = inflater.inflate(R.layout.fragment_service_request_detail, container, false);
         CAKNOWApplication.get().getNetComponent().inject(this);
         unbinder = ButterKnife.bind(this, v);
-        ((NewServiceRequestActivity)getActivity()).updateTitle("Details", R.drawable.ic_action_back);
-        address = ((NewServiceRequestActivity)getActivity()).getServiceAddress();
-        serviceType = ((NewServiceRequestActivity)getActivity()).getServiceType();
-        serviceId = ((NewServiceRequestActivity)getActivity()).getServiceId();
-        vehicleId = ((NewServiceRequestActivity)getActivity()).getVehicleId();
+        ((NewServiceRequestActivity) getActivity()).updateTitle("Details", R.drawable.ic_action_back);
+        address = ((NewServiceRequestActivity) getActivity()).getServiceAddress();
+        serviceType = ((NewServiceRequestActivity) getActivity()).getServiceType();
+        serviceId = ((NewServiceRequestActivity) getActivity()).getServiceId();
+        vehicleId = ((NewServiceRequestActivity) getActivity()).getVehicleId();
+        geolocation = ((NewServiceRequestActivity) getActivity()).getGeolocation();
         services = new ArrayList<>();
         services.add(serviceId[0]);
         setHasOptionsMenu(true);
@@ -93,14 +96,16 @@ public class ServiceDetailsFragment extends BaseFragment implements Callback<Ser
         return super.onOptionsItemSelected(item);
     }
 
-    private void submitServiceRequest(){
-        ((NewServiceRequestActivity)getActivity()).showProgress();
+    private void submitServiceRequest() {
+        ((NewServiceRequestActivity) getActivity()).showProgress();
         ServiceRequestPayload payload = new ServiceRequestPayload();
         payload.setAddress(address);
         payload.setServiceList(services);
         payload.setVehicleId(vehicleId);
-        payload.setMileage(0L);
+        payload.setMileage(Long.valueOf(mileageEditText.getText().toString()));
         payload.setPriority(0);
+        payload.setDescription("");
+        payload.setGeolocation(geolocation);
         String text = ServiceRequestPayload.getJsonString(payload);
         RequestBody body =
                 RequestBody.create(MediaType.parse("application/json"), text);

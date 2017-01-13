@@ -50,25 +50,6 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    private class FadeInListener implements Animation.AnimationListener {
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            route();
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
-
-    }
-
     private void animate(final View v, final long duration) {
 
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -86,15 +67,33 @@ public class SplashActivity extends BaseActivity {
             Intent intent = new Intent(this,
                     InitActivity.class);
             startActivity(intent);
-        } else if (!verified){
+        } else if (!verified) {
             Intent intent = new Intent(this, VerificationActivity.class);
             startActivity(intent);
-        }
-        else {
+        } else {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
         SplashActivity.this.finish();
+    }
+
+    private class FadeInListener implements Animation.AnimationListener {
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            route();
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
     }
 
 }

@@ -66,12 +66,14 @@
                     android:background="@drawable/edit_text_bolder_visible">
 
                     <EditText
-                        android:id="@+id/rdl_mile_input"
+                        android:id="@+id/service_detail_mileage_editext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/rdl_cur_mile_margin_left"
                         android:background="@null"
                         android:ems="10"
+                        android:inputType="number"
+                        android:textCursorDrawable="@null"
                         android:gravity="center_vertical"
                         android:hint="@string/rdl_cur_mile"
                         android:maxLines="1"
@@ -122,6 +124,8 @@
                             android:layout_marginTop="@dimen/rdl_description_text_margin_left"
                             android:background="@null"
                             android:ems="10"
+                            android:textCursorDrawable="@null"
+                            android:textColor="@color/black"
                             android:gravity="center_vertical"
                             android:hint="@string/rdl_description"
                             android:textColorHint="#999999"

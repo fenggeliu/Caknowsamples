@@ -1,9 +1,6 @@
 package com.caknow.customer.util.net.reg;
 
-import android.provider.SyncStateContract;
-
 import com.caknow.customer.util.constant.Constants;
-import com.caknow.customer.util.net.content.LoginRequestPayload;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -24,7 +21,6 @@ public class RegistrationRequest {
     String lName;
 
     /**
-     *
      * @param accountType
      * @param thirdPartyToken
      * @param phone
@@ -42,12 +38,11 @@ public class RegistrationRequest {
     }
 
     /**
-     *
-     * @param email email adress
-     * @param password password
-     * @param fName first niceName
-     * @param lName last niceName
-     * @param phone phone number
+     * @param email        email adress
+     * @param password     password
+     * @param fName        first niceName
+     * @param lName        last niceName
+     * @param phone        phone number
      * @param referralCode referral code
      */
     public RegistrationRequest(String email,
@@ -55,7 +50,7 @@ public class RegistrationRequest {
                                String fName,
                                String lName,
                                String phone,
-                               String referralCode){
+                               String referralCode) {
         this.accountType = Constants.ACCOUNT_TYPE_CAKNOW;
         this.email = email;
         this.password = password;
@@ -65,13 +60,13 @@ public class RegistrationRequest {
         this.referralCode = referralCode;
     }
 
-    class AccountType{
-
-    }
-
-    public static String getJsonString(RegistrationRequest request){
+    public static String getJsonString(RegistrationRequest request) {
         Gson gson = new Gson();
 
         return gson.toJson(request);
+    }
+
+    class AccountType {
+
     }
 }

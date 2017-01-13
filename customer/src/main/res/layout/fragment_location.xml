@@ -96,6 +96,8 @@
                         android:paddingStart="@dimen/location_layout_line1_padding_left"
                         android:paddingTop="@dimen/location_layout_line1_padding_top"
                         android:textColorHint="#999999"
+                        android:textCursorDrawable="@null"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/location_layout_line1_text_size">
 
                         <requestFocus />
@@ -130,7 +132,9 @@
                         android:paddingStart="@dimen/location_layout_line2_padding_left"
                         android:paddingTop="@dimen/location_layout_line2_padding_top"
                         android:textColorHint="#999999"
-                        android:textSize="@dimen/location_layout_line2_text_size"></EditText>
+                        android:textCursorDrawable="@null"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/location_layout_line2_text_size"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -161,7 +165,9 @@
                         android:paddingStart="@dimen/location_layout_city_padding_left"
                         android:paddingTop="@dimen/location_layout_city_padding_top"
                         android:textColorHint="#999999"
-                        android:textSize="@dimen/location_layout_city_text_size"></EditText>
+                        android:textCursorDrawable="@null"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/location_layout_city_text_size"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -192,6 +198,8 @@
                             android:background="@null"
                             android:digits="0123456789"
                             android:gravity="center_vertical"
+                            android:textCursorDrawable="@null"
+                            android:textColor="@color/black"
                             android:hint="@string/location_layout_zip_code"
                             android:inputType="number"
                             android:maxLines="1"
@@ -223,6 +231,8 @@
                             android:layout_height="match_parent"
                             android:layout_centerHorizontal="true"
                             android:layout_marginStart="@dimen/location_layout_spinner_margin_left"
+                            android:entries="@array/state_array"
+
                             android:background="@drawable/spinner_selector" />
                     </LinearLayout>
                 </LinearLayout>

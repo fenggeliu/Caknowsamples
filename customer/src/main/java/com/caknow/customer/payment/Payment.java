@@ -7,28 +7,22 @@ package com.caknow.customer.payment;
 public class Payment {
 
 
-
-    public enum Type{
-        AMEX, VISA, MC, DISC
-    }
-
     private Type type;
     private int lastFour;
     private String exp;
     private String name;
-
-    public Payment(Type type, int lastFour, String exp, String name){
+    public Payment(Type type, int lastFour, String exp, String name) {
         this.type = type;
         this.lastFour = lastFour;
         this.exp = exp;
         this.name = name;
     }
 
-    public Type getType(){
+    public Type getType() {
         return this.type;
     }
 
-    public int getLastFour(){
+    public int getLastFour() {
         return this.lastFour;
     }
 
@@ -38,5 +32,9 @@ public class Payment {
 
     public String getName() {
         return name;
+    }
+
+    public enum Type {
+        AMEX, VISA, MC, DISC
     }
 }

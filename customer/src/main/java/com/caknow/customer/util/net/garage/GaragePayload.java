@@ -1,7 +1,6 @@
 package com.caknow.customer.util.net.garage;
 
 import com.caknow.customer.garage.Vehicle;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class GaragePayload {
     List<Vehicle> vehicles;
 
-    public List<Vehicle> getVehicles(){
+    public List<Vehicle> getVehicles() {
         return this.vehicles;
     }
 }

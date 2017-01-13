@@ -6,10 +6,10 @@ package com.caknow.customer.util.net.garage;
 
 public class GarageResponse {
     boolean success;
-    private  String message;
-    private  GaragePayload payload;
+    private String message;
+    private GaragePayload payload;
 
-    public GaragePayload getGaragePayload(){
+    public GaragePayload getGaragePayload() {
         return this.payload;
     }
 }

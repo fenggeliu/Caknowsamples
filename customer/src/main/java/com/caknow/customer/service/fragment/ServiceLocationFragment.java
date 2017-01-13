@@ -11,18 +11,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.service.NewServiceRequestActivity;
-import com.caknow.customer.service.model.LocationItem;
-import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.service.Geolocation;
 import com.caknow.customer.util.net.service.ServiceAddress;
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,12 +41,19 @@ public class ServiceLocationFragment extends BaseFragment {
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ServiceLocationFragment.class.getName();
 
     Geocoder geocoder;
+    Geolocation geolocation;
 
-    @BindViews({ R.id.service_location_address_1, R.id.service_location_address_2, R.id.service_location_city, R.id.service_location_zip })
+    @BindViews({R.id.service_location_address_1, R.id.service_location_address_2, R.id.service_location_city, R.id.service_location_zip})
     List<EditText> nameViews;
 
     @BindView(R.id.service_location_next_button)
     Button continueButton;
+
+    @BindView(R.id.spinner_state)
+    Spinner stateSpinner;
+    ArrayAdapter<CharSequence> arrayAdapter;
+
+    HashMap<String, String> stateMap = new HashMap<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,15 +62,16 @@ public class ServiceLocationFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        ((NewServiceRequestActivity)getActivity()).updateTitle("Location", R.drawable.ic_action_back);
+        ((NewServiceRequestActivity) getActivity()).updateTitle("Location", R.drawable.ic_action_back);
     }
 
     @OnClick(R.id.service_location_next_button)
-    void startServiceSelection(){
-        if(validate()) {
+    void startServiceSelection() {
+        if (validate()) {
             NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
+            activity.setGeolocation(geolocation);
             NewServiceFragment fragment = new NewServiceFragment();
             final Bundle bundle = new Bundle();
             ServiceAddress address = new ServiceAddress();
@@ -70,15 +79,16 @@ public class ServiceLocationFragment extends BaseFragment {
             address.setLineTwo(nameViews.get(1).getText().toString());
             address.setCity(nameViews.get(2).getText().toString());
             address.setPostalCode(nameViews.get(3).getText().toString());
-            ((NewServiceRequestActivity)getActivity()).setServiceAddress(address);
+            address.setState(stateSpinner.getSelectedItem().toString());
+            ((NewServiceRequestActivity) getActivity()).setServiceAddress(address);
             fragment.setArguments(bundle);
             activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
-        } else{
+        } else {
             Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT);
         }
     }
 
-    boolean validate(){
+    boolean validate() {
 
         return !nameViews.get(0).getText().toString().isEmpty() && !nameViews.get(2).getText().toString().isEmpty() && !nameViews.get(3).getText().toString().isEmpty();
     }
@@ -89,14 +99,23 @@ public class ServiceLocationFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_location, container, false);
         unbinder = ButterKnife.bind(this, v);
-        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
-        try {
-            geocoder.getFromLocationName("10900 Wilshire Blvd Los Angeles, CA 90035", 1);
-        } catch(IOException io){
-            //
-        }
 
+
+        addItemsToStateSpinner();
         return v;
+    }
+
+    private void addItemsToStateSpinner() {
+
+        arrayAdapter = ArrayAdapter.createFromResource(getContext(), R.array.state_array, android.R.layout.simple_spinner_item);
+        String[] stateabbrevarray = getResources().getStringArray(R.array.state_array);
+        String[] statenamearray = getResources().getStringArray(R.array.statename_array);
+        for (int i = 0; i < statenamearray.length; i++) {
+            stateMap.put(statenamearray[i], stateabbrevarray[i]);
+        }
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(arrayAdapter);
+
     }
 
 
@@ -123,21 +142,31 @@ public class ServiceLocationFragment extends BaseFragment {
     }
 
 
-    void checkLocation(){
+    void checkLocation() {
         List<Address> addresses;
 
         NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
-        if(activity != null && !activity.isFinishing()) {
+        if (activity != null && !activity.isFinishing()) {
             try {
                 Location location = activity.requestLocation();
+                Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+                geolocation = new Geolocation();
+                geolocation.setLatitude(location.getLatitude());
+                geolocation.setLongitude(location.getLongitude());
                 addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 if (addresses != null) {
                     nameViews.get(0).setText(addresses.get(0).getAddressLine(0));
                     nameViews.get(2).setText(addresses.get(0).getLocality());
                     nameViews.get(3).setText(addresses.get(0).getPostalCode());
+                    String compareValue = addresses.get(0).getAdminArea();
+                    compareValue = stateMap.get(compareValue);
+                    if (!compareValue.equals(null)) {
+                        int spinnerPosition = arrayAdapter.getPosition(compareValue);
+                        stateSpinner.setSelection(spinnerPosition);
+                    }
                 }
             } catch (Exception e) {
-                Toast.makeText(getActivity(), "Device GeoCoder is acting weird. Please try restarting your device for best results.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Device GeoCoder is acting weird. Please try restarting your device for best results.".concat(e.getMessage()), Toast.LENGTH_SHORT).show();
             }
         }
     }

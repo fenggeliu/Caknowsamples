@@ -9,21 +9,21 @@ public class VehicleType {
     int type;
     String displayName;
 
-    public VehicleType(String id, String displayName, int type){
+    public VehicleType(String id, String displayName, int type) {
         this._id = id == null ? "" : id;
         this.displayName = displayName == null ? "" : displayName;
         this.type = type;
     }
 
-    public String getId(){
+    public String getId() {
         return this._id;
     }
 
-    public String getDisplayName(){
+    public String getDisplayName() {
         return this.displayName;
     }
 
-    public int getType(){
+    public int getType() {
         return type;
     }
 }

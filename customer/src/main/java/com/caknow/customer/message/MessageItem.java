@@ -9,25 +9,29 @@ public class MessageItem {
     String content;
     String date;
 
-    public MessageItem(final long id, final String from, final String content, final String date){
+    public MessageItem(final long id, final String from, final String content, final String date) {
         this.id = id;
         this.from = from;
         this.content = content;
         this.date = date;
     }
+
     // ===========================================================
     // Constants
     // ===========================================================
-    public long getMessageId(){
+    public long getMessageId() {
         return this.id;
     }
-    public String getFrom(){
+
+    public String getFrom() {
         return this.from;
     }
-    public String getDate(){
+
+    public String getDate() {
         return this.date;
     }
-    public String getContent(){
+
+    public String getContent() {
         return this.content;
     }
     // ===========================================================

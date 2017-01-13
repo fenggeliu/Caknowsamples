@@ -1,15 +1,40 @@
 package com.caknow.customer.util.net.history;
 
-import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Vehicle implements Serializable, Parcelable
-{
+import java.io.Serializable;
 
+public class Vehicle implements Serializable, Parcelable {
+
+    public final static Parcelable.Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public Vehicle createFromParcel(Parcel in) {
+            Vehicle instance = new Vehicle();
+            instance.year = ((String) in.readValue((String.class.getClassLoader())));
+            instance.make = ((String) in.readValue((String.class.getClassLoader())));
+            instance.model = ((String) in.readValue((String.class.getClassLoader())));
+            instance.trim = ((String) in.readValue((String.class.getClassLoader())));
+            instance.mileage = ((String) in.readValue((String.class.getClassLoader())));
+            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.consumerName = ((String) in.readValue((String.class.getClassLoader())));
+            instance.consumerAvatar = ((String) in.readValue((String.class.getClassLoader())));
+            return instance;
+        }
+
+        public Vehicle[] newArray(int size) {
+            return (new Vehicle[size]);
+        }
+
+    };
+    private final static long serialVersionUID = -1484133850256199820L;
     @SerializedName("year")
     @Expose
     private String year;
@@ -34,32 +59,6 @@ public class Vehicle implements Serializable, Parcelable
     @SerializedName("consumerAvatar")
     @Expose
     private String consumerAvatar;
-    public final static Parcelable.Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public Vehicle createFromParcel(Parcel in) {
-            Vehicle instance = new Vehicle();
-            instance.year = ((String) in.readValue((String.class.getClassLoader())));
-            instance.make = ((String) in.readValue((String.class.getClassLoader())));
-            instance.model = ((String) in.readValue((String.class.getClassLoader())));
-            instance.trim = ((String) in.readValue((String.class.getClassLoader())));
-            instance.mileage = ((String) in.readValue((String.class.getClassLoader())));
-            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.consumerName = ((String) in.readValue((String.class.getClassLoader())));
-            instance.consumerAvatar = ((String) in.readValue((String.class.getClassLoader())));
-            return instance;
-        }
-
-        public Vehicle[] newArray(int size) {
-            return (new Vehicle[size]);
-        }
-
-    }
-            ;
-    private final static long serialVersionUID = -1484133850256199820L;
 
     public String getYear() {
         return year;

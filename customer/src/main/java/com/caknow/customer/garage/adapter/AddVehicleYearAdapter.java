@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.garage.Year;
-import com.caknow.customer.garage.fragment.AddVehicleModelFragment;
 import com.caknow.customer.garage.fragment.AddVehicleYearFragment;
 import com.caknow.customer.home.HomeCardItem;
 import com.caknow.customer.home.HomeFragment;
@@ -18,7 +17,6 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link HomeCardItem} and makes a call to the
  * specified {@link HomeFragment.OnListFragmentInteractionListener}.
- *
  */
 public class AddVehicleYearAdapter extends RecyclerView.Adapter<AddVehicleYearAdapter.ViewHolder> {
 
@@ -57,7 +55,7 @@ public class AddVehicleYearAdapter extends RecyclerView.Adapter<AddVehicleYearAd
 
     @Override
     public int getItemCount() {
-        if(mValues == null){
+        if (mValues == null) {
             return 0;
         }
         return mValues.size();

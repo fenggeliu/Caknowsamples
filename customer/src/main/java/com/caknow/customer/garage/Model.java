@@ -1,27 +1,17 @@
 package com.caknow.customer.garage;
 
 
-import java.io.Serializable;
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.List;
+
 public class Model implements Serializable, Parcelable {
 
-    @SerializedName("name")
-    @Expose
-    private  String name;
-    @SerializedName("niceName")
-    @Expose
-    private String niceName;
-    @SerializedName("years")
-    @Expose
-    private List<String> years;
     public final static Parcelable.Creator<Model> CREATOR = new Creator<Model>() {
 
 
@@ -42,6 +32,15 @@ public class Model implements Serializable, Parcelable {
 
     };
     private final static long serialVersionUID = -7192033946044348695L;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("niceName")
+    @Expose
+    private String niceName;
+    @SerializedName("years")
+    @Expose
+    private List<String> years;
 
     public String getName() {
         return name;

@@ -14,6 +14,18 @@ import java.io.Serializable;
 
 public class ServiceRequestResponse implements Serializable, Parcelable {
 
+    public static final Creator<ServiceRequestResponse> CREATOR = new Creator<ServiceRequestResponse>() {
+        @Override
+        public ServiceRequestResponse createFromParcel(Parcel source) {
+            return new ServiceRequestResponse(source);
+        }
+
+        @Override
+        public ServiceRequestResponse[] newArray(int size) {
+            return new ServiceRequestResponse[size];
+        }
+    };
+    private final static long serialVersionUID = -1027863414252002434L;
     @SerializedName("success")
     @Expose
     private boolean success;
@@ -23,7 +35,15 @@ public class ServiceRequestResponse implements Serializable, Parcelable {
     @SerializedName("payload")
     @Expose
     private Payload payload;
-    private final static long serialVersionUID = -1027863414252002434L;
+
+    public ServiceRequestResponse() {
+    }
+
+    protected ServiceRequestResponse(Parcel in) {
+        this.success = in.readByte() != 0;
+        this.message = in.readString();
+        this.payload = in.readParcelable(Payload.class.getClassLoader());
+    }
 
     public boolean isSuccess() {
         return success;
@@ -60,25 +80,4 @@ public class ServiceRequestResponse implements Serializable, Parcelable {
         dest.writeString(this.message);
         dest.writeParcelable(this.payload, flags);
     }
-
-    public ServiceRequestResponse() {
-    }
-
-    protected ServiceRequestResponse(Parcel in) {
-        this.success = in.readByte() != 0;
-        this.message = in.readString();
-        this.payload = in.readParcelable(Payload.class.getClassLoader());
-    }
-
-    public static final Creator<ServiceRequestResponse> CREATOR = new Creator<ServiceRequestResponse>() {
-        @Override
-        public ServiceRequestResponse createFromParcel(Parcel source) {
-            return new ServiceRequestResponse(source);
-        }
-
-        @Override
-        public ServiceRequestResponse[] newArray(int size) {
-            return new ServiceRequestResponse[size];
-        }
-    };
 }

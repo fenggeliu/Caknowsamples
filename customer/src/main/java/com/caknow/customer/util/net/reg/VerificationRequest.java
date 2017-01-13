@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 public class VerificationRequest {
     String verificationCode;
 
-    public VerificationRequest(String verificationCode){
+    public VerificationRequest(String verificationCode) {
         this.verificationCode = verificationCode;
     }
 

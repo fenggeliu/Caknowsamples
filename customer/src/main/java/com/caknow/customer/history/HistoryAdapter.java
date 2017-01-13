@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.home.HomeCardItem;
-import com.caknow.customer.home.HomeFragment;
 
 import java.util.List;
 
@@ -20,26 +19,6 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     private List<HomeCardItem> cardItems;
     private HomeFragment.OnListFragmentInteractionListener mListener;
-
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        private HomeCardItem homeCardItem;
-        public TextView statusTextView;
-        public TextView shopNameTextView;
-        public ImageView shopImageView;
-        public TextView serviceTypeTextView;
-        public TextView serviceDetailTextView;
-        public TextView serviceActionTextView;
-        public ImageView carImageView;
-        public ViewHolder(View v) {
-            super(v);
-            statusTextView = (TextView) v.findViewById(R.id.message_item_title);
-
-        }
-    }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public HistoryAdapter(List<HomeCardItem> dataSet, HomeFragment.OnListFragmentInteractionListener listener) {
@@ -84,6 +63,27 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public int getItemCount() {
         return cardItems.size();
+    }
+
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView statusTextView;
+        public TextView shopNameTextView;
+        public ImageView shopImageView;
+        public TextView serviceTypeTextView;
+        public TextView serviceDetailTextView;
+        public TextView serviceActionTextView;
+        public ImageView carImageView;
+        // each data item is just a string in this case
+        private HomeCardItem homeCardItem;
+
+        public ViewHolder(View v) {
+            super(v);
+            statusTextView = (TextView) v.findViewById(R.id.message_item_title);
+
+        }
     }
 
 }

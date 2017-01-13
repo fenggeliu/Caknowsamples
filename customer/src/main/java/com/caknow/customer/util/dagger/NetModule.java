@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetModule {
     String baseUrl;
 
-    public NetModule(String baseUrl){
+    public NetModule(String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
@@ -39,7 +39,7 @@ public class NetModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient(){
+    public OkHttpClient provideOkHttpClient() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addNetworkInterceptor(new StethoInterceptor());
         httpClient.addInterceptor(new BaseRequestInterceptor());
@@ -48,14 +48,13 @@ public class NetModule {
 
     @Provides
     @Singleton
-    public Retrofit provideRetrofit(Gson gson, OkHttpClient client){
-        return  new Retrofit.Builder()
+    public Retrofit provideRetrofit(Gson gson, OkHttpClient client) {
+        return new Retrofit.Builder()
                 .baseUrl(Constants.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
     }
-
 
 
 }

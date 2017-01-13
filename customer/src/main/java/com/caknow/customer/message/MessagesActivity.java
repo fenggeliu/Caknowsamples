@@ -18,6 +18,7 @@ public class MessagesActivity extends BaseActivity {
 
     @BindView(R.id.messages_activity_container)
     FrameLayout content;
+
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_message);
@@ -43,9 +44,9 @@ public class MessagesActivity extends BaseActivity {
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Messages");
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e){
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Messages");
+            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e) {
             //
         }
     }

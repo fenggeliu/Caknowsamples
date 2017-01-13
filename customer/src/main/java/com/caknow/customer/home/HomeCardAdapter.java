@@ -19,25 +19,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     private List<HomeCardItem> cardItems;
     private HomeFragment.OnListFragmentInteractionListener mListener;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        private HomeCardItem homeCardItem;
-        public TextView statusTextView;
-        public TextView carNameTextView;
-        public TextView serviceTypeTextView;
-        public TextView serviceDetailTextView;
-        public TextView serviceActionTextView;
-        public ImageView carImageView;
-        public ViewHolder(View v) {
-            super(v);
-            statusTextView = (TextView) v.findViewById(R.id.message_item_title);
-
-        }
-    }
-
     // Provide a suitable constructor (depends on the kind of dataset)
     public HomeCardAdapter(List<HomeCardItem> dataSet, HomeFragment.OnListFragmentInteractionListener listener) {
         cardItems = dataSet;
@@ -47,7 +28,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     // Create new views (invoked by the layout manager)
     @Override
     public HomeCardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                                         int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.message_list_item, parent, false);
@@ -81,6 +62,26 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     @Override
     public int getItemCount() {
         return cardItems.size();
+    }
+
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView statusTextView;
+        public TextView carNameTextView;
+        public TextView serviceTypeTextView;
+        public TextView serviceDetailTextView;
+        public TextView serviceActionTextView;
+        public ImageView carImageView;
+        // each data item is just a string in this case
+        private HomeCardItem homeCardItem;
+
+        public ViewHolder(View v) {
+            super(v);
+            statusTextView = (TextView) v.findViewById(R.id.message_item_title);
+
+        }
     }
 
 }

@@ -13,17 +13,10 @@ import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.garage.NewVehicleActivity;
-import com.caknow.customer.home.HomeActivity;
-import com.caknow.customer.util.PreferenceKeys;
-import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
-import com.caknow.customer.util.net.HeadersContract;
 import com.caknow.customer.util.net.garage.AddVehicleRequest;
 import com.caknow.customer.util.net.garage.AddVehicleResponse;
 import com.caknow.customer.util.net.garage.GarageAPI;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.Locale;
 
@@ -34,13 +27,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by junu on 1/1/17.
@@ -49,26 +40,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ConfirmVehicleFragment extends BaseFragment implements Callback<AddVehicleResponse> {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ConfirmVehicleFragment.class.getName();
-
+    @BindView(R.id.acsl_vehicle_name)
+    TextView vehicleName;
+    @BindView(R.id.acsl_submit_btn)
+    Button submitButton;
+    @Inject
+    Retrofit retrofit;
     private String displayName;
     private AddVehicleMakeFragment payload;
     private OkHttpClient client;
-
     private String year, make, model, makeNN, modelNN;
 
-    @BindView(R.id.acsl_vehicle_name)
-    TextView vehicleName;
-
-    @BindView(R.id.acsl_submit_btn)
-    Button submitButton;
-
-    @Inject
-    Retrofit retrofit;
-
     @OnClick(R.id.acsl_submit_btn)
-    void addCarToGarage(){
+    void addCarToGarage() {
 
-        ((NewVehicleActivity)getActivity()).showProgress();
+        ((NewVehicleActivity) getActivity()).showProgress();
         String logoUrl = Constants.LOGOURL.concat(makeNN);
         GarageAPI garageAPI = retrofit.create(GarageAPI.class);
         String text = AddVehicleRequest.getJsonString(new AddVehicleRequest(this.year, this.make, this.model, "", "0", logoUrl));
@@ -85,14 +71,13 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
                              Bundle savedInstanceState) {
         CAKNOWApplication.get().getNetComponent().inject(this);
         Bundle bundle = getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             make = bundle.getString("make", "make");
             model = bundle.getString("model", "model");
             year = bundle.getString("year", "year");
             makeNN = bundle.getString("makeNN", "make");
             displayName = String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
-        }
-        else{
+        } else {
             displayName = "ERROR!";
         }
 
@@ -106,17 +91,17 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
 
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        ((NewVehicleActivity)getActivity()).updateTitle("Add Vehicle");
+        ((NewVehicleActivity) getActivity()).updateTitle("Add Vehicle");
     }
 
     @Override
     public void onResponse(Call<AddVehicleResponse> call, Response<AddVehicleResponse> response) {
-        try{
-            ((NewVehicleActivity)getActivity()).showProgress();
+        try {
+            ((NewVehicleActivity) getActivity()).showProgress();
             getActivity().finish();
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -124,10 +109,10 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
 
     @Override
     public void onFailure(Call<AddVehicleResponse> call, Throwable t) {
-        try{
-            ((NewVehicleActivity)getActivity()).showProgress();
+        try {
+            ((NewVehicleActivity) getActivity()).showProgress();
             getActivity().finish();
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
         Toast.makeText(getContext(), "Error adding car!", Toast.LENGTH_SHORT).show();

@@ -35,6 +35,7 @@ public class HistoryFragment extends BaseFragment implements Callback<HistoryRes
 
     @Inject
     Retrofit retrofit;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,12 +46,12 @@ public class HistoryFragment extends BaseFragment implements Callback<HistoryRes
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         try {
             getActivity().setTitle("History");
             ((HistoryActivity) getActivity()).showProgress();
-        } catch(Exception e){
+        } catch (Exception e) {
             //
         }
         CAKNOWApplication.get().getNetComponent().inject(this);
@@ -64,14 +65,13 @@ public class HistoryFragment extends BaseFragment implements Callback<HistoryRes
         try {
             ((HistoryActivity) getActivity()).hideProgress();
 
-        } catch(Exception e){
+        } catch (Exception e) {
             //
         }
-        if(response.body().getPayload().getList().isEmpty()){
+        if (response.body().getPayload().getList().isEmpty()) {
             emptyHistoryView.setVisibility(View.VISIBLE);
             emptyHistoryView.invalidate();
-        }
-        else{
+        } else {
 
         }
 
@@ -83,7 +83,7 @@ public class HistoryFragment extends BaseFragment implements Callback<HistoryRes
             ((HistoryActivity) getActivity()).hideProgress();
             emptyHistoryView.setVisibility(View.VISIBLE);
             emptyHistoryView.invalidate();
-        } catch(Exception e){
+        } catch (Exception e) {
             //
         }
     }

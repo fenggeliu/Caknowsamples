@@ -17,8 +17,8 @@ import com.caknow.customer.BaseActivity;
 import com.caknow.customer.service.fragment.ServiceDetailsFragment;
 import com.caknow.customer.service.fragment.ServiceListFragment;
 import com.caknow.customer.service.fragment.ServiceLocationFragment;
-import com.caknow.customer.util.net.service.ServiceAddress;
 import com.caknow.customer.util.net.service.Geolocation;
+import com.caknow.customer.util.net.service.ServiceAddress;
 import com.caknow.customer.util.net.service.Services;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,20 +30,19 @@ import butterknife.ButterKnife;
  * Created by junu on 1/1/17.
  */
 
-public class NewServiceRequestActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ServiceListFragment.OnListFragmentInteractionListener{
+public class NewServiceRequestActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ServiceListFragment.OnListFragmentInteractionListener {
 
-    private String vehicleId;
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 13;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Geolocation geolocation;
     ServiceAddress serviceAddress;
-    private int typeId;
     String[] services;
-
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 13;
+    private String vehicleId;
+    private int typeId;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         services = new String[1];
         vehicleId = getIntent().getStringExtra("vehicleId");
@@ -95,9 +94,9 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("New Service");
-            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e){
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("New Service");
+            ((ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e) {
             //
         }
     }
@@ -117,37 +116,50 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
 
     }
 
-    public Location requestLocation(){
-        if(mLastLocation != null){
+    public Location requestLocation() {
+        if (mLastLocation != null) {
             return mLastLocation;
         }
-       return getLastLocation();
+        return getLastLocation();
     }
 
-    public void setServiceAddress(ServiceAddress address){
-        this.serviceAddress = address;
-    }
-
-    public ServiceAddress getServiceAddress(){
+    public ServiceAddress getServiceAddress() {
         return this.serviceAddress;
     }
 
-    public String getVehicleId(){
+    public void setServiceAddress(ServiceAddress address) {
+        this.serviceAddress = address;
+    }
+
+    public String getVehicleId() {
         return this.vehicleId;
     }
 
-    public void setServiceType(int type){
-        this.typeId = type;
+    public Geolocation getGeolocation() {
+        return this.geolocation;
     }
 
-    public int getServiceType(){
+    public void setGeolocation(Geolocation geolocation) {
+        this.geolocation = geolocation;
+    }
+
+    public int getServiceType() {
         return this.typeId;
     }
 
-    public String[] getServiceId(){
+    public void setServiceType(int type) {
+        this.typeId = type;
+    }
+
+    public String[] getServiceId() {
         return this.services;
     }
-    private Location getLastLocation(){
+
+    public void setServiceId(final String serviceId) {
+        services[0] = serviceId;
+    }
+
+    private Location getLastLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -203,14 +215,13 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         }
     }
 
-
-    public void updateTitle(String titleText, final int drawableId){
+    public void updateTitle(String titleText, final int drawableId) {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(drawableId);
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
+            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(drawableId);
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
 
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             //
         }
     }
@@ -229,12 +240,8 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
     }
 
-    public void setType(final int typeId){
+    public void setType(final int typeId) {
         this.typeId = typeId;
-    }
-
-    public void setServiceId(final String serviceId){
-        services[0] = serviceId;
     }
 
 }

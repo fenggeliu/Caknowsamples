@@ -12,8 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
@@ -21,7 +19,6 @@ import com.caknow.customer.BaseFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -42,11 +39,6 @@ public class PaymentMethodFragment extends BaseFragment {
     private OnListFragmentInteractionListener mListener;
 
 
-    @OnClick(R.id.add_card_button)
-    void addCard(){
-        AddPaymentFragment fragment = new AddPaymentFragment();
-        ((PaymentActivity)getActivity()).replaceFragment(R.id.paymentContent, fragment, AddPaymentFragment.FRAGMENT_TAG, "addPayment");
-    }
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -64,6 +56,12 @@ public class PaymentMethodFragment extends BaseFragment {
         return fragment;
     }
 
+    @OnClick(R.id.add_card_button)
+    void addCard() {
+        AddPaymentFragment fragment = new AddPaymentFragment();
+        ((PaymentActivity) getActivity()).replaceFragment(R.id.paymentContent, fragment, AddPaymentFragment.FRAGMENT_TAG, "addPayment");
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +75,7 @@ public class PaymentMethodFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_creditcard, container, false);
+        View view = inflater.inflate(R.layout.fragment_creditcard, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         // Set the adapter
@@ -112,20 +110,6 @@ public class PaymentMethodFragment extends BaseFragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Payment item);
-    }
-
     private List<Payment> createDummyData() {
         List<Payment> payments = new ArrayList<>();
         payments.add(new Payment(Payment.Type.AMEX, 1234, "12/27", "John Doe"));
@@ -134,7 +118,6 @@ public class PaymentMethodFragment extends BaseFragment {
 
         return payments;
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -156,5 +139,19 @@ public class PaymentMethodFragment extends BaseFragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(Payment item);
     }
 }

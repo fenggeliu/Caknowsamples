@@ -6,9 +6,20 @@ import android.os.Parcelable;
 /**
  * Created by jkang on 1/4/17.
  */
-public class LocationItem implements Parcelable{
+public class LocationItem implements Parcelable {
 
     public static final String PARCELABLE_KEY = LocationItem.class.getName();
+    public static final Creator<LocationItem> CREATOR = new Creator<LocationItem>() {
+        @Override
+        public LocationItem createFromParcel(Parcel source) {
+            return new LocationItem(source);
+        }
+
+        @Override
+        public LocationItem[] newArray(int size) {
+            return new LocationItem[size];
+        }
+    };
     // ===========================================================
     // Constants
     // ===========================================================
@@ -16,25 +27,11 @@ public class LocationItem implements Parcelable{
     String address2;
     String city;
     String zip;
-    String state;
 
     // ===========================================================
     // Fields
     // ===========================================================
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.address1);
-        dest.writeString(this.address2);
-        dest.writeString(this.city);
-        dest.writeString(this.zip);
-        dest.writeString(this.state);
-    }
+    String state;
 
     public LocationItem(String address1, String address2, String city, String zip) {
         this.address1 = address1;
@@ -51,15 +48,17 @@ public class LocationItem implements Parcelable{
         this.state = in.readString();
     }
 
-    public static final Creator<LocationItem> CREATOR = new Creator<LocationItem>() {
-        @Override
-        public LocationItem createFromParcel(Parcel source) {
-            return new LocationItem(source);
-        }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-        @Override
-        public LocationItem[] newArray(int size) {
-            return new LocationItem[size];
-        }
-    };
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.address1);
+        dest.writeString(this.address2);
+        dest.writeString(this.city);
+        dest.writeString(this.zip);
+        dest.writeString(this.state);
+    }
 }

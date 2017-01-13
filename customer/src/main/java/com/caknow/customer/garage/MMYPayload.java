@@ -5,21 +5,17 @@ package com.caknow.customer.garage;
  */
 
 
-import java.io.Serializable;
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.List;
+
 public class MMYPayload implements Serializable, Parcelable {
 
-    @SerializedName("makes")
-    @Expose
-    private List<Make> makes = null;
     public final static Parcelable.Creator<MMYPayload> CREATOR = new Creator<MMYPayload>() {
 
 
@@ -38,6 +34,9 @@ public class MMYPayload implements Serializable, Parcelable {
 
     };
     private final static long serialVersionUID = 6981888766891022527L;
+    @SerializedName("makes")
+    @Expose
+    private List<Make> makes = null;
 
     public List<Make> getMakes() {
         return makes;

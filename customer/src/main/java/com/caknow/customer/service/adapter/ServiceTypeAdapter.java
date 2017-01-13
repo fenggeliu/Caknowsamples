@@ -22,11 +22,12 @@ public class ServiceTypeAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater inflater;
 
-     public ServiceTypeAdapter(Context context, ArrayList<Services> serviceItems){
+    public ServiceTypeAdapter(Context context, ArrayList<Services> serviceItems) {
         this.serviceItemList = serviceItems;
-         this.mContext = context;
-         this.inflater = (LayoutInflater) this.mContext
-                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);     }
+        this.mContext = context;
+        this.inflater = (LayoutInflater) this.mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
     @Override
     public int getCount() {
@@ -48,10 +49,10 @@ public class ServiceTypeAdapter extends BaseAdapter {
         final ServiceItemView viewHolder;
 
         //Timber.d("position =" + position);
-        if (convertView == null ) {
-                convertView = this.inflater.inflate(R.layout.list_item_service_type, parent, false);
-                viewHolder = new ServiceItemView(convertView, serviceItemList.get(position));
-                convertView.setTag(viewHolder);
+        if (convertView == null) {
+            convertView = this.inflater.inflate(R.layout.list_item_service_type, parent, false);
+            viewHolder = new ServiceItemView(convertView, serviceItemList.get(position));
+            convertView.setTag(viewHolder);
         } else {
             viewHolder = (ServiceItemView) convertView.getTag();
         }

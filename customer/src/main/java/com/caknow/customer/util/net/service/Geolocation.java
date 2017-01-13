@@ -3,22 +3,17 @@ package com.caknow.customer.util.net.service;
 /**
  * Created by jkang on 1/12/17.
  */
-import java.io.Serializable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Geolocation implements Serializable, Parcelable
-{
+import java.io.Serializable;
 
-    @SerializedName("longitude")
-    @Expose
-    private Long longitude;
-    @SerializedName("latitude")
-    @Expose
-    private Long latitude;
+public class Geolocation implements Serializable, Parcelable {
+
     public final static Parcelable.Creator<Geolocation> CREATOR = new Creator<Geolocation>() {
 
 
@@ -27,8 +22,8 @@ public class Geolocation implements Serializable, Parcelable
         })
         public Geolocation createFromParcel(Parcel in) {
             Geolocation instance = new Geolocation();
-            instance.longitude = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.latitude = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.longitude = ((Double) in.readValue((Double.class.getClassLoader())));
+            instance.latitude = ((Double) in.readValue((Double.class.getClassLoader())));
             return instance;
         }
 
@@ -36,23 +31,28 @@ public class Geolocation implements Serializable, Parcelable
             return (new Geolocation[size]);
         }
 
-    }
-            ;
+    };
     private final static long serialVersionUID = 4757083563858546654L;
+    @SerializedName("longitude")
+    @Expose
+    private Double longitude;
+    @SerializedName("latitude")
+    @Expose
+    private Double latitude;
 
-    public Long getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public Long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 

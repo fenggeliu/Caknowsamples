@@ -20,42 +20,47 @@ public interface SharedPreferencesImpl {
      * @param key
      * @param object
      */
-    void put(Context context,String key,Object object);
+    void put(Context context, String key, Object object);
 
     /**
      * get the data based on the saved data type
+     *
      * @param context
      * @param key
      * @param defaultObject
      * @return the data based on the saved data type
      */
-    Object get(Context context,String key,Object defaultObject);
+    Object get(Context context, String key, Object defaultObject);
 
     /**
      * remove the pair of key
+     *
      * @param context
      * @param key
      */
-    void remove(Context context,String key);
+    void remove(Context context, String key);
 
     /**
      * remove all pair
+     *
      * @param context
      */
     void clear(Context context);
 
     /**
      * search the key exist or not if exist return true else return false
+     *
      * @param context
      * @param key
      * @return
      */
-    boolean contains(Context context,String key);
+    boolean contains(Context context, String key);
 
     /**
      * return all pair
+     *
      * @param context
      * @return
      */
-    Map<String,?> getAll(Context context);
+    Map<String, ?> getAll(Context context);
 }

@@ -43,8 +43,8 @@ public class MessagesAdapter extends ArrayAdapter<MessageItem> {
     }
 
     @Override
-    public MessageItem getItem(int i) throws IndexOutOfBoundsException{
-        if(i < 0 || i > messageItems.size() - 1){
+    public MessageItem getItem(int i) throws IndexOutOfBoundsException {
+        if (i < 0 || i > messageItems.size() - 1) {
             throw new IndexOutOfBoundsException();
         }
         return messageItems.get(i);

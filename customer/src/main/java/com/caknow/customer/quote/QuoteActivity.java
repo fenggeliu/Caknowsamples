@@ -2,7 +2,6 @@ package com.caknow.customer.quote;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -55,9 +54,9 @@ public class QuoteActivity extends BaseActivity {
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Quote");
-            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e){
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Quote");
+            ((ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e) {
             //
         }
     }
@@ -65,9 +64,10 @@ public class QuoteActivity extends BaseActivity {
 
     /**
      * Use this to hide a fragment from view
+     *
      * @param fragment
      */
-    private void hideFragment(Fragment fragment){
+    private void hideFragment(Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.hide(fragment);
         ft.commit();

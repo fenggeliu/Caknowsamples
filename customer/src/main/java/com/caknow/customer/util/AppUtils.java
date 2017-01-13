@@ -14,18 +14,20 @@ public class AppUtils {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
+
     /**
      * get the app niceName
+     *
      * @param context
      * @return
      */
     public static String getAppName(Context context) {
         PackageManager packageManager = context.getPackageManager();
         try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(),0);
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             int labelRes = packageInfo.applicationInfo.labelRes;
             return context.getResources().getString(labelRes);
-        }catch(PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -33,15 +35,16 @@ public class AppUtils {
 
     /**
      * get the app version niceName
+     *
      * @param context
      * @return
      */
     public static String getVersionName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(),0);
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionName;
-        } catch(PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -49,15 +52,16 @@ public class AppUtils {
 
     /**
      * get the app version code
+     *
      * @param context
      * @return
      */
     public static int getVersionCode(Context context) {
-        try{
+        try {
             PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(),0);
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionCode;
-        } catch(PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return 0;

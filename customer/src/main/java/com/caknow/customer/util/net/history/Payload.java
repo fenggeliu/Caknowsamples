@@ -4,19 +4,16 @@ package com.caknow.customer.util.net.history;
  * Created by junu on 1/12/2017.
  */
 
-import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Payload implements Serializable, Parcelable
-{
+import java.io.Serializable;
 
-    @SerializedName("list")
-    @Expose
-    private java.util.List<com.caknow.customer.util.net.history.List> list = null;
+public class Payload implements Serializable, Parcelable {
+
     public final static Parcelable.Creator<Payload> CREATOR = new Creator<Payload>() {
 
 
@@ -33,9 +30,11 @@ public class Payload implements Serializable, Parcelable
             return (new Payload[size]);
         }
 
-    }
-            ;
+    };
     private final static long serialVersionUID = 2736016538613972890L;
+    @SerializedName("list")
+    @Expose
+    private java.util.List<com.caknow.customer.util.net.history.List> list = null;
 
     public java.util.List<com.caknow.customer.util.net.history.List> getList() {
         return list;

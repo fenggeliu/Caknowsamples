@@ -22,11 +22,12 @@ public class GarageAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater inflater;
 
-     public GarageAdapter(Context context, List<Vehicle> vehicles){
+    public GarageAdapter(Context context, List<Vehicle> vehicles) {
         this.vehicleList = vehicles;
-         this.mContext = context;
-         this.inflater = (LayoutInflater) this.mContext
-                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);     }
+        this.mContext = context;
+        this.inflater = (LayoutInflater) this.mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
     @Override
     public int getCount() {
@@ -48,8 +49,8 @@ public class GarageAdapter extends BaseAdapter {
         final VehicleView viewHolder;
 
         //Timber.d("position =" + position);
-        if (convertView == null ) {
-            if(this.inflater != null) {
+        if (convertView == null) {
+            if (this.inflater != null) {
                 convertView = this.inflater.inflate(R.layout.list_item_garage, parent, false);
                 viewHolder = new VehicleView(convertView, vehicleList.get(position));
                 convertView.setTag(viewHolder);

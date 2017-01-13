@@ -7,7 +7,7 @@ package com.caknow.customer.service.model;
 /**
  * A dummy item representing a piece of content.
  */
-public class ServiceItem{
+public class ServiceItem {
     public final String id;
     public final String content;
     public final String details;

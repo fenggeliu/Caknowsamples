@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.util.constant.Constants;
-import com.caknow.customer.webview.WebViewActivity;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -25,13 +24,14 @@ import butterknife.OnClick;
 public class PromoFragment extends BaseFragment {
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + PromoFragment.class.getName();
 
-    @BindString(R.string.url_terms_and_conditions) String termsUrl;
+    @BindString(R.string.url_terms_and_conditions)
+    String termsUrl;
 
     @BindView(R.id.promo_terms_and_conditions_tv)
     TextView termsLink;
 
     @OnClick(R.id.promo_terms_and_conditions_tv)
-    void openTermsAndConditions(){
+    void openTermsAndConditions() {
 
         final Intent intent = new Intent(getActivity(), WebViewActivity.class);
         intent.putExtra(Constants.URL_PARCEL_KEY, termsUrl);
@@ -39,7 +39,7 @@ public class PromoFragment extends BaseFragment {
     }
 
     @OnClick(R.id.promo_code_email_button)
-    void startEmailIntent(){
+    void startEmailIntent() {
 
     }
 

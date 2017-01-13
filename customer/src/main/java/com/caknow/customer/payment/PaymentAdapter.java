@@ -1,4 +1,3 @@
-
 package com.caknow.customer.payment;
 
 import android.content.Context;
@@ -21,11 +20,12 @@ public class PaymentAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater inflater;
 
-     public PaymentAdapter(Context context, List<Payment> payments){
+    public PaymentAdapter(Context context, List<Payment> payments) {
         this.paymentList = payments;
-         this.mContext = context;
-         this.inflater = (LayoutInflater) this.mContext
-                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);     }
+        this.mContext = context;
+        this.inflater = (LayoutInflater) this.mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
     @Override
     public int getCount() {
@@ -47,8 +47,8 @@ public class PaymentAdapter extends BaseAdapter {
         final PaymentView viewHolder;
 
         //Timber.d("position =" + position);
-        if (convertView == null ) {
-            if(this.inflater != null) {
+        if (convertView == null) {
+            if (this.inflater != null) {
                 convertView = this.inflater.inflate(R.layout.list_item_cc, parent, false);
                 viewHolder = new PaymentView(convertView, paymentList.get(position), position);
                 //TODO: Edit Mode

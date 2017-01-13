@@ -14,12 +14,9 @@ import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.Model;
 import com.caknow.customer.garage.NewVehicleActivity;
-import com.caknow.customer.garage.VehicleType;
-import com.caknow.customer.garage.adapter.AddVehicleMakeAdapter;
 import com.caknow.customer.garage.adapter.AddVehicleModelAdapter;
 import com.caknow.customer.util.constant.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,21 +31,17 @@ public class AddVehicleModelFragment extends BaseFragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    List<Model> modelList;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    List<Model> modelList;
-    public enum ListTypes{
-        MAKE, MODEL, YEAR, DONE
-    }
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public AddVehicleModelFragment() {
     }
-
-
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -73,9 +66,9 @@ public class AddVehicleModelFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        ((NewVehicleActivity)getActivity()).updateTitle("Select Model");
+        ((NewVehicleActivity) getActivity()).updateTitle("Select Model");
     }
 
     @Override
@@ -84,20 +77,19 @@ public class AddVehicleModelFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_addvehicle_list, container, false);
 
 
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        }
 
-            recyclerView.setAdapter(new AddVehicleModelAdapter(modelList, mListener));
+        recyclerView.setAdapter(new AddVehicleModelAdapter(modelList, mListener));
 
 
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -116,6 +108,9 @@ public class AddVehicleModelFragment extends BaseFragment {
         mListener = null;
     }
 
+    public enum ListTypes {
+        MAKE, MODEL, YEAR, DONE
+    }
 
 
     /**

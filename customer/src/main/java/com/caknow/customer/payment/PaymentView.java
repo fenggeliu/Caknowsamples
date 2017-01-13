@@ -16,22 +16,17 @@ import butterknife.ButterKnife;
 
 public class PaymentView {
 
+    @BindView(R.id.ccli_card_number)
+    TextView cardNumber;
+    @BindView(R.id.ccli_card_holder)
+    TextView cardHolder;
+    @BindView(R.id.ccli_del_expire_day)
+    TextView expiration;
+    @BindView(R.id.ccli_credit_card_category)
+    TextView category;
     private Context context;
     private Payment payment;
     private int quoteCount;
-
-    @BindView(R.id.ccli_card_number)
-    TextView cardNumber;
-
-    @BindView(R.id.ccli_card_holder)
-    TextView cardHolder;
-
-    @BindView(R.id.ccli_del_expire_day)
-    TextView expiration;
-
-    @BindView(R.id.ccli_credit_card_category)
-    TextView category;
-
 
 
     public PaymentView(final View view, @NonNull final Payment payment, int quoteCount) {

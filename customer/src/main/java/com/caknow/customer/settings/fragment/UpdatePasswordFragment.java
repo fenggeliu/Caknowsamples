@@ -30,7 +30,7 @@ public class UpdatePasswordFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         ((SettingsActivity) getActivity()).updateTitle("Phone Number");
     }

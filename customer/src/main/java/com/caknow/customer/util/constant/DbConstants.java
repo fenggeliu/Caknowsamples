@@ -7,62 +7,58 @@ import android.provider.BaseColumns;
  */
 
 public class DbConstants {
-    public static final String       DB_NAME                                      = "caknow_android_customer.db";
-    public static final int          DB_VERSION                                   = 1;
-
-    private static final String      TERMINATOR                                   = ";";
-
-    /** image sdcard cache table **/
-    public static final StringBuffer CREATE_IMAGE_SDCARD_CACHE_TABLE_SQL          = new StringBuffer();
-    public static final StringBuffer CREATE_IMAGE_SDCARD_CACHE_TABLE_INDEX_SQL    = new StringBuffer();
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_TABLE_NAME          = "image_sdcard_cache";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_ID                  = BaseColumns._ID;
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_TAG                 = "tag";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_URL                 = "url";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_PATH                = "path";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_CREATE_TIME         = "create_time";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_LAST_USED_TIME      = "last_used_time";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_USED_COUNT          = "used_count";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_PRIORITY            = "priority";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_IS_EXPIRED          = "is_expired";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_ISFOREVER           = "is_forever";
-
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_INDEX_TAG           = "image_sdcard_cache_table_index_tag";
-    public static final String       IMAGE_SDCARD_CACHE_TABLE_INDEX_URL           = "image_sdcard_cache_table_index_url";
-
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_ID_INDEX            = 0;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_TAG_INDEX           = 1;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_URL_INDEX           = 2;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_PATH_INDEX          = 3;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_CREATE_TIME_INDEX   = 4;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_LAST_USED_TIME_INDEX= 5;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_USEDCOUNT_INDEX     = 6;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_PRIORITY_INDEX      = 7;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_IS_EXPIRED_INDEX    = 8;
-    public static final int          IMAGE_SDCARD_CACHE_TABLE_ISFOREVER_INDEX     = 9;
-
-
-    /** http response cache table **/
-    public static final StringBuffer CREATE_HTTP_CACHE_TABLE_SQL                  = new StringBuffer();
-    public static final StringBuffer CREATE_HTTP_CACHE_TABLE_INDEX_SQL            = new StringBuffer();
-    public static final StringBuffer CREATE_HTTP_CACHE_TABLE_UNIQUE_INDEX         = new StringBuffer();
-    public static final String       HTTP_CACHE_TABLE_TABLE_NAME                  = "http_cache";
-    public static final String       HTTP_CACHE_TABLE_ID                          = BaseColumns._ID;
-    public static final String       HTTP_CACHE_TABLE_URL                         = "url";
-    public static final String       HTTP_CACHE_TABLE_RESPONSE                    = "response";
-    public static final String       HTTP_CACHE_TABLE_EXPIRES                     = "expires";
-    public static final String       HTTP_CACHE_TABLE_CREATE_TIME                 = "gmt_create";
-    public static final String       HTTP_CACHE_TABLE_TYPE                        = "type";
-
-    public static final String       HTTP_CACHE_TABLE_UNIQUE_INDEX_URL            = "http_cache_table_unique_index_url";
-    public static final String       HTTP_CACHE_TABLE_INDEX_TYPE                   = "http_cache_table_index_type";
-
-    public static final int          HTTP_CACHE_TABLE_ID_INDEX                    = 0;
-    public static final int          HTTP_CACHE_TABLE_URL_INDEX                   = 1;
-    public static final int          HTTP_CACHE_TABLE_RESPONSE_INDEX              = 2;
-    public static final int          HTTP_CACHE_TABLE_EXPIRES_INDEX               = 3;
-    public static final int          HTTP_CACHE_TABLE_CREATE_TIME_INDEX           = 4;
-    public static final int          HTTP_CACHE_TABLE_TYPE_INDEX                  = 5;
+    public static final String DB_NAME = "caknow_android_customer.db";
+    public static final int DB_VERSION = 1;
+    /**
+     * image sdcard cache table
+     **/
+    public static final StringBuffer CREATE_IMAGE_SDCARD_CACHE_TABLE_SQL = new StringBuffer();
+    public static final StringBuffer CREATE_IMAGE_SDCARD_CACHE_TABLE_INDEX_SQL = new StringBuffer();
+    public static final String IMAGE_SDCARD_CACHE_TABLE_TABLE_NAME = "image_sdcard_cache";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_ID = BaseColumns._ID;
+    public static final String IMAGE_SDCARD_CACHE_TABLE_TAG = "tag";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_URL = "url";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_PATH = "path";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_CREATE_TIME = "create_time";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_LAST_USED_TIME = "last_used_time";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_USED_COUNT = "used_count";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_PRIORITY = "priority";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_IS_EXPIRED = "is_expired";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_ISFOREVER = "is_forever";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_INDEX_TAG = "image_sdcard_cache_table_index_tag";
+    public static final String IMAGE_SDCARD_CACHE_TABLE_INDEX_URL = "image_sdcard_cache_table_index_url";
+    public static final int IMAGE_SDCARD_CACHE_TABLE_ID_INDEX = 0;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_TAG_INDEX = 1;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_URL_INDEX = 2;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_PATH_INDEX = 3;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_CREATE_TIME_INDEX = 4;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_LAST_USED_TIME_INDEX = 5;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_USEDCOUNT_INDEX = 6;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_PRIORITY_INDEX = 7;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_IS_EXPIRED_INDEX = 8;
+    public static final int IMAGE_SDCARD_CACHE_TABLE_ISFOREVER_INDEX = 9;
+    /**
+     * http response cache table
+     **/
+    public static final StringBuffer CREATE_HTTP_CACHE_TABLE_SQL = new StringBuffer();
+    public static final StringBuffer CREATE_HTTP_CACHE_TABLE_INDEX_SQL = new StringBuffer();
+    public static final StringBuffer CREATE_HTTP_CACHE_TABLE_UNIQUE_INDEX = new StringBuffer();
+    public static final String HTTP_CACHE_TABLE_TABLE_NAME = "http_cache";
+    public static final String HTTP_CACHE_TABLE_ID = BaseColumns._ID;
+    public static final String HTTP_CACHE_TABLE_URL = "url";
+    public static final String HTTP_CACHE_TABLE_RESPONSE = "response";
+    public static final String HTTP_CACHE_TABLE_EXPIRES = "expires";
+    public static final String HTTP_CACHE_TABLE_CREATE_TIME = "gmt_create";
+    public static final String HTTP_CACHE_TABLE_TYPE = "type";
+    public static final String HTTP_CACHE_TABLE_UNIQUE_INDEX_URL = "http_cache_table_unique_index_url";
+    public static final String HTTP_CACHE_TABLE_INDEX_TYPE = "http_cache_table_index_type";
+    public static final int HTTP_CACHE_TABLE_ID_INDEX = 0;
+    public static final int HTTP_CACHE_TABLE_URL_INDEX = 1;
+    public static final int HTTP_CACHE_TABLE_RESPONSE_INDEX = 2;
+    public static final int HTTP_CACHE_TABLE_EXPIRES_INDEX = 3;
+    public static final int HTTP_CACHE_TABLE_CREATE_TIME_INDEX = 4;
+    public static final int HTTP_CACHE_TABLE_TYPE_INDEX = 5;
+    private static final String TERMINATOR = ";";
 
     static {
         /**

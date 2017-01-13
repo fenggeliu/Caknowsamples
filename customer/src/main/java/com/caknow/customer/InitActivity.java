@@ -30,7 +30,7 @@ public class InitActivity extends BaseActivity {
 
     // Start LoginActivity
     @OnClick(R.id.init_layout_login_btn)
-    void startLogin(){
+    void startLogin() {
         final Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
@@ -38,15 +38,15 @@ public class InitActivity extends BaseActivity {
 
     //Start SignUpActivity
     @OnClick(R.id.init_layout_create_btn)
-    void startSignUp(){
+    void startSignUp() {
         final Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 
     //TODO: REMOVE BEFORE PUBLISHING, used to enter mock app
     @OnClick(R.id.init_logo)
-    void debugHome(){
-        if(BuildConfig.DEBUG && !InitActivity.this.isFinishing()) {
+    void debugHome() {
+        if (BuildConfig.DEBUG && !InitActivity.this.isFinishing()) {
             final Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             InitActivity.this.finish();
@@ -54,10 +54,11 @@ public class InitActivity extends BaseActivity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public void initContentView() {
         setContentView(R.layout.activity_init);

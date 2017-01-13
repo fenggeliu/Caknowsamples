@@ -50,10 +50,11 @@ public class AddPaymentFragment extends BaseFragment {
     EditText cardholderName;
     @BindView(R.id.ancl_camera_btn)
     TextView camera;
-
+    @Inject
+    Retrofit retrofit;
 
     @OnClick(R.id.ancl_camera_btn)
-    void onScanPressed(){
+    void onScanPressed() {
         Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
 
         // customize these values to suit your needs.
@@ -80,8 +81,7 @@ public class AddPaymentFragment extends BaseFragment {
                 cardholderName.setText(scanResult.cardholderName);
                 ccExpM.setText(scanResult.expiryMonth);
                 ccExpY.setText(scanResult.expiryYear);
-            }
-            else {
+            } else {
                 resultDisplayStr = "Scan was canceled.";
             }
             // do something with resultDisplayStr, maybe display it in a textView
@@ -89,13 +89,11 @@ public class AddPaymentFragment extends BaseFragment {
         }
         // else handle other activity results
     }
-    @Inject
-    Retrofit retrofit;
 
     @OnClick(R.id.ancl_add_card_btn)
-    void addCard(){
+    void addCard() {
         try {
-            Card card = new Card(ccNum.getText().toString(), Integer.valueOf(ccExpM.getText().toString()), 2000+Integer.valueOf(ccExpY.getText().toString()), ccCVV.getText().toString());
+            Card card = new Card(ccNum.getText().toString(), Integer.valueOf(ccExpM.getText().toString()), 2000 + Integer.valueOf(ccExpY.getText().toString()), ccCVV.getText().toString());
 
             Stripe stripe = new Stripe(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.STRIPE_TOKEN));
             stripe.createToken(card, new TokenCallback() {
@@ -119,6 +117,7 @@ public class AddPaymentFragment extends BaseFragment {
         }
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -128,7 +127,6 @@ public class AddPaymentFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, v);
         return v;
     }
-
 
 
 }

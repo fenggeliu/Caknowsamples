@@ -56,26 +56,22 @@ public class VerificationActivity extends BaseActivity implements Callback<Verif
 
     @BindView(R.id.verification_submit_button)
     Button submitButton;
+    private OkHttpClient client;
+    private Retrofit retrofit;
 
     @OnClick(R.id.verification_submit_button)
-    void verifyAccount(){
+    void verifyAccount() {
         StringBuilder sb = new StringBuilder();
         sb.append(editTextList.get(0).getText().toString());
         sb.append(editTextList.get(1).getText().toString());
         sb.append(editTextList.get(2).getText().toString());
         sb.append(editTextList.get(3).getText().toString());
         final String verificationInput = sb.toString();
-        if(verificationInput.length() == 4){
+        if (verificationInput.length() == 4) {
             validate(verificationInput);
         }
 
     }
-
-
-    private OkHttpClient client;
-    private Retrofit retrofit;
-
-
 
     @Override
     protected void initContentView() {
@@ -129,19 +125,19 @@ public class VerificationActivity extends BaseActivity implements Callback<Verif
     @Override
     protected void setTitle() {
         try {
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setVisibility(View.GONE);
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Verify Account");
+            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setVisibility(View.GONE);
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Verify Account");
         } catch (Exception e) {
             //
         }
 
     }
 
-    private void validate(String code){
+    private void validate(String code) {
         // prepare call in Retrofit 2.0
         RegistrationAPI registrationAPI = retrofit.create(RegistrationAPI.class);
         String text = VerificationRequest.getJsonString(
-               new VerificationRequest(code));
+                new VerificationRequest(code));
         RequestBody body =
                 RequestBody.create(MediaType.parse("application/json"), text);
 

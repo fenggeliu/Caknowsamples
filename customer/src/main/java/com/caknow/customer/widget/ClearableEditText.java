@@ -26,13 +26,13 @@ public class ClearableEditText extends AppCompatEditText {
         init();
     }
 
-    public ClearableEditText(Context context,AttributeSet attrs) {
-        super(context,attrs);
+    public ClearableEditText(Context context, AttributeSet attrs) {
+        super(context, attrs);
         init();
     }
 
-    public ClearableEditText(Context context,AttributeSet attrs,int defStyleAttr) {
-        super(context,attrs,defStyleAttr);
+    public ClearableEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         init();
     }
 
@@ -41,8 +41,8 @@ public class ClearableEditText extends AppCompatEditText {
     }
 
     @Override
-    public void onTextChanged(CharSequence text,int start,int lengthBefore,int lengthAfter) {
-        super.onTextChanged(text,start,lengthBefore,lengthAfter);
+    public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
+        super.onTextChanged(text, start, lengthBefore, lengthAfter);
         setClearIconVisible(hasFocus() && length() > 0);
     }
 
@@ -54,10 +54,10 @@ public class ClearableEditText extends AppCompatEditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch(event.getAction()) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
                 Drawable drawable = getCompoundDrawables()[DRAWABLE_RIGHT];
-                if(drawable != null && event.getX() <= (getWidth() - getPaddingRight())
+                if (drawable != null && event.getX() <= (getWidth() - getPaddingRight())
                         && event.getX() >= (getWidth() - getPaddingRight() - drawable.getBounds().width())) {
                     setText("");
                 }
@@ -67,8 +67,8 @@ public class ClearableEditText extends AppCompatEditText {
     }
 
     private void setClearIconVisible(boolean visible) {
-        setCompoundDrawablesWithIntrinsicBounds(getCompoundDrawables()[DRAWABLE_LEFT],getCompoundDrawables()[DRAWABLE_TOP],
-                visible ? clearDrawable : null,getCompoundDrawables()[DRAWABLE_BOTTOM]);
+        setCompoundDrawablesWithIntrinsicBounds(getCompoundDrawables()[DRAWABLE_LEFT], getCompoundDrawables()[DRAWABLE_TOP],
+                visible ? clearDrawable : null, getCompoundDrawables()[DRAWABLE_BOTTOM]);
     }
 
 }

@@ -31,7 +31,6 @@ import com.caknow.customer.settings.SettingsActivity;
 import com.caknow.customer.util.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
-
 import com.caknow.customer.webview.WebViewActivity;
 
 import javax.inject.Inject;
@@ -41,15 +40,14 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener {
 
-    private RecyclerView.LayoutManager mLayoutManager;
+    @Inject
+    public Retrofit retrofit;
     RecyclerView mRecyclerView;
     DrawerLayout drawer;
     OkHttpClient client;
-    @Inject
-    public Retrofit retrofit;
-
+    private RecyclerView.LayoutManager mLayoutManager;
     private int lastCheckedItem = R.id.nav_messages;
 
     @Override
@@ -66,7 +64,7 @@ public class HomeActivity extends BaseActivity
         toggle.syncState();
         try {
             getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button).setVisibility(View.GONE);
-        } catch(Exception e){
+        } catch (Exception e) {
             //
         }
 
@@ -150,8 +148,8 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
-        } catch (NullPointerException e){
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
+        } catch (NullPointerException e) {
             //
         }
     }

@@ -26,10 +26,11 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
     Bitmap mid;
     ProgressDialog progressDialog;
+
     /**
      * setContentView
      */
-    protected  abstract  void initContentView();
+    protected abstract void initContentView();
 
     /**
      * initialize view
@@ -39,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * receive and send data
      */
-    protected abstract  void initData();
+    protected abstract void initData();
 
     /**
      * setting listener and adapter
@@ -51,17 +52,18 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void setTitle();
 
-    public void showProgress(){
-        if(progressDialog != null){
+    public void showProgress() {
+        if (progressDialog != null) {
             progressDialog.show();
         }
     }
 
-    public void hideProgress(){
-        if(progressDialog != null){
+    public void hideProgress() {
+        if (progressDialog != null) {
             progressDialog.hide();
         }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,14 +116,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void translucentBar(int color) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-            int resourceId = getResources().getIdentifier("status_bar_height","dimen","android");
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
             int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
 
             View rectView = new View(this);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,statusBarHeight);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
             rectView.setLayoutParams(params);
             rectView.setBackgroundColor(getResources().getColor(color));
 

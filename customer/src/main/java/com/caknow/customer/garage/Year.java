@@ -7,30 +7,7 @@ import android.os.Parcelable;
  * Created by junu on 1/10/2017.
  */
 
-public class Year implements Parcelable{
-
-     String value;
-
-    public Year(final String value){
-        this.value = value;
-    }
-
-    public String getValue(){
-        return this.value;
-    }
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.value);
-    }
-
-    protected Year(Parcel in) {
-        this.value = in.readString();
-    }
+public class Year implements Parcelable {
 
     public static final Creator<Year> CREATOR = new Creator<Year>() {
         @Override
@@ -43,4 +20,27 @@ public class Year implements Parcelable{
             return new Year[size];
         }
     };
+    String value;
+
+    public Year(final String value) {
+        this.value = value;
+    }
+
+    protected Year(Parcel in) {
+        this.value = in.readString();
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.value);
+    }
 }

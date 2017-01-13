@@ -13,12 +13,12 @@ import dagger.Provides;
 public class AppModule {
     CAKNOWApplication CAKNOWApplication;
 
-    public AppModule(CAKNOWApplication CAKNOWApplication){
+    public AppModule(CAKNOWApplication CAKNOWApplication) {
         this.CAKNOWApplication = CAKNOWApplication;
     }
 
     @Provides
-    CAKNOWApplication provideApplication(){
+    CAKNOWApplication provideApplication() {
         return this.CAKNOWApplication;
     }
 

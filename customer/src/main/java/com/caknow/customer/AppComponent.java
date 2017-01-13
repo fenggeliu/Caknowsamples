@@ -1,13 +1,5 @@
 package com.caknow.customer;
 
-import com.caknow.customer.home.HomeActivity;
-import com.caknow.customer.util.dagger.AppModule;
-import com.caknow.customer.util.dagger.AuthenticationModule;
-
-import javax.inject.Singleton;
-
-import dagger.Component;
-
 /**
  * Created by junu on 1/1/17.
  */

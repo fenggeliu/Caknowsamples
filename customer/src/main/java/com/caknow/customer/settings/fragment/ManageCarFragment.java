@@ -3,20 +3,16 @@ package com.caknow.customer.settings.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import android.support.v4.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.BaseFragment;
 import com.caknow.customer.garage.Vehicle;
-import com.caknow.customer.garage.adapter.GarageAdapter;
 import com.caknow.customer.settings.ManageGarageAdapter;
 import com.caknow.customer.settings.SettingsActivity;
 import com.caknow.customer.util.net.garage.GarageAPI;
@@ -30,22 +26,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.caknow.customer.settings.fragment.SettingsFragment.HINT_KEY;
-import static com.caknow.customer.settings.fragment.SettingsFragment.TITLE_KEY;
-
 /**
  * Created by junu on 1/1/17.
  */
 
 public class ManageCarFragment extends BaseFragment implements Callback<GarageResponse> {
 
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ManageCarFragment.class.getName();
     @BindView(R.id.manage_car_listview)
     ListView carListView;
-
     ManageGarageAdapter garageAdapter;
-
-    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + ManageCarFragment.class.getName();
     SettingsActivity settingsActivity;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,14 +51,14 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         getActivity().setTitle("History");
     }
 
-    private void loadData(){
+    private void loadData() {
         // prepare call in Retrofit 2.0
-        if(settingsActivity != null) {
+        if (settingsActivity != null) {
             GarageAPI garageAPI = settingsActivity.retrofit.create(GarageAPI.class);
             Call<GarageResponse> call = garageAPI.getVehicles();
             //asynchronous call
@@ -104,7 +96,7 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
     public void onFailure(Call<GarageResponse> call, Throwable t) {
         try {
             Toast.makeText(getActivity(), "Unable to load vehicles", Toast.LENGTH_SHORT).show();
-        }    catch(Exception e){
+        } catch (Exception e) {
             // Thread safe
         }
     }

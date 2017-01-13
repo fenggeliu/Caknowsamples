@@ -1,20 +1,47 @@
 package com.caknow.customer.util.net.service;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by jkang on 1/12/17.
- */import java.io.Serializable;
+ */
 
-import android.os.Parcel;
-import android.os.Parcelable;
+public class ServiceRequest implements Serializable, Parcelable {
 
-public class ServiceRequest implements Serializable, Parcelable
-{
+    public final static Parcelable.Creator<ServiceRequest> CREATOR = new Creator<ServiceRequest>() {
 
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public ServiceRequest createFromParcel(Parcel in) {
+            ServiceRequest instance = new ServiceRequest();
+            instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
+            in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
+            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.mileage = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.type = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.description = ((String) in.readValue((String.class.getClassLoader())));
+            instance.priority = ((Long) in.readValue((Long.class.getClassLoader())));
+            in.readList(instance.imageList, (java.lang.String.class.getClassLoader()));
+            instance.diagnosticCode = ((String) in.readValue((String.class.getClassLoader())));
+            instance.address = ((ServiceAddress) in.readValue((ServiceAddress.class.getClassLoader())));
+            return instance;
+        }
+
+        public ServiceRequest[] newArray(int size) {
+            return (new ServiceRequest[size]);
+        }
+
+    };
+    private final static long serialVersionUID = 6945084301464069321L;
     @SerializedName("geolocation")
     @Expose
     private Geolocation geolocation;
@@ -45,34 +72,6 @@ public class ServiceRequest implements Serializable, Parcelable
     @SerializedName("address")
     @Expose
     private ServiceAddress address;
-    public final static Parcelable.Creator<ServiceRequest> CREATOR = new Creator<ServiceRequest>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public ServiceRequest createFromParcel(Parcel in) {
-            ServiceRequest instance = new ServiceRequest();
-            instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
-            in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
-            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.mileage = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.type = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.description = ((String) in.readValue((String.class.getClassLoader())));
-            instance.priority = ((Long) in.readValue((Long.class.getClassLoader())));
-            in.readList(instance.imageList, (java.lang.String.class.getClassLoader()));
-            instance.diagnosticCode = ((String) in.readValue((String.class.getClassLoader())));
-            instance.address = ((ServiceAddress) in.readValue((ServiceAddress.class.getClassLoader())));
-            return instance;
-        }
-
-        public ServiceRequest[] newArray(int size) {
-            return (new ServiceRequest[size]);
-        }
-
-    }
-            ;
-    private final static long serialVersionUID = 6945084301464069321L;
 
     public Geolocation getGeolocation() {
         return geolocation;

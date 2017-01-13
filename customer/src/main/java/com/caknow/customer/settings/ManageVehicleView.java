@@ -3,7 +3,6 @@ package com.caknow.customer.settings;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,14 +17,14 @@ import butterknife.ButterKnife;
  */
 
 public class ManageVehicleView {
-    private Context context;
-    private Vehicle vehicle;
     @BindView(R.id.manage_vehicle_display_name_textview)
     TextView displayName;
     @BindView(R.id.manage_vehicle_delete_layout)
     LinearLayout deleteLayout;
     @BindView(R.id.manage_vehicle_delete_button)
     TextView deleteButton;
+    private Context context;
+    private Vehicle vehicle;
 
     public ManageVehicleView(final View view, @NonNull final Vehicle vehicle) {
         this.vehicle = vehicle;
@@ -39,7 +38,7 @@ public class ManageVehicleView {
 
     }
 
-    public Vehicle getVehicle(){
+    public Vehicle getVehicle() {
         return this.vehicle;
     }
 }

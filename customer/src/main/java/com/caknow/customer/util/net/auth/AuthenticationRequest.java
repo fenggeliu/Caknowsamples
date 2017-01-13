@@ -8,7 +8,7 @@ public class AuthenticationRequest {
     String email;
     String password;
 
-    public AuthenticationRequest(final String email, final String password){
+    public AuthenticationRequest(final String email, final String password) {
         this.email = email;
         this.password = password;
     }

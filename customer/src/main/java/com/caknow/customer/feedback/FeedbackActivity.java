@@ -35,6 +35,7 @@ public class FeedbackActivity extends BaseActivity {
         }
         FeedbackActivity.this.startActivity(intent);
     }
+
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_feedback);
@@ -61,9 +62,9 @@ public class FeedbackActivity extends BaseActivity {
     protected void setTitle() {
         try {
 
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Help");
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
-        } catch (NullPointerException e){
+            ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Help");
+            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+        } catch (NullPointerException e) {
             //
         }
     }

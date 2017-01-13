@@ -34,7 +34,7 @@ public class DummyMessageContent {
     }
 
     private static void addItem(MessageItem item) {
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             ITEMS.add(item);
             ITEM_MAP.put(item.getMessageId(), item);
         }

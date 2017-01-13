@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by junu on 1/10/2017.
  */
 
-public class Maintenance implements VehicleServiceInterface{
+public class Maintenance implements VehicleServiceInterface {
 
 
     @SerializedName("serviceRequestId")

@@ -29,7 +29,7 @@ public class FeedbackFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         getActivity().setTitle("Help");
     }

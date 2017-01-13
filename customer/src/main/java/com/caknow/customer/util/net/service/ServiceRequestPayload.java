@@ -4,20 +4,45 @@ package com.caknow.customer.util.net.service;
  * Created by junu on 1/13/2017.
  */
 
-import java.io.Serializable;
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
-import com.caknow.customer.util.net.content.LoginRequestPayload;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ServiceRequestPayload implements Serializable, Parcelable
-{
+import java.io.Serializable;
+import java.util.List;
 
+public class ServiceRequestPayload implements Serializable, Parcelable {
+
+    public final static Parcelable.Creator<ServiceRequestPayload> CREATOR = new Creator<ServiceRequestPayload>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public ServiceRequestPayload createFromParcel(Parcel in) {
+            ServiceRequestPayload instance = new ServiceRequestPayload();
+            instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
+            in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
+            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.mileage = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.type = ((int) in.readValue((Long.class.getClassLoader())));
+            instance.description = ((String) in.readValue((String.class.getClassLoader())));
+            instance.priority = ((int) in.readValue((Long.class.getClassLoader())));
+            in.readList(instance.imageList, (java.lang.String.class.getClassLoader()));
+            instance.diagnosticCode = ((String) in.readValue((String.class.getClassLoader())));
+            instance.address = ((ServiceAddress) in.readValue((ServiceAddress.class.getClassLoader())));
+            return instance;
+        }
+
+        public ServiceRequestPayload[] newArray(int size) {
+            return (new ServiceRequestPayload[size]);
+        }
+
+    };
+    private final static long serialVersionUID = -1837018652848126229L;
     @SerializedName("geolocation")
     @Expose
     private Geolocation geolocation;
@@ -32,7 +57,7 @@ public class ServiceRequestPayload implements Serializable, Parcelable
     private Long mileage;
     @SerializedName("type")
     @Expose
-    private Long type;
+    private int type;
     @SerializedName("description")
     @Expose
     private String description;
@@ -48,34 +73,12 @@ public class ServiceRequestPayload implements Serializable, Parcelable
     @SerializedName("address")
     @Expose
     private ServiceAddress address;
-    public final static Parcelable.Creator<ServiceRequestPayload> CREATOR = new Creator<ServiceRequestPayload>() {
 
+    public static String getJsonString(ServiceRequestPayload payload) {
+        Gson gson = new Gson();
 
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public ServiceRequestPayload createFromParcel(Parcel in) {
-            ServiceRequestPayload instance = new ServiceRequestPayload();
-            instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
-            in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
-            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.mileage = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.type = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.description = ((String) in.readValue((String.class.getClassLoader())));
-            instance.priority = ((Long) in.readValue((Long.class.getClassLoader())));
-            in.readList(instance.imageList, (java.lang.String.class.getClassLoader()));
-            instance.diagnosticCode = ((String) in.readValue((String.class.getClassLoader())));
-            instance.address = ((ServiceAddress) in.readValue((ServiceAddress.class.getClassLoader())));
-            return instance;
-        }
-
-        public ServiceRequestPayload[] newArray(int size) {
-            return (new ServiceRequestPayload[size]);
-        }
-
+        return gson.toJson(payload);
     }
-            ;
-    private final static long serialVersionUID = -1837018652848126229L;
 
     public Geolocation getGeolocation() {
         return geolocation;
@@ -109,11 +112,11 @@ public class ServiceRequestPayload implements Serializable, Parcelable
         this.mileage = mileage;
     }
 
-    public Long getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -125,7 +128,7 @@ public class ServiceRequestPayload implements Serializable, Parcelable
         this.description = description;
     }
 
-    public Long getPriority() {
+    public int getPriority() {
         return priority;
     }
 
@@ -172,11 +175,6 @@ public class ServiceRequestPayload implements Serializable, Parcelable
 
     public int describeContents() {
         return 0;
-    }
-    public static String getJsonString(ServiceRequestPayload payload){
-        Gson gson = new Gson();
-
-        return gson.toJson(payload);
     }
 
 }
