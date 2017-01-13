@@ -6,6 +6,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,30 +46,11 @@ public class ServiceLocationFragment extends BaseFragment {
     @BindView(R.id.service_location_next_button)
     Button continueButton;
 
-    @OnClick(R.id.service_location_find_me_button)
-    void checkLocation(){
-        List<Address> addresses;
-
-        NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
-        if(activity != null && !activity.isFinishing()) {
-            try {
-                Location location = activity.requestLocation();
-                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                if (addresses != null) {
-                    nameViews.get(0).setText(addresses.get(0).getAddressLine(0));
-                    nameViews.get(2).setText(addresses.get(0).getLocality());
-                    nameViews.get(3).setText(addresses.get(0).getPostalCode());
-                }
-            } catch (Exception e) {
-                Toast.makeText(getActivity(), "Device GeoCoder is acting weird. Please try restarting your device for best results.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(false);
+        setHasOptionsMenu(true);
+        ((NewServiceRequestActivity) getActivity()).updateTitle("Service Location", R.drawable.ic_action_close);
     }
 
     @OnClick(R.id.service_location_next_button)
@@ -99,6 +83,46 @@ public class ServiceLocationFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.service_location, menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_locate_me) {
+            checkLocation();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    void checkLocation(){
+        List<Address> addresses;
+
+        NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
+        if(activity != null && !activity.isFinishing()) {
+            try {
+                Location location = activity.requestLocation();
+                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                if (addresses != null) {
+                    nameViews.get(0).setText(addresses.get(0).getAddressLine(0));
+                    nameViews.get(2).setText(addresses.get(0).getLocality());
+                    nameViews.get(3).setText(addresses.get(0).getPostalCode());
+                }
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), "Device GeoCoder is acting weird. Please try restarting your device for best results.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 }
