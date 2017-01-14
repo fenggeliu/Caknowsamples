@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
+import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.webview.WebViewActivity;
 

@@ -11,12 +11,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-import com.caknow.customer.garage.Vehicle;
+import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.settings.ManageGarageAdapter;
 import com.caknow.customer.settings.SettingsActivity;
 import com.caknow.customer.util.net.garage.GarageAPI;
 import com.caknow.customer.util.net.garage.GarageResponse;
+import com.caknow.customer.util.net.garage.Vehicle;
 
 import java.util.List;
 
@@ -80,7 +80,7 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
 
     @Override
     public void onResponse(Call<GarageResponse> call, Response<GarageResponse> response) {
-        List<Vehicle> vehicleList = response.body().getGaragePayload().getVehicles();
+        List<Vehicle> vehicleList = response.body().getPayload().getVehicles();
         garageAdapter = new ManageGarageAdapter(getActivity(), vehicleList);
         carListView.setAdapter(garageAdapter);
         carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

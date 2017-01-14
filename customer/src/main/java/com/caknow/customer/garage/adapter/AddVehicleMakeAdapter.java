@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.Make;
+import com.caknow.customer.util.net.garage.addvehicle.Make;
 import com.caknow.customer.garage.fragment.AddVehicleMakeFragment;
 import com.caknow.customer.home.HomeCardItem;
 import com.caknow.customer.home.HomeFragment;
@@ -51,18 +51,6 @@ public class AddVehicleMakeAdapter extends RecyclerView.Adapter<AddVehicleMakeAd
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
-
-//                    if(item.type == 2){
-//                        ConfirmVehicleFragment confirmFragment = new ConfirmVehicleFragment();
-//                        Bundle confirmBundle = new Bundle();
-//                        confirmBundle.putString("displayName", this.make.concat(this.model).concat(this.year));
-//                        confirmFragment.setArguments(confirmBundle);
-//                        replaceFragment(R.id.flContent, confirmFragment, AddVehicleMakeFragment.FRAGMENT_TAG, "confirmation");
-//                    }
-//                    else{
-//                        modelFragment.setArguments(bundle);
-//                        replaceFragment(R.id.flContent, modelFragment, AddVehicleMakeFragment.FRAGMENT_TAG, valueString);
-//                    }
                 }
             }
         });

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.Model;
+import com.caknow.customer.util.net.garage.addvehicle.Model;
 import com.caknow.customer.garage.fragment.AddVehicleModelFragment;
 import com.caknow.customer.home.HomeCardItem;
 import com.caknow.customer.home.HomeFragment;

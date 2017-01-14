@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-import com.caknow.customer.garage.Make;
-import com.caknow.customer.garage.NewVehicleActivity;
+import com.caknow.customer.widget.BaseFragment;
+import com.caknow.customer.util.net.garage.addvehicle.Make;
+import com.caknow.customer.garage.AddVehicleActivity;
 import com.caknow.customer.garage.adapter.AddVehicleMakeAdapter;
 import com.caknow.customer.util.constant.Constants;
 
@@ -72,7 +72,7 @@ public class AddVehicleMakeFragment extends BaseFragment {
     @Override
     public void onResume(){
         super.onResume();
-        ((NewVehicleActivity)getActivity()).updateTitle("Select Make");
+        ((AddVehicleActivity)getActivity()).updateTitle("Select Make");
     }
 
     @Override

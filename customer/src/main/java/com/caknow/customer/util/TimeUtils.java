@@ -2,6 +2,7 @@ package com.caknow.customer.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by wesson_wxy on 2016/12/23.
@@ -10,6 +11,7 @@ import java.util.Date;
 public class TimeUtils {
     public static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final SimpleDateFormat DATE_FORMAT_DATA    = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat SHORT_DATE_FORMAT    = new SimpleDateFormat("MMM dd", Locale.US);
 
     private TimeUtils() {
         throw new AssertionError();
@@ -32,6 +34,10 @@ public class TimeUtils {
      */
     public static String getTime(long timeInMillis) {
         return getTime(timeInMillis,DEFAULT_DATE_FORMAT);
+    }
+
+    public static String getShortTime(long timeInMillis){
+        return getTime(timeInMillis,SHORT_DATE_FORMAT );
     }
 
     /**

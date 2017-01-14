@@ -10,17 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-import com.caknow.customer.CAKNOWApplication;
-import com.caknow.customer.garage.NewVehicleActivity;
+import com.caknow.customer.widget.BaseFragment;
+import com.caknow.customer.garage.AddVehicleActivity;
 import com.caknow.customer.util.constant.Constants;
-import com.caknow.customer.util.net.garage.AddVehicleRequest;
-import com.caknow.customer.util.net.garage.AddVehicleResponse;
+import com.caknow.customer.util.net.garage.addvehicle.AddVehicleRequest;
+import com.caknow.customer.util.net.garage.addvehicle.AddVehicleResponse;
 import com.caknow.customer.util.net.garage.GarageAPI;
 
 import java.util.Locale;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +28,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by junu on 1/1/17.
@@ -53,13 +49,11 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @BindView(R.id.acsl_submit_btn)
     Button submitButton;
 
-    @Inject
-    Retrofit retrofit;
 
     @OnClick(R.id.acsl_submit_btn)
     void addCarToGarage(){
 
-        ((NewVehicleActivity)getActivity()).showProgress();
+        ((AddVehicleActivity)getActivity()).showProgress();
         String logoUrl = Constants.LOGOURL.concat(makeNN);
         GarageAPI garageAPI = retrofit.create(GarageAPI.class);
         String text = AddVehicleRequest.getJsonString(new AddVehicleRequest(this.year, this.make, this.model, "", "0", logoUrl));
@@ -74,7 +68,6 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        CAKNOWApplication.get().getNetComponent().inject(this);
         Bundle bundle = getArguments();
         if(bundle != null){
             make = bundle.getString("make", "make");
@@ -99,13 +92,16 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @Override
     public void onResume(){
         super.onResume();
-        ((NewVehicleActivity)getActivity()).updateTitle("Add Vehicle");
+        ((AddVehicleActivity)getActivity()).updateTitle("Add Vehicle");
     }
 
     @Override
     public void onResponse(Call<AddVehicleResponse> call, Response<AddVehicleResponse> response) {
         try{
-            ((NewVehicleActivity)getActivity()).showProgress();
+            ((AddVehicleActivity)getActivity()).hideProgress();
+            if(!response.isSuccessful()){
+                Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT);
+            }
             getActivity().finish();
         } catch(Exception e){
 
@@ -116,7 +112,7 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @Override
     public void onFailure(Call<AddVehicleResponse> call, Throwable t) {
         try{
-            ((NewVehicleActivity)getActivity()).showProgress();
+            ((AddVehicleActivity)getActivity()).showProgress();
             getActivity().finish();
         } catch(Exception e){
 

@@ -16,7 +16,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
+import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.home.LoadMoreListView;
 import com.caknow.customer.message.dummy.DummyMessageContent;
 

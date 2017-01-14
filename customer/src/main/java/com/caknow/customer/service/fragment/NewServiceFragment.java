@@ -8,17 +8,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-import com.caknow.customer.CAKNOWApplication;
+import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.util.net.service.ServiceTypeResponse;
-import com.caknow.customer.util.net.service.Services;
+import com.caknow.customer.util.net.service.ServiceItem;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +23,6 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by junu on 1/1/17.
@@ -44,8 +40,6 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
     @BindView(R.id.nsr_emergency_layout)
     LinearLayout emergencyLayout;
 
-    @Inject
-    Retrofit retrofit;
 
     ServiceAPI serviceAPI;
 
@@ -82,10 +76,8 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_new_service, container, false);
         unbinder = ButterKnife.bind(this, v);
-        CAKNOWApplication.get().getNetComponent().inject(this);
 
         serviceAPI = retrofit.create(ServiceAPI.class);
-
 
         return v;
     }
@@ -112,21 +104,21 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
         if(getActivity() != null) {
             NewServiceRequestActivity homeActivity = (NewServiceRequestActivity) getActivity();
             homeActivity.setServiceType(typeId);
-            ServiceTypeFragment fragment = new ServiceTypeFragment();
+            NewServiceTypeFragment fragment = new NewServiceTypeFragment();
             Bundle args = new Bundle();
             args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, parcelableArrayList);
             fragment.setArguments(args);
             homeActivity.replaceFragment(R.id.flContent,
                     fragment,
-                    ServiceTypeFragment.FRAGMENT_TAG, "serviceTypeFragment");
+                    NewServiceTypeFragment.FRAGMENT_TAG, "serviceTypeFragment");
         }
     }
 
 
     @Override
     public void onResponse(Call<ServiceTypeResponse> call, Response<ServiceTypeResponse> response) {
-        ArrayList<Services> parcelableArrayList = new ArrayList<Services>();
-        parcelableArrayList.addAll(response.body().getPayload().getList());
+        ArrayList<ServiceItem> parcelableArrayList = new ArrayList<ServiceItem>();
+        parcelableArrayList.addAll(response.body().getServicesPayload().getList());
         openNextFragment(this.typeId, parcelableArrayList);
         try{
             ((NewServiceRequestActivity) getActivity()).hideProgress();

@@ -8,25 +8,24 @@ import android.widget.TextView;
 
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
-import com.caknow.customer.service.fragment.ServiceListFragment;
-import com.caknow.customer.service.model.ServiceItem;
-import com.caknow.customer.util.net.service.Services;
+import com.caknow.customer.service.fragment.NewServiceListFragment;
+import com.caknow.customer.util.net.service.ServiceItem;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link ServiceItem} and makes a call to the
- * specified {@link ServiceListFragment.OnListFragmentInteractionListener}.
+ * {@link RecyclerView.Adapter} that can display a {@link com.caknow.customer.service.model.ServiceItem} and makes a call to the
+ * specified {@link NewServiceListFragment.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.ViewHolder> {
 
-    private final List<Services> mValues;
-    private final ServiceListFragment.OnListFragmentInteractionListener mListener;
+    private final List<ServiceItem> mValues;
+    private final NewServiceListFragment.OnListFragmentInteractionListener mListener;
 
-    public ServiceItemAdapter(List<Services> items, ServiceListFragment.OnListFragmentInteractionListener listener) {
+    public ServiceItemAdapter(List<ServiceItem> items, NewServiceListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -67,7 +66,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         final View mView;
         final TextView mIdView;
         final TextView mContentView;
-        Services mItem;
+        ServiceItem mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -6,8 +6,6 @@ package com.caknow.customer.payment;
 
 public class Payment {
 
-
-
     public enum Type{
         AMEX, VISA, MC, DISC
     }

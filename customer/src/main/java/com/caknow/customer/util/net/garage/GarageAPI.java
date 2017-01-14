@@ -1,6 +1,7 @@
 package com.caknow.customer.util.net.garage;
 
-import com.caknow.customer.garage.VehicleServiceResponse;
+import com.caknow.customer.util.net.garage.addvehicle.AddVehicleResponse;
+import com.caknow.customer.util.net.garage.addvehicle.MMYResponse;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;

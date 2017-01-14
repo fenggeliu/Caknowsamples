@@ -22,7 +22,7 @@ public class ServiceRequestResponse implements Serializable, Parcelable {
     private String message;
     @SerializedName("payload")
     @Expose
-    private Payload payload;
+    private ServicesPayload servicesPayload;
     private final static long serialVersionUID = -1027863414252002434L;
 
     public boolean isSuccess() {
@@ -41,12 +41,15 @@ public class ServiceRequestResponse implements Serializable, Parcelable {
         this.message = message;
     }
 
-    public Payload getPayload() {
-        return payload;
+    public ServicesPayload getServicesPayload() {
+        return servicesPayload;
     }
 
-    public void setPayload(Payload payload) {
-        this.payload = payload;
+    public void setServicesPayload(ServicesPayload servicesPayload) {
+        this.servicesPayload = servicesPayload;
+    }
+
+    public ServiceRequestResponse() {
     }
 
     @Override
@@ -58,16 +61,13 @@ public class ServiceRequestResponse implements Serializable, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeByte(this.success ? (byte) 1 : (byte) 0);
         dest.writeString(this.message);
-        dest.writeParcelable(this.payload, flags);
-    }
-
-    public ServiceRequestResponse() {
+        dest.writeParcelable(this.servicesPayload, flags);
     }
 
     protected ServiceRequestResponse(Parcel in) {
         this.success = in.readByte() != 0;
         this.message = in.readString();
-        this.payload = in.readParcelable(Payload.class.getClassLoader());
+        this.servicesPayload = in.readParcelable(ServicesPayload.class.getClassLoader());
     }
 
     public static final Creator<ServiceRequestResponse> CREATOR = new Creator<ServiceRequestResponse>() {

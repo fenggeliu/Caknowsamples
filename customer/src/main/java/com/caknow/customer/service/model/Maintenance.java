@@ -1,5 +1,7 @@
 package com.caknow.customer.service.model;
 
+import android.os.Parcel;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -41,6 +43,11 @@ public class Maintenance implements VehicleServiceInterface{
 
     public String getServiceRequestId() {
         return serviceRequestId;
+    }
+
+    @Override
+    public Long getCreateTime() {
+        return createTime;
     }
 
     public void setServiceRequestId(String serviceRequestId) {
@@ -109,14 +116,55 @@ public class Maintenance implements VehicleServiceInterface{
         return this.serviceCatagory;
     }
 
-    @Override
-    public String getDisplayIconUrl() {
-        return this.iconUrl;
-    }
 
     @Override
     public Long getDate() {
         return this.createTime;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.serviceRequestId);
+        dest.writeValue(this.createTime);
+        dest.writeString(this.orderNo);
+        dest.writeString(this.serviceCatagory);
+        dest.writeString(this.serviceField);
+        dest.writeString(this.iconUrl);
+        dest.writeValue(this.quoteCount);
+        dest.writeValue(this.status);
+        dest.writeValue(this.type);
+    }
+
+    public Maintenance() {
+    }
+
+    protected Maintenance(Parcel in) {
+        this.serviceRequestId = in.readString();
+        this.createTime = (Long) in.readValue(Long.class.getClassLoader());
+        this.orderNo = in.readString();
+        this.serviceCatagory = in.readString();
+        this.serviceField = in.readString();
+        this.iconUrl = in.readString();
+        this.quoteCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.status = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.type = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    public static final Creator<Maintenance> CREATOR = new Creator<Maintenance>() {
+        @Override
+        public Maintenance createFromParcel(Parcel source) {
+            return new Maintenance(source);
+        }
+
+        @Override
+        public Maintenance[] newArray(int size) {
+            return new Maintenance[size];
+        }
+    };
 }
 

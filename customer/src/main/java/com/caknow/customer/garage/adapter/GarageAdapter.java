@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import com.caknow.customer.util.net.garage.Vehicle;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.Vehicle;
 import com.caknow.customer.garage.VehicleView;
 
 import java.util.List;
@@ -49,15 +49,16 @@ public class GarageAdapter extends BaseAdapter {
 
         //Timber.d("position =" + position);
         if (convertView == null ) {
-            if(this.inflater != null) {
                 convertView = this.inflater.inflate(R.layout.list_item_garage, parent, false);
                 viewHolder = new VehicleView(convertView, vehicleList.get(position));
                 convertView.setTag(viewHolder);
-            }
         } else {
             viewHolder = (VehicleView) convertView.getTag();
         }
-
+        if(viewHolder.getVehicle().getQuoteCount() > 0){
+            viewHolder.quoteBubble.setVisibility(View.VISIBLE);
+            viewHolder.quoteBubble.setText(String.valueOf(viewHolder.getVehicle().getQuoteCount()).concat(" Quotes"));
+        }
         return convertView;
     }
 }

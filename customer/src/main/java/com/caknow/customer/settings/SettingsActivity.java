@@ -4,23 +4,21 @@ package com.caknow.customer.settings;
 import android.preference.PreferenceActivity;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
+import com.caknow.customer.widget.BaseActivity;
+import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.settings.fragment.SettingsFragment;
-import com.caknow.customer.util.constant.Constants;
-import com.caknow.customer.util.net.BaseRequestInterceptor;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -42,12 +40,13 @@ public class SettingsActivity extends BaseActivity {
     TextView titleTv;
     @BindView(R.id.settingsContent)
     FrameLayout content;
-
+    @Inject
     public Retrofit retrofit;
     OkHttpClient client;
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_settings);
+        CAKNOWApplication.get().getNetComponent().inject(this);
         ButterKnife.bind(this);
         titleTv.setText(titleString);
 
@@ -61,21 +60,7 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        if (client == null) {
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addNetworkInterceptor(new StethoInterceptor());
-            httpClient.addInterceptor(new BaseRequestInterceptor());
-            client = httpClient.build();
-        }
-        if (retrofit == null) {
-            Gson gson = new GsonBuilder().create();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build();
 
-        }
     }
 
     @Override
@@ -93,9 +78,10 @@ public class SettingsActivity extends BaseActivity {
         }
     }
 
-    public void updateTitle(String titleText){
+    public void updateTitle(String titleText, int drawableId){
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(drawableId);
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).invalidate();
         } catch (NullPointerException e){
             //

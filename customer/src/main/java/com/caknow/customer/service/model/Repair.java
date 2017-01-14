@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Created by junu on 1/10/2017.
  */
 
-public class Repair implements VehicleServiceInterface, Serializable, Parcelable{
+public class Repair implements VehicleServiceInterface{
 
 
     @SerializedName("serviceRequestId")
@@ -45,6 +45,11 @@ public class Repair implements VehicleServiceInterface, Serializable, Parcelable
 
     public String getServiceRequestId() {
         return serviceRequestId;
+    }
+
+    @Override
+    public Long getCreateTime() {
+        return this.createTime;
     }
 
     public void setServiceRequestId(String serviceRequestId) {
@@ -112,10 +117,6 @@ public class Repair implements VehicleServiceInterface, Serializable, Parcelable
         return this.getServiceCatagory();
     }
 
-    @Override
-    public String getDisplayIconUrl() {
-        return this.iconUrl;
-    }
 
     @Override
     public Long getDate() {

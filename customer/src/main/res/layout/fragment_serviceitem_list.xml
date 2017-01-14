@@ -14,7 +14,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.caknow.customer.service.fragment.ServiceListFragment"
+    tools:context="com.caknow.customer.service.fragment.NewServiceListFragment"
     tools:listitem="@layout/fragment_serviceitem"
     android:layout_above="@+id/footer"/>
 

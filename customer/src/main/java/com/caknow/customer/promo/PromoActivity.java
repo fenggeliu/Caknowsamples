@@ -4,7 +4,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
+import com.caknow.customer.widget.BaseActivity;
 
 /**
  * Created by junu on 1/2/2017.

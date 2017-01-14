@@ -1,12 +1,13 @@
 package com.caknow.customer.util.net.content;
 
+import com.caknow.customer.util.net.BaseRequestBody;
 import com.google.gson.Gson;
 
 /**
  * Created by junu on 1/6/17.
  */
 
-public class LoginRequestPayload {
+public class LoginRequestPayload extends BaseRequestBody{
     String password;
     String email;
 
@@ -16,9 +17,5 @@ public class LoginRequestPayload {
         this.password = pass;
     }
 
-    public static String getJsonString(LoginRequestPayload payload){
-        Gson gson = new Gson();
 
-        return gson.toJson(payload);
-    }
 }

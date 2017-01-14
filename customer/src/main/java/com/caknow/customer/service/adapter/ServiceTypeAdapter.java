@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 
 import com.caknow.app.R;
 import com.caknow.customer.service.ServiceItemView;
-import com.caknow.customer.util.net.service.Services;
+import com.caknow.customer.util.net.service.ServiceItem;
 
 import java.util.ArrayList;
 
@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 public class ServiceTypeAdapter extends BaseAdapter {
 
-    private ArrayList<Services> serviceItemList;
+    private ArrayList<ServiceItem> serviceItemList;
     private Context mContext;
     private LayoutInflater inflater;
 
-     public ServiceTypeAdapter(Context context, ArrayList<Services> serviceItems){
+     public ServiceTypeAdapter(Context context, ArrayList<ServiceItem> serviceItems){
         this.serviceItemList = serviceItems;
          this.mContext = context;
          this.inflater = (LayoutInflater) this.mContext
@@ -34,7 +34,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
     }
 
     @Override
-    public Services getItem(int position) {
+    public ServiceItem getItem(int position) {
         return serviceItemList.get(position);
     }
 
@@ -55,7 +55,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
         } else {
             viewHolder = (ServiceItemView) convertView.getTag();
         }
-        Services item = serviceItemList.get(position);
+        ServiceItem item = serviceItemList.get(position);
         viewHolder.setTitle(item.getName());
         viewHolder.setImage(item.getIcon());
         viewHolder.setItem(item);

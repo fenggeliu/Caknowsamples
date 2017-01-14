@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
+import com.caknow.customer.widget.BaseActivity;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.widget.progressbar.ProgressWebView;
 

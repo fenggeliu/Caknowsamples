@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.caknow.customer.util.net.garage.Vehicle;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.Vehicle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +33,7 @@ public class ManageVehicleView {
 
         StringBuilder name = new StringBuilder();
         name.append(vehicle.getYear()).append(vehicle.getMake()).append(vehicle.getModel());
-        displayName.setText(vehicle.getDisplayName());
+        displayName.setText(name);
         displayName.invalidate();
 
     }

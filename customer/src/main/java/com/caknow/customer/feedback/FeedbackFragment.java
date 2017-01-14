@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
+import com.caknow.customer.widget.BaseFragment;
 
 import butterknife.ButterKnife;
 

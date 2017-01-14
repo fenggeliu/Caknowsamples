@@ -11,30 +11,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-import com.caknow.customer.util.PreferenceKeys;
-import com.caknow.customer.util.SessionPreferences;
-import com.caknow.customer.util.net.garage.GarageAPI;
+import com.caknow.customer.widget.BaseFragment;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.payment.AddPaymentRequest;
+import com.caknow.customer.util.net.payment.AddPaymentResponse;
+import com.caknow.customer.util.net.payment.PaymentAPI;
 import com.stripe.android.Stripe;
 import com.stripe.android.TokenCallback;
 import com.stripe.android.exception.AuthenticationException;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
-import retrofit2.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by junu on 1/1/17.
  */
 
-public class AddPaymentFragment extends BaseFragment {
+public class AddPaymentFragment extends BaseFragment implements Callback<AddPaymentResponse> {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + AddPaymentFragment.class.getName();
     public final int MY_SCAN_REQUEST_CODE = 1;
@@ -89,15 +90,25 @@ public class AddPaymentFragment extends BaseFragment {
         }
         // else handle other activity results
     }
-    @Inject
-    Retrofit retrofit;
+
 
     @OnClick(R.id.ancl_add_card_btn)
     void addCard(){
-        try {
-            Card card = new Card(ccNum.getText().toString(), Integer.valueOf(ccExpM.getText().toString()), 2000+Integer.valueOf(ccExpY.getText().toString()), ccCVV.getText().toString());
 
-            Stripe stripe = new Stripe(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.STRIPE_TOKEN));
+        try {
+            ((PaymentActivity)getActivity()).showProgress();
+
+            String cardHolderName = cardholderName.getText().toString();
+
+            Card.Builder builder = new Card.Builder(ccNum.getText().toString(),
+                    Integer.valueOf(ccExpM.getText().toString()),
+                    2000+Integer.valueOf(ccExpY.getText().toString()),
+                    ccCVV.getText().toString()).name(cardHolderName);
+
+            final Card card = builder.build();
+
+            //Stripe stripe = new Stripe(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.STRIPE_TOKEN));
+            Stripe stripe = new Stripe(Constants.stripePublicKeyCaknowTest);
             stripe.createToken(card, new TokenCallback() {
                 @Override
                 public void onError(Exception error) {
@@ -110,7 +121,9 @@ public class AddPaymentFragment extends BaseFragment {
 
                 @Override
                 public void onSuccess(Token token) {
-                    retrofit.create(GarageAPI.class);
+
+                    Call<AddPaymentResponse> call = retrofit.create(PaymentAPI.class).addPayment(AddPaymentRequest.getRequestBody(new AddPaymentRequest(token.getId())));
+                    call.enqueue(AddPaymentFragment.this);
                 }
             });
         } catch (AuthenticationException e) {
@@ -130,5 +143,31 @@ public class AddPaymentFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onResponse(Call<AddPaymentResponse> call, Response<AddPaymentResponse> response) {
+        boolean success = false;
+        try{
+            success = response.isSuccessful();
+            success = success && response.body().isSuccess() ;
+        } catch(Exception e){
+            // Not thread safe
+        }
+        if(success){
+            ((PaymentActivity)getActivity()).addFragment(R.id.paymentContent, new PaymentMethodFragment(), PaymentMethodFragment.FRAGMENT_TAG);
+        }
+        else{
+            Toast.makeText(getContext(),
+                    response.body().getMessage(),
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+    }
 
+    @Override
+    public void onFailure(Call<AddPaymentResponse> call, Throwable t) {
+        Toast.makeText(getContext(),
+                t.getLocalizedMessage(),
+                Toast.LENGTH_LONG
+        ).show();
+    }
 }

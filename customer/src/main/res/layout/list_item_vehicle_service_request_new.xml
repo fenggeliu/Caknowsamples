@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!-- A CardView that contains a TextView -->
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="4dp">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/service_item_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/circle_small_2x"
+            android:padding="10dp"
+            android:layout_marginStart="8dp"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="16dp"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/service_item_title"
+            android:layout_width="wrap_content"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            card_view:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="18dp"
+            card_view:layout_constraintLeft_toRightOf="@+id/service_item_icon"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/srli_item_super_description_text_size"/>
+        <TextView
+            android:id="@+id/service_item_sub_title"
+            android:layout_width="205dp"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/service_item_title"
+            android:layout_marginStart="18dp"
+            card_view:layout_constraintLeft_toRightOf="@+id/service_item_icon"
+            android:textColor="@color/font_black"
+
+            android:textSize="@dimen/srli_item_sub_description_text_size" />
+        <TextView
+            android:id="@+id/service_item_quote_display"
+            android:maxLines="1"
+            android:padding="1dp"
+            card_view:layout_constraintLeft_toRightOf="@+id/service_item_icon"
+            android:layout_marginStart="16dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="18dp"
+            android:layout_width="@dimen/gli_quote_display_width"
+            android:layout_height="@dimen/gli_quote_display_height"
+            android:visibility="invisible"
+            android:background="@drawable/quote_red_2x"
+            android:gravity="center"
+            android:text="0 quotes"
+            android:textColor="@color/white_full"
+            android:textSize="@dimen/gli_quote_display_text_size"
+            />
+        <ImageView
+            android:id="@+id/service_item_next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_action_next_dark"
+            android:layout_marginEnd="4dp"
+            card_view:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="16dp"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp" />
+        <ImageView
+            android:id="@+id/service_item_time_icon"
+            android:src="@drawable/ic_action_time_dark"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintRight_toLeftOf="@+id/service_item_time_display"
+            android:layout_marginEnd="5dp" />
+        <TextView
+            android:id="@+id/service_item_time_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:textSize="12sp"
+            card_view:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="8dp"
+            card_view:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

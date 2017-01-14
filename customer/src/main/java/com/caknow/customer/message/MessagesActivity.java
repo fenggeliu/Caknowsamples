@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
+import com.caknow.customer.widget.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -10,20 +10,17 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-import com.caknow.customer.CAKNOWApplication;
-import com.caknow.customer.garage.NewVehicleActivity;
-import com.caknow.customer.garage.Vehicle;
+import com.caknow.customer.widget.BaseFragment;
+import com.caknow.customer.garage.AddVehicleActivity;
 import com.caknow.customer.garage.VehicleServiceActivity;
 import com.caknow.customer.garage.adapter.GarageAdapter;
 import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.garage.GarageAPI;
 import com.caknow.customer.util.net.garage.GarageResponse;
+import com.caknow.customer.util.net.garage.Vehicle;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +28,6 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by junu on 1/1/17.
@@ -46,12 +42,11 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
     @BindView(R.id.home_empty_garage_view) LinearLayout emptyGarageView;
     @BindView(R.id.vehicle_display) GridView vehicleGridView;
 
-    @Inject
-    Retrofit retrofit;
     @OnClick(R.id.home_empty_garage_view)
     void addNewCar(){
         try {
-            Intent intent = new Intent(getActivity(), NewVehicleActivity.class);
+            Intent intent = new Intent(getActivity(), AddVehicleActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } catch (Exception e){
 
@@ -71,7 +66,6 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
         unbinder = ButterKnife.bind(this, v);
         homeActivity = (HomeActivity) getActivity();
 
-        CAKNOWApplication.get().getNetComponent().inject(this);
         return v;
     }
 
@@ -107,7 +101,7 @@ public class GarageFragment extends BaseFragment implements Callback<GarageRespo
 
         List<Vehicle> vehicles;
         try{
-            vehicles = response.body().getGaragePayload().getVehicles();
+            vehicles = response.body().getPayload().getVehicles();
             if(vehicles.size() == 0) {
                 emptyGarageView.setVisibility(View.VISIBLE);
             }

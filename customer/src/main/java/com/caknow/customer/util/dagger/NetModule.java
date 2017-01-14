@@ -1,6 +1,7 @@
 package com.caknow.customer.util.dagger;
 
 
+import com.caknow.app.BuildConfig;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.BaseRequestInterceptor;
 import com.cloudinary.Cloudinary;
@@ -17,6 +18,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -44,9 +46,14 @@ public class NetModule {
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addNetworkInterceptor(new StethoInterceptor());
         httpClient.addInterceptor(new BaseRequestInterceptor());
+        if(BuildConfig.DEBUG){
+            httpClient.addInterceptor(logging);
+        }
         return httpClient.build();
     }
 
@@ -54,7 +61,7 @@ public class NetModule {
     @Singleton
     public Retrofit provideRetrofit(Gson gson, OkHttpClient client){
         return  new Retrofit.Builder()
-                .baseUrl(Constants.ENDPOINT)
+                .baseUrl(this.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
@@ -65,9 +72,9 @@ public class NetModule {
     @Singleton
     public Cloudinary provideCloudinary(){
         Map config = new HashMap();
-        config.put("cloud_name", "n07t21i7");
-        config.put("api_key", "123456789012345");
-        config.put("api_secret", "abcdeghijklmnopqrstuvwxyz12");
+        config.put("cloud_name", "caknow");
+        config.put("api_key", "471886552525434");
+        config.put("api_secret", "nRQpYgAyqRT-jwYcc5CWxFuaStg");
         Cloudinary cloudinary = new Cloudinary(config);
         return cloudinary;
     }

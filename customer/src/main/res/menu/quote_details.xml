@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_cancel_request"
+        android:orderInCategory="100"
+        android:title="@string/menu_cancel_request"
+        android:textColor="@color/black"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_report"
+        android:orderInCategory="100"
+        android:title="@string/menu_report"
+        android:textColor="@color/black"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_order_number"
+        android:orderInCategory="100"
+        android:title="@string/menu_order_number"
+        android:textColor="@color/black"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_reinitiate"
+        android:orderInCategory="100"
+        android:title="@string/menu_reinitiate"
+        android:textColor="@color/black"
+        android:visible="false"
+        app:showAsAction="never"
+        />
+</menu>

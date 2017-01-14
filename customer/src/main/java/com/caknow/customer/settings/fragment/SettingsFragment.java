@@ -7,13 +7,18 @@ import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
-import com.caknow.customer.InitActivity;
+import com.caknow.customer.util.constant.PreferenceKeys;
+import com.caknow.customer.widget.BaseFragment;
+import com.caknow.customer.registration.InitActivity;
 import com.caknow.customer.settings.SettingsActivity;
 import com.caknow.customer.util.SessionPreferences;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -24,9 +29,15 @@ import butterknife.OnClick;
 public class SettingsFragment extends BaseFragment {
     static final String TITLE_KEY = "title";
     static final String HINT_KEY = "hint";
+    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + SettingsFragment.class.getName();
+
+    @BindView(R.id.settings_layout_username_text) TextView usernameContent;
+    @BindView(R.id.settings_layout_photo_imageview) ImageView userPhotoImageView;
+
+    @BindView(R.id.settings_layout_email_content) TextView emailContent;
+    @BindView(R.id.settings_layout_phone_content) TextView phoneContentView;
 
     SettingsActivity settingsActivity;
-    public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + SettingsFragment.class.getName();
 
     @OnClick(R.id.settings_layout_phone_layout)
     void openPhoneSetting(){
@@ -45,7 +56,7 @@ public class SettingsFragment extends BaseFragment {
 
         bundle.putString(TITLE_KEY, "Change Password");
         SettingsActivity settingsActivity = (SettingsActivity) getActivity();
-        settingsActivity.replaceFragment(R.id.settingsContent, updatePasswordFragment, UpdateSettingFragment.FRAGMENT_TAG, "password");
+        settingsActivity.replaceFragment(R.id.settingsContent, updatePasswordFragment, UpdatePasswordFragment.FRAGMENT_TAG, "password");
     }
 
     @OnClick(R.id.settings_layout_car_layout)
@@ -58,11 +69,11 @@ public class SettingsFragment extends BaseFragment {
     @OnClick(R.id.settings_sign_out_container)
     void signOut(){
         try {
-            if (getActivity() != null & !getActivity().isFinishing()) {
+            if (getActivity() != null && !getActivity().isFinishing()) {
                 SessionPreferences.INSTANCE.resetCredentials();
                 final Intent intent = new Intent(getActivity(), InitActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                getActivity().finish();
+                startActivity(intent);
             }
         } catch (NullPointerException e){
             //
@@ -75,6 +86,13 @@ public class SettingsFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
         unbinder = ButterKnife.bind(this, v);
         settingsActivity = (SettingsActivity) getActivity();
+
+        //TODO Fill these in
+        //emailContent.setText();
+        //phoneContentView.setText();
+        //usernameContent.setText();
+        //Glide.with(this).load(userPhotoUrl).into(userPhotoImageView);
+
         return v;
     }
 
@@ -86,7 +104,7 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     public void onResume(){
-        ((SettingsActivity) getActivity()).updateTitle("Settings");
+        ((SettingsActivity) getActivity()).updateTitle("Settings", R.drawable.ic_action_close);
         super.onResume();
 
     }

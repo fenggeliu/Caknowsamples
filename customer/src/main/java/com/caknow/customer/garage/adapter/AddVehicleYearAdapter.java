@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.Year;
+import com.caknow.customer.util.net.garage.addvehicle.Year;
 import com.caknow.customer.garage.fragment.AddVehicleYearFragment;
 import com.caknow.customer.home.HomeCardItem;
 import com.caknow.customer.home.HomeFragment;

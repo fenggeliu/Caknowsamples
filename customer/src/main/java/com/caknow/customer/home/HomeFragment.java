@@ -11,13 +11,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
+import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.home.dummy.HomeContent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * TODO Potential Dashboard Fragment
  * Created by junu on 1/1/17.
  */
 

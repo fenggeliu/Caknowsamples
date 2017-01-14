@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import com.caknow.customer.util.net.garage.Vehicle;
 
 import com.caknow.app.R;
 import com.caknow.customer.CAKNOWApplication;
-import com.caknow.customer.garage.Vehicle;
 import com.caknow.customer.util.net.garage.GarageAPI;
 import com.caknow.customer.util.net.garage.GarageResponse;
 
@@ -80,7 +80,7 @@ public class ManageGarageAdapter extends BaseAdapter {
         call.enqueue(new Callback<GarageResponse>() {
             @Override
             public void onResponse(Call<GarageResponse> call, Response<GarageResponse> response) {
-                vehicleList = response.body().getGaragePayload().getVehicles();
+                vehicleList = response.body().getPayload().getVehicles();
                 notifyDataSetInvalidated();
             }
 

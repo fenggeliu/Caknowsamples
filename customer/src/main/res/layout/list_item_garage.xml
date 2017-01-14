@@ -55,7 +55,8 @@
                 android:gravity="center"
                 android:text="0 quotes"
                 android:textColor="@color/white_full"
-                android:textSize="@dimen/gli_quote_display_text_size" />
+                android:textSize="@dimen/gli_quote_display_text_size"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -73,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="3"
                     android:gravity="center"
+                    android:text="CarName"
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/gli_car_model_text_size"
                     android:id="@+id/vehicle_display_name"/>

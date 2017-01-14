@@ -33,7 +33,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         public ImageView carImageView;
         public ViewHolder(View v) {
             super(v);
-            statusTextView = (TextView) v.findViewById(R.id.message_item_title);
+            statusTextView = (TextView) v.findViewById(R.id.history_item_title);
 
         }
     }

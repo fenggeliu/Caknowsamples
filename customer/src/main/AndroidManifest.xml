@@ -1,166 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.caknow.app">
+          package="com.caknow.app">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!-- Permission to vibrate - recommended, allows vibration feedback on scan -->
-    <uses-permission android:name="android.permission.VIBRATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.CALL_PHONE"/>
+<!-- Permission to vibrate - recommended, allows vibration feedback on scan -->
+<uses-permission android:name="android.permission.VIBRATE"/>
 
-    <!-- Permission to use camera - required -->
-    <uses-permission android:name="android.permission.CAMERA" />
+<!-- Permission to use camera - required -->
+<uses-permission android:name="android.permission.CAMERA"/>
 
-    <!-- Camera features - recommended -->
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
+<!-- Camera features - recommended -->
+<uses-feature android:name="android.hardware.camera" android:required="false"/>
+<uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+<uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
+<supports-screens
+    android:anyDensity="true"
+    android:largeScreens="true"
+    android:normalScreens="true"
+    android:resizeable="true"
+    android:smallScreens="true"/>
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-feature android:name="android.hardware.screen.portrait" />
-    <application
-        android:name="com.caknow.customer.CAKNOWApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+<!-- To auto-complete the email text field in the login form with the user's emails -->
+<uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+<uses-permission android:name="android.permission.READ_PROFILE"/>
+<uses-permission android:name="android.permission.READ_CONTACTS"/>
+<uses-feature android:name="android.hardware.screen.portrait"/>
+<application
+    android:name="com.caknow.customer.CAKNOWApplication"
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBZbcpWdPZlpjipb2YuFqYwrZpNShorc2w"/>
+    <activity
+        android:name="com.caknow.customer.registration.SplashActivity"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAgmaaDAJSr6mALBYtwqaxEe1GeOQjK8fo"/>
-        <activity
-            android:name="com.caknow.customer.SplashActivity"
-            android:label="@string/app_name"
-            android:theme="@style/NotitleTheme"
-            android:screenOrientation="portrait"
+        android:theme="@style/NotitleTheme"
+        android:screenOrientation="portrait"
 
 
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+    >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.caknow.customer.InitActivity"
-            android:theme="@style/NotitleTheme"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.caknow.customer.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName="com.caknow.customer.InitActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.caknow.customer.InitActivity" />
-        </activity>
-        <activity
-            android:name="com.caknow.customer.registration.SignUpActivity"
-            android:label="@string/title_activity_signup"
-            android:parentActivityName="com.caknow.customer.InitActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+    </activity>
+    <activity
+        android:name="com.caknow.customer.registration.InitActivity"
+        android:theme="@style/NotitleTheme"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.registration.LoginActivity"
+        android:label="@string/title_activity_login"
+        android:parentActivityName="com.caknow.customer.registration.InitActivity"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.caknow.customer.registration.InitActivity"/>
+    </activity>
+    <activity
+        android:name="com.caknow.customer.registration.SignUpActivity"
+        android:label="@string/title_activity_signup"
+        android:parentActivityName="com.caknow.customer.registration.InitActivity"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
 
-        </activity>
+    </activity>
 
-        <activity
-            android:name="com.caknow.customer.registration.VerificationActivity"
-            android:label="@string/title_activity_signup"
-            android:parentActivityName="com.caknow.customer.InitActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
+    <activity
+        android:name="com.caknow.customer.registration.VerificationActivity"
+        android:label="@string/title_activity_signup"
+        android:parentActivityName="com.caknow.customer.registration.InitActivity"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
 
-        </activity>
-        <activity
-            android:name="com.caknow.customer.home.HomeActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.caknow.customer.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName="com.caknow.customer.home.HomeActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.caknow.customer.home.HomeActivity" />
+    </activity>
+    <activity
+        android:name="com.caknow.customer.home.HomeActivity"
+        android:label="@string/title_activity_home"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.settings.SettingsActivity"
+        android:label="@string/title_activity_settings"
+        android:parentActivityName="com.caknow.customer.home.HomeActivity"
+        android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.caknow.customer.home.HomeActivity"/>
 
-        </activity>
-        <activity
-            android:name="com.caknow.customer.message.MessagesActivity"
-            android:label="Messages"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.home.HomeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.caknow.customer.service.NewServiceRequestActivity"
-            android:label="Service Request"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.garage.VehicleServiceActivity"
-            android:screenOrientation="portrait"/>
+    </activity>
+    <activity
+        android:name="com.caknow.customer.message.MessagesActivity"
+        android:label="Messages"
+        android:theme="@style/AppTheme"
+        android:parentActivityName="com.caknow.customer.home.HomeActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.service.NewServiceRequestActivity"
+        android:label="Service Request"
+        android:theme="@style/AppTheme"
+        android:parentActivityName="com.caknow.customer.garage.VehicleServiceActivity"
+        android:screenOrientation="portrait"/>
 
-        <activity
-            android:name="com.caknow.customer.garage.VehicleServiceActivity"
-            android:label="Garage"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.home.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.caknow.customer.garage.NewVehicleActivity"
-            android:label="New Vehicle"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.garage.VehicleServiceActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.caknow.customer.promo.PromoActivity"
-            android:label="Share to Earn"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.home.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.caknow.customer.history.HistoryActivity"
-            android:label="History"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.home.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.caknow.customer.feedback.FeedbackActivity"
-            android:label="Help"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="com.caknow.customer.home.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.caknow.customer.payment.PaymentActivity"
-            android:label="Credit Cards"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.caknow.customer.quote.QuoteActivity"
-            android:label="Quotes"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.caknow.customer.webview.WebViewActivity"
-            android:label="About Us"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait" />
+    <activity
+        android:name="com.caknow.customer.garage.VehicleServiceActivity"
+        android:label="Garage"
+        android:theme="@style/AppTheme"
+        android:parentActivityName="com.caknow.customer.home.HomeActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.garage.AddVehicleActivity"
+        android:label="New Vehicle"
+        android:theme="@style/AppTheme"
+        android:parentActivityName="com.caknow.customer.garage.VehicleServiceActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.promo.PromoActivity"
+        android:label="Share to Earn"
+        android:theme="@style/AppTheme"
+        android:parentActivityName="com.caknow.customer.home.HomeActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.history.HistoryActivity"
+        android:label="History"
+        android:theme="@style/AppTheme"
+        android:parentActivityName="com.caknow.customer.home.HomeActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.feedback.FeedbackActivity"
+        android:label="Help"
+        android:theme="@style/AppTheme"
+        android:parentActivityName="com.caknow.customer.home.HomeActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.payment.PaymentActivity"
+        android:label="Credit Cards"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.quote.QuoteActivity"
+        android:label="Quotes"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name="com.caknow.customer.webview.WebViewActivity"
+        android:label="About Us"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"/>
 
-        <!-- Activities responsible for gathering payment info -->
-        <activity android:name="io.card.payment.CardIOActivity" android:configChanges="keyboardHidden|orientation" />
-        <activity android:name="io.card.payment.DataEntryActivity" />
-    </application>
+    <!-- Activities responsible for gathering payment info -->
+    <activity android:name="io.card.payment.CardIOActivity"
+              android:configChanges="keyboardHidden|orientation"/>
+    <activity android:name="io.card.payment.DataEntryActivity"/>
+
+    <activity android:name="com.caknow.customer.quote.QuoteMapActivity"
+              android:label="@string/title_activity_quote_map"/>
+    <activity android:name="com.caknow.customer.job.JobActivity"
+        android:label="@string/title_activity_quote_map"/>
+    <activity android:name="com.caknow.customer.transaction.TransactionActivity"
+        android:label="@string/title_activity_quote_map"/>
+
+</application>
 
 
 </manifest>
+

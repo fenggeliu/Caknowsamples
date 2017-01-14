@@ -1,9 +1,15 @@
 package com.caknow.customer.service;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -13,16 +19,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
-import com.caknow.customer.service.fragment.ServiceDetailsFragment;
-import com.caknow.customer.service.fragment.ServiceListFragment;
-import com.caknow.customer.service.fragment.ServiceLocationFragment;
-import com.caknow.customer.util.net.service.Geolocation;
-import com.caknow.customer.util.net.service.ServiceAddress;
-import com.caknow.customer.util.net.service.Services;
+import com.caknow.customer.widget.BaseActivity;
+import com.caknow.customer.CAKNOWApplication;
+import com.caknow.customer.service.fragment.NewServiceDetailsFragment;
+import com.caknow.customer.service.fragment.NewServiceListFragment;
+import com.caknow.customer.service.fragment.NewServiceLocationFragment;
+import com.caknow.customer.util.net.service.location.Geolocation;
+import com.caknow.customer.util.net.service.location.ServiceAddress;
+import com.caknow.customer.util.net.service.ServiceItem;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -30,7 +46,7 @@ import butterknife.ButterKnife;
  * Created by junu on 1/1/17.
  */
 
-public class NewServiceRequestActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ServiceListFragment.OnListFragmentInteractionListener{
+public class NewServiceRequestActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NewServiceListFragment.OnListFragmentInteractionListener{
 
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
@@ -42,14 +58,21 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     ServiceAddress serviceAddress;
     private int typeId;
     private String description;
-    String[] services;
-
+    ArrayList<String> services;
+    String imagePath;
+    String imageFilePath;
+    File image = null;
+    Bitmap bitmap;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 13;
+
+    @Inject
+    Cloudinary cloudinary;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        services = new String[1];
+        CAKNOWApplication.get().getNetComponent().inject(this);
+        services = new ArrayList<>();
         vehicleId = getIntent().getStringExtra("vehicleId");
     }
 
@@ -70,8 +93,8 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         setContentView(R.layout.activity_service_request);
         ButterKnife.bind(this);
         addFragment(R.id.flContent,
-                new ServiceLocationFragment(),
-                ServiceLocationFragment.FRAGMENT_TAG);
+                new NewServiceLocationFragment(),
+                NewServiceLocationFragment.FRAGMENT_TAG);
     }
 
     @Override
@@ -192,9 +215,9 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     }
 
     @Override
-    public void onListFragmentInteraction(Services item) {
+    public void onListFragmentInteraction(ServiceItem item) {
         setServiceId(item.getCatagoryId());
-        ServiceDetailsFragment fragment = new ServiceDetailsFragment();
+        NewServiceDetailsFragment fragment = new NewServiceDetailsFragment();
         Bundle args = new Bundle();
         args.putString("vehicleId", vehicleId);
         args.putInt("typeId", typeId);
@@ -202,7 +225,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         args.putParcelable("address", serviceAddress);
         args.putParcelable("geolocation", geolocation);
         fragment.setArguments(args);
-        replaceFragment(R.id.flContent, fragment, ServiceDetailsFragment.FRAGMENT_TAG, "details");
+        replaceFragment(R.id.flContent, fragment, NewServiceDetailsFragment.FRAGMENT_TAG, "details");
     }
 
     /////////////////////////////////////////////////
@@ -218,7 +241,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     }
 
     public void setServiceId(final String serviceId){
-        services[0] = serviceId;
+        this.services.add(serviceId);
     }
 
     public void setServiceDescription(final String description){
@@ -264,8 +287,38 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         return this.typeId;
     }
 
-    public String[] getServiceId(){
+    public ArrayList<String> getServiceId(){
         return this.services;
     }
 
+    public Bitmap getBitmap(){
+        return this.bitmap;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            imageFilePath = getPath(selectedImageUri);
+            bitmap = BitmapFactory.decodeFile(imagePath);
+            Map resultMap;
+            try {
+                resultMap = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
+            } catch(IOException e){
+                Toast.makeText(this, "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(projection[0]);
+        String filePath = cursor.getString(columnIndex);
+        cursor.close();
+        return cursor.getString(column_index);
+    }
 }

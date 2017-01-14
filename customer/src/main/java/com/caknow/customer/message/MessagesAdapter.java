@@ -69,9 +69,9 @@ public class MessagesAdapter extends ArrayAdapter<MessageItem> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_list_item, parent, false);
         }
         // Lookup view for data population
-        TextView tvName = (TextView) convertView.findViewById(R.id.message_item_title);
-        TextView tvDate = (TextView) convertView.findViewById(R.id.message_item_time);
-        TextView tvInfo = (TextView) convertView.findViewById(R.id.message_item_info);
+        TextView tvName = (TextView) convertView.findViewById(R.id.history_item_title);
+        TextView tvDate = (TextView) convertView.findViewById(R.id.service_item_time);
+        TextView tvInfo = (TextView) convertView.findViewById(R.id.history_item_info);
         // Populate the data into the template view using the data object
         tvName.setText(messageItem.getFrom());
         tvDate.setText(messageItem.getDate());

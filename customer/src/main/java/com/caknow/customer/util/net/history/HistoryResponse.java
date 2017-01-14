@@ -23,7 +23,7 @@ public class HistoryResponse implements Serializable, Parcelable
     private String message;
     @SerializedName("payload")
     @Expose
-    private Payload payload;
+    private HistoryPayload payload;
     public final static Parcelable.Creator<HistoryResponse> CREATOR = new Creator<HistoryResponse>() {
 
 
@@ -34,7 +34,7 @@ public class HistoryResponse implements Serializable, Parcelable
             HistoryResponse instance = new HistoryResponse();
             instance.success = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
             instance.message = ((String) in.readValue((String.class.getClassLoader())));
-            instance.payload = ((Payload) in.readValue((Payload.class.getClassLoader())));
+            instance.payload = ((HistoryPayload) in.readValue((HistoryPayload.class.getClassLoader())));
             return instance;
         }
 
@@ -62,11 +62,11 @@ public class HistoryResponse implements Serializable, Parcelable
         this.message = message;
     }
 
-    public Payload getPayload() {
+    public HistoryPayload getPayload() {
         return payload;
     }
 
-    public void setPayload(Payload payload) {
+    public void setPayload(HistoryPayload payload) {
         this.payload = payload;
     }
 

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
+import com.caknow.customer.widget.BaseActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,15 +22,15 @@ public class FeedbackActivity extends BaseActivity {
 
     @OnClick(R.id.phone_number_display)
     void call() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getString(R.string.help_layout_description_phone_number)));
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + getString(R.string.help_layout_description_phone_number)));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CALL_PHONE)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        1);
+            }
             return;
         }
         FeedbackActivity.this.startActivity(intent);

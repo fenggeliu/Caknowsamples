@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_weight="3">
+
+    <LinearLayout
+        android:id="@+id/vehicle_service_top_banner"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/list_top_2x"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="@dimen/srcl_car_logo_outside_width"
+            android:layout_height="@dimen/srcl_car_logo_outside_height"
+            android:layout_marginTop="@dimen/srcl_car_logo_outside_margin_top"
+            android:background="@drawable/circle_white_2x"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/srcl_car_logo_display"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/srcl_car_logo_inside_margin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/vehicle_service_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/srcl_car_information_text_size" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

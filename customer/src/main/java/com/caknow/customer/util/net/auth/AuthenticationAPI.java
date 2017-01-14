@@ -2,6 +2,7 @@ package com.caknow.customer.util.net.auth;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -11,9 +12,9 @@ import retrofit2.http.POST;
 
 public interface AuthenticationAPI {
 
-    String ENDPOINT = "http://dev.caknow.com";
-
     @POST("/consumer")
     Call<AuthenticationResponse> login(@Body RequestBody postBody);
 
+    @POST("consumer/forgetPassword")
+    Call<Response> forgotPassword(@Body RequestBody emailBody);
 }

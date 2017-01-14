@@ -6,20 +6,50 @@ import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
+import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.settings.SettingsActivity;
+import com.caknow.customer.util.net.settings.SettingsAPI;
+import com.caknow.customer.util.net.settings.UpdatePasswordRequest;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by junu on 1/1/17.
  */
 
-public class UpdatePasswordFragment extends BaseFragment {
+public class UpdatePasswordFragment extends BaseFragment implements Callback<ResponseBody> {
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + UpdatePasswordFragment.class.getName();
 
+    @BindViews({R.id.update_password_current, R.id.update_password_new, R.id.update_password_new_coonfirm})
+    List<EditText> passwordFields;
+
+    @OnClick(R.id.setting_update_submit_btn)
+    void submit(){
+        ((SettingsActivity)getActivity()).showProgress();
+        if(validateFields()){
+            retrofit.create(SettingsAPI.class)
+                    .updatePassword(UpdatePasswordRequest.getRequestBody(new UpdatePasswordRequest(passwordFields.get(0).getText().toString(), passwordFields.get(1).getText().toString())));
+        }
+
+    }
+
+    @Inject
+    Retrofit retrofit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,8 +62,48 @@ public class UpdatePasswordFragment extends BaseFragment {
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        ((SettingsActivity) getActivity()).updateTitle("Phone Number");
+        ((SettingsActivity) getActivity()).updateTitle("Password", R.drawable.ic_action_back);
     }
 
 
+    @Override
+    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        try{
+            ((SettingsActivity)getActivity()).hideProgress();
+        } catch(Exception e){
+            //Not thread safe
+        }
+        if(response.isSuccessful()){
+            Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+            getActivity().onBackPressed();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<ResponseBody> call, Throwable t) {
+        try{
+            ((SettingsActivity)getActivity()).hideProgress();
+        } catch(Exception e){
+            //Not thread safe
+        }
+    }
+
+
+    private boolean validateFields(){
+        boolean success = true;
+        for(EditText editText : passwordFields){
+            if(editText.getText().toString().isEmpty()){
+                success = false;
+                Toast.makeText(getContext(), "Please check all fields and make sure they are filled out.", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+
+        if(!passwordFields.get(1).getText().toString().matches(passwordFields.get(1).getText().toString())){
+            Toast.makeText(getContext(), "Please make sure the password are the same", Toast.LENGTH_SHORT).show();
+            success = false;
+        }
+
+        return success;
+    }
 }

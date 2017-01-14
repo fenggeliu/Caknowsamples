@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.caknow.app.R;
-import com.caknow.customer.BaseFragment;
+import com.caknow.customer.widget.BaseFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,7 +25,7 @@ public class QuoteDetailFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.activity_history, container, false);
+        View v = inflater.inflate(R.layout.fragment_quote_detail, container, false);
         unbinder = ButterKnife.bind(this, v);
         return v;
     }

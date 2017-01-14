@@ -22,19 +22,17 @@ android {
     }
     dexOptions {
         jumboMode                   true
-        javaMaxHeapSize             "2g"
+        javaMaxHeapSize             "4g"
         preDexLibraries             true
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
+            minifyEnabled false
         }
     }
     compileOptions {
@@ -43,9 +41,13 @@ android {
     }
     lintOptions {
         abortOnError false
+        disable 'InvalidPackage'
     }
     dexOptions {
         javaMaxHeapSize "4g"
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 }
 
@@ -61,7 +63,7 @@ dependencies {
     //Net Libraries
     compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.1.0'
     compile group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.1.0'
-    compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava', version: '2.1.0'
+    //compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava', version: '2.1.0'
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.4.1'
     compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.4.1'
 
@@ -86,22 +88,23 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:10.0.1'
     compile 'com.google.android.gms:play-services-identity:10.0.1'
     compile 'com.google.android.gms:play-services-gcm:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.facebook.android:facebook-android-sdk:4.0.1'
     compile 'com.pubnub:pubnub-android:3.7.10'
 
     // Core Libraries
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.1'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    //compile 'io.reactivex:rxandroid:1.2.1'
+    //compile 'io.reactivex:rxjava:1.2.1'
+    //compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
     compile 'com.google.guava:guava:19.0'
-    compile 'com.squareup:otto:1.3.7'
     compile 'com.google.dagger:dagger:2.7'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
     androidTestCompile 'com.squareup:javawriter:2.5.1'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // UI Libraries
+    compile 'com.sothree.slidinguppanel:library:3.3.1'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton.timber:timber:4.3.1'
@@ -110,6 +113,7 @@ dependencies {
     compile group: 'se.emilsjolander', name: 'stickylistheaders', version: '2.7.0'
     compile group: 'com.cloudinary', name: 'cloudinary-android', version: '1.2.2'
     compile group: 'com.bignerdranch.android', name: 'expandablerecyclerview', version: '3.0.0-RC1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 
 
     // Debug Libraries

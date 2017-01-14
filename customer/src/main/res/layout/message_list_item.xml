@@ -78,7 +78,7 @@
                         android:layout_weight="3">
 
                         <TextView
-                            android:id="@+id/message_item_time"
+                            android:id="@+id/service_item_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -98,7 +98,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/message_item_title"
+                    android:id="@+id/history_item_title"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_gravity="center_vertical"
@@ -110,7 +110,7 @@
                     android:textSize="@dimen/mli_super_text_size" />
 
                 <TextView
-                    android:id="@+id/message_item_info"
+                    android:id="@+id/history_item_info"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_gravity="top"

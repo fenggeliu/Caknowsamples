@@ -1,6 +1,7 @@
 package com.caknow.customer.util.net.reg;
 
 import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.BaseRequestBody;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,24 +9,25 @@ import com.google.gson.annotations.SerializedName;
  * Created by junu on 1/6/17.
  */
 
-public class RegistrationRequest {
-    String accountType;
+@SuppressWarnings({"unused", "FieldCanBeLocal"})
+public class RegistrationRequest extends BaseRequestBody{
+    private String accountType;
     @SerializedName("token3st")
-    String thirdPartyToken;
-    String phone;
-    String referralCode;
+    private String thirdPartyToken;
+    private String phone;
+    private String referralCode;
     //Only required if not using third party login
-    String email;
-    String password;
-    String fName;
-    String lName;
+    private String email;
+    private String password;
+    private String fName;
+    private String lName;
 
     /**
      *
-     * @param accountType
-     * @param thirdPartyToken
-     * @param phone
-     * @param referralCode
+     * @param accountType String value of account type (FACEBOOK_USER, GOOGLE_USER)
+     * @param thirdPartyToken String value of third party token
+     * @param phone String value of phone
+     * @param referralCode String value of Referral code
      */
     public RegistrationRequest(String accountType,
                                String thirdPartyToken,
@@ -66,9 +68,5 @@ public class RegistrationRequest {
 
     }
 
-    public static String getJsonString(RegistrationRequest request){
-        Gson gson = new Gson();
 
-        return gson.toJson(request);
-    }
 }

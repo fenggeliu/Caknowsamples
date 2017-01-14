@@ -198,7 +198,7 @@
 
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
+    <string-array name="multi_select_list_preference_default_value"/>
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
@@ -214,6 +214,11 @@
     <string name="vehicle_name_placeholder">BMW 5 SERIES</string>
     <string name="sample_cc_number_placeholder">xxxx xxxx xxxx 1853</string>
     <string name="action_submit">SUBMIT</string>
+    <string name="menu_cancel_request">Cancel Service Request</string>
+    <string name="menu_order_number">Order Number</string>
+    <string name="menu_reinitiate">Re-initiate</string>
+    <string name="menu_report">Report</string>
     <string name="garage">Garage</string>
+    <string name="title_activity_quote_map">Quotes</string>
 
 </resources>

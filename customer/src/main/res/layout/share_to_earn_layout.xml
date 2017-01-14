@@ -63,7 +63,7 @@
 
     <TextView
         android:id="@+id/promo_copy_tv"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/stel_head_description_text"
@@ -72,11 +72,13 @@
         tools:layout_conversion_absoluteHeight="43dp"
         tools:layout_conversion_absoluteWidth="332dp"
         tools:layout_conversion_absoluteX="25dp"
-        tools:layout_conversion_absoluteY="202dp" />
+        tools:layout_conversion_absoluteY="202dp"
+        tools:layout_editor_absoluteY="202dp"
+        tools:layout_editor_absoluteX="8dp" />
 
     <TextView
         android:id="@+id/promo_terms_and_conditions_tv"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/stel_sub_description_text"
@@ -85,18 +87,22 @@
         tools:layout_conversion_absoluteHeight="15dp"
         tools:layout_conversion_absoluteWidth="332dp"
         tools:layout_conversion_absoluteX="25dp"
-        tools:layout_conversion_absoluteY="255dp" />
+        tools:layout_conversion_absoluteY="255dp"
+        tools:layout_editor_absoluteY="255dp"
+        tools:layout_editor_absoluteX="8dp" />
 
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:background="@color/border_gray"
         android:orientation="horizontal"
         tools:layout_conversion_absoluteHeight="219dp"
         tools:layout_conversion_absoluteWidth="332dp"
         tools:layout_conversion_absoluteX="25dp"
-        tools:layout_conversion_absoluteY="270dp">
+        tools:layout_conversion_absoluteY="270dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="25dp">
 
         <LinearLayout
             android:layout_width="0dp"

@@ -8,10 +8,32 @@ public class Constants {
     public static final String URL_PARCEL_KEY = "url_parcel";
     public static final String VEHICLE_PARCEL_KEY = "vehicle";
     public static final String ITEM_LIST_PARCEL_KEY = ".addNew.itemList";
+    public static final String MMY_LIST_PARCEL_KEY = ".addVehicle.mmyList";
+    public static final String SERVICE_REQUEST_ID_PARCEL_KEY = "serviceRequestId";
+    public static final String QUOTE_LIST_ID_PARCEL_KEY = "quoteList";
+    public static final String QUOTE_ITEM_ID_PARCEL_KEY = "quote";
+    public static final String SELECTED_QUOTE_ITEM_ID_PARCEL_KEY = "selectedquote";
+    public static final String PAYMENT_TYPE_PARCEL_KEY = "paymentWindowType";
+    public static final String SERVICE_LIST_PARCEL_KEY = "serviceList";
     public static final String ADDRESS_PARCEL_KEY = "address";
-    public static final String ENDPOINT =                           "http://staging.caknow.com/";
-    public static final String contentType                          = "application/json";
-    public static final String apiKey                               = "Ubi2Id/9+a1z3vlww4EoPPN6MYndtaqP8blgxSAlIag=";
+    public static final String JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY = "job.serviceItem";
+    public static final String HISTORY_ITEM_PARCEL_KEY = "historyItem";
+
+    // Add a Vehicle
+    public static final String VEHICLE_ADD_ITEM_TYPE_PARCEL_KEY = "addVehicleType";
+    public static final String VEHICLE_ADD_PAYLOAD_MAKE_KEY = "make";
+    public static final String VEHICLE_ADD_PAYLOAD_MAKE_NICENAME_KEY = "makeNN";
+    public static final String VEHICLE_ADD_PAYLOAD_MODEL_KEY = "model";
+    public static final String VEHICLE_ADD_PAYLOAD_MODEL_NICENAME_KEY = "modelNN";
+    public static final String VEHICLE_ADD_PAYLOAD_YEAR_KEY = "modelNN";
+
+    public static final String PROD_ENDPOINT                        = "https://www.caknow.com";
+    public static final String STAGING_ENDPOINT                     = "http://staging.caknow.com/";
+    public static final String DEV_ENDPOINT                         = "http://dev.caknow.com/";
+
+    public static final String API_KEY_PROD                         = "Ubi2Id/9+a1z3vlww4EoPPN6MYndtaqP8blgxSAlIag=";
+    public static final String API_KEY_STAGING                      = "Ubi2Id/9+a1z3vlww4EoPPN6MYndtaqP8blgxSAlIag=";
+    public static final String API_KEY_DEV = "sJvVmx9uyJD7eE1bZraPEUfsm6BpzyOlgDZ04eqRyUs=";
     public static final String stripePublicKeyCaknowTest            = "pk_test_KSUgg4pqCeX8bmYy28e2SBdq";
 
     public static final String caknowUrl                            = "http://staging.caknow.com/";
@@ -26,7 +48,6 @@ public class Constants {
     public static final int SERVICE_TYPE_REPAIR = 1;
     public static final int SERVICE_TYPE_MAINTENANCE = 2;
     public static final int SERVICE_TYPE_EMERGENCY = 3;
-
 
 
 }

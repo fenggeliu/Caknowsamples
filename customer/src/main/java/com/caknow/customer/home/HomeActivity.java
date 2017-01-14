@@ -17,10 +17,10 @@ import android.widget.TextView;
 
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
-import com.caknow.customer.BaseActivity;
+import com.caknow.customer.widget.BaseActivity;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.feedback.FeedbackActivity;
-import com.caknow.customer.garage.NewVehicleActivity;
+import com.caknow.customer.garage.AddVehicleActivity;
 import com.caknow.customer.garage.fragment.GarageFragment;
 import com.caknow.customer.history.HistoryActivity;
 import com.caknow.customer.message.MessagesActivity;
@@ -28,7 +28,7 @@ import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.promo.PromoActivity;
 import com.caknow.customer.quote.QuoteActivity;
 import com.caknow.customer.settings.SettingsActivity;
-import com.caknow.customer.util.PreferenceKeys;
+import com.caknow.customer.util.constant.PreferenceKeys;
 import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.webview.WebViewActivity;
@@ -39,6 +39,9 @@ import butterknife.OnClick;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
+/**
+ * Main Activity class
+ */
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
 
@@ -131,7 +134,7 @@ public class HomeActivity extends BaseActivity
 //        if (retrofit == null) {
 //            Gson gson = new GsonBuilder().create();
 //            retrofit = new Retrofit.Builder()
-//                    .baseUrl(Constants.ENDPOINT)
+//                    .baseUrl(Constants.STAGING_ENDPOINT)
 //                    .addConverterFactory(GsonConverterFactory.create(gson))
 //                    .client(client)
 //                    .build();
@@ -190,7 +193,7 @@ public class HomeActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_start_new_service) {
-            Intent intent = new Intent(this, NewVehicleActivity.class);
+            Intent intent = new Intent(this, AddVehicleActivity.class);
             startActivity(intent);
             return true;
         }

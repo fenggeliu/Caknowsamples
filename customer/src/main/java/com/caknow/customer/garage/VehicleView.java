@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.garage.Vehicle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +23,7 @@ public class VehicleView {
 
     private Context context;
     private Vehicle vehicle;
-    private int quoteCount;
+    private long quoteCount;
     @BindView(R.id.vehicle_display_name)
     TextView displayName;
 
@@ -30,16 +31,16 @@ public class VehicleView {
     ImageView logoView;
 
     @BindView(R.id.gli_quote_display)
-    TextView quoteBubble;
+    public TextView quoteBubble;
 
     public VehicleView(final View view, @NonNull final Vehicle vehicle) {
         this.vehicle = vehicle;
         ButterKnife.bind(this, view);
         context = view.getContext();
         quoteCount = vehicle.getQuoteCount();
-        displayName.setText(vehicle.getDisplayName());
+        displayName.setText(vehicle.getMake().concat(" ").concat(vehicle.getModel()));
         String logoUrl = Constants.LOGOURL.concat(vehicle.getMake());
-        Glide.with(CAKNOWApplication.get()).load(vehicle.getImageUrl()).into(logoView);
+        Glide.with(CAKNOWApplication.get()).load(vehicle.getLogo()).into(logoView);
         if(quoteCount == 0){
             quoteBubble.setVisibility(View.GONE);
         }
