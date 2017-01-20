@@ -33,65 +33,23 @@ public class Quote implements Serializable, Parcelable {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Quote withId(String id) {
-        this.id = id;
-        return this;
-    }
-
     public Boolean getIsReQuote() {
         return isReQuote;
-    }
-
-    public void setIsReQuote(Boolean isReQuote) {
-        this.isReQuote = isReQuote;
-    }
-
-    public Quote withIsReQuote(Boolean isReQuote) {
-        this.isReQuote = isReQuote;
-        return this;
     }
 
     public Long getAcceptTime() {
         return acceptTime;
     }
 
-    public void setAcceptTime(Long acceptTime) {
-        this.acceptTime = acceptTime;
-    }
-
-    public Quote withAcceptTime(Long acceptTime) {
-        this.acceptTime = acceptTime;
-        return this;
-    }
-
     public List<PriceDetail> getItemizedAmounts() {
         return itemizedAmounts;
-    }
-
-    public void setItemizedAmounts(List<PriceDetail> itemizedAmounts) {
-        this.itemizedAmounts = itemizedAmounts;
-    }
-
-    public Quote withItemizedAmounts(List<PriceDetail> itemizedAmounts) {
-        this.itemizedAmounts = itemizedAmounts;
-        return this;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Quote withStatus(String status) {
-        this.status = status;
-        return this;
+    public Quote() {
     }
 
     @Override
@@ -106,9 +64,6 @@ public class Quote implements Serializable, Parcelable {
         dest.writeValue(this.acceptTime);
         dest.writeTypedList(this.itemizedAmounts);
         dest.writeString(this.status);
-    }
-
-    public Quote() {
     }
 
     protected Quote(Parcel in) {

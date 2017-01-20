@@ -47,24 +47,12 @@ public class MMYResponse implements Serializable, Parcelable
         return success;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public MMYPayload getPayload() {
         return payload;
-    }
-
-    public void setPayload(MMYPayload payload) {
-        this.payload = payload;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

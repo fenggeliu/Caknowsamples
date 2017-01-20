@@ -22,7 +22,6 @@ public class GetPaymentsResponse implements Serializable, Parcelable
     private PaymentsPayload payload;
     public final static Parcelable.Creator<GetPaymentsResponse> CREATOR = new Creator<GetPaymentsResponse>() {
 
-
         @SuppressWarnings({
                 "unchecked"
         })
@@ -46,24 +45,12 @@ public class GetPaymentsResponse implements Serializable, Parcelable
         return success;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public PaymentsPayload getPayload() {
         return payload;
-    }
-
-    public void setPayload(PaymentsPayload payload) {
-        this.payload = payload;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

@@ -80,24 +80,12 @@ public class History implements Serializable, Parcelable {
         return vehicleId;
     }
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
     public String getAffiliateId() {
         return affiliateId;
     }
 
-    public void setAffiliateId(String affiliateId) {
-        this.affiliateId = affiliateId;
-    }
-
     public Long getStatus() {
         return status;
-    }
-
-    public void setStatus(Long status) {
-        this.status = status;
     }
 
     public Long getUt() {
@@ -120,96 +108,51 @@ public class History implements Serializable, Parcelable {
         return shopName;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
-
     public String getAverageRating() {
         return averageRating;
-    }
-
-    public void setAverageRating(String averageRating) {
-        this.averageRating = averageRating;
     }
 
     public String getReviewId() {
         return reviewId;
     }
 
-    public void setReviewId(String reviewId) {
-        this.reviewId = reviewId;
-    }
-
     public String getShopImage() {
         return shopImage;
-    }
-
-    public void setShopImage(String shopImage) {
-        this.shopImage = shopImage;
     }
 
     public String getServiceCategory() {
         return serviceCategory;
     }
 
-    public void setServiceCategory(String serviceCategory) {
-        this.serviceCategory = serviceCategory;
-    }
-
     public String getShopPhone() {
         return shopPhone;
-    }
-
-    public void setShopPhone(String shopPhone) {
-        this.shopPhone = shopPhone;
     }
 
     public String getShopAddress() {
         return shopAddress;
     }
 
-    public void setShopAddress(String shopAddress) {
-        this.shopAddress = shopAddress;
-    }
-
     public Long getUpdateTime() {
         return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
-
     public String getServiceFee() {
         return serviceFee;
-    }
-
-    public void setServiceFee(String serviceFee) {
-        this.serviceFee = serviceFee;
     }
 
     public Vehicle getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
     public java.util.List<ServiceList> getServiceList() {
         return serviceList;
     }
 
-    public void setServiceList(ArrayList<ServiceList> serviceList) {
-        this.serviceList = serviceList;
+    public History() {
     }
 
     @Override
@@ -237,9 +180,6 @@ public class History implements Serializable, Parcelable {
         dest.writeString(this.serviceFee);
         dest.writeParcelable(this.vehicle, flags);
         dest.writeTypedList(this.serviceList);
-    }
-
-    public History() {
     }
 
     protected History(Parcel in) {

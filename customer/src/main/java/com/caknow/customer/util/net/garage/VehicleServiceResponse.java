@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class VehicleServiceResponse implements Serializable, Parcelable {
     boolean success;
     String message;
-    @SerializedName("payload")VehicleServicePayload payload;
+    @SerializedName("payload") VehicleServicePayload payload;
 
 
     public VehicleServicePayload getServiceRequests(){
@@ -34,8 +34,6 @@ public class VehicleServiceResponse implements Serializable, Parcelable {
         dest.writeParcelable(this.payload, flags);
     }
 
-    public VehicleServiceResponse() {
-    }
 
     protected VehicleServiceResponse(Parcel in) {
         this.success = in.readByte() != 0;

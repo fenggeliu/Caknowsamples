@@ -45,39 +45,12 @@ public class GarageResponse implements Serializable, Parcelable
         return success;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
-    public GarageResponse withSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public GarageResponse withMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
     public GaragePayload getPayload() {
         return payload;
-    }
-
-    public void setPayload(GaragePayload payload) {
-        this.payload = payload;
-    }
-
-    public GarageResponse withPayload(GaragePayload payload) {
-        this.payload = payload;
-        return this;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

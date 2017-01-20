@@ -55,24 +55,14 @@ public class PaymentRequest {
         return quoteId;
     }
 
-    public void setQuoteId(String quoteId) {
-        this.quoteId = quoteId;
-    }
 
     public String getPaymentProvider() {
         return paymentProvider;
     }
 
-    public void setPaymentProvider(String paymentProvider) {
-        this.paymentProvider = paymentProvider;
-    }
 
     public String getPaymentSource() {
         return paymentSource;
-    }
-
-    public void setPaymentSource(String paymentSource) {
-        this.paymentSource = paymentSource;
     }
 
     public static String getJsonString(PaymentRequest payload){

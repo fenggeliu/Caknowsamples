@@ -48,6 +48,8 @@ public class PaymentMethodFragment extends BaseFragment {
     private ArrayList<PaymentMethodItem> data;
     private PaymentMethodAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    // Add New Card button On Click event
     @OnClick(R.id.add_card_button)
     void addCard(){
         AddPaymentFragment fragment = new AddPaymentFragment();
@@ -74,7 +76,7 @@ public class PaymentMethodFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if (getArguments() != null) {
-            data = getArguments().getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
+            data = getArguments().getParcelableArrayList(Constants.PAYMENT_METHOD_LIST_PARCEL_KEY);
         }
 
     }

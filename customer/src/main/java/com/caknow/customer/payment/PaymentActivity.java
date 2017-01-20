@@ -116,7 +116,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
     private void loadPaymentMethodsFragment(){
         PaymentMethodFragment fragment = new PaymentMethodFragment();
         final Bundle args = new Bundle();
-        args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, data);
+        args.putParcelableArrayList(Constants.PAYMENT_METHOD_LIST_PARCEL_KEY, data);
         fragment.setArguments(args);
         addFragment(R.id.paymentContent, fragment, PaymentMethodFragment.FRAGMENT_TAG);
 
@@ -148,7 +148,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
 
     private void selectPaymentForTransaction(String paymentSource){
         Intent result = new Intent();
-        result.putExtra("paymentSource", paymentSource);
+        result.putExtra(Constants.PAYMENT_SOURCE_PARCEL_KEY, paymentSource);
         setResult(Activity.RESULT_OK, result);
         finish();
     }

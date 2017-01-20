@@ -168,7 +168,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             if (resultCode == RESULT_OK) {
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
-                selectedPaymentSource =  data.getExtras().getString("paymentSource");
+                selectedPaymentSource =  data.getExtras().getString(Constants.PAYMENT_SOURCE_PARCEL_KEY);
                 if(!selectedPaymentSource.isEmpty()){
                     confirmPayment();
                 }

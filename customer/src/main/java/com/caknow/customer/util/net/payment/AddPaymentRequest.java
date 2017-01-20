@@ -16,11 +16,8 @@ public class AddPaymentRequest {
         this.cardToken = cardToken;
     }
 
-
-
     public static String getJsonString(AddPaymentRequest payload){
         Gson gson = new Gson();
-
         return gson.toJson(payload);
     }
 

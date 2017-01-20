@@ -19,14 +19,6 @@ public class GetQuotesByServiceId implements Serializable, Parcelable {
         return getQuotesByServiceIdPayload;
     }
 
-    public void setGetQuotesByServiceIdPayload(GetQuotesByServiceIdPayload getQuotesByServiceIdPayload) {
-        this.getQuotesByServiceIdPayload = getQuotesByServiceIdPayload;
-    }
-
-    public GetQuotesByServiceId withPayload(GetQuotesByServiceIdPayload getQuotesByServiceIdPayload) {
-        this.getQuotesByServiceIdPayload = getQuotesByServiceIdPayload;
-        return this;
-    }
 
     @Override
     public int describeContents() {

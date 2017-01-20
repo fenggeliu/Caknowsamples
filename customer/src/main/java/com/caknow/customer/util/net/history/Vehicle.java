@@ -66,64 +66,32 @@ public class Vehicle implements Serializable, Parcelable
         return year;
     }
 
-    public void setYear(String year) {
-        this.year = year;
-    }
-
     public String getMake() {
         return make;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
     }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public String getTrim() {
         return trim;
-    }
-
-    public void setTrim(String trim) {
-        this.trim = trim;
     }
 
     public String getMileage() {
         return mileage;
     }
 
-    public void setMileage(String mileage) {
-        this.mileage = mileage;
-    }
-
     public String getVehicleId() {
         return vehicleId;
-    }
-
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
     }
 
     public String getConsumerName() {
         return consumerName;
     }
 
-    public void setConsumerName(String consumerName) {
-        this.consumerName = consumerName;
-    }
-
     public String getConsumerAvatar() {
         return consumerAvatar;
-    }
-
-    public void setConsumerAvatar(String consumerAvatar) {
-        this.consumerAvatar = consumerAvatar;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

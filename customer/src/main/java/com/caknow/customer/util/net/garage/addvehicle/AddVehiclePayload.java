@@ -19,6 +19,7 @@ public class AddVehiclePayload implements Parcelable
         return this.vehicles;
     }
 
+
     @Override
     public int describeContents() {
         return 0;

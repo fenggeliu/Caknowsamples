@@ -42,10 +42,6 @@ public class MMYPayload implements Serializable, Parcelable {
         return makes;
     }
 
-    public void setMakes(List<Make> makes) {
-        this.makes = makes;
-    }
-
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(makes);
     }

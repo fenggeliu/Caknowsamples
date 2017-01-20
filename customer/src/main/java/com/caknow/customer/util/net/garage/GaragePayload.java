@@ -38,15 +38,6 @@ public class GaragePayload implements Serializable, Parcelable
         return vehicles;
     }
 
-    public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
-    }
-
-    public GaragePayload withVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
-        return this;
-    }
-
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(vehicles);
     }

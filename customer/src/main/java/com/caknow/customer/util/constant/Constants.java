@@ -8,6 +8,8 @@ public class Constants {
     public static final String URL_PARCEL_KEY = "url_parcel";
     public static final String VEHICLE_PARCEL_KEY = "vehicle";
     public static final String ITEM_LIST_PARCEL_KEY = ".addNew.itemList";
+    public static final String PAYMENT_METHOD_LIST_PARCEL_KEY = ".paymentMethods";
+    public static final String PAYMENT_SOURCE_PARCEL_KEY = "paymentSource";
     public static final String MMY_LIST_PARCEL_KEY = ".addVehicle.mmyList";
     public static final String SERVICE_REQUEST_ID_PARCEL_KEY = "serviceRequestId";
     public static final String QUOTE_LIST_ID_PARCEL_KEY = "quoteList";

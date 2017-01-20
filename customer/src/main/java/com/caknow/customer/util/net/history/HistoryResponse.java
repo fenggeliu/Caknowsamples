@@ -24,60 +24,50 @@ public class HistoryResponse implements Serializable, Parcelable
     @SerializedName("payload")
     @Expose
     private HistoryPayload payload;
-    public final static Parcelable.Creator<HistoryResponse> CREATOR = new Creator<HistoryResponse>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public HistoryResponse createFromParcel(Parcel in) {
-            HistoryResponse instance = new HistoryResponse();
-            instance.success = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
-            instance.message = ((String) in.readValue((String.class.getClassLoader())));
-            instance.payload = ((HistoryPayload) in.readValue((HistoryPayload.class.getClassLoader())));
-            return instance;
-        }
-
-        public HistoryResponse[] newArray(int size) {
-            return (new HistoryResponse[size]);
-        }
-
-    }
-            ;
     private final static long serialVersionUID = 5862500599210071311L;
 
     public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public HistoryPayload getPayload() {
         return payload;
     }
 
-    public void setPayload(HistoryPayload payload) {
-        this.payload = payload;
-    }
-
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(success);
-        dest.writeValue(message);
-        dest.writeValue(payload);
-    }
-
+    @Override
     public int describeContents() {
         return 0;
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.success);
+        dest.writeString(this.message);
+        dest.writeParcelable(this.payload, flags);
+    }
+
+    public HistoryResponse() {
+    }
+
+    protected HistoryResponse(Parcel in) {
+        this.success = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.message = in.readString();
+        this.payload = in.readParcelable(HistoryPayload.class.getClassLoader());
+    }
+
+    public static final Creator<HistoryResponse> CREATOR = new Creator<HistoryResponse>() {
+        @Override
+        public HistoryResponse createFromParcel(Parcel source) {
+            return new HistoryResponse(source);
+        }
+
+        @Override
+        public HistoryResponse[] newArray(int size) {
+            return new HistoryResponse[size];
+        }
+    };
 }

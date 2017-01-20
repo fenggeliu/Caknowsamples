@@ -18,24 +18,6 @@ public class HistoryPayload implements Serializable, Parcelable
     @SerializedName("list")
     @Expose
     private java.util.List<History> list = null;
-    public final static Parcelable.Creator<HistoryPayload> CREATOR = new Creator<HistoryPayload>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public HistoryPayload createFromParcel(Parcel in) {
-            HistoryPayload instance = new HistoryPayload();
-            in.readList(instance.list, (History.class.getClassLoader()));
-            return instance;
-        }
-
-        public HistoryPayload[] newArray(int size) {
-            return (new HistoryPayload[size]);
-        }
-
-    }
-            ;
     private final static long serialVersionUID = 2736016538613972890L;
 
     public java.util.List<History> getList() {
@@ -46,12 +28,32 @@ public class HistoryPayload implements Serializable, Parcelable
         this.list = list;
     }
 
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeList(list);
-    }
-
+    @Override
     public int describeContents() {
         return 0;
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(this.list);
+    }
+
+    public HistoryPayload() {
+    }
+
+    protected HistoryPayload(Parcel in) {
+        this.list = in.createTypedArrayList(History.CREATOR);
+    }
+
+    public static final Creator<HistoryPayload> CREATOR = new Creator<HistoryPayload>() {
+        @Override
+        public HistoryPayload createFromParcel(Parcel source) {
+            return new HistoryPayload(source);
+        }
+
+        @Override
+        public HistoryPayload[] newArray(int size) {
+            return new HistoryPayload[size];
+        }
+    };
 }

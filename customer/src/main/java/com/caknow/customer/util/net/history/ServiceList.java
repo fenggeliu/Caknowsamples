@@ -47,24 +47,12 @@ public class ServiceList implements Serializable, Parcelable
         return icon;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
     public String getCatagory() {
         return catagory;
     }
 
-    public void setCatagory(String catagory) {
-        this.catagory = catagory;
-    }
-
     public String getField() {
         return field;
-    }
-
-    public void setField(String field) {
-        this.field = field;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
