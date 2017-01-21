@@ -224,7 +224,6 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     public void onResponse(Call<AuthenticationResponse> call, retrofit2.Response<AuthenticationResponse> response) {
         hideProgress();
         if (response.isSuccessful()) {
-            Toast.makeText(LoginActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
             AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
 
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.ACCESS_TOKEN, authPayload.getToken());

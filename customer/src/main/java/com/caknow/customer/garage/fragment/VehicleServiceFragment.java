@@ -133,6 +133,8 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
                 noServiceRequestLayout.setVisibility(View.VISIBLE);
             } else {
                 adapter = new VehicleServiceAdapter(getContext(), VehicleServiceFragment.this, serviceResponse.getRepairList(), serviceResponse.getMaintenanceList(), mListener);
+                serviceListView.setAdapter(null);
+                serviceListView.invalidate();
                 serviceListView.setAdapter(adapter);
                 serviceListView.invalidate();
             }
