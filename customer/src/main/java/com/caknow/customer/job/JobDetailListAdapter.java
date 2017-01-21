@@ -59,22 +59,6 @@ public class JobDetailListAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    //    public QuoteList selectItem(int i){
-//
-//        return currentQuote;
-//    }
-    public void addItem(final String item) {
-        mData.add(item);
-
-    }
-
-    public void addSeparatorItem(final String item) {
-        mData.add(item);
-        // save separator position
-        mSeparatorsSet.add(mData.size() - 1);
-        notifyDataSetChanged();
-    }
-
     @Override
     public int getItemViewType(int position) {
         switch (position) {
@@ -223,7 +207,7 @@ public class JobDetailListAdapter extends BaseAdapter {
                     holder.textView = (TextView) convertView.findViewById(R.id.list_item_address_textview);
                     String formattedAddress = affiliate.getAddress();
                     try {
-                        String[] addressParts = affiliate.getAddress().split(",", 1);
+                        String[] addressParts = affiliate.getAddress().split(",", 2);
                         formattedAddress = addressParts[0].concat("\n").concat(addressParts[1].trim());
                     }catch(Exception e){}
                     holder.textView.setText(formattedAddress);
