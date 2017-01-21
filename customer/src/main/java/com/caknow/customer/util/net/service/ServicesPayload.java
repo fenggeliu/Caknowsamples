@@ -25,8 +25,7 @@ public class ServicesPayload implements Serializable, Parcelable
         return list;
     }
 
-    public void setList(java.util.List<ServiceItem> list) {
-        this.list = list;
+    public ServicesPayload() {
     }
 
     @Override
@@ -37,9 +36,6 @@ public class ServicesPayload implements Serializable, Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedList(this.list);
-    }
-
-    public ServicesPayload() {
     }
 
     protected ServicesPayload(Parcel in) {

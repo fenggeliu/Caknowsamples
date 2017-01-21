@@ -25,8 +25,23 @@ android {
         javaMaxHeapSize             "4g"
         preDexLibraries             true
     }
+    signingConfigs {
+        release {
+            storeFile file("src/release/caknow.jks")
+            storePassword "caknow88"
+            keyAlias "caknow"
+            keyPassword "caknow88"
+        }
+        debug {
+            storeFile file("src/debug/debug.jks")
+            storePassword "caknow88"
+            keyAlias "caknow"
+            keyPassword "caknow88"
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

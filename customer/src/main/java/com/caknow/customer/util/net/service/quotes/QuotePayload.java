@@ -67,96 +67,48 @@ public class QuotePayload implements Serializable, Parcelable
         return orderNo;
     }
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
-
     public String getVehicleId() {
         return vehicleId;
-    }
-
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
     }
 
     public String getServiceTypeName() {
         return serviceTypeName;
     }
 
-    public void setServiceTypeName(String serviceTypeName) {
-        this.serviceTypeName = serviceTypeName;
-    }
-
     public Affiliate getAffiliate(){
         return this.affiliate;
-    }
-
-    public void setAffiliate(Affiliate affiliate){
-        this.affiliate = affiliate;
     }
 
     public Long getServiceType() {
         return serviceType;
     }
 
-    public void setServiceType(Long serviceType) {
-        this.serviceType = serviceType;
-    }
-
     public Long getStatus() {
         return status;
-    }
-
-    public void setStatus(Long status) {
-        this.status = status;
     }
 
     public String getTimeframe() {
         return timeframe;
     }
 
-    public void setTimeframe(String timeframe) {
-        this.timeframe = timeframe;
-    }
-
     public Long getPriority() {
         return priority;
-    }
-
-    public void setPriority(Long priority) {
-        this.priority = priority;
     }
 
     public List<ServiceList> getServiceList() {
         return serviceList;
     }
 
-    public void setServiceList(List<ServiceList> serviceList) {
-        this.serviceList = serviceList;
-    }
-
     public Double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
     }
 
     public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public List<QuoteList> getQuoteList() {
         return quoteList;
-    }
-
-    public void setQuoteList(List<QuoteList> quoteList) {
-        this.quoteList = quoteList;
     }
 
     @Override

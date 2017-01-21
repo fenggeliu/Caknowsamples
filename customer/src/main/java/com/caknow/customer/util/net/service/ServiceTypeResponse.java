@@ -29,25 +29,14 @@ public class ServiceTypeResponse implements Serializable, Parcelable {
         return success;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public ServicesPayload getServicesPayload() {
         return servicesPayload;
     }
 
-    public void setServicesPayload(ServicesPayload servicesPayload) {
-        this.servicesPayload = servicesPayload;
-    }
 
     @Override
     public int describeContents() {

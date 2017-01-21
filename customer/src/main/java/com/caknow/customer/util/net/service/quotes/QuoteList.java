@@ -91,156 +91,48 @@ public class QuoteList implements Serializable, Parcelable
         return affiliateId;
     }
 
-    public void setAffiliateId(String affiliateId) {
-        this.affiliateId = affiliateId;
-    }
-
-    public QuoteList withAffiliateId(String affiliateId) {
-        this.affiliateId = affiliateId;
-        return this;
-    }
-
     public String getQuoteId() {
         return quoteId;
-    }
-
-    public void setQuoteId(String quoteId) {
-        this.quoteId = quoteId;
-    }
-
-    public QuoteList withQuoteId(String quoteId) {
-        this.quoteId = quoteId;
-        return this;
     }
 
     public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public QuoteList withLongitude(Double longitude) {
-        this.longitude = longitude;
-        return this;
-    }
-
     public Double getLatitude() {
         return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public QuoteList withLatitude(Double latitude) {
-        this.latitude = latitude;
-        return this;
     }
 
     public Boolean getVerified() {
         return verified;
     }
 
-    public void setVerified(Boolean verified) {
-        this.verified = verified;
-    }
-
-    public QuoteList withVerified(Boolean verified) {
-        this.verified = verified;
-        return this;
-    }
-
     public String getDistance() {
         return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
-
-    public QuoteList withDistance(String distance) {
-        this.distance = distance;
-        return this;
     }
 
     public Long getQuoteTime() {
         return quoteTime;
     }
 
-    public void setQuoteTime(Long quoteTime) {
-        this.quoteTime = quoteTime;
-    }
-
-    public QuoteList withQuoteTime(Long quoteTime) {
-        this.quoteTime = quoteTime;
-        return this;
-    }
-
     public String getServiceFee() {
         return serviceFee;
-    }
-
-    public void setServiceFee(String serviceFee) {
-        this.serviceFee = serviceFee;
-    }
-
-    public QuoteList withServiceFee(String serviceFee) {
-        this.serviceFee = serviceFee;
-        return this;
     }
 
     public List<PriceDetail> getPriceDetails() {
         return priceDetails;
     }
 
-    public void setPriceDetails(List<PriceDetail> priceDetails) {
-        this.priceDetails = priceDetails;
-    }
-
-    public QuoteList withPriceDetails(List<PriceDetail> priceDetails) {
-        this.priceDetails = priceDetails;
-        return this;
-    }
-
     public Long getAverageRating() {
         return averageRating;
-    }
-
-    public void setAverageRating(Long averageRating) {
-        this.averageRating = averageRating;
-    }
-
-    public QuoteList withAverageRating(Long averageRating) {
-        this.averageRating = averageRating;
-        return this;
     }
 
     public Long getReviewCount() {
         return reviewCount;
     }
 
-    public void setReviewCount(Long reviewCount) {
-        this.reviewCount = reviewCount;
-    }
-
-    public QuoteList withReviewCount(Long reviewCount) {
-        this.reviewCount = reviewCount;
-        return this;
-    }
-
     public Long getCompletedRate() {
         return completedRate;
-    }
-
-    public void setCompletedRate(Long completedRate) {
-        this.completedRate = completedRate;
-    }
-
-    public QuoteList withCompletedRate(Long completedRate) {
-        this.completedRate = completedRate;
-        return this;
     }
 
     @Override

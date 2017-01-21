@@ -54,80 +54,43 @@ public class ServiceRequest implements Serializable, Parcelable
         return geolocation;
     }
 
-    public void setGeolocation(Geolocation geolocation) {
-        this.geolocation = geolocation;
-    }
-
     public List<String> getServiceList() {
         return serviceList;
-    }
-
-    public void setServiceList(List<String> serviceList) {
-        this.serviceList = serviceList;
     }
 
     public String getVehicleId() {
         return vehicleId;
     }
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
     public Long getMileage() {
         return mileage;
-    }
-
-    public void setMileage(Long mileage) {
-        this.mileage = mileage;
     }
 
     public Long getType() {
         return type;
     }
 
-    public void setType(Long type) {
-        this.type = type;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Long getPriority() {
         return priority;
     }
 
-    public void setPriority(Long priority) {
-        this.priority = priority;
-    }
-
     public List<String> getImageList() {
         return imageList;
-    }
-
-    public void setImageList(List<String> imageList) {
-        this.imageList = imageList;
     }
 
     public String getDiagnosticCode() {
         return diagnosticCode;
     }
 
-    public void setDiagnosticCode(String diagnosticCode) {
-        this.diagnosticCode = diagnosticCode;
-    }
-
     public ServiceAddress getAddress() {
         return address;
     }
 
-    public void setAddress(ServiceAddress address) {
-        this.address = address;
+    public ServiceRequest() {
     }
 
     @Override
@@ -147,9 +110,6 @@ public class ServiceRequest implements Serializable, Parcelable
         dest.writeStringList(this.imageList);
         dest.writeString(this.diagnosticCode);
         dest.writeParcelable(this.address, flags);
-    }
-
-    public ServiceRequest() {
     }
 
     protected ServiceRequest(Parcel in) {

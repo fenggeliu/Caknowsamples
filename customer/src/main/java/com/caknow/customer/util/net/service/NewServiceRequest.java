@@ -49,33 +49,6 @@ public class NewServiceRequest implements Serializable, Parcelable
     @SerializedName("address")
     @Expose
     private ServiceAddress address;
-    public final static Parcelable.Creator<NewServiceRequest> CREATOR = new Creator<NewServiceRequest>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public NewServiceRequest createFromParcel(Parcel in) {
-            NewServiceRequest instance = new NewServiceRequest();
-            instance.geolocation = ((Geolocation) in.readValue((Geolocation.class.getClassLoader())));
-            in.readList(instance.serviceList, (java.lang.String.class.getClassLoader()));
-            instance.vehicleId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.mileage = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.type = ((int) in.readValue((Long.class.getClassLoader())));
-            instance.description = ((String) in.readValue((String.class.getClassLoader())));
-            instance.priority = ((int) in.readValue((Long.class.getClassLoader())));
-            in.readList(instance.imageList, (java.lang.String.class.getClassLoader()));
-            instance.diagnosticCode = ((String) in.readValue((String.class.getClassLoader())));
-            instance.address = ((ServiceAddress) in.readValue((ServiceAddress.class.getClassLoader())));
-            return instance;
-        }
-
-        public NewServiceRequest[] newArray(int size) {
-            return (new NewServiceRequest[size]);
-        }
-
-    }
-            ;
     private final static long serialVersionUID = -1837018652848126229L;
 
     public Geolocation getGeolocation() {
@@ -158,26 +131,56 @@ public class NewServiceRequest implements Serializable, Parcelable
         this.address = address;
     }
 
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(geolocation);
-        dest.writeList(serviceList);
-        dest.writeValue(vehicleId);
-        dest.writeValue(mileage);
-        dest.writeValue(type);
-        dest.writeValue(description);
-        dest.writeValue(priority);
-        dest.writeList(imageList);
-        dest.writeValue(diagnosticCode);
-        dest.writeValue(address);
-    }
-
-    public int describeContents() {
-        return 0;
-    }
     public static String getJsonString(NewServiceRequest payload){
         Gson gson = new Gson();
 
         return gson.toJson(payload);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.geolocation, flags);
+        dest.writeStringList(this.serviceList);
+        dest.writeString(this.vehicleId);
+        dest.writeValue(this.mileage);
+        dest.writeInt(this.type);
+        dest.writeString(this.description);
+        dest.writeInt(this.priority);
+        dest.writeStringList(this.imageList);
+        dest.writeString(this.diagnosticCode);
+        dest.writeParcelable(this.address, flags);
+    }
+
+    public NewServiceRequest() {
+    }
+
+    protected NewServiceRequest(Parcel in) {
+        this.geolocation = in.readParcelable(Geolocation.class.getClassLoader());
+        this.serviceList = in.createStringArrayList();
+        this.vehicleId = in.readString();
+        this.mileage = (Long) in.readValue(Long.class.getClassLoader());
+        this.type = in.readInt();
+        this.description = in.readString();
+        this.priority = in.readInt();
+        this.imageList = in.createStringArrayList();
+        this.diagnosticCode = in.readString();
+        this.address = in.readParcelable(ServiceAddress.class.getClassLoader());
+    }
+
+    public static final Creator<NewServiceRequest> CREATOR = new Creator<NewServiceRequest>() {
+        @Override
+        public NewServiceRequest createFromParcel(Parcel source) {
+            return new NewServiceRequest(source);
+        }
+
+        @Override
+        public NewServiceRequest[] newArray(int size) {
+            return new NewServiceRequest[size];
+        }
+    };
 }
