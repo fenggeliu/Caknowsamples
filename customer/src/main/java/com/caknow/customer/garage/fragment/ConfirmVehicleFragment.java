@@ -70,10 +70,10 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if(bundle != null){
-            make = bundle.getString("make", "make");
-            model = bundle.getString("model", "model");
-            year = bundle.getString("year", "year");
-            makeNN = bundle.getString("makeNN", "make");
+            make = bundle.getString(Constants.VEHICLE_ADD_PAYLOAD_MAKE_KEY, "make");
+            model = bundle.getString(Constants.VEHICLE_ADD_PAYLOAD_MODEL_KEY, "model");
+            year = bundle.getString(Constants.VEHICLE_ADD_PAYLOAD_YEAR_KEY, "year");
+            makeNN = bundle.getString(Constants.VEHICLE_ADD_PAYLOAD_MAKE_NICENAME_KEY, "make");
             displayName = String.format(Locale.getDefault(), "%s %s %s", this.year, this.make, this.model);
         }
         else{

@@ -59,6 +59,7 @@ public class HomeActivity extends BaseActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // Inject this class into Dagger netcomponent
         CAKNOWApplication.get().getNetComponent().inject(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,21 +126,7 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void initData() {
-//        if (client == null) {
-//            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-//            httpClient.addNetworkInterceptor(new StethoInterceptor());
-//            httpClient.addInterceptor(new BaseRequestInterceptor());
-//            client = httpClient.build();
-//        }
-//        if (retrofit == null) {
-//            Gson gson = new GsonBuilder().create();
-//            retrofit = new Retrofit.Builder()
-//                    .baseUrl(Constants.STAGING_ENDPOINT)
-//                    .addConverterFactory(GsonConverterFactory.create(gson))
-//                    .client(client)
-//                    .build();
-//
-//        }
+
 
     }
 

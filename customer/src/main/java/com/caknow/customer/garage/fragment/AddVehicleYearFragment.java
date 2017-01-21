@@ -64,8 +64,7 @@ public class AddVehicleYearFragment extends BaseFragment {
         if (getArguments() != null) {
             final Bundle bundle = getArguments();
             mColumnCount = bundle.getInt(ARG_COLUMN_COUNT);
-            itemList = bundle.getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
-            int type = bundle.getInt("type");
+            itemList = bundle.getParcelableArrayList(Constants.MMY_LIST_PARCEL_KEY);
         }
 
     }

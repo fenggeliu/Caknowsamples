@@ -151,11 +151,17 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
     public void onListFragmentInteraction(Make item) {
         make = item.getName();
         makeNiceName = item.getNiceName();
+        // Create new fragment instance
         AddVehicleModelFragment fragment = new AddVehicleModelFragment();
+        // Creating data to inject into Arguments by creating an Arraylist of items that implement parcelable.
         ArrayList<Model> models = parseModelData(item.getModels());
+        // Create arguments bundle to add to fragment.
         Bundle args = new Bundle();
+        // Put dat afrom arraylist into arguments bundle (Key, Value)
         args.putParcelableArrayList(Constants.MMY_LIST_PARCEL_KEY, models);
+        // set the arguments bundle to the fragment
         fragment.setArguments(args);
+        // Load the fragment with bundle of arguemtsn sets to it
         this.replaceFragment(R.id.flContent, fragment, AddVehicleModelFragment.FRAGMENT_TAG, "model");
     }
 

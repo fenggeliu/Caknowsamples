@@ -74,7 +74,7 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vehicleservice, container, false);
         unbinder = ButterKnife.bind(this, v);
-        Glide.with(getActivity()).load(vehicle.getLogo()).centerCrop().into(vehicleLogo);
+        Glide.with(getActivity()).load(vehicle.getLogo()).into(vehicleLogo);
         loadData(vehicle);
         return v;
     }
@@ -126,8 +126,7 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
         try {
             bannerLayout.setVisibility(View.VISIBLE);
             submitButton.setVisibility(View.VISIBLE);
-            String logo = Constants.LOGOURL.concat(serviceResponse.getVehicleMake());
-            Glide.with(this).load(logo).into(vehicleLogo);
+            //Glide.with(this).load(serviceResponse.getVehicleLogo()).into(vehicleLogo);
             vehicleName.setText(serviceResponse.getVehicleSummary());
             vehicleName.invalidate();
             vehicleLogo.invalidate();

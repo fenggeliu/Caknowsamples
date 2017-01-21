@@ -35,6 +35,7 @@ public class Model implements Serializable, Parcelable {
         return years;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -47,6 +48,8 @@ public class Model implements Serializable, Parcelable {
         dest.writeStringList(this.years);
     }
 
+    public Model() {
+    }
 
     protected Model(Parcel in) {
         this.name = in.readString();

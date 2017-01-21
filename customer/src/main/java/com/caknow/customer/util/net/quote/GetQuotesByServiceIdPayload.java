@@ -19,7 +19,7 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
     private String chargeAcceptNewestDifferenceAmount;
     @SerializedName("quotes")
     @Expose
-    private List<Quote> quotes = null;
+    private List<Quote> quotes;
     private final static long serialVersionUID = 8385809350563275408L;
 
     public String getChargeOriginalAmount() {
@@ -37,6 +37,9 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
     }
 
 
+    public GetQuotesByServiceIdPayload() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -47,9 +50,6 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
         dest.writeString(this.chargeOriginalAmount);
         dest.writeString(this.chargeAcceptNewestDifferenceAmount);
         dest.writeTypedList(this.quotes);
-    }
-
-    public GetQuotesByServiceIdPayload() {
     }
 
     protected GetQuotesByServiceIdPayload(Parcel in) {

@@ -63,7 +63,7 @@ public class AddVehicleModelFragment extends BaseFragment {
         if (getArguments() != null) {
             final Bundle bundle = getArguments();
             mColumnCount = bundle.getInt(ARG_COLUMN_COUNT);
-            modelList = bundle.getParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY);
+            modelList = bundle.getParcelableArrayList(Constants.MMY_LIST_PARCEL_KEY);
             int type = bundle.getInt("type");
         }
 
