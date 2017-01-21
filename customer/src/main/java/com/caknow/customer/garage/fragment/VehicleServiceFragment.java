@@ -28,6 +28,7 @@ import com.caknow.customer.util.net.garage.Vehicle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +43,8 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + VehicleServiceFragment.class.getName();
 
     @BindView(R.id.vehicle_service_name) TextView vehicleName;
-    @BindView(R.id.srcl_car_logo_display) ImageView vehicleLogo;
+    @BindView(R.id.srcl_car_logo_display)
+    CircleImageView vehicleLogo;
     @BindView(R.id.new_vehicle_service_button) Button submitButton;
     @BindView(R.id.no_service_request_layout) LinearLayout noServiceRequestLayout;
     @BindView(R.id.vehicle_service_top_banner) LinearLayout bannerLayout;
@@ -72,14 +74,14 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vehicleservice, container, false);
         unbinder = ButterKnife.bind(this, v);
-        Glide.with(getActivity()).load(vehicle.getLogo()).into(vehicleLogo);
+        Glide.with(getActivity()).load(vehicle.getLogo()).centerCrop().into(vehicleLogo);
+        loadData(vehicle);
         return v;
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        loadData(vehicle);
     }
 
 
