@@ -108,11 +108,12 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
                 openInServiceQuote(item);
                 break;
             case 8:
-                try{
-                    hideProgress();
-                } catch(Exception e){
-
-                }
+//                try{
+//                    hideProgress();
+//                } catch(Exception e){
+//
+//                }
+                openCompleteQuote(item);
                 break;
             default:
                 try{
@@ -148,6 +149,16 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
         });
     }
     private void openAcceptedQuote(VehicleServiceInterface item){
+        currentServiceRequestId = item.getServiceRequestId();
+        Intent intent = new Intent(VehicleServiceActivity.this, JobActivity.class);
+        Bundle args = new Bundle();
+        args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
+        intent.putExtras(args);
+        startActivity(intent);
+
+    }
+
+    private void openCompleteQuote(VehicleServiceInterface item){
         currentServiceRequestId = item.getServiceRequestId();
         Intent intent = new Intent(VehicleServiceActivity.this, JobActivity.class);
         Bundle args = new Bundle();
