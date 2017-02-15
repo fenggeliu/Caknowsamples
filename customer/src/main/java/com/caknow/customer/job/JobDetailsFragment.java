@@ -2,12 +2,14 @@ package com.caknow.customer.job;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.caknow.app.R;
@@ -34,8 +36,16 @@ public class JobDetailsFragment extends BaseFragment{
 
     @BindView(R.id.transaction_detail_listview)
     ListView detailListView;
+    @BindView(R.id.job_detail_reponse_button)
+    Button responseButton;
+//    @BindView(R.id.job_detail_inservice_button)
+//    Button inserviceButton;
+//    @BindView(R.id.job_detail_confirmation_button)
+//    Button confirmationButton;
     VehicleServiceInterface serviceItem;
     GetQuotesResponse responseBody;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,6 +63,28 @@ public class JobDetailsFragment extends BaseFragment{
         else{
             JobDetailListAdapter adapter = new JobDetailListAdapter(getContext(), serviceItem, responseBody.getPayload().getAffiliate());
             detailListView.setAdapter(adapter);
+            try {
+                switch (serviceItem.getStatus()) {
+                    case 2:
+                        responseButton.setVisibility(View.VISIBLE);
+                        responseButton.setText("Make Appointment");
+                        responseButton.setBackgroundColor(Color.parseColor("#017aff"));
+                        break;
+                    case 3:
+                        responseButton.setVisibility(View.VISIBLE);
+                        responseButton.setText("In Service");
+                        responseButton.setBackgroundColor(Color.parseColor("#1100ffff"));
+                        break;
+                    case 8:
+                        responseButton.setVisibility(View.VISIBLE);
+                        responseButton.setText("Confirm Completion");
+                        responseButton.setBackgroundColor(Color.parseColor("#3CB371"));
+                        break;
+                    default:
+                        break;
+                }
+            }catch (Exception e) {
+            }
             detailListView.setOnItemClickListener((adapterView, view, i, l) -> {
                switch(i){
                    case 2:

@@ -25,4 +25,36 @@
         <!-- listSelector attribute set #0000000 -->
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/job_detail_reponse_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="24sp"
+        android:visibility="gone"
+        android:textColor="@color/white_full"/>
+        <!--android:text="@string/jdl_appointment_btn"-->
+    <!--android:background="@drawable/button_blue"-->
+
+    <!--<Button-->
+        <!--android:id="@+id/job_detail_inservice_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:background="@drawable/button_dark_gary"-->
+        <!--android:text="@string/jdl_inservice_btn"-->
+        <!--android:textColor="@color/white_full"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:textSize="24sp"-->
+        <!--android:visibility="gone"/>-->
+    <!--<Button-->
+        <!--android:id="@+id/job_detail_confirmation_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:background="@drawable/button_green"-->
+        <!--android:text="@string/jdl_accept_btn"-->
+        <!--android:textColor="@color/white_full"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:textSize="24sp"-->
+        <!--android:visibility="gone"/>-->
 </LinearLayout>
