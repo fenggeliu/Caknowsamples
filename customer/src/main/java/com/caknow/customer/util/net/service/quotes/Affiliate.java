@@ -42,7 +42,7 @@ private Long averageRating;
 private Long reviewCount;
 @SerializedName("completedRate")
 @Expose
-private Long completedRate;
+private Double completedRate;
 @SerializedName("quoteId")
 @Expose
 private String quoteId;
@@ -73,7 +73,7 @@ instance.latitude = ((Double) in.readValue((Double.class.getClassLoader())));
 instance.verified = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
 instance.averageRating = ((Long) in.readValue((Long.class.getClassLoader())));
 instance.reviewCount = ((Long) in.readValue((Long.class.getClassLoader())));
-instance.completedRate = ((Long) in.readValue((Long.class.getClassLoader())));
+instance.completedRate = ((Double) in.readValue((Long.class.getClassLoader())));
 instance.quoteId = ((String) in.readValue((String.class.getClassLoader())));
 instance.quoteTime = ((Long) in.readValue((Long.class.getClassLoader())));
 instance.serviceFee = ((String) in.readValue((String.class.getClassLoader())));
@@ -169,11 +169,11 @@ public void setReviewCount(Long reviewCount) {
 this.reviewCount = reviewCount;
 }
 
-public Long getCompletedRate() {
+public Double getCompletedRate() {
 return completedRate;
 }
 
-public void setCompletedRate(Long completedRate) {
+public void setCompletedRate(Double completedRate) {
 this.completedRate = completedRate;
 }
 

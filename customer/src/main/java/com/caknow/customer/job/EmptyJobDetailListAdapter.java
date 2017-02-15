@@ -31,6 +31,7 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
 
     private static final int TYPE_SHOP_HEADER= 0;
     private static final int TYPE_SERVICE_ITEM = 1;
+    private static final int TYPE_TIME_FRAME = 2;
 
     private ArrayList<String> mData = new ArrayList();
     private LayoutInflater mInflater;
@@ -56,18 +57,20 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
              case TYPE_SERVICE_ITEM:
             default:
                 return TYPE_SERVICE_ITEM;
+            case TYPE_TIME_FRAME:
+                return TYPE_TIME_FRAME;
 
         }
     }
 
     @Override
     public int getViewTypeCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -110,7 +113,10 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
                     convertView.findViewById(R.id.service_item_title).invalidate();
 
                     break;
-
+                case TYPE_TIME_FRAME:
+                    convertView = mInflater.inflate(R.layout.list_item_time_frame, null);
+                    ((TextView)convertView.findViewById(R.id.time_frame)).setText(String.valueOf(item.getTimeframe()));
+                    convertView.findViewById(R.id.time_frame).invalidate();
             }
             convertView.setTag(holder);
         } else {

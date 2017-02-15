@@ -54,6 +54,10 @@ public class AuthenticationPayload implements Parcelable {
         return hasEmail;
     }
 
+    public Double getCompletedRate() {
+        return completedRate;
+    }
+
 
     String _id;
     @SerializedName("token") String accessToken;
@@ -66,7 +70,7 @@ public class AuthenticationPayload implements Parcelable {
     boolean hasEmail;
     String fName;
     String lName;
-
+    Double completedRate;
     @Override
     public int describeContents() {
         return 0;
@@ -85,6 +89,7 @@ public class AuthenticationPayload implements Parcelable {
         dest.writeByte(this.hasEmail ? (byte) 1 : (byte) 0);
         dest.writeString(this.fName);
         dest.writeString(this.lName);
+        dest.writeDouble(this.completedRate);
     }
 
     public AuthenticationPayload() {
@@ -102,6 +107,7 @@ public class AuthenticationPayload implements Parcelable {
         this.hasEmail = in.readByte() != 0;
         this.fName = in.readString();
         this.lName = in.readString();
+        this.completedRate = in.readDouble();
     }
 
     public static final Parcelable.Creator<AuthenticationPayload> CREATOR = new Parcelable.Creator<AuthenticationPayload>() {

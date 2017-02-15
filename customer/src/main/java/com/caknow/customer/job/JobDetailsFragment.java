@@ -73,7 +73,7 @@ public class JobDetailsFragment extends BaseFragment{
                     case 3:
                         responseButton.setVisibility(View.VISIBLE);
                         responseButton.setText("In Service");
-                        responseButton.setBackgroundColor(Color.parseColor("#1100ffff"));
+                        responseButton.setBackgroundColor(Color.parseColor("#696969"));
                         break;
                     case 8:
                         responseButton.setVisibility(View.VISIBLE);

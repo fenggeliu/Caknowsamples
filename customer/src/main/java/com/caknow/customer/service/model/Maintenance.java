@@ -40,6 +40,12 @@ public class Maintenance implements VehicleServiceInterface{
     @SerializedName("type")
     @Expose
     private Integer type;
+    @SerializedName("completedRate")
+    @Expose
+    private Double completedRate;
+    @SerializedName("timeframe")
+    @Expose
+    private String timeframe;
 
     public String getServiceRequestId() {
         return serviceRequestId;
@@ -111,6 +117,14 @@ public class Maintenance implements VehicleServiceInterface{
         this.type = type;
     }
 
+    public Double getCompletedRate() {
+        return completedRate;
+    }
+
+    public String getTimeframe() {
+        return timeframe;
+    }
+
     @Override
     public String getDisplayTitle() {
         return this.serviceCatagory;
@@ -138,6 +152,8 @@ public class Maintenance implements VehicleServiceInterface{
         dest.writeValue(this.quoteCount);
         dest.writeValue(this.status);
         dest.writeValue(this.type);
+        dest.writeValue(this.completedRate);
+        dest.writeString(this.timeframe);
     }
 
     public Maintenance() {
@@ -153,6 +169,8 @@ public class Maintenance implements VehicleServiceInterface{
         this.quoteCount = (Integer) in.readValue(Integer.class.getClassLoader());
         this.status = (Integer) in.readValue(Integer.class.getClassLoader());
         this.type = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.completedRate = (Double) in.readValue(Double.class.getClassLoader());
+        this.timeframe = in.readString();
     }
 
     public static final Creator<Maintenance> CREATOR = new Creator<Maintenance>() {

@@ -25,9 +25,14 @@ public interface VehicleServiceInterface extends Parcelable {
     String getServiceRequestId();
 
     Integer getType();
+
     Long getCreateTime();
 
     Long getDate();
+
+    Double getCompletedRate();
+
+    String getTimeframe();
 
 
 }

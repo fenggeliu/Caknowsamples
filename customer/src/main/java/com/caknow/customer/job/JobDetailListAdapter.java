@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -34,6 +35,7 @@ public class JobDetailListAdapter extends BaseAdapter {
     private static final int TYPE_CALL = 6;
     private static final int TYPE_LIST_SEPARATOR = 7;
     private static final int TYPE_SERVICE_ITEM = 8;
+    private static final int TYPE_COMPLETED_RATE = 9;
 
     private ArrayList<String> mData = new ArrayList();
     private LayoutInflater mInflater;
@@ -81,18 +83,20 @@ public class JobDetailListAdapter extends BaseAdapter {
             case TYPE_SERVICE_ITEM:
             default:
                 return TYPE_SERVICE_ITEM;
+            case TYPE_COMPLETED_RATE:
+                return TYPE_COMPLETED_RATE;
 
         }
     }
 
     @Override
     public int getViewTypeCount() {
-        return 9;
+        return 10;
     }
 
     @Override
     public int getCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -243,7 +247,16 @@ public class JobDetailListAdapter extends BaseAdapter {
                     convertView.findViewById(R.id.service_item_time_display).invalidate();
                     Glide.with(context).load(item.getIconUrl()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
                     break;
-
+                case TYPE_COMPLETED_RATE:
+                    //TODO complete progressbar
+                    convertView = mInflater.inflate(R.layout.list_item_progressbar, null);
+                    ((TextView) convertView.findViewById(R.id.progress_label)).setText("100%");
+                    //Integer i = item.getCompletedRate().intValue() * 100;
+                    //holder.textView.setText("100%");
+                    ((ProgressBar)convertView.findViewById(R.id.progressBar)).setProgress(100);
+                    convertView.findViewById(R.id.progressBar).invalidate();
+                    //((ProgressBar)convertView.findViewById(R.id.progressBar)).setProgressTintList(ColorStateList.valueOf(Color.RED))
+                    break;
             }
             convertView.setTag(holder);
         } else {
