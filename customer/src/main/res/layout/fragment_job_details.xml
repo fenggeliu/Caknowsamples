@@ -27,7 +27,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/job_detail_reponse_button"
+        android:id="@+id/job_detail_response_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"

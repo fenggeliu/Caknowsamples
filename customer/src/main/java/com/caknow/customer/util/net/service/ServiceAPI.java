@@ -7,6 +7,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -32,4 +33,7 @@ public interface ServiceAPI {
 
     @POST("/consumer/serviceRequest/cancel")
     Call<BaseResponse> cancelServiceByRequestId(@Query("serviceRequestId") String serviceRequestId);
+
+    @PATCH("/consumer/vehicle/serviceRequest")
+    Call<BaseResponse> makeAppointment(@Body RequestBody appointmentRequest);
 }

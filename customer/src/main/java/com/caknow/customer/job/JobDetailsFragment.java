@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +14,33 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.caknow.app.R;
+import com.caknow.customer.garage.VehicleServiceActivity;
+import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.service.model.VehicleServiceInterface;
+import com.caknow.customer.transaction.TransactionActivity;
 import com.caknow.customer.transaction.TransactionDetailsFragment;
 import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.BaseRequestBody;
+import com.caknow.customer.util.net.BaseResponse;
+import com.caknow.customer.util.net.auth.AuthenticationAPI;
+import com.caknow.customer.util.net.garage.GarageAPI;
+import com.caknow.customer.util.net.garage.VehicleServiceResponse;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
+import com.caknow.customer.util.net.quote.Quote;
 import com.caknow.customer.util.net.service.GetQuotesResponse;
+import com.caknow.customer.util.net.service.NewServiceRequest;
 import com.caknow.customer.util.net.service.ServiceAPI;
+import com.caknow.customer.util.net.service.quotes.QuotePayload;
 import com.caknow.customer.widget.BaseFragment;
+import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,9 +52,10 @@ import retrofit2.Response;
 public class JobDetailsFragment extends BaseFragment{
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + JobDetailsFragment.class.getName();
 
+
     @BindView(R.id.transaction_detail_listview)
     ListView detailListView;
-    @BindView(R.id.job_detail_reponse_button)
+    @BindView(R.id.job_detail_response_button)
     Button responseButton;
 //    @BindView(R.id.job_detail_inservice_button)
 //    Button inserviceButton;
@@ -69,6 +88,42 @@ public class JobDetailsFragment extends BaseFragment{
                         responseButton.setVisibility(View.VISIBLE);
                         responseButton.setText("Make Appointment");
                         responseButton.setBackgroundColor(Color.parseColor("#017aff"));
+                        //TODO send request to shop too
+
+                        responseButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+//                                showProgress();
+                                // prepare call in Retrofit 2.0
+                                JsonObject appointment = new JsonObject();
+
+                                appointment.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
+                                appointment.addProperty("status","3");
+
+                                RequestBody appointmentRequest = RequestBody.create(MediaType.parse("application/json"), appointment.toString());
+
+
+                                ServiceAPI serviceAPI = retrofit.create(ServiceAPI.class);
+
+                                serviceAPI.makeAppointment(appointmentRequest).enqueue(new Callback<BaseResponse>() {
+                                    @Override
+                                    public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                                        ((JobActivity)getActivity()).hideProgress();
+                                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + responseBody.getPayload().getAffiliate().getTelephoneNumber()));
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<BaseResponse> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        });
+
+
+
                         break;
                     case 3:
                         responseButton.setVisibility(View.VISIBLE);
@@ -79,7 +134,22 @@ public class JobDetailsFragment extends BaseFragment{
                         responseButton.setVisibility(View.VISIBLE);
                         responseButton.setText("Confirm Completion");
                         responseButton.setBackgroundColor(Color.parseColor("#3CB371"));
-                        break;
+                        responseButton.setOnClickListener(new View.OnClickListener() {
+                            //TODO make sure it goes to the right transaction page.
+                        @Override
+                        public void onClick(View view) {
+                            final Intent intent = new Intent(getActivity(), TransactionActivity.class);
+                            final Bundle extras = new Bundle();
+                            extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, serviceItem);
+                            extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
+                            extras.putBoolean("paymentMode", true);
+                            intent.putExtras(extras);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+
+                            startActivity(intent);
+                        }});
+                            break;
                     default:
                         break;
                 }

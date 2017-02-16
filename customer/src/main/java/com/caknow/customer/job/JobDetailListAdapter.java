@@ -83,20 +83,20 @@ public class JobDetailListAdapter extends BaseAdapter {
             case TYPE_SERVICE_ITEM:
             default:
                 return TYPE_SERVICE_ITEM;
-            case TYPE_COMPLETED_RATE:
-                return TYPE_COMPLETED_RATE;
+//            case TYPE_COMPLETED_RATE:
+//                return TYPE_COMPLETED_RATE;
 
         }
     }
 
     @Override
     public int getViewTypeCount() {
-        return 10;
+        return 9;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return 9;
     }
 
     @Override
@@ -247,16 +247,16 @@ public class JobDetailListAdapter extends BaseAdapter {
                     convertView.findViewById(R.id.service_item_time_display).invalidate();
                     Glide.with(context).load(item.getIconUrl()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
                     break;
-                case TYPE_COMPLETED_RATE:
-                    //TODO complete progressbar
-                    convertView = mInflater.inflate(R.layout.list_item_progressbar, null);
-                    ((TextView) convertView.findViewById(R.id.progress_label)).setText("100%");
-                    //Integer i = item.getCompletedRate().intValue() * 100;
-                    //holder.textView.setText("100%");
-                    ((ProgressBar)convertView.findViewById(R.id.progressBar)).setProgress(100);
-                    convertView.findViewById(R.id.progressBar).invalidate();
-                    //((ProgressBar)convertView.findViewById(R.id.progressBar)).setProgressTintList(ColorStateList.valueOf(Color.RED))
-                    break;
+//                case TYPE_COMPLETED_RATE:
+//                    //TODO complete progressbar
+//                    convertView = mInflater.inflate(R.layout.list_item_progressbar, null);
+//                    ((TextView) convertView.findViewById(R.id.progress_label)).setText("100%");
+//                    //Integer i = item.getCompletedRate().intValue() * 100;
+//                    //holder.textView.setText("100%");
+//                    ((ProgressBar)convertView.findViewById(R.id.progressBar)).setProgress(100);
+//                    convertView.findViewById(R.id.progressBar).invalidate();
+//                    //((ProgressBar)convertView.findViewById(R.id.progressBar)).setProgressTintList(ColorStateList.valueOf(Color.RED))
+//                    break;
             }
             convertView.setTag(holder);
         } else {
