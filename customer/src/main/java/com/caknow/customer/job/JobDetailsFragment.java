@@ -96,15 +96,10 @@ public class JobDetailsFragment extends BaseFragment{
 //                                showProgress();
                                 // prepare call in Retrofit 2.0
                                 JsonObject appointment = new JsonObject();
-
                                 appointment.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
                                 appointment.addProperty("status","3");
-
                                 RequestBody appointmentRequest = RequestBody.create(MediaType.parse("application/json"), appointment.toString());
-
-
                                 ServiceAPI serviceAPI = retrofit.create(ServiceAPI.class);
-
                                 serviceAPI.makeAppointment(appointmentRequest).enqueue(new Callback<BaseResponse>() {
                                     @Override
                                     public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -140,12 +135,13 @@ public class JobDetailsFragment extends BaseFragment{
                         public void onClick(View view) {
                             final Intent intent = new Intent(getActivity(), TransactionActivity.class);
                             final Bundle extras = new Bundle();
-                            extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, serviceItem);
+                            extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, responseBody.getPayload());
                             extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
                             extras.putBoolean("paymentMode", true);
+                            //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
                             intent.putExtras(extras);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+                            //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
 
                             startActivity(intent);
                         }});
