@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.caknow.app.R;
-import com.caknow.customer.util.constant.PreferenceKeys;
+import com.caknow.customer.util.net.settings.ConsumerInfoResponse;
+import com.caknow.customer.util.net.settings.SettingsAPI;
 import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.registration.InitActivity;
 import com.caknow.customer.settings.SettingsActivity;
@@ -21,6 +22,9 @@ import com.caknow.customer.util.SessionPreferences;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by junu on 1/1/17.
@@ -86,12 +90,23 @@ public class SettingsFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
         unbinder = ButterKnife.bind(this, v);
         settingsActivity = (SettingsActivity) getActivity();
+        SettingsAPI settingsAPI = retrofit.create(SettingsAPI.class);
+        settingsAPI.getConsumerInfo().enqueue(new Callback<ConsumerInfoResponse>() {
+            @Override
+            public void onResponse(Call<ConsumerInfoResponse> call, Response<ConsumerInfoResponse> response) {
+                ConsumerInfoResponse responseBody = response.body();
+                emailContent.setText(responseBody.getPayload().getEmail());
+                phoneContentView.setText(responseBody.getPayload().getPhone());
+                usernameContent.setText(responseBody.getPayload().getFName() + " " + responseBody.getPayload().getLName());
+                Glide.with(getContext()).load(responseBody.getPayload().getProfileImg()).into(userPhotoImageView);
+            }
 
-        //TODO Fill these in
-        //emailContent.setText();
-        //phoneContentView.setText();
-        //usernameContent.setText();
-        //Glide.with(this).load(userPhotoUrl).into(userPhotoImageView);
+            @Override
+            public void onFailure(Call<ConsumerInfoResponse> call, Throwable t) {
+
+            }
+        });
+
 
         return v;
     }
