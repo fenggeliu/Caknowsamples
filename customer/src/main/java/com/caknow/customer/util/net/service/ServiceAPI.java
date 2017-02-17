@@ -32,7 +32,7 @@ public interface ServiceAPI {
     Call<GetQuotesByServiceId> getQuotesForId(@Query("serviceRequestId") String serviceRequestId);
 
     @POST("/consumer/serviceRequest/cancel")
-    Call<BaseResponse> cancelServiceByRequestId(@Query("serviceRequestId") String serviceRequestId);
+    Call<BaseResponse> cancelServiceByRequestId(@Body RequestBody requestId);
 
     @PATCH("/consumer/vehicle/serviceRequest")
     Call<BaseResponse> makeAppointment(@Body RequestBody appointmentRequest);

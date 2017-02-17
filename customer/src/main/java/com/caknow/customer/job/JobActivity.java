@@ -22,12 +22,15 @@ import com.caknow.customer.util.net.BaseResponse;
 import com.caknow.customer.util.net.service.GetQuotesResponse;
 import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.widget.BaseActivity;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -220,7 +223,10 @@ public class JobActivity extends BaseActivity{
 
     private void performCancellation(){
         showProgress();
-        serviceAPI.cancelServiceByRequestId(serviceItem.getServiceRequestId()).enqueue(new Callback<BaseResponse>() {
+        JsonObject requestId = new JsonObject();
+        requestId.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
+        RequestBody cancelRequest = RequestBody.create(MediaType.parse("application/json"), requestId.toString());
+        serviceAPI.cancelServiceByRequestId(cancelRequest).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 try{
