@@ -1,20 +1,19 @@
 package com.caknow.customer.job;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.service.model.VehicleServiceInterface;
-import com.caknow.customer.util.TimeUtils;
-import com.caknow.customer.util.net.service.quotes.Affiliate;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
+import com.caknow.customer.util.net.service.quotes.QuotePayload;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -31,7 +30,8 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
 
     private static final int TYPE_SHOP_HEADER= 0;
     private static final int TYPE_SERVICE_ITEM = 1;
-    private static final int TYPE_TIME_FRAME = 2;
+    private static final int TYPE_TIME_FRAME = 3;
+    private static final int TYPE_LIST_SEPARATOR = 2;
 
     private ArrayList<String> mData = new ArrayList();
     private LayoutInflater mInflater;
@@ -39,13 +39,14 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
     private TreeSet mSeparatorsSet = new TreeSet();
     private Context context;
     VehicleServiceInterface item;
-    Affiliate affiliate;
+    QuotePayload payload;
     private QuoteList currentQuote;
 
 
-    public EmptyJobDetailListAdapter(Context context, VehicleServiceInterface item) {
+    public EmptyJobDetailListAdapter(Context context, VehicleServiceInterface item, QuotePayload payload) {
         this.context = context;
         this.item = item;
+        this.payload = payload;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -55,9 +56,11 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
             case TYPE_SHOP_HEADER:
                 return TYPE_SHOP_HEADER;
              case TYPE_SERVICE_ITEM:
-            default:
                 return TYPE_SERVICE_ITEM;
+            case TYPE_LIST_SEPARATOR:
+                return TYPE_LIST_SEPARATOR;
             case TYPE_TIME_FRAME:
+            default:
                 return TYPE_TIME_FRAME;
 
         }
@@ -65,12 +68,12 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -113,9 +116,19 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
                     convertView.findViewById(R.id.service_item_title).invalidate();
 
                     break;
+                case TYPE_LIST_SEPARATOR:
+                    convertView = mInflater.inflate(R.layout.list_header_vehicle_service, null);
+//                    if (affiliate == null) {
+//                        convertView.setVisibility(View.GONE);
+//                        break;
+//                    }
+                    holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
+                    holder.textView.setText("Time Frame");
+
+                    break;
                 case TYPE_TIME_FRAME:
                     convertView = mInflater.inflate(R.layout.list_item_time_frame, null);
-                    ((TextView)convertView.findViewById(R.id.time_frame)).setText(String.valueOf(item.getTimeframe()));
+                    ((TextView)convertView.findViewById(R.id.time_frame)).setText(String.valueOf(payload.getTimeframe()));
                     convertView.findViewById(R.id.time_frame).invalidate();
             }
             convertView.setTag(holder);

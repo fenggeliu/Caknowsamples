@@ -67,7 +67,7 @@ public class JobDetailsFragment extends BaseFragment{
 
         // Use the EmptyJobDetailListAdapter to show minimal items in the serivce detail list.
         if(serviceItem.getStatus() < 2){
-            EmptyJobDetailListAdapter minimalDataAdapter = new EmptyJobDetailListAdapter(getContext(), serviceItem);
+            EmptyJobDetailListAdapter minimalDataAdapter = new EmptyJobDetailListAdapter(getContext(), serviceItem, responseBody.getPayload());
             detailListView.setAdapter(minimalDataAdapter);
         }
         else{
@@ -78,7 +78,7 @@ public class JobDetailsFragment extends BaseFragment{
                     case 2:
                         responseButton.setVisibility(View.VISIBLE);
                         responseButton.setText("Make Appointment");
-                        responseButton.setBackgroundColor(Color.parseColor("#017aff"));
+                        responseButton.setBackgroundColor(Color.parseColor("#0071ff"));
                         //TODO send request to shop too
 
                         responseButton.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +119,7 @@ public class JobDetailsFragment extends BaseFragment{
                     case 8:
                         responseButton.setVisibility(View.VISIBLE);
                         responseButton.setText("Confirm Completion");
-                        responseButton.setBackgroundColor(Color.parseColor("#3CB371"));
+                        responseButton.setBackgroundColor(Color.parseColor("#2cc053"));
                         responseButton.setOnClickListener(new View.OnClickListener() {
                             //TODO make sure it goes to the right transaction page.
                         @Override
