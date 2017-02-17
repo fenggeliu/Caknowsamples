@@ -169,9 +169,12 @@
         android:label="@string/title_activity_quote_map"/>
     <activity android:name="com.caknow.customer.transaction.TransactionActivity"
         android:label="@string/title_activity_quote_map"/>
-
+    <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="4cc01e98e0ad12ddbfb87109fdce8c48eabf43d7"
+        />
 </application>
 
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
 

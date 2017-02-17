@@ -81,6 +81,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         else{
             submitButton.setVisibility(View.GONE);
             response = getArguments().getParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY);
+            quoteList.addAll(response.getGetQuotesByServiceIdPayload().getTopQuote());
             quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
             quotesAdapter = new TransactionQuoteAdapter(getContext(), quoteList);
             quotes = (ListView) v.findViewById(R.id.transaction_quotes_listview);

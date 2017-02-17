@@ -86,7 +86,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             retrofit.create(ServiceAPI.class).getQuotesForId(serviceRequestId).enqueue(new Callback<GetQuotesByServiceId>() {
                 @Override
                 public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
-                    List<Quote> quotes = response.body().getGetQuotesByServiceIdPayload().getQuotes();
+                    List<Quote> quotes = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
                     Quote acceptedQuote = null;
                     for(int i=0; i<quotes.size(); i++){
                         if(quotes.get(i).getStatus().equalsIgnoreCase("accepted")){

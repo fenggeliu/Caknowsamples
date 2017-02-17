@@ -13,6 +13,8 @@ import com.caknow.customer.widget.DaggerNetComponent;
 import com.caknow.customer.widget.NetComponent;
 import com.facebook.stetho.Stetho;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 /**
  * Created by junu on 1/1/17.
  */
@@ -38,6 +40,7 @@ public class CAKNOWApplication extends MultiDexApplication {
      */
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         CAKNOWApplication.INSTANCE = this;
         Stetho.initializeWithDefaults(this);
         netComponent = DaggerNetComponent.builder()

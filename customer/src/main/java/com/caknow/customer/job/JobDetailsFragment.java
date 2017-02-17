@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,31 +13,23 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.caknow.app.R;
-import com.caknow.customer.garage.VehicleServiceActivity;
-import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.transaction.TransactionActivity;
 import com.caknow.customer.transaction.TransactionDetailsFragment;
 import com.caknow.customer.util.constant.Constants;
-import com.caknow.customer.util.net.BaseRequestBody;
 import com.caknow.customer.util.net.BaseResponse;
-import com.caknow.customer.util.net.auth.AuthenticationAPI;
-import com.caknow.customer.util.net.garage.GarageAPI;
-import com.caknow.customer.util.net.garage.VehicleServiceResponse;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
-import com.caknow.customer.util.net.quote.Quote;
 import com.caknow.customer.util.net.service.GetQuotesResponse;
-import com.caknow.customer.util.net.service.NewServiceRequest;
 import com.caknow.customer.util.net.service.ServiceAPI;
-import com.caknow.customer.util.net.service.quotes.QuotePayload;
+import com.caknow.customer.util.net.service.quotes.QuoteList;
+import com.caknow.customer.util.net.service.GetQuotesResponse;
 import com.caknow.customer.widget.BaseFragment;
 import com.google.gson.JsonObject;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -133,16 +124,17 @@ public class JobDetailsFragment extends BaseFragment{
                             //TODO make sure it goes to the right transaction page.
                         @Override
                         public void onClick(View view) {
+
                             final Intent intent = new Intent(getActivity(), TransactionActivity.class);
                             final Bundle extras = new Bundle();
-                            extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, responseBody.getPayload());
+
+                            //extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, response.body());
                             extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
-                            extras.putBoolean("paymentMode", true);
+                            extras.putBoolean("paymentMode", false);
                             //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
                             intent.putExtras(extras);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-
                             startActivity(intent);
                         }});
                             break;
