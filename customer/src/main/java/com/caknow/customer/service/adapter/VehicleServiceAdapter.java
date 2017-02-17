@@ -104,6 +104,7 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
                 break;
             case 3:
                 holder.serviceItemQuote.setVisibility(View.VISIBLE);
+                holder.serviceItemQuote.setBackgroundResource(R.drawable.quote_gray_2x);
                 holder.serviceItemQuote.setText("In Service");
                 break;
             case 8:
