@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.service.model.VehicleServiceInterface;
@@ -19,6 +20,7 @@ import com.caknow.customer.transaction.TransactionDetailsFragment;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.BaseResponse;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
+import com.caknow.customer.util.net.quote.Quote;
 import com.caknow.customer.util.net.service.GetQuotesResponse;
 import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
@@ -35,6 +37,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by junu on 1/1/17.
@@ -121,21 +125,32 @@ public class JobDetailsFragment extends BaseFragment{
                         responseButton.setText("Confirm Completion");
                         responseButton.setBackgroundColor(Color.parseColor("#2cc053"));
                         responseButton.setOnClickListener(new View.OnClickListener() {
-                            //TODO make sure it goes to the right transaction page.
                         @Override
                         public void onClick(View view) {
+                            retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
+                                @Override
+                                public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
+                                    final Intent intent = new Intent(getActivity(), TransactionActivity.class);
+                                    final Bundle extras = new Bundle();
+                                    Quote topQuote;
+                                    topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
+                                    extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
+                                    extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
+                                    extras.putBoolean("paymentMode", true);
+                                    //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+                                    intent.putExtras(extras);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+                                    startActivity(intent);
 
-                            final Intent intent = new Intent(getActivity(), TransactionActivity.class);
-                            final Bundle extras = new Bundle();
+                                }
 
-                            //extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, response.body());
-                            extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
-                            extras.putBoolean("paymentMode", false);
-                            //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                            intent.putExtras(extras);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                            startActivity(intent);
+                                @Override
+                                public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
+                                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
+                                }
+                            });
+
                         }});
                             break;
                     default:

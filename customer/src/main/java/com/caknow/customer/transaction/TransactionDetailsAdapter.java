@@ -27,14 +27,19 @@ public class TransactionDetailsAdapter extends BaseAdapter {
     private boolean paymentMode = false;
     private List<PriceDetail> mData = new ArrayList();
     private LayoutInflater mInflater;
-    private QuoteList quote;
+    private Quote quote;
     private Context context;
+    private QuoteList quoteList;
 
-    public TransactionDetailsAdapter(Context context, QuoteList quote, List<Quote> quoteItems) {
+    public TransactionDetailsAdapter(Context context, Quote quote, QuoteList quoteList, List<Quote> quoteItems) {
         this.context = context;
         this.quote = quote;
+        this.quoteList = quoteList;
         if(quote != null){
-            this.mData = quote.getPriceDetails();
+            this.mData = quote.getItemizedAmounts();
+            paymentMode = true;
+        }else if(quoteList != null){
+            this.mData = quoteList.getPriceDetails();
             paymentMode = true;
         }else{
             this.mData = quoteItems.get(0).getItemizedAmounts();

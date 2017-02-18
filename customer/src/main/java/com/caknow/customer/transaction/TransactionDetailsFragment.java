@@ -56,12 +56,12 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
     TransactionQuoteAdapter quotesAdapter;
     String serviceRequestId;
     String quoteId;
-    QuoteList quote;
-    Quote quoteItem;
+    Quote quote;
     ServiceList service;
     ArrayList<Quote> quoteList;
     GetQuotesByServiceId response;
     ListView quotes;
+    QuoteList mapQuote;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,21 +74,22 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         if(paymentMode) {
             quoteList = null;
             try {
-                quote = getArguments().getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
+                quote = getArguments().getParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY);
+                mapQuote = getArguments().getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
             } catch (Exception e) {
             }
         }
         else{
             submitButton.setVisibility(View.GONE);
             response = getArguments().getParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY);
-            quoteList.addAll(response.getGetQuotesByServiceIdPayload().getTopQuote());
+            quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
             quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
             quotesAdapter = new TransactionQuoteAdapter(getContext(), quoteList);
             quotes = (ListView) v.findViewById(R.id.transaction_quotes_listview);
             quotes.setVisibility(View.VISIBLE);
             quotes.setAdapter(quotesAdapter);
         }
-        adapter = new TransactionDetailsAdapter(getContext(), quote, quoteList);
+        adapter = new TransactionDetailsAdapter(getContext(), quote, mapQuote,quoteList);
         detailListView.setAdapter(adapter);
         return v;
     }

@@ -22,7 +22,7 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
     private List<Quote> quotes;
     @SerializedName("topQuote")
     @Expose
-    private List<Quote> topQuote;
+    private Quote topQuote;
     private final static long serialVersionUID = 8385809350563275408L;
 
     public String getChargeOriginalAmount() {
@@ -39,7 +39,7 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
         return quotes;
     }
 
-    public List<Quote> getTopQuote() {
+    public Quote getTopQuote() {
         return topQuote;
     }
 
@@ -56,14 +56,14 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
         dest.writeString(this.chargeOriginalAmount);
         dest.writeString(this.chargeAcceptNewestDifferenceAmount);
         dest.writeTypedList(this.quotes);
-        dest.writeTypedList(this.topQuote);
+        dest.writeValue(this.topQuote);
     }
 
     protected GetQuotesByServiceIdPayload(Parcel in) {
         this.chargeOriginalAmount = in.readString();
         this.chargeAcceptNewestDifferenceAmount = in.readString();
         this.quotes = in.createTypedArrayList(Quote.CREATOR);
-        this.topQuote = in.createTypedArrayList(Quote.CREATOR);
+        this.topQuote = ((Quote) in.readValue(Quote.class.getClassLoader()));
     }
 
     public static final Creator<GetQuotesByServiceIdPayload> CREATOR = new Creator<GetQuotesByServiceIdPayload>() {

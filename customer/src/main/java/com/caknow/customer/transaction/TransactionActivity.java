@@ -44,7 +44,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     @Inject
     Retrofit retrofit;
 
-    QuoteList quoteList;
+    Quote quote;
     Bundle extras;
     String serviceRequestId;
     private String selectedPaymentSource;
@@ -75,10 +75,10 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     @Override
     protected void initData() {
         if(paymentMode) {
-            quoteList = extras.getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
+            quote = extras.getParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY);
             TransactionDetailsFragment fragment = new TransactionDetailsFragment();
             final Bundle args = new Bundle();
-            args.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, quoteList);
+            args.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, quote);
             args.putBoolean("paymentMode", paymentMode);
             fragment.setArguments(args);
             addFragment(R.id.transactionContent, fragment, TransactionDetailsFragment.FRAGMENT_TAG);
@@ -86,18 +86,19 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             retrofit.create(ServiceAPI.class).getQuotesForId(serviceRequestId).enqueue(new Callback<GetQuotesByServiceId>() {
                 @Override
                 public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
-                    List<Quote> quotes = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
-                    Quote acceptedQuote = null;
-                    for(int i=0; i<quotes.size(); i++){
-                        if(quotes.get(i).getStatus().equalsIgnoreCase("accepted")){
-                            acceptedQuote = quotes.get(i);
-                            break;
-                        }
-                    }
+//                    List<Quote> quotes = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
+//                    quotes.addAll(response.body().getGetQuotesByServiceIdPayload().getQuotes());
+//                    Quote acceptedQuote = null;
+//                    for(int i=0; i<quotes.size(); i++){
+//                        if(quotes.get(i).getStatus().equalsIgnoreCase("accepted")){
+//                            acceptedQuote = quotes.get(i);
+//                            break;
+//                        }
+//                    }
 
                     TransactionDetailsFragment fragment = new TransactionDetailsFragment();
                     final Bundle args = new Bundle();
-                    args.putParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY, acceptedQuote);
+                    args.putParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY, response.body());
                     args.putBoolean("paymentMode", paymentMode);
                     fragment.setArguments(args);
                     addFragment(R.id.transactionContent, fragment, TransactionDetailsFragment.FRAGMENT_TAG);
@@ -135,7 +136,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
     private void confirmPayment(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        List<PriceDetail> priceDetails = quoteList.getPriceDetails();
+        List<PriceDetail> priceDetails = quote.getItemizedAmounts();
         PriceDetail totalPriceDetail = null;
         for(int i = priceDetails.size() -1 ; i > -1; i--){
             if(priceDetails.get(i).getPriceItem().equalsIgnoreCase("total")){
@@ -179,7 +180,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
     public void makePayment(){
         showProgress();
-        final PaymentRequest request = new PaymentRequest(serviceRequestId, quoteList.getQuoteId(), "stripe", selectedPaymentSource);
+        final PaymentRequest request = new PaymentRequest(serviceRequestId, quote.getId(), "stripe", selectedPaymentSource);
         retrofit.create(PaymentAPI.class).makePayment(PaymentRequest.getRequestBody(request)).enqueue(this);
 
 

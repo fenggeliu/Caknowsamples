@@ -14,6 +14,7 @@ public class Constants {
     public static final String SERVICE_REQUEST_ID_PARCEL_KEY = "serviceRequestId";
     public static final String QUOTE_LIST_ID_PARCEL_KEY = "quoteList";
     public static final String QUOTE_ITEM_ID_PARCEL_KEY = "quote";
+    public static final String TOP_QUOTE_ITEM_ID_PARCEL_KEY = "topQuote";
     public static final String SELECTED_QUOTE_ITEM_ID_PARCEL_KEY = "selectedquote";
     public static final String PAYMENT_TYPE_PARCEL_KEY = "paymentWindowType";
     public static final String SERVICE_LIST_PARCEL_KEY = "serviceList";
