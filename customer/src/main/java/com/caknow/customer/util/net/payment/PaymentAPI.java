@@ -31,4 +31,7 @@ public interface PaymentAPI {
 
     @DELETE("/consumer/payment/{provider]/cards/{id}")
     Call<ResponseBody> deletePayments(@Path("provider") String provider, @Path("id") String cardId);
+
+    @POST("/consumer/serviceRequests/complete")
+    Call<RequestBody> payToShop(@Body RequestBody body);
 }
