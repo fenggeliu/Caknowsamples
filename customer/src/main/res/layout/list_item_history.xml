@@ -14,21 +14,22 @@
         android:layout_height="wrap_content"
         android:background="@drawable/history_item_bolder"
         android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:background="@color/blue"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
+        <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:background="@color/blue"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+        <!--</FrameLayout>-->
         <LinearLayout
             android:id="@+id/user_repair_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <LinearLayout
                 android:id="@+id/item_left"
@@ -125,7 +126,7 @@
         <LinearLayout
             android:id="@+id/review_detail_line"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@color/white"
             android:orientation="vertical"
@@ -160,7 +161,8 @@
                         <ImageView
                             android:id="@+id/reviews_star1"
                             android:layout_width="@dimen/hli_star_width"
-                            android:layout_height="@dimen/hli_star_height" />
+                            android:layout_height="@dimen/hli_star_height"
+                            android:background="@drawable/star_gary_2x"/>
 
                         <LinearLayout
                             android:layout_width="@dimen/hli_star_space_width"
@@ -169,7 +171,8 @@
                         <ImageView
                             android:id="@+id/reviews_star2"
                             android:layout_width="@dimen/hli_star_width"
-                            android:layout_height="@dimen/hli_star_height" />
+                            android:layout_height="@dimen/hli_star_height"
+                            android:background="@drawable/star_gary_2x"/>
 
                         <LinearLayout
                             android:layout_width="@dimen/hli_star_space_width"
@@ -178,7 +181,8 @@
                         <ImageView
                             android:id="@+id/reviews_star3"
                             android:layout_width="@dimen/hli_star_width"
-                            android:layout_height="@dimen/hli_star_height" />
+                            android:layout_height="@dimen/hli_star_height"
+                            android:background="@drawable/star_gary_2x"/>
 
                         <LinearLayout
                             android:layout_width="@dimen/hli_star_space_width"
@@ -187,7 +191,8 @@
                         <ImageView
                             android:id="@+id/reviews_star4"
                             android:layout_width="@dimen/hli_star_width"
-                            android:layout_height="@dimen/hli_star_height" />
+                            android:layout_height="@dimen/hli_star_height"
+                            android:background="@drawable/star_gary_2x"/>
 
                         <LinearLayout
                             android:layout_width="@dimen/hli_star_space_width"
@@ -196,7 +201,8 @@
                         <ImageView
                             android:id="@+id/reviews_star5"
                             android:layout_width="@dimen/hli_star_width"
-                            android:layout_height="@dimen/hli_star_height" />
+                            android:layout_height="@dimen/hli_star_height"
+                            android:background="@drawable/star_gary_2x"/>
                     </LinearLayout>
 
                     <TextView
@@ -224,7 +230,8 @@
                             android:layout_marginTop="@dimen/hli_image_button_margin_top"
                             android:background="#00000000"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/rightarrow_black_2x"></ImageButton>
+                            android:src="@drawable/rightarrow_black_2x"
+                            android:visibility="gone"></ImageButton>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -257,7 +264,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/hli_vehicle_description"
+                            android:text="Service Detail"
                             android:textSize="@dimen/hli_vehicle_text_size" />
                     </LinearLayout>
 
@@ -289,7 +296,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -337,7 +345,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -382,7 +391,9 @@
             android:layout_width="fill_parent"
             android:layout_height="@dimen/hli_price_state_height"
             android:layout_marginTop="@dimen/hli_price_state_margin_top"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/blue"
+            >
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -399,7 +410,7 @@
                     android:layout_marginLeft="@dimen/hli_price_margin_left"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/hli_price_text_size"
-                    tools:text="$555.55" />
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -418,7 +429,7 @@
                     android:layout_marginTop="@dimen/hli_state_margin_top"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/hli_state_text_size"
-                    tools:text="100% Complete" />
+                    tools:text="Completed" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
