@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.caknow.app.R;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.payment.PaymentActivity;
+import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.payment.PaymentAPI;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
@@ -50,6 +51,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     Quote quote;
     QuoteList mapQuote;
     Bundle extras;
+    VehicleServiceInterface item;
     String serviceRequestId;
     String promotionCodes = "";
     private String selectedPaymentSource;
@@ -62,6 +64,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
         extras = getIntent().getExtras();
 
         serviceRequestId = extras.getString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY);
+        item = extras.getParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY);
         try {
             paymentMode = extras.getBoolean("paymentMode");
         } catch(Exception e){
@@ -86,6 +89,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             final Bundle args = new Bundle();
             args.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, quote);
             args.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, mapQuote);
+            args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
             args.putBoolean("paymentMode", paymentMode);
             fragment.setArguments(args);
             addFragment(R.id.transactionContent, fragment, TransactionDetailsFragment.FRAGMENT_TAG);

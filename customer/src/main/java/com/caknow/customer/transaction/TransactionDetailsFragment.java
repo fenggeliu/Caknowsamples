@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.caknow.app.R;
 import com.caknow.customer.history.HistoryActivity;
 import com.caknow.customer.payment.PaymentActivity;
+import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.history.HistoryResponse;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
@@ -62,6 +63,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
     GetQuotesByServiceId response;
     ListView quotes;
     QuoteList mapQuote;
+    VehicleServiceInterface item;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +76,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         if(paymentMode) {
             quoteList = null;
             try {
+                item = getArguments().getParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY);
                 quote = getArguments().getParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY);
                 mapQuote = getArguments().getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
             } catch (Exception e) {
@@ -82,14 +85,18 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         else{
             submitButton.setVisibility(View.GONE);
             response = getArguments().getParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY);
-            //quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
+            quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
             quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
-            quotesAdapter = new TransactionQuoteAdapter(getContext(), quoteList);
-            quotes = (ListView) v.findViewById(R.id.transaction_quotes_listview);
-            quotes.setVisibility(View.VISIBLE);
-            quotes.setAdapter(quotesAdapter);
+//            quotesAdapter = new TransactionQuoteAdapter(getContext(), quoteList);
+//            quotes = (ListView) v.findViewById(R.id.transaction_quotes_listview);
+//            quotes.setVisibility(View.VISIBLE);
+//            quotes.setAdapter(quotesAdapter);
         }
-        adapter = new TransactionDetailsAdapter(getContext(), quote, mapQuote,quoteList);
+        if(quote == null){
+            adapter = new TransactionDetailsAdapter(getContext(), mapQuote, quoteList);
+        }else{
+            adapter = new TransactionDetailsAdapter(getContext(), quote, item);
+        }
         detailListView.setAdapter(adapter);
         return v;
     }

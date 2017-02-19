@@ -117,4 +117,8 @@
     <string name="url_privacy_policy">https://www.caknow.com/privacy-policy</string>
     <string name="url_terms_of_service">https://www.caknow.com/consumers/terms-of-service</string>
     <string name="url_phone">callto:8669008900</string>
+
+    <!-- pay to shop layout -->
+    <string name="promotion_codes">Promotion Codes</string>
+    <string name="promotion_codes_button_text">ADD PROMO CODE</string>
 </resources>

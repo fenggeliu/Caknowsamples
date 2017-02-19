@@ -130,6 +130,7 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.list_item_time_frame, null);
                     ((TextView)convertView.findViewById(R.id.time_frame)).setText(String.valueOf(payload.getTimeframe()));
                     convertView.findViewById(R.id.time_frame).invalidate();
+                    break;
             }
             convertView.setTag(holder);
         } else {

@@ -136,6 +136,7 @@ public class JobDetailsFragment extends BaseFragment{
                                     topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
                                     extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
                                     extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
+                                    extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
                                     extras.putBoolean("paymentMode", true);
                                     //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
                                     intent.putExtras(extras);
