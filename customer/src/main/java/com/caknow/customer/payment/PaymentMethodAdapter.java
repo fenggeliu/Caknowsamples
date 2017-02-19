@@ -52,6 +52,7 @@ public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdap
             }catch(Exception e){
 
             }
+            notifyDataSetChanged();
         });
 
         // Update the views before being loaded here using the holder object

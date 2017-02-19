@@ -109,7 +109,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
 
             }
         });
-        getCards();
+        recreate();
 
     }
 

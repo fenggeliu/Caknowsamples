@@ -81,11 +81,13 @@ public class UpdateSettingFragment extends BaseFragment implements Callback<Resp
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         if(response.isSuccessful()){
             getActivity().onBackPressed();
+        }else{
+            Toast.makeText(getContext(), "Not a Valid Phone Number", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+        Toast.makeText(getContext(), "Not a Valid Phone Number", Toast.LENGTH_SHORT).show();
     }
 }

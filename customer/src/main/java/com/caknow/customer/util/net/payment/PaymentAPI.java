@@ -29,7 +29,7 @@ public interface PaymentAPI {
     @POST("/consumer/serviceRequests/quotes/accept")
     Call<ResponseBody> makePayment(@Body RequestBody body);
 
-    @DELETE("/consumer/payment/{provider]/cards/{id}")
+    @DELETE("/consumer/payment/{provider}/cards/{id}")
     Call<ResponseBody> deletePayments(@Path("provider") String provider, @Path("id") String cardId);
 
     @POST("/consumer/serviceRequests/complete")

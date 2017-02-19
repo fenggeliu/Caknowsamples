@@ -156,7 +156,7 @@ public class PaymentMethodFragment extends BaseFragment {
             recyclerView.setLayoutManager(null);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(layoutManager);
-            adapter.notifyDataSetChanged();
+            //adapter.notifyDataSetChanged();
             return true;
         }
 

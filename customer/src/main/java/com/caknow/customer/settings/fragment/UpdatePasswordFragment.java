@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,18 +39,19 @@ public class UpdatePasswordFragment extends BaseFragment implements Callback<Res
     @BindViews({R.id.update_password_current, R.id.update_password_new, R.id.update_password_new_coonfirm})
     List<EditText> passwordFields;
 
-    @OnClick(R.id.setting_update_submit_btn)
+    @OnClick(R.id.update_password_submit_button)
     void submit(){
         ((SettingsActivity)getActivity()).showProgress();
         if(validateFields()){
-            retrofit.create(SettingsAPI.class)
-                    .updatePassword(UpdatePasswordRequest.getRequestBody(new UpdatePasswordRequest(passwordFields.get(0).getText().toString(), passwordFields.get(1).getText().toString())));
+            RequestBody body = UpdatePasswordRequest.getRequestBody(new UpdatePasswordRequest(passwordFields.get(0).getText().toString(), passwordFields.get(1).getText().toString()));
+            retrofit.create(SettingsAPI.class).updatePassword(body).enqueue(this);
+        } else{
+            ((SettingsActivity)getActivity()).hideProgress();
         }
-
     }
 
-    @Inject
-    Retrofit retrofit;
+//    @Inject
+//    Retrofit retrofit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

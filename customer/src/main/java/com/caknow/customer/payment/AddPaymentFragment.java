@@ -3,6 +3,7 @@ package com.caknow.customer.payment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,13 +118,15 @@ public class AddPaymentFragment extends BaseFragment implements Callback<AddPaym
                             error.getLocalizedMessage(),
                             Toast.LENGTH_LONG
                     ).show();
+                    ((PaymentActivity)getActivity()).hideProgress();
                 }
 
                 @Override
                 public void onSuccess(Token token) {
-
+                    ((PaymentActivity)getActivity()).hideProgress();
                     Call<AddPaymentResponse> call = retrofit.create(PaymentAPI.class).addPayment(AddPaymentRequest.getRequestBody(new AddPaymentRequest(token.getId())));
                     call.enqueue(AddPaymentFragment.this);
+
                 }
             });
         } catch (AuthenticationException e) {
@@ -153,6 +156,9 @@ public class AddPaymentFragment extends BaseFragment implements Callback<AddPaym
             // Not thread safe
         }
         if(success){
+            ((PaymentActivity)getActivity()).hideProgress();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(AddPaymentFragment.this).attach(AddPaymentFragment.this).commit();
             ((PaymentActivity)getActivity()).addFragment(R.id.paymentContent, new PaymentMethodFragment(), PaymentMethodFragment.FRAGMENT_TAG);
         }
         else{
