@@ -101,6 +101,8 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(PaymentActivity.this, "Delete Card Success", Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(getIntent());
             }
 
             @Override

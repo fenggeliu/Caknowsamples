@@ -83,12 +83,12 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
         List<Vehicle> vehicleList = response.body().getPayload().getVehicles();
         garageAdapter = new ManageGarageAdapter(getActivity(), vehicleList);
         carListView.setAdapter(garageAdapter);
-        carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-        });
+//        carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//        });
         carListView.invalidate();
 
     }

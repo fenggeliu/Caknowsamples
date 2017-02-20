@@ -62,15 +62,19 @@ public class ManageGarageAdapter extends BaseAdapter {
         final ManageVehicleView viewHolder;
 
         //Timber.d("position =" + position);
-        if (convertView == null ) {
+//        if (convertView == null ) {
                 convertView = this.inflater.inflate(R.layout.list_item_manage_car, parent, false);
                 viewHolder = new ManageVehicleView(convertView, vehicleList.get(position));
-                convertView.setTag(viewHolder);
-
-        } else {
-            viewHolder = (ManageVehicleView) convertView.getTag();
-        }
-        viewHolder.deleteButton.setOnClickListener(view -> delete(vehicleList.get(position).getId()));
+                convertView.invalidate();
+//                convertView.setTag(viewHolder);
+//        } else {
+//            viewHolder = (ManageVehicleView) convertView.getTag();
+//        }
+        viewHolder.deleteButton.setOnClickListener(view -> {
+            delete(vehicleList.get(position).getId());
+            vehicleList.remove(vehicleList.get(position)); //Actually change your list of items here
+            notifyDataSetChanged();
+        });
         return convertView;
     }
 
@@ -80,8 +84,8 @@ public class ManageGarageAdapter extends BaseAdapter {
         call.enqueue(new Callback<GarageResponse>() {
             @Override
             public void onResponse(Call<GarageResponse> call, Response<GarageResponse> response) {
-                vehicleList = response.body().getPayload().getVehicles();
-                notifyDataSetInvalidated();
+//                vehicleList = response.body().getPayload().getVehicles();
+
             }
 
             @Override

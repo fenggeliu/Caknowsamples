@@ -157,9 +157,10 @@ public class AddPaymentFragment extends BaseFragment implements Callback<AddPaym
         }
         if(success){
             ((PaymentActivity)getActivity()).hideProgress();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.detach(AddPaymentFragment.this).attach(AddPaymentFragment.this).commit();
-            ((PaymentActivity)getActivity()).addFragment(R.id.paymentContent, new PaymentMethodFragment(), PaymentMethodFragment.FRAGMENT_TAG);
+            Intent intent;
+            intent = new Intent(getActivity(), PaymentActivity.class);
+            getActivity().finish();
+            startActivity(intent);
         }
         else{
             Toast.makeText(getContext(),

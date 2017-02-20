@@ -113,6 +113,7 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
                     ((TextView)convertView.findViewById(R.id.service_item_sub_title)).setText(String.valueOf(item.getServiceField()));
                     Glide.with(context).load(item.getIconUrl()).into(((ImageView)convertView.findViewById(R.id.service_item_icon)));
                     convertView.findViewById(R.id.service_item_sub_title).invalidate();
+                    convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
                     convertView.findViewById(R.id.service_item_title).invalidate();
 
                     break;
