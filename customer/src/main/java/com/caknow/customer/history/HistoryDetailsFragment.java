@@ -8,29 +8,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.caknow.app.R;
-import com.caknow.customer.job.EmptyJobDetailListAdapter;
-import com.caknow.customer.job.JobActivity;
-import com.caknow.customer.job.JobDetailListAdapter;
-import com.caknow.customer.service.model.VehicleServiceInterface;
-import com.caknow.customer.transaction.TransactionDetailsFragment;
+
+import com.caknow.customer.transaction.TransactionActivity;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.history.History;
-import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
 import com.caknow.customer.util.net.service.GetQuotesResponse;
-import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.widget.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 /**
  * Created by junu on 1/1/17.
@@ -39,13 +33,16 @@ import retrofit2.Response;
 public class HistoryDetailsFragment extends BaseFragment{
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + HistoryDetailsFragment.class.getName();
 
+
     @BindView(R.id.transaction_detail_listview)
     ListView detailListView;
     History serviceItem;
     GetQuotesResponse responseBody;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_job_details, container, false);
         unbinder = ButterKnife.bind(this, v);
@@ -58,32 +55,25 @@ public class HistoryDetailsFragment extends BaseFragment{
         detailListView.setAdapter(adapter);
         detailListView.setOnItemClickListener((adapterView, view, i, l) -> {
            switch(i){
-               case 2:
-                   ((HistoryActivity)getActivity()).showProgress();
-                   retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
-                       @Override
-                       public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
-                           ((HistoryActivity)getActivity()).hideProgress();
-                           TransactionDetailsFragment fragment = new TransactionDetailsFragment();
-                           final Bundle args = new Bundle();
-                           //TODO need to put the proper quote to display item.
-                           args.putParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY, response.body());
-                           args.putBoolean("paymentMode", false);
-                           fragment.setArguments(args);
-                           ((HistoryActivity)getActivity()).replaceFragment(R.id.job_fragment, fragment, TransactionDetailsFragment.FRAGMENT_TAG, "transaction");
-                       }
-
-                       @Override
-                       public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
-                           ((HistoryActivity)getActivity()).hideProgress();
-                       }
-                   });
-
-                   break;
-               case 6:
-                   Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + responseBody.getPayload().getAffiliate().getTelephoneNumber()));
+               case 1:
+                   Intent intent = new Intent(getActivity(), TransactionActivity.class);
+                   final Bundle extras = new Bundle();
+                   extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
+                   extras.putBoolean("paymentMode", false);
+                   intent.putExtras(extras);
                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                    startActivity(intent);
+                   break;
+               case 4:
+                   Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + serviceItem.getShopAddress());
+                   Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                   mapIntent.setPackage("com.google.android.apps.maps");
+                   startActivity(mapIntent);
+                   break;
+               case 5:
+                   Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + serviceItem.getShopPhone()));
+                   callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                   startActivity(callIntent);
                    break;
             }
         });

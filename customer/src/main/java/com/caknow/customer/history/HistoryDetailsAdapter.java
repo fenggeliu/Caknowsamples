@@ -139,11 +139,13 @@ public class HistoryDetailsAdapter extends BaseAdapter {
             holder = new ViewHolder();
             switch (type) {
                 case TYPE_HEADER:
-                    convertView = mInflater.inflate(R.layout.list_header_service_detail, null);
+                    convertView = mInflater.inflate(R.layout.transparent_header_view, null);
                     ((TextView)convertView.findViewById(R.id.service_shop_name)).setText(history.getShopName());
+                    convertView.findViewById(R.id.space).setVisibility(View.GONE);
                     convertView.findViewById(R.id.service_shop_name).setVisibility(View.VISIBLE);
-                    Glide.with(CAKNOWApplication.get()).load(history.getShopImage()).into((ImageView)convertView.findViewById(R.id.imageView2));
-                    convertView.findViewById(R.id.service_step_2_textview).setVisibility(View.VISIBLE);
+                    Glide.with(CAKNOWApplication.get()).load(history.getShopImage()).into((ImageView)convertView.findViewById(R.id.header_image_view));
+                    (convertView.findViewById(R.id.header_image_view)).setVisibility(View.VISIBLE);
+
                     break;
 //                case TYPE_SERVICE_INFO:
 //                    convertView = mInflater.inflate(R.layout.list_item_quote_details, null);
@@ -253,6 +255,7 @@ public class HistoryDetailsAdapter extends BaseAdapter {
                     ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(history.getUpdateTime()));
                     convertView.findViewById(R.id.service_item_time_display).invalidate();
                     Glide.with(fragment).load(serviceList.getIcon()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
+                    convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
                     break;
                 case TYPE_ORDER_NUMBER_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.list_header_vehicle_service, null);

@@ -181,6 +181,13 @@ public class JobDetailsFragment extends BaseFragment{
                        });
 
                        break;
+                   case 5:
+                       Uri gmmIntentUri = Uri.parse("geo:" + responseBody.getPayload().getLatitude()
+                               + "," + responseBody.getPayload().getLongitude());
+                       Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                       mapIntent.setPackage("com.google.android.apps.maps");
+                       startActivity(mapIntent);
+                       break;
                    case 6:
                        if(((JobActivity)getActivity()).checkCallPermission()) {
                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + responseBody.getPayload().getAffiliate().getTelephoneNumber()));

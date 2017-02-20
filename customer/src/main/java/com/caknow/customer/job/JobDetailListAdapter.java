@@ -246,6 +246,7 @@ public class JobDetailListAdapter extends BaseAdapter {
                     ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate()));
                     convertView.findViewById(R.id.service_item_time_display).invalidate();
                     Glide.with(context).load(item.getIconUrl()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
+                    convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
                     break;
 //                case TYPE_COMPLETED_RATE:
 //                    //TODO complete progressbar
