@@ -25,6 +25,8 @@ import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
+import static com.caknow.customer.util.TimeUtils.SHORT_DATE_FORMAT;
+
 /**
  * Created by junu on 1/11/2017.
  */
@@ -73,16 +75,17 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
     public View getView(int currentPosition, View convertView, ViewGroup parent) {
         ServiceRequestViewHolder holder;
         int position = currentPosition;
-        if (convertView == null) {
+//        if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_vehicle_service_request_new, parent, false);
             if(position > maintenanceList.size()){
                 position = position - 1;
             }
             holder = new ServiceRequestViewHolder(convertView, combinedList.get(position));
-            convertView.setTag(holder);
-        } else {
-            holder = (ServiceRequestViewHolder) convertView.getTag();
-        }
+        convertView.invalidate();
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (ServiceRequestViewHolder) convertView.getTag();
+//        }
 
         holder.serviceItemTitle.setText(combinedList.get(position).getDisplayTitle());
         holder.serviceItemSubTitle.setText(combinedList.get(position).getServiceField());
@@ -91,12 +94,12 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
         switch(holder.mItem.getStatus()){
             case 1:
                 if (holder.mItem.getQuoteCount() == 0) {
-                    holder.serviceItemQuote.setVisibility(View.GONE);
-                } else {
+                    holder.serviceItemQuote.setBackgroundResource(R.drawable.quote_gray_2x);
+//                    holder.serviceItemQuote.setVisibility(View.GONE);
+                }
                     holder.serviceItemQuote.setVisibility(View.VISIBLE);
                     holder.serviceItemQuote.setText(
                             String.valueOf(holder.mItem.getQuoteCount()).concat(" Quotes"));
-                }
                 break;
             case 2:
                 holder.serviceItemQuote.setVisibility(View.VISIBLE);
@@ -104,7 +107,7 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
                 break;
             case 3:
                 holder.serviceItemQuote.setVisibility(View.VISIBLE);
-                holder.serviceItemQuote.setBackgroundResource(R.drawable.quote_gray_2x);
+                holder.serviceItemQuote.setBackgroundResource(R.drawable.quote_blue_2x);
                 holder.serviceItemQuote.setText("In Service");
                 break;
             case 8:
@@ -115,9 +118,9 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
                 break;
         }
 
-        Date df = new java.util.Date(holder.mItem.getCreateTime());
+//        Date df = new java.util.Date(holder.mItem.getCreateTime());
 
-        String text = TimeUtils.SHORT_DATE_FORMAT.format(df);
+        String text = TimeUtils.getTime(holder.mItem.getCreateTime() * 1000, SHORT_DATE_FORMAT);
         holder.serviceItemTime.setText(text);
         holder.serviceItemCardView.setOnClickListener(v -> mListener.onListFragmentInteraction(holder.mItem));
         return convertView;

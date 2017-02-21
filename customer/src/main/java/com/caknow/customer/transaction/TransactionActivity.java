@@ -9,7 +9,10 @@ import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.CAKNOWApplication;
+import com.caknow.customer.garage.VehicleServiceActivity;
+import com.caknow.customer.job.JobActivity;
 import com.caknow.customer.payment.PaymentActivity;
+import com.caknow.customer.promo.PromoActivity;
 import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.payment.PaymentAPI;
@@ -53,7 +56,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     Bundle extras;
     VehicleServiceInterface item;
     String serviceRequestId;
-    String promotionCodes = "";
+    String promotionCodes;
     private String selectedPaymentSource;
     @Override
     protected void initContentView() {
@@ -145,60 +148,39 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
         startActivityForResult(intent, PAYMENT_SELECTED_REQUEST_CODE);
     }
 
-    private void confirmPayment(){
+    private void confirmPayment() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         //List<PriceDetail> priceDetails = quote.getItemizedAmounts();
-        if (mapQuote != null ) {
 
-            List<PriceDetail> priceDetails = mapQuote.getPriceDetails();
-            PriceDetail totalPriceDetail = null;
-            for (int i = priceDetails.size() - 1; i > -1; i--) {
-                if (priceDetails.get(i).getPriceItem().equalsIgnoreCase("total")) {
-                    totalPriceDetail = priceDetails.get(i);
-                    break;
-                }
-            }
-            if (totalPriceDetail != null) {
-                String message = String.format("Are you sure you want to accept the quoted price of %s", totalPriceDetail.getPrice());
-                alertDialogBuilder.setTitle("Confirm");
-                alertDialogBuilder.setMessage(message);
-                alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
-                    try {
-                        makePayment();
-                    } catch (Exception e) {
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
 
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.show();
-            }
-        }else{
-            List<PriceDetail> priceDetails = quote.getItemizedAmounts();
-            PriceDetail totalPriceDetail = null;
-            for (int i = priceDetails.size() - 1; i > -1; i--) {
-                if (priceDetails.get(i).getPriceItem().equalsIgnoreCase("total")) {
-                    totalPriceDetail = priceDetails.get(i);
-                    break;
-                }
-            }
-            if (totalPriceDetail != null) {
-                String message = String.format("Are you sure you want to pay the amount of %s to the shop?", totalPriceDetail.getPrice());
-                alertDialogBuilder.setTitle("Confirm");
-                alertDialogBuilder.setMessage(message);
-                alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
-                    try {
-                        payToShop();
-                    } catch (Exception e) {
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
-
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.show();
+        List<PriceDetail> priceDetails = mapQuote.getPriceDetails();
+        PriceDetail totalPriceDetail = null;
+        for (int i = priceDetails.size() - 1; i > -1; i--) {
+            if (priceDetails.get(i).getPriceItem().equalsIgnoreCase("total")) {
+                totalPriceDetail = priceDetails.get(i);
+                break;
             }
         }
+        if (totalPriceDetail != null) {
+            String message = String.format("Are you sure you want to accept the quoted price of %s", totalPriceDetail.getPrice());
+            alertDialogBuilder.setTitle("Confirm");
+            alertDialogBuilder.setMessage(message);
+            alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
+                try {
+                    makePayment();
+                    finish();
+                    super.onBackPressed();
+                } catch (Exception e) {
+                }
+            });
+            alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
+
+            alertDialogBuilder.setCancelable(false);
+            alertDialogBuilder.show();
+
+        }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -213,6 +195,9 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     confirmPayment();
                 }
                 // Do something with the contact here (bigger example below)
+            } else if (resultCode == RESULT_FIRST_USER) {
+                promotionCodes = data.getStringExtra(Constants.PROMO_CODE_KEY);
+                confirmPayment();
             }
         }
     }
@@ -224,36 +209,57 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
     }
 
-    public void payToShop(){
-        showProgress();
-        JsonObject payment = new JsonObject();
-        payment.addProperty("serviceRequestId", serviceRequestId);
-        payment.addProperty("promotionCodes", promotionCodes);
-        final RequestBody request = RequestBody.create(MediaType.parse("application/json"), payment.toString());
-        retrofit.create(PaymentAPI.class).payToShop(request).enqueue(new Callback<RequestBody>() {
-            @Override
-            public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
-                try{
-                    hideProgress();
-                        Toast.makeText(TransactionActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                } catch(Exception e){
-                    // UI Events are not thread safe
+    public void payToShop() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        List<PriceDetail> priceDetails = quote.getItemizedAmounts();
+        PriceDetail totalPriceDetail = null;
+        for (int i = priceDetails.size() - 1; i > -1; i--) {
+            if (priceDetails.get(i).getPriceItem().equalsIgnoreCase("total")) {
+                totalPriceDetail = priceDetails.get(i);
+                break;
+            }
+        }
+        if (totalPriceDetail != null) {
+            String message = String.format("Are you sure you want to pay the amount of %s to the shop?", totalPriceDetail.getPrice());
+            alertDialogBuilder.setTitle("Confirm");
+            alertDialogBuilder.setMessage(message);
+            alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
+                try {
+                    payToShop();
+                    finish();
+                    super.onBackPressed();
+                } catch (Exception e) {
+                }
+            });
+            alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
+
+            alertDialogBuilder.setCancelable(false);
+            alertDialogBuilder.show();
+            JsonObject payment = new JsonObject();
+            payment.addProperty("serviceRequestId", serviceRequestId);
+            payment.addProperty("promotionCodes", promotionCodes);
+            final RequestBody request = RequestBody.create(MediaType.parse("application/json"), payment.toString());
+            retrofit.create(PaymentAPI.class).payToShop(request).enqueue(new Callback<RequestBody>() {
+                @Override
+                public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
+
+                    Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+
                 }
 
-            }
-
-            @Override
-            public void onFailure(Call<RequestBody> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<RequestBody> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         Toast.makeText(this, response.message(), Toast.LENGTH_SHORT).show();
-        finish();
+
     }
 
     @Override

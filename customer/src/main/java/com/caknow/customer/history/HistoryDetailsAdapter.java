@@ -252,7 +252,7 @@ public class HistoryDetailsAdapter extends BaseAdapter {
                     holder.textView.invalidate();
                     ((TextView) convertView.findViewById(R.id.service_item_sub_title)).setText(history.getServiceCategory());
                     convertView.findViewById(R.id.service_item_sub_title).invalidate();
-                    ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(history.getUpdateTime()));
+                    ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(history.getUpdateTime() * 1000));
                     convertView.findViewById(R.id.service_item_time_display).invalidate();
                     Glide.with(fragment).load(serviceList.getIcon()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
                     convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);

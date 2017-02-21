@@ -102,6 +102,8 @@ public class JobDetailsFragment extends BaseFragment{
                                         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + responseBody.getPayload().getAffiliate().getTelephoneNumber()));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
+                                        getActivity().finish();
+                                        startActivity(intent);
                                     }
 
                                     @Override

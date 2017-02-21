@@ -21,6 +21,7 @@ public class Constants {
     public static final String ADDRESS_PARCEL_KEY = "address";
     public static final String JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY = "job.serviceItem";
     public static final String HISTORY_ITEM_PARCEL_KEY = "historyItem";
+    public static final String PROMO_CODE_KEY = "promotion.code";
 
     // Add a Vehicle
     public static final String VEHICLE_ADD_ITEM_TYPE_PARCEL_KEY = "addVehicleType";

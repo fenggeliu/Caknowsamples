@@ -35,6 +35,7 @@ import com.caknow.app.R;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.quote.adapter.HeaderAdapter;
 import com.caknow.customer.transaction.TransactionActivity;
+import com.caknow.customer.transaction.TransactionDetailsAdapter;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.service.quotes.Quote;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
@@ -189,8 +190,16 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         mListView.addHeaderView(mTransparentHeaderView);
         adapter = new QuoteDetailListAdapter(getContext(), quoteList, serviceList);
         mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener((parent, view, position, id) -> mSlidingUpPanelLayout.collapsePane());
-
+//        mListView.setOnItemClickListener((parent, view, position, id) -> mSlidingUpPanelLayout.collapsePane());
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            TransactionDetailsAdapter feeAdapter = new TransactionDetailsAdapter(getContext(), currentQuote, null);
+            mListView.setAdapter(feeAdapter);
+            mWhiteSpaceView.setVisibility(View.GONE);
+        });
+        mTransparentHeaderView.setOnClickListener(view -> {
+            mListView.setAdapter(adapter);
+            mWhiteSpaceView.setVisibility(View.VISIBLE);
+        });
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
@@ -469,10 +478,11 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
                     mIsNeedLocationUpdate = false;
                     //moveToLocation(latLng, false);
                     //mSlidingUpPanelLayout.expandPane();
+                    mSlidingUpPanelLayout.collapsePane();
                 }
             });
             // Start with map expanded and details closed
-            mSlidingUpPanelLayout.collapsePane();
+
         }
     }
 

@@ -16,24 +16,23 @@
     android:layout_height="70dp">
 
     <LinearLayout
-        android:layout_width="344dp"
+        android:layout_width="match_parent"
         android:layout_height="54dp"
         android:id="@+id/time_frame_layout"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintRight_toRightOf="parent">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:textColor="@color/deepBlue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="18sp"
+        android:textColor="@color/red"
+        android:textAlignment="center"
         android:id="@+id/time_frame"
         app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintVertical_bias=".5"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp"/>
+        android:gravity="center"/>
     <!--app:layout_constraintLeft_toRightOf="parent"-->
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

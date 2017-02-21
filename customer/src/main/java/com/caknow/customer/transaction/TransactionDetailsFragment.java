@@ -1,5 +1,6 @@
 package com.caknow.customer.transaction;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.caknow.app.R;
@@ -32,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_FIRST_USER;
+
 /**
  * Created by junu on 1/1/17.
  */
@@ -49,9 +53,13 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
 
     @OnClick(R.id.transaction_submit_button)
     void selectCard(){
-        final Intent intent = new Intent(getActivity(), PaymentActivity.class);
-        intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-        getActivity().startActivityForResult(intent, TransactionActivity.PAYMENT_SELECTED_REQUEST_CODE);
+        if(mapQuote != null) {
+            final Intent intent = new Intent(getActivity(), PaymentActivity.class);
+            intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+            getActivity().startActivityForResult(intent, TransactionActivity.PAYMENT_SELECTED_REQUEST_CODE);
+        }else{
+            ((TransactionActivity) getActivity()).payToShop();
+        }
     }
     TransactionDetailsAdapter adapter;
     TransactionQuoteAdapter quotesAdapter;
@@ -85,7 +93,13 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         else{
             submitButton.setVisibility(View.GONE);
             response = getArguments().getParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY);
-            quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
+            try {
+                if(response.getGetQuotesByServiceIdPayload().getTopQuote() != null) {
+                    quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
+                }
+            }catch (Exception e) {
+
+            }
             quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
 //            quotesAdapter = new TransactionQuoteAdapter(getContext(), quoteList);
 //            quotes = (ListView) v.findViewById(R.id.transaction_quotes_listview);

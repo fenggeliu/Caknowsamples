@@ -123,7 +123,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             holder.starViews.get(i).invalidate();
         }
         holder.reviewLabel.setText(String.valueOf(rating).concat(" Stars"));
-        Date df = new java.util.Date(item.getUpdateTime());
+        Date df = new java.util.Date(item.getUpdateTime() * 1000);
         String text = TimeUtils.SHORT_DATE_FORMAT.format(df);
         holder.timeTextView.setText(text);
         holder.historyPrice.setText(item.getServiceFee());

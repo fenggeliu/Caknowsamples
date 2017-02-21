@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.caknow.app.R;
+import com.caknow.customer.garage.VehicleServiceActivity;
+import com.caknow.customer.home.LoadMoreListView;
 import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.util.net.garage.VehicleServiceResponse;
 import com.caknow.customer.home.HomeActivity;
@@ -49,10 +52,11 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
     @BindView(R.id.no_service_request_layout) LinearLayout noServiceRequestLayout;
     @BindView(R.id.vehicle_service_top_banner) LinearLayout bannerLayout;
     @BindView(R.id.vehicle_service_sticky_list) StickyListHeadersListView serviceListView;
-
+    @BindView(R.id.swipe_refresher) SwipeRefreshLayout mSwipeContainer;
     private Vehicle vehicle;
     private VehicleServiceAdapter adapter;
     private OnListFragmentInteractionListener mListener;
+    private SwipeRefreshLayout swipeRefresher;
     /**
      * Launches New Service Request
      */
@@ -76,6 +80,14 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
         unbinder = ButterKnife.bind(this, v);
         Glide.with(getActivity()).load(vehicle.getLogo()).into(vehicleLogo);
         loadData(vehicle);
+        mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData(vehicle);
+                mSwipeContainer.setRefreshing(false);
+            }
+        });
+        mSwipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
         return v;
     }
 

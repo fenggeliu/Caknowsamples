@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.caknow.app.R;
+import com.caknow.customer.garage.VehicleServiceActivity;
 import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.util.net.service.location.Geolocation;
@@ -147,6 +148,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                 RequestBody.create(MediaType.parse("application/json"), text);
         Call<ServiceRequestResponse> call = retrofit.create(ServiceAPI.class).submitNewServiceRequest(body);
         call.enqueue(this);
+
     }
 
     @Override

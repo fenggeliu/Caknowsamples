@@ -143,7 +143,7 @@ public class JobDetailListAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.list_item_quote_details, null);
 
                     holder.textView = (TextView) convertView.findViewById(R.id.text);
-                    ((TextView) convertView.findViewById(R.id.quote_detail_date_textview)).setText(TimeUtils.getShortTime(item.getDate()));
+                    ((TextView) convertView.findViewById(R.id.quote_detail_date_textview)).setText(TimeUtils.getShortTime(item.getDate() * 1000));
                     convertView.findViewById(R.id.quote_detail_date_textview).invalidate();
                     if (affiliate != null) {
                         convertView.findViewById(R.id.quote_detail_verified_layout).setVisibility(affiliate.getVerified() ? View.VISIBLE : View.INVISIBLE);
@@ -243,7 +243,7 @@ public class JobDetailListAdapter extends BaseAdapter {
                     holder.textView.invalidate();
                     ((TextView) convertView.findViewById(R.id.service_item_sub_title)).setText(item.getServiceCatagory());
                     convertView.findViewById(R.id.service_item_sub_title).invalidate();
-                    ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate()));
+                    ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate() * 1000));
                     convertView.findViewById(R.id.service_item_time_display).invalidate();
                     Glide.with(context).load(item.getIconUrl()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
                     convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);

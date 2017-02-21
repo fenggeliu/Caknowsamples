@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.service.model.VehicleServiceInterface;
+import com.caknow.customer.util.TimeUtils;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
 import com.caknow.customer.util.net.service.quotes.QuotePayload;
 
@@ -114,6 +115,7 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
                     Glide.with(context).load(item.getIconUrl()).into(((ImageView)convertView.findViewById(R.id.service_item_icon)));
                     convertView.findViewById(R.id.service_item_sub_title).invalidate();
                     convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
+                    ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getCreateTime() * 1000));
                     convertView.findViewById(R.id.service_item_title).invalidate();
 
                     break;

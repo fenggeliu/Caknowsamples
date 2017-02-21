@@ -82,7 +82,7 @@ public class JobActivity extends BaseActivity{
 
     @Override
     protected void initData() {
-        showProgress();
+//        showProgress();
         serviceAPI = retrofit.create(ServiceAPI.class);
         serviceAPI.getQuotes(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesResponse>() {
             @Override

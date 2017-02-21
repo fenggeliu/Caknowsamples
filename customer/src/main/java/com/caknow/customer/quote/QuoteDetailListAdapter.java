@@ -33,9 +33,9 @@ public class QuoteDetailListAdapter extends BaseAdapter {
     private static final int TYPE_SERVICE_INFO = 0;
     private static final int TYPE_SERVICE_FEE = 1;
     private static final int TYPE_REVIEWS = 2;
-    private static final int TYPE_VEHICLE_INFO = 3;
-    private static final int TYPE_SEPARATOR = 4;
-    private static final int TYPE_SERVICE_ITEM = 5;
+//    private static final int TYPE_VEHICLE_INFO = 3;
+    private static final int TYPE_SEPARATOR = 3;
+    private static final int TYPE_SERVICE_ITEM = 4;
 
     private ArrayList<String> mData = new ArrayList();
     private LayoutInflater mInflater;
@@ -81,8 +81,8 @@ public class QuoteDetailListAdapter extends BaseAdapter {
                 return TYPE_SERVICE_FEE;
              case TYPE_REVIEWS:
                 return TYPE_REVIEWS;
-             case TYPE_VEHICLE_INFO:
-                return TYPE_VEHICLE_INFO;
+//             case TYPE_VEHICLE_INFO:
+//                return TYPE_VEHICLE_INFO;
              case TYPE_SEPARATOR:
                 return TYPE_SEPARATOR;
              case TYPE_SERVICE_ITEM:
@@ -94,12 +94,12 @@ public class QuoteDetailListAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return 6;
+        return 5;
     }
 
     @Override
     public int getCount() {
-        return 5 + quotes.size();
+        return 4 + quotes.size();
     }
 
     @Override
@@ -167,10 +167,10 @@ public class QuoteDetailListAdapter extends BaseAdapter {
                     ((TextView)convertView.findViewById(R.id.reviews_label)).invalidate();
 
                     break;
-                case TYPE_VEHICLE_INFO:
-                    convertView = mInflater.inflate(R.layout.list_item_quote_vehicle_information, null);
-                    holder.textView = (TextView)convertView.findViewById(R.id.text);
-                    break;
+//                case TYPE_VEHICLE_INFO:
+//                    convertView = mInflater.inflate(R.layout.list_item_quote_vehicle_information, null);
+//                    holder.textView = (TextView)convertView.findViewById(R.id.text);
+//                    break;
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.list_header_vehicle_service, null);
                     holder.textView = (TextView)convertView.findViewById(R.id.service_header_textview);
@@ -179,12 +179,13 @@ public class QuoteDetailListAdapter extends BaseAdapter {
                 default:
                     convertView = mInflater.inflate(R.layout.list_item_vehicle_service_request_new, null);
                     holder.textView = (TextView)convertView.findViewById(R.id.service_item_title);
-                    int serviceListPosition = position - 5;
+                    int serviceListPosition = position - 4;
                     ServiceList currentService = services.get(serviceListPosition);
                     holder.textView.setText(currentService.getCategory());
                     ((TextView)convertView.findViewById(R.id.service_item_sub_title)).setText(String.valueOf(currentService.getField()));
                     ((TextView)convertView.findViewById(R.id.service_item_sub_title)).invalidate();
                     Glide.with(context).load(currentService.getIcon()).into(((ImageView)convertView.findViewById(R.id.service_item_icon)));
+                    convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
                     break;
 
             }
