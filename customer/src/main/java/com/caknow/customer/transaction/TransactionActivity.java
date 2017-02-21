@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.caknow.app.R;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.garage.VehicleServiceActivity;
+import com.caknow.customer.home.HomeActivity;
 import com.caknow.customer.job.JobActivity;
 import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.promo.PromoActivity;
@@ -168,10 +169,11 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
                 try {
                     makePayment();
-                    finish();
-                    super.onBackPressed();
                 } catch (Exception e) {
                 }
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             });
             alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
 
@@ -195,10 +197,11 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     confirmPayment();
                 }
                 // Do something with the contact here (bigger example below)
-            } else if (resultCode == RESULT_FIRST_USER) {
-                promotionCodes = data.getStringExtra(Constants.PROMO_CODE_KEY);
-                confirmPayment();
             }
+//                else if (resultCode == RESULT_FIRST_USER) {
+//                promotionCodes = data.getStringExtra(Constants.PROMO_CODE_KEY);
+//                confirmPayment();
+//            }
         }
     }
 
@@ -206,7 +209,6 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
         showProgress();
         final PaymentRequest request = new PaymentRequest(serviceRequestId, mapQuote.getQuoteId(), "stripe", selectedPaymentSource);
         retrofit.create(PaymentAPI.class).makePayment(PaymentRequest.getRequestBody(request)).enqueue(this);
-
     }
 
     public void payToShop() {
@@ -225,33 +227,34 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             alertDialogBuilder.setMessage(message);
             alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
                 try {
-                    payToShop();
-                    finish();
-                    super.onBackPressed();
+                    JsonObject payment = new JsonObject();
+                    payment.addProperty("serviceRequestId", serviceRequestId);
+                    payment.addProperty("promotionCodes", promotionCodes);
+                    final RequestBody request = RequestBody.create(MediaType.parse("application/json"), payment.toString());
+                    retrofit.create(PaymentAPI.class).payToShop(request).enqueue(new Callback<RequestBody>() {
+                        @Override
+                        public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
+                            finish();
+                            Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<RequestBody> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } catch (Exception e) {
                 }
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             });
             alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
 
             alertDialogBuilder.setCancelable(false);
             alertDialogBuilder.show();
-            JsonObject payment = new JsonObject();
-            payment.addProperty("serviceRequestId", serviceRequestId);
-            payment.addProperty("promotionCodes", promotionCodes);
-            final RequestBody request = RequestBody.create(MediaType.parse("application/json"), payment.toString());
-            retrofit.create(PaymentAPI.class).payToShop(request).enqueue(new Callback<RequestBody>() {
-                @Override
-                public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
 
-                    Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
-
-                }
-
-                @Override
-                public void onFailure(Call<RequestBody> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 
@@ -260,6 +263,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         Toast.makeText(this, response.message(), Toast.LENGTH_SHORT).show();
 
+//        super.onBackPressed();
     }
 
     @Override
