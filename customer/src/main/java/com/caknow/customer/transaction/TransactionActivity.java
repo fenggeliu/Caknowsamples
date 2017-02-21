@@ -234,14 +234,16 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     retrofit.create(PaymentAPI.class).payToShop(request).enqueue(new Callback<RequestBody>() {
                         @Override
                         public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
-                            finish();
-                            Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
-
+                            if(response != null) {
+                                Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<RequestBody> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
+
                         }
                     });
                 } catch (Exception e) {
@@ -249,6 +251,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+
             });
             alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
 
