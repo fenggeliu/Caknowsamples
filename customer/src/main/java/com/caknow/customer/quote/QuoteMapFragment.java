@@ -21,6 +21,7 @@ import android.support.v4.BuildConfig;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +101,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         displaySize = new Point();
@@ -194,7 +196,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             TransactionDetailsAdapter feeAdapter = new TransactionDetailsAdapter(getContext(), currentQuote, null);
             mListView.setAdapter(feeAdapter);
-            mWhiteSpaceView.setVisibility(View.GONE);
+//            mWhiteSpaceView.setVisibility(View.GONE);
         });
         mTransparentHeaderView.setOnClickListener(view -> {
             mListView.setAdapter(adapter);

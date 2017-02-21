@@ -55,4 +55,14 @@
             android:textSize="@dimen/md_text_size"
             android:title="@string/md_help"></item>
     </group>
+    <group
+        android:id="@+id/about_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:textSize="@dimen/md_text_size"
+            android:icon="@drawable/help_home_2x"
+            android:title="@string/md_about_us"
+            android:textColor="@color/font_black"></item>
+    </group>
 </menu>

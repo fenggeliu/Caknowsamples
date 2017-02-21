@@ -1,6 +1,8 @@
 package com.caknow.customer.webview;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
@@ -56,6 +58,7 @@ public class WebViewActivity extends BaseActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("About Us");
+            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setVisibility(View.GONE);
         } catch (NullPointerException e){
             //
         }

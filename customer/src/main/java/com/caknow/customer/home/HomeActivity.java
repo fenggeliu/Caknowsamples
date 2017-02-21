@@ -76,6 +76,10 @@ public class HomeActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        int height = getResources().getDisplayMetrics().heightPixels;
+        DrawerLayout.LayoutParams params = (android.support.v4.widget.DrawerLayout.LayoutParams) navigationView.getLayoutParams();
+        params.height = height;
+        navigationView.setLayoutParams(params);
         // Set up Header
         TextView nameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.shopper_name);
         ImageView userPhoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.user_photo);
@@ -211,6 +215,12 @@ public class HomeActivity extends BaseActivity
             startActivity(intent);
         } else if (id == R.id.nav_help) {
             Intent intent = new Intent(this, FeedbackActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.URL_PARCEL_KEY, "http://www.caknow.com");
+            intent.putExtras(bundle);
             startActivity(intent);
         }
 

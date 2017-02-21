@@ -42,7 +42,8 @@
             android:layout_height="@dimen/garage_layout_description_height"
             android:layout_gravity="bottom"
             android:layout_marginBottom="@dimen/garage_layout_description_margin_bottom"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/nav_about_us_tv"
