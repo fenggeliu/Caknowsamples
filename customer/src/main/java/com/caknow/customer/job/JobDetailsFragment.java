@@ -75,7 +75,7 @@ public class JobDetailsFragment extends BaseFragment{
             detailListView.setAdapter(minimalDataAdapter);
         }
         else{
-            JobDetailListAdapter adapter = new JobDetailListAdapter(getContext(), serviceItem, responseBody.getPayload().getAffiliate());
+            JobDetailListAdapter adapter = new JobDetailListAdapter(getContext(), serviceItem, responseBody.getPayload().getAffiliate(), responseBody.getPayload().getHasUnconfirmedReQuote());
             detailListView.setAdapter(adapter);
             try {
                 switch (serviceItem.getStatus()) {
@@ -83,7 +83,6 @@ public class JobDetailsFragment extends BaseFragment{
                         responseButton.setVisibility(View.VISIBLE);
                         responseButton.setText("Make Appointment");
                         responseButton.setBackgroundColor(Color.parseColor("#0071ff"));
-                        //TODO send request to shop too
 
                         responseButton.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -119,8 +118,14 @@ public class JobDetailsFragment extends BaseFragment{
                         break;
                     case 3:
                         responseButton.setVisibility(View.VISIBLE);
-                        responseButton.setText("In Service");
-                        responseButton.setBackgroundColor(Color.parseColor("#696969"));
+                        if(responseBody.getPayload().getHasUnconfirmedReQuote()) {
+                            responseButton.setText("Has New Quote");
+                            responseButton.setBackgroundColor(getResources().getColor(R.color.btn_red));
+
+                        }else{
+                            responseButton.setText("In Service");
+                            responseButton.setBackgroundColor(Color.parseColor("#696969"));
+                        }
                         break;
                     case 8:
                         responseButton.setVisibility(View.VISIBLE);

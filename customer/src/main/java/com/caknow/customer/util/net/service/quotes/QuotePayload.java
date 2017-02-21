@@ -53,6 +53,9 @@ public class QuotePayload implements Serializable, Parcelable
     @SerializedName("quoteList")
     @Expose
     private List<QuoteList> quoteList = null;
+    @SerializedName("hasUnconfirmedReQuote")
+    @Expose
+    private Boolean hasUnconfirmedReQuote;
     private final static long serialVersionUID = -5387812240366608317L;
 
     public String getServiceRequestId() {
@@ -111,6 +114,8 @@ public class QuotePayload implements Serializable, Parcelable
         return quoteList;
     }
 
+    public Boolean getHasUnconfirmedReQuote() { return hasUnconfirmedReQuote; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -131,6 +136,7 @@ public class QuotePayload implements Serializable, Parcelable
         dest.writeValue(this.longitude);
         dest.writeValue(this.latitude);
         dest.writeTypedList(this.quoteList);
+        dest.writeValue(this.hasUnconfirmedReQuote);
     }
 
     public QuotePayload() {
@@ -150,6 +156,7 @@ public class QuotePayload implements Serializable, Parcelable
         this.longitude = (Double) in.readValue(Double.class.getClassLoader());
         this.latitude = (Double) in.readValue(Double.class.getClassLoader());
         this.quoteList = in.createTypedArrayList(QuoteList.CREATOR);
+        this.hasUnconfirmedReQuote = (Boolean) in.readValue(Boolean.class.getClassLoader());
     }
 
     public static final Creator<QuotePayload> CREATOR = new Creator<QuotePayload>() {

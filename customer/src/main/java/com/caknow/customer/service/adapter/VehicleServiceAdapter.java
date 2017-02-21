@@ -48,8 +48,8 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
         this.repairsList = repairList;
         this.maintenanceList = maintenanceList;
         this.fragment = fragment;
-        combinedList.addAll(maintenanceList);
         combinedList.addAll(repairList);
+        combinedList.addAll(maintenanceList);
         this.mListener = listener;
     }
 
@@ -58,7 +58,7 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
         if(combinedList == null){
             return 0;
         }
-        return combinedList.size();
+        return combinedList.size() + 1;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
         int position = currentPosition;
 //        if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_vehicle_service_request_new, parent, false);
-            if(position > maintenanceList.size()){
+            if(position > repairsList.size()){
                 position = position - 1;
             }
             holder = new ServiceRequestViewHolder(convertView, combinedList.get(position));
@@ -138,14 +138,14 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
         HeaderViewHolder holder;
-        if (convertView == null) {
+//        if (convertView == null) {
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.list_header_vehicle_service, parent, false);
             holder.text = (TextView) convertView.findViewById(R.id.service_header_textview);
             convertView.setTag(holder);
-        } else {
-            holder = (HeaderViewHolder) convertView.getTag();
-        }
+//        } else {
+//            holder = (HeaderViewHolder) convertView.getTag();
+//        }
         String headerText="";
 
         if (getHeaderId(position)==1) {

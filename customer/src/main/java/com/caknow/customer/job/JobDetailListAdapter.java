@@ -19,6 +19,7 @@ import com.caknow.customer.util.net.service.quotes.QuoteList;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by junu on 1/15/2017.
@@ -44,13 +45,15 @@ public class JobDetailListAdapter extends BaseAdapter {
     private Context context;
     VehicleServiceInterface item;
     Affiliate affiliate;
+    private Boolean requote;
     private QuoteList currentQuote;
 
-    public JobDetailListAdapter(Context context, VehicleServiceInterface item, Affiliate affiliate) {
+    public JobDetailListAdapter(Context context, VehicleServiceInterface item, Affiliate affiliate, Boolean requote) {
         this.context = context;
         this.item = item;
         this.currentQuote = null;
         this.affiliate = affiliate;
+        this.requote = requote;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -167,6 +170,10 @@ public class JobDetailListAdapter extends BaseAdapter {
                     }
                     String serviceFee = affiliate.getServiceFee().isEmpty() ? "$0.00" : affiliate.getServiceFee();
                     ((TextView) convertView.findViewById(R.id.service_fee_textview)).setText(serviceFee);
+                    if(requote){
+                        convertView.findViewById(R.id.service_fee_next_button).setVisibility(View.GONE);
+                        convertView.findViewById(R.id.service_fee_requote_button).setVisibility(View.VISIBLE);
+                    }
                     convertView.findViewById(R.id.service_fee_textview).invalidate();
                     break;
                 case TYPE_REVIEWS:

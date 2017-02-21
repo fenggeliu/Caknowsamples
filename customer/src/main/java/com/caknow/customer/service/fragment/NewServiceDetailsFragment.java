@@ -143,6 +143,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
         payload.setPriority(spinnerPriority.getSelectedItemPosition());
         payload.setDescription(description);
         payload.setGeolocation(geolocation);
+        payload.setType(serviceType);
         String text = NewServiceRequest.getJsonString(payload);
         RequestBody body =
                 RequestBody.create(MediaType.parse("application/json"), text);
