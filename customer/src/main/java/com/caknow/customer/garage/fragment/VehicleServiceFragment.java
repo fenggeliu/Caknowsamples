@@ -147,9 +147,9 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
             } else {
                 adapter = new VehicleServiceAdapter(getContext(), VehicleServiceFragment.this, serviceResponse.getRepairList(), serviceResponse.getMaintenanceList(), mListener);
 //                serviceListView.setAdapter(null);
-//                serviceListView.invalidate();
-                serviceListView.setAdapter(adapter);
                 serviceListView.invalidate();
+                serviceListView.setAdapter(adapter);
+//                serviceListView.invalidate();
             }
         } catch( Exception e){
             //Not thread safe

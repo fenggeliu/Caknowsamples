@@ -58,7 +58,7 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
         if(combinedList == null){
             return 0;
         }
-        return combinedList.size() + 1;
+        return combinedList.size();
     }
 
     @Override
@@ -77,9 +77,9 @@ public class VehicleServiceAdapter extends BaseAdapter implements StickyListHead
         int position = currentPosition;
 //        if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_vehicle_service_request_new, parent, false);
-            if(position > repairsList.size()){
-                position = position - 1;
-            }
+//            if(position > repairsList.size()){
+//                position = position - 1;
+//            }
             holder = new ServiceRequestViewHolder(convertView, combinedList.get(position));
         convertView.invalidate();
 //            convertView.setTag(holder);

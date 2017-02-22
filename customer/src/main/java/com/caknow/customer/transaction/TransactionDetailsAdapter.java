@@ -2,6 +2,9 @@ package com.caknow.customer.transaction;
 
 import android.content.Context;
 
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +41,7 @@ public class TransactionDetailsAdapter extends BaseAdapter {
     private Quote quote;
     private Context context;
     private QuoteList quoteList;
+    private List<Quote> quoteItems;
     VehicleServiceInterface item;
 
     public TransactionDetailsAdapter(Context context, QuoteList quoteList, List<Quote> quoteItems) {
@@ -52,11 +56,12 @@ public class TransactionDetailsAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public TransactionDetailsAdapter(Context context, Quote quote, VehicleServiceInterface item) {
+    public TransactionDetailsAdapter(Context context, Quote quote, VehicleServiceInterface item, List<Quote> quoteItems) {
         this.context = context;
         this.quote = quote;
         this.item = item;
         this.mData = quote.getItemizedAmounts();
+        this.quoteItems = quoteItems;
         paymentMode = true;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -107,17 +112,35 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                     switch (type - mData.size()) {
 
                         case TYPE_PROMOTION_CODE:
-                            convertView = mInflater.inflate(R.layout.list_item_promotion_code, null);
-                            if (quote == null) {
-                                convertView.setVisibility(View.GONE);
-                                break;
-                            }
+                                convertView = mInflater.inflate(R.layout.list_item_promotion_code, null);
+                                if (quote == null || quoteItems != null) {
+                                    convertView.setVisibility(View.GONE);
+                                    convertView.invalidate();
+                                    convertView = mInflater.inflate(R.layout.list_item_vehicle_information,null);
+                                    ViewGroup.LayoutParams layoutParams = convertView.findViewById(R.id.vehicle_constraint_layout).getLayoutParams();
+                                    layoutParams.height = 50;
+                                    convertView.setLayoutParams(layoutParams);
+                                    holder.labelTextView = (TextView) convertView.findViewById(R.id.vehicle_info_label);
+                                    holder.textView = (TextView) convertView.findViewById(R.id.vehicle_info_text);
+                                    holder.labelTextView.setText("Quote Created:");
+                                    holder.labelTextView.setTextColor(ContextCompat.getColor(context, R.color.font_black));
+                                    holder.labelTextView.setTextSize(14);
+                                    holder.textView.setText(TimeUtils.getTime(quote.getAcceptTime()));
+                                    holder.textView.setTextSize(14);
+                                    holder.textView.setTextColor(ContextCompat.getColor(context, R.color.font_black));
+                                    break;
+                                }
                             break;
                         case TYPE_LIST_SEPARATOR:
                             convertView = mInflater.inflate(R.layout.list_header_vehicle_service, null);
                             if (quote == null) {
                                 convertView.setVisibility(View.GONE);
                                 break;
+                            }
+                            if (quoteItems != null){
+                                holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
+                                holder.textView.setText("Quote History");
+                                convertView.findViewById(R.id.service_header_textview).invalidate();
                             }
                             holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
                             holder.textView.setText("Service Items");
@@ -126,7 +149,7 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                         case TYPE_SERVICE_ITEM:
                         default:
                             convertView = mInflater.inflate(R.layout.list_item_vehicle_service_request_new, null);
-                            if (quote == null) {
+                            if (quote == null || quoteItems != null) {
                                 convertView.setVisibility(View.GONE);
                                 break;
                             }

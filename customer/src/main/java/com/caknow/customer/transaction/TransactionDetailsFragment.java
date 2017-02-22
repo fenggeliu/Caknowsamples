@@ -89,18 +89,21 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
                 mapQuote = getArguments().getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
             } catch (Exception e) {
             }
-        }
-        else{
-            submitButton.setVisibility(View.GONE);
+        }else{
             response = getArguments().getParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY);
             try {
-                if(response.getGetQuotesByServiceIdPayload().getTopQuote() != null) {
+                if(response.getGetQuotesByServiceIdPayload().getTopQuote().getStatus().equals("unconfirmed")) {
+                    submitButton.setText("Accept New Quote");
+                    quote = response.getGetQuotesByServiceIdPayload().getTopQuote();
+                    quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
+                }else{
+                    submitButton.setVisibility(View.GONE);
                     quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
+                    quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
                 }
             }catch (Exception e) {
 
             }
-            quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
 //            quotesAdapter = new TransactionQuoteAdapter(getContext(), quoteList);
 //            quotes = (ListView) v.findViewById(R.id.transaction_quotes_listview);
 //            quotes.setVisibility(View.VISIBLE);
@@ -109,7 +112,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         if(quote == null){
             adapter = new TransactionDetailsAdapter(getContext(), mapQuote, quoteList);
         }else{
-            adapter = new TransactionDetailsAdapter(getContext(), quote, item);
+            adapter = new TransactionDetailsAdapter(getContext(), quote, item, quoteList);
         }
         detailListView.setAdapter(adapter);
         return v;

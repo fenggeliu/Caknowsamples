@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -173,6 +174,8 @@ public class JobDetailListAdapter extends BaseAdapter {
                     if(requote){
                         convertView.findViewById(R.id.service_fee_next_button).setVisibility(View.GONE);
                         convertView.findViewById(R.id.service_fee_requote_button).setVisibility(View.VISIBLE);
+                        convertView.setClickable(false);
+                        convertView.setFocusable(false);
                     }
                     convertView.findViewById(R.id.service_fee_textview).invalidate();
                     break;
