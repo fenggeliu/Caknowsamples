@@ -124,10 +124,11 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                                     holder.textView = (TextView) convertView.findViewById(R.id.vehicle_info_text);
                                     holder.labelTextView.setText("Quote Created:");
                                     holder.labelTextView.setTextColor(ContextCompat.getColor(context, R.color.font_black));
-                                    holder.labelTextView.setTextSize(14);
-                                    holder.textView.setText(TimeUtils.getTime(quote.getAcceptTime()));
-                                    holder.textView.setTextSize(14);
+                                    holder.labelTextView.setTextSize(16);
+                                    holder.textView.setText(TimeUtils.getTime(quote.getAcceptTime()*1000));
+                                    holder.textView.setTextSize(16);
                                     holder.textView.setTextColor(ContextCompat.getColor(context, R.color.font_black));
+                                    convertView.invalidate();
                                     break;
                                 }
                             break;
@@ -141,6 +142,7 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                                 holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
                                 holder.textView.setText("Quote History");
                                 convertView.findViewById(R.id.service_header_textview).invalidate();
+                                break;
                             }
                             holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
                             holder.textView.setText("Service Items");
@@ -158,7 +160,8 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                             holder.textView.invalidate();
                             ((TextView) convertView.findViewById(R.id.service_item_sub_title)).setText(item.getServiceCatagory());
                             convertView.findViewById(R.id.service_item_sub_title).invalidate();
-                            ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate()));
+                            ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate()*1000));
+                            convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
                             convertView.findViewById(R.id.service_item_time_display).invalidate();
                             Glide.with(context).load(item.getIconUrl()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
                             break;

@@ -194,6 +194,34 @@ public class JobDetailsFragment extends BaseFragment{
                 }
             } catch (Exception e) {
             }
+            if(responseBody.getPayload().getHasUnconfirmedReQuote()){
+                detailListView.getAdapter().getView(2, null, null).findViewById(R.id.service_fee_requote_button).setOnClickListener(view -> {
+                    retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
+                        @Override
+                        public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
+                            final Intent intent = new Intent(getActivity(), TransactionActivity.class);
+                            final Bundle extras = new Bundle();
+                            Quote topQuote;
+                            topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
+                            extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
+                            extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
+                            extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
+                            extras.putBoolean("paymentMode", false);
+                            //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+                            intent.putExtras(extras);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+                            startActivity(intent);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
+                        }
+                    });
+                });
+            }
             detailListView.setOnItemClickListener((adapterView, view, i, l) -> {
                 switch (i) {
                     case 2:
@@ -232,32 +260,7 @@ public class JobDetailsFragment extends BaseFragment{
                         break;
                 }
             });
-            detailListView.getAdapter().getView(2, null, null).findViewById(R.id.service_fee_requote_button).setOnClickListener(view -> {
-                retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
-                    @Override
-                    public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
-                        final Intent intent = new Intent(getActivity(), TransactionActivity.class);
-                        final Bundle extras = new Bundle();
-                        Quote topQuote;
-                        topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
-                        extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
-                        extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
-                        extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
-                        extras.putBoolean("paymentMode", false);
-                        //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                        intent.putExtras(extras);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                        startActivity(intent);
 
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
-                    }
-                });
-            });
         }
 
         return v;

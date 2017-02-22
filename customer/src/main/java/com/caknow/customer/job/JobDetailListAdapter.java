@@ -174,8 +174,6 @@ public class JobDetailListAdapter extends BaseAdapter {
                     if(requote){
                         convertView.findViewById(R.id.service_fee_next_button).setVisibility(View.GONE);
                         convertView.findViewById(R.id.service_fee_requote_button).setVisibility(View.VISIBLE);
-                        convertView.setClickable(false);
-                        convertView.setFocusable(false);
                     }
                     convertView.findViewById(R.id.service_fee_textview).invalidate();
                     break;
