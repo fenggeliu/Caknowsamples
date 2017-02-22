@@ -36,6 +36,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.caknow.app.R.id.id;
+
 /**
  * Created by junu on 1/2/2017.
  */
@@ -117,6 +119,11 @@ public class JobActivity extends BaseActivity{
     public VehicleServiceInterface getServiceItem(){
         return this.serviceItem;
     }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
+
 
     @Override
     protected void setTitle() {

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        card_view:cardCornerRadius="2dp"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="1dp"
+                                        android:orientation="horizontal"
+                                        android:padding="@dimen/hli_layout_padding"
+                                        android:id="@+id/quote_card_view">
+    <LinearLayout
+        android:id="@+id/quote_constraint_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:id="@+id/quote_info"
+            android:text="Quote"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:id="@+id/quote_date"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="Date"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="50dp"/>
+
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/job_detail_layout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <ListView
+                android:id="@+id/quote_history_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:divider="#00000000"
+                android:listSelector="#00000000"
+                android:scrollbars="none"
+                android:visibility="gone"/>
+            <!-- divider attribute set #00000000 -->
+            <!-- background attribute set #00000000  -->
+            <!-- listSelector attribute set #0000000 -->
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

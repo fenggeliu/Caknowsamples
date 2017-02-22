@@ -23,6 +23,12 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
     @SerializedName("topQuote")
     @Expose
     private Quote topQuote;
+    @SerializedName("ct")
+    @Expose
+    private long ct;
+    @SerializedName("remark")
+    @Expose
+    private String remark;
     private final static long serialVersionUID = 8385809350563275408L;
 
     public String getChargeOriginalAmount() {
@@ -43,6 +49,14 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
         return topQuote;
     }
 
+    public long getCt() {
+        return ct;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
     public GetQuotesByServiceIdPayload() {
     }
 
@@ -57,6 +71,8 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
         dest.writeString(this.chargeAcceptNewestDifferenceAmount);
         dest.writeTypedList(this.quotes);
         dest.writeValue(this.topQuote);
+        dest.writeValue(this.ct);
+        dest.writeString(this.remark);
     }
 
     protected GetQuotesByServiceIdPayload(Parcel in) {
@@ -64,6 +80,8 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
         this.chargeAcceptNewestDifferenceAmount = in.readString();
         this.quotes = in.createTypedArrayList(Quote.CREATOR);
         this.topQuote = ((Quote) in.readValue(Quote.class.getClassLoader()));
+        this.ct = ((Long)in.readValue(Quote.class.getClassLoader()));
+        this.remark = in.readString();
     }
 
     public static final Creator<GetQuotesByServiceIdPayload> CREATOR = new Creator<GetQuotesByServiceIdPayload>() {

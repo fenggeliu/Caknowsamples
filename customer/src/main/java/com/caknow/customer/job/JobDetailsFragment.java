@@ -231,6 +231,7 @@ public class JobDetailsFragment extends BaseFragment{
                                 TransactionDetailsFragment fragment = new TransactionDetailsFragment();
                                 final Bundle args = new Bundle();
                                 //TODO need to put the proper quote to display item.
+                                args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
                                 args.putParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY, response.body());
                                 args.putBoolean("paymentMode", false);
                                 fragment.setArguments(args);

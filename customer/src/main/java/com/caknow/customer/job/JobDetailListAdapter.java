@@ -247,9 +247,9 @@ public class JobDetailListAdapter extends BaseAdapter {
                 default:
                     convertView = mInflater.inflate(R.layout.list_item_vehicle_service_request_new, null);
                     holder.textView = (TextView) convertView.findViewById(R.id.service_item_title);
-                    holder.textView.setText(item.getDisplayTitle());
+                    holder.textView.setText(item.getServiceCatagory());
                     holder.textView.invalidate();
-                    ((TextView) convertView.findViewById(R.id.service_item_sub_title)).setText(item.getServiceCatagory());
+                    ((TextView) convertView.findViewById(R.id.service_item_sub_title)).setText(item.getServiceField());
                     convertView.findViewById(R.id.service_item_sub_title).invalidate();
                     ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate() * 1000));
                     convertView.findViewById(R.id.service_item_time_display).invalidate();

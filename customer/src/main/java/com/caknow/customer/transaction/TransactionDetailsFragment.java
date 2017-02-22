@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.BuildConfig;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 
 import com.caknow.app.R;
 import com.caknow.customer.history.HistoryActivity;
+import com.caknow.customer.job.JobActivity;
 import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.util.constant.Constants;
@@ -57,6 +59,10 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
             final Intent intent = new Intent(getActivity(), PaymentActivity.class);
             intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
             getActivity().startActivityForResult(intent, TransactionActivity.PAYMENT_SELECTED_REQUEST_CODE);
+        }else if (response.getGetQuotesByServiceIdPayload().getTopQuote().getStatus().equals("unconfirmed")) {
+            final Intent intent = new Intent(getActivity(), PaymentActivity.class);
+            intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+            getActivity().startActivityForResult(intent, TransactionActivity.PAYMENT_SELECTED_REQUEST_CODE);
         }else{
             ((TransactionActivity) getActivity()).payToShop();
         }
@@ -81,6 +87,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         View v = inflater.inflate(R.layout.fragment_transaction, container, false);
         unbinder = ButterKnife.bind(this, v);
         paymentMode = getArguments().getBoolean("paymentMode");
+        item = getArguments().getParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY);
         if(paymentMode) {
             quoteList = null;
             try {
@@ -93,6 +100,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
             response = getArguments().getParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY);
             try {
                 if(response.getGetQuotesByServiceIdPayload().getTopQuote().getStatus().equals("unconfirmed")) {
+                    getActivity().setTitle("New Quote");
                     submitButton.setText("Accept New Quote");
                     quote = response.getGetQuotesByServiceIdPayload().getTopQuote();
                     quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
@@ -111,8 +119,10 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         }
         if(quote == null){
             adapter = new TransactionDetailsAdapter(getContext(), mapQuote, quoteList);
+        }else if(response != null){
+            adapter = new TransactionDetailsAdapter(getContext(), quote, item, response.getGetQuotesByServiceIdPayload());
         }else{
-            adapter = new TransactionDetailsAdapter(getContext(), quote, item, quoteList);
+            adapter = new TransactionDetailsAdapter(getContext(), quote, item, null);
         }
         detailListView.setAdapter(adapter);
         return v;
