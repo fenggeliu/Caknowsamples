@@ -1,5 +1,6 @@
 package com.caknow.customer.transaction;
 
+import android.app.Activity;
 import android.content.Context;
 
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -83,17 +85,15 @@ public class TransactionDetailsAdapter extends BaseAdapter {
     @Override
     public int getViewTypeCount() {
         if(quote == null) return mData.size();
-        if(payload == null) {
-            return mData.size() + 3;
-        }else{ return mData.size() + 2 + payload.getQuotes().size();}
+        if(payload != null) return mData.size() + 2;
+        return mData.size() + 3;
     }
 
     @Override
     public int getCount() {
         if(quote == null) return mData.size();
-        if(payload == null) {
-            return mData.size() + 3;
-        }else{ return mData.size() + 2 + payload.getQuotes().size();}
+        if(payload != null) return mData.size() + 2;
+        return mData.size() + 3;
     }
 
     @Override
@@ -120,18 +120,18 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                     holder.priceTextView = (TextView) convertView.findViewById(R.id.list_item_pricedetail_value);
                     holder.labelTextView.setText(mData.get(position).getPriceItem());
                     holder.priceTextView.setText(mData.get(position).getPrice());
-
-                }else if(position - mData.size() <= 1){
+                    convertView.invalidate();
+                }else{
                     switch (type - mData.size()) {
                         case TYPE_PROMOTION_CODE:
                             convertView = mInflater.inflate(R.layout.list_item_promotion_code, null);
-                            if (quote == null) {
-                                convertView.setVisibility(View.GONE);
-                                convertView.invalidate();
-                                break;
-                            }
+//                            if (quote == null) {
+//                                convertView.setVisibility(View.GONE);
+//                                convertView.invalidate();
+//                                break;
+//                            }
                             if (payload != null) {
-                                convertView = mInflater.inflate(R.layout.list_item_quote_history, null);
+                                convertView = mInflater.inflate(R.layout.list_item_exp_parent, null);
                                 holder.labelTextView = (TextView) convertView.findViewById(R.id.quote_info);
                                 holder.textView = (TextView) convertView.findViewById(R.id.quote_date);
                                 holder.labelTextView.setText("Note: " + payload.getRemark());
@@ -139,61 +139,68 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                                 convertView.invalidate();
                                 break;
                             }
+                            convertView.invalidate();
                             break;
                         case TYPE_LIST_SEPARATOR:
                         default:
                             convertView = mInflater.inflate(R.layout.list_header_vehicle_service, null);
-                            if (quote == null) {
-                                convertView.setVisibility(View.GONE);
-                                break;
-                            }
+//                            if (quote == null) {
+//                                convertView.setVisibility(View.GONE);
+//                                break;
+//                            }
                             if (payload != null) {
                                 holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
                                 holder.textView.setText("Quote History");
                                 convertView.findViewById(R.id.service_header_textview).invalidate();
+                                convertView.invalidate();
                                 break;
                             }
                             holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
                             holder.textView.setText("Service Items");
                             convertView.findViewById(R.id.service_header_textview).invalidate();
+                            convertView.invalidate();
+                            break;
+                        case TYPE_SERVICE_ITEM:
+                            convertView = mInflater.inflate(R.layout.list_item_vehicle_service_request_new, null);
+                            holder.textView = (TextView) convertView.findViewById(R.id.service_item_title);
+                            holder.textView.setText(item.getServiceCatagory());
+                            ((TextView) convertView.findViewById(R.id.service_item_sub_title)).setText(item.getServiceField());
+                            convertView.findViewById(R.id.service_item_sub_title).invalidate();
+                            ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate() * 1000));
+                            convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
+                            convertView.findViewById(R.id.service_item_time_display).invalidate();
+                            Glide.with(context).load(item.getIconUrl()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
                             break;
                     }
-                } else {
-                    if (payload != null) {
+/*                    if (payload != null) {
                         convertView = mInflater.inflate(R.layout.list_item_quote_history, null);
-                        holder.labelTextView = (TextView) convertView.findViewById(R.id.quote_info);
-                        holder.textView = (TextView) convertView.findViewById(R.id.quote_date);
-                        Quote oldQuote = payload.getQuotes().get(position - mData.size() - 2);
-                        holder.labelTextView.setText("Quote " + oldQuote.getStatus());
-                        holder.textView.setText(TimeUtils.getTime(oldQuote.getAcceptTime() * 1000));
-                        holder.listView = (ListView) convertView.findViewById(R.id.quote_history_listview);
-                        holder.cardView = (CardView) convertView.findViewById(R.id.quote_card_view);
-                        TransactionDetailsAdapter quoteAdapter =
-                                new TransactionDetailsAdapter(parent.getContext(), null, payload.getQuotes());
-                        holder.listView.setAdapter(quoteAdapter);
-                        final ListView mlistView = holder.listView;
-                        holder.cardView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mlistView.setVisibility((mlistView.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE);
-                            }
-                        });
+                        convertView.setFocusable(false);
+                        holder.quoteHistoryView = (ExpandableListView) convertView.findViewById(R.id.quote_exp_listview);
+                        QuoteHistoryAdapter quoteHistoryAdapter = new QuoteHistoryAdapter(context, payload);
+                        holder.quoteHistoryView.setAdapter(quoteHistoryAdapter);
                         convertView.invalidate();
-                    } else {
-                        convertView = mInflater.inflate(R.layout.list_item_vehicle_service_request_new, null);
-                        holder.textView = (TextView) convertView.findViewById(R.id.service_item_title);
-                        holder.textView.setText(item.getServiceCatagory());
-                        ((TextView) convertView.findViewById(R.id.service_item_sub_title)).setText(item.getServiceField());
-                        convertView.findViewById(R.id.service_item_sub_title).invalidate();
-                        ((TextView) convertView.findViewById(R.id.service_item_time_display)).setText(TimeUtils.getShortTime(item.getDate() * 1000));
-                        convertView.findViewById(R.id.service_item_next_button).setVisibility(View.GONE);
-                        convertView.findViewById(R.id.service_item_time_display).invalidate();
-                        Glide.with(context).load(item.getIconUrl()).fitCenter().into(((ImageView) convertView.findViewById(R.id.service_item_icon)));
-
-                    }
+//                        convertView = mInflater.inflate(R.layout.list_item_quote_history, null);
+//                        holder.labelTextView = (TextView) convertView.findViewById(R.id.quote_info);
+//                        holder.textView = (TextView) convertView.findViewById(R.id.quote_date);
+//                        Quote oldQuote = payload.getQuotes().get(position - mData.size() - 2);
+//                        holder.labelTextView.setText("Quote " + oldQuote.getStatus());
+//                        holder.textView.setText(TimeUtils.getTime(oldQuote.getAcceptTime() * 1000));
+//                        holder.listView = (ListView) convertView.findViewById(R.id.quote_history_listview);
+//                        holder.cardView = (CardView) convertView.findViewById(R.id.quote_card_view);
+//                        TransactionDetailsAdapter quoteAdapter =
+//                                new TransactionDetailsAdapter(((Activity)context), oldQuote, null, null);
+//                        holder.listView.setAdapter(quoteAdapter);
+//                        final ListView mlistView = holder.listView;
+//                        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                mlistView.setVisibility((mlistView.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE);
+//                            }
+//                        });
+//                        convertView.invalidate();
+                    } else {  */
                 }
         } else {
-
             holder = (ViewHolder)convertView.getTag();
         }
 
@@ -204,8 +211,6 @@ public class TransactionDetailsAdapter extends BaseAdapter {
         public TextView labelTextView;
         public TextView priceTextView;
         public TextView textView;
-        public ListView listView;
-        public CardView cardView;
     }
 
 }

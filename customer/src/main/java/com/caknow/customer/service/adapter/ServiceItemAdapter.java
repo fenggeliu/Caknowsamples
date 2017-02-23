@@ -55,6 +55,10 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
                 }
             }
         });
+        holder.mContentView.invalidate();
+        holder.mIdView.invalidate();
+        holder.mContentView.invalidate();
+        holder.mView.invalidate();
     }
 
     @Override

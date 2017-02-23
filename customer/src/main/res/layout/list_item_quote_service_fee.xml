@@ -67,6 +67,8 @@
         android:text="New Quote"
         android:textColor="@color/white"
         android:textSize="10dp"
+        android:onClick="clickRequoteButton"
+        android:focusable="true"
         android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

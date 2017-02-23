@@ -34,4 +34,7 @@ public interface PaymentAPI {
 
     @POST("/consumer/serviceRequests/complete")
     Call<RequestBody> payToShop(@Body RequestBody body);
+
+    @POST("consumer/serviceRequests/quotes/reject")
+    Call<RequestBody> rejectTopQuote(@Body RequestBody body);
 }

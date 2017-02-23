@@ -216,13 +216,14 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_help) {
             Intent intent = new Intent(this, FeedbackActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_about) {
-            Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.URL_PARCEL_KEY, "http://www.caknow.com");
-            intent.putExtras(bundle);
-            startActivity(intent);
         }
+// else if (id == R.id.nav_about) {
+//            Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putString(Constants.URL_PARCEL_KEY, "http://www.caknow.com");
+//            intent.putExtras(bundle);
+//            startActivity(intent);
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

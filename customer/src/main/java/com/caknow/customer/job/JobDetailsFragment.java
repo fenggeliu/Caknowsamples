@@ -48,7 +48,7 @@ public class JobDetailsFragment extends BaseFragment{
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + JobDetailsFragment.class.getName();
 
 
-    @BindView(R.id.transaction_detail_listview)
+    @BindView(R.id.job_detail_listview)
     ListView detailListView;
     @BindView(R.id.job_detail_response_button)
     Button responseButton;
@@ -123,14 +123,8 @@ public class JobDetailsFragment extends BaseFragment{
                             responseButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
-                                        @Override
-                                        public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
                                             final Intent intent = new Intent(getActivity(), TransactionActivity.class);
                                             final Bundle extras = new Bundle();
-                                            Quote topQuote;
-                                            topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
-                                            extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
                                             extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
                                             extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
                                             extras.putBoolean("paymentMode", false);
@@ -141,20 +135,15 @@ public class JobDetailsFragment extends BaseFragment{
                                             startActivity(intent);
 
                                         }
-
-                                        @Override
-                                        public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
-                                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
-                                        }
-                                    });
-                                }
                             });
+
                         } else {
                             responseButton.setText("In Service");
                             responseButton.setBackgroundColor(Color.parseColor("#696969"));
                         }
                         break;
                     case 8:
+                    default:
                         responseButton.setVisibility(View.VISIBLE);
                         responseButton.setText("Confirm Completion");
                         responseButton.setBackgroundColor(Color.parseColor("#2cc053"));
@@ -189,62 +178,34 @@ public class JobDetailsFragment extends BaseFragment{
                             }
                         });
                         break;
-                    default:
-                        break;
                 }
             } catch (Exception e) {
-            }
-            if(responseBody.getPayload().getHasUnconfirmedReQuote()){
-                detailListView.getAdapter().getView(2, null, null).findViewById(R.id.service_fee_requote_button).setOnClickListener(view -> {
-                    retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
-                        @Override
-                        public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
-                            final Intent intent = new Intent(getActivity(), TransactionActivity.class);
-                            final Bundle extras = new Bundle();
-                            Quote topQuote;
-                            topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
-                            extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
-                            extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
-                            extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
-                            extras.putBoolean("paymentMode", false);
-                            //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                            intent.putExtras(extras);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                            startActivity(intent);
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
-                        }
-                    });
-                });
             }
             detailListView.setOnItemClickListener((adapterView, view, i, l) -> {
                 switch (i) {
                     case 2:
-                        retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
-                            @Override
-                            public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
-                                TransactionDetailsFragment fragment = new TransactionDetailsFragment();
-                                final Bundle args = new Bundle();
-                                //TODO need to put the proper quote to display item.
-                                args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
-                                args.putParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY, response.body());
-                                args.putBoolean("paymentMode", false);
-                                fragment.setArguments(args);
-                                ((JobActivity) getActivity()).replaceFragment(R.id.job_fragment, fragment, TransactionDetailsFragment.FRAGMENT_TAG, "transaction");
-                            }
+//                        if(!responseBody.getPayload().getHasUnconfirmedReQuote()) {
+                            retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
+                                @Override
+                                public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
+                                    TransactionDetailsFragment fragment = new TransactionDetailsFragment();
+                                    final Bundle args = new Bundle();
+                                    //TODO need to put the proper quote to display item.
+                                    args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
+                                    args.putParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY, response.body());
+                                    args.putBoolean("paymentMode", false);
+                                    fragment.setArguments(args);
+                                    ((JobActivity) getActivity()).replaceFragment(R.id.job_fragment, fragment, TransactionDetailsFragment.FRAGMENT_TAG, "transaction");
+                                }
 
-                            @Override
-                            public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
 
-                            }
-                        });
-
-                        break;
+                                }
+                            });
+                            break;
+//                        }
+//                        break;
                     case 5:
                         Uri gmmIntentUri = Uri.parse("geo:" + responseBody.getPayload().getLatitude()
                                 + "," + responseBody.getPayload().getLongitude());

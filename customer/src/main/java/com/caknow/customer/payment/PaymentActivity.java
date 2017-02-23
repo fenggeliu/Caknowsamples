@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
+import com.caknow.customer.util.net.quote.GetQuotesByServiceIdPayload;
 import com.caknow.customer.widget.BaseActivity;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.util.constant.Constants;
@@ -36,6 +37,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
 
     boolean paymentMode = false;
     String type = "";
+    GetQuotesByServiceIdPayload payload;
 
     @Inject
     Retrofit retrofit;
@@ -48,6 +50,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
         ButterKnife.bind(this);
         try {
             type = getIntent().getExtras().getString(Constants.PAYMENT_TYPE_PARCEL_KEY);
+            payload = getIntent().getExtras().getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
             if(type.equalsIgnoreCase("payment")){
                 paymentMode = true;
             }
@@ -150,7 +153,10 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
 
     private void selectPaymentForTransaction(String paymentSource){
         Intent result = new Intent();
-        result.putExtra(Constants.PAYMENT_SOURCE_PARCEL_KEY, paymentSource);
+        Bundle extras = new Bundle();
+        extras.putString(Constants.PAYMENT_SOURCE_PARCEL_KEY, paymentSource);
+        extras.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, payload);
+        result.putExtras(extras);
         setResult(Activity.RESULT_OK, result);
         finish();
     }

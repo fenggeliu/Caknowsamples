@@ -9,6 +9,7 @@ import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.caknow.app.R;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.report.ReportActivity;
 import com.caknow.customer.service.model.VehicleServiceInterface;
+import com.caknow.customer.transaction.TransactionActivity;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.BaseResponse;
 import com.caknow.customer.util.net.service.GetQuotesResponse;
@@ -118,10 +120,6 @@ public class JobActivity extends BaseActivity{
 
     public VehicleServiceInterface getServiceItem(){
         return this.serviceItem;
-    }
-
-    public void setActionBarTitle(String title) {
-        getSupportActionBar().setTitle(title);
     }
 
 
@@ -239,6 +237,7 @@ public class JobActivity extends BaseActivity{
                 try{
                     hideProgress();
                     if(response.body().getSuccess()){
+                        Toast.makeText(JobActivity.this, "Service Cancelled", Toast.LENGTH_SHORT).show();
                         JobActivity.this.finish();
                     } else{
                         Toast.makeText(JobActivity.this, response.message(), Toast.LENGTH_SHORT).show();
@@ -260,5 +259,17 @@ public class JobActivity extends BaseActivity{
 
             }
         });
+    }
+    public void clickRequoteButton (View v){
+        final Intent intent = new Intent(this, TransactionActivity.class);
+        final Bundle extras = new Bundle();
+        extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
+        extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
+        extras.putBoolean("paymentMode", false);
+        //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+        intent.putExtras(extras);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+        startActivity(intent);
     }
 }

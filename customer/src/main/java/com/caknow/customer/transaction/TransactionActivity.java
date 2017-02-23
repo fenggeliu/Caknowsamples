@@ -18,6 +18,7 @@ import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.payment.PaymentAPI;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
+import com.caknow.customer.util.net.quote.GetQuotesByServiceIdPayload;
 import com.caknow.customer.util.net.quote.Quote;
 import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.util.net.service.quotes.PriceDetail;
@@ -58,6 +59,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     VehicleServiceInterface item;
     String serviceRequestId;
     String promotionCodes;
+    GetQuotesByServiceIdPayload payload;
     private String selectedPaymentSource;
     @Override
     protected void initContentView() {
@@ -114,6 +116,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     TransactionDetailsFragment fragment = new TransactionDetailsFragment();
                     final Bundle args = new Bundle();
                     args.putParcelable(Constants.QUOTE_ITEM_ID_PARCEL_KEY, response.body());
+                    args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
                     args.putBoolean("paymentMode", paymentMode);
                     fragment.setArguments(args);
                     addFragment(R.id.transactionContent, fragment, TransactionDetailsFragment.FRAGMENT_TAG);
@@ -143,6 +146,15 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
         }
     }
 
+    public void setActionBarTitle(String title) {
+        try {
+            ((TextView) getSupportActionBar().getTitle()).setText(title);
+        } catch (NullPointerException e){
+
+        }
+    }
+
+
     private void selectPayment(){
         final Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra("type", "payment");
@@ -153,17 +165,37 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         //List<PriceDetail> priceDetails = quote.getItemizedAmounts();
 
-
-        List<PriceDetail> priceDetails = mapQuote.getPriceDetails();
-        PriceDetail totalPriceDetail = null;
-        for (int i = priceDetails.size() - 1; i > -1; i--) {
-            if (priceDetails.get(i).getPriceItem().equalsIgnoreCase("total")) {
-                totalPriceDetail = priceDetails.get(i);
-                break;
+        if(mapQuote != null){
+            List<PriceDetail> priceDetails = mapQuote.getPriceDetails();
+            PriceDetail totalPriceDetail = null;
+            for (int i = priceDetails.size() - 1; i > -1; i--) {
+                if (priceDetails.get(i).getPriceItem().equalsIgnoreCase("total")) {
+                    totalPriceDetail = priceDetails.get(i);
+                    break;
+                }
             }
-        }
-        if (totalPriceDetail != null) {
-            String message = String.format("Are you sure you want to accept the quoted price of %s", totalPriceDetail.getPrice());
+            if (totalPriceDetail != null) {
+                String message = String.format("Are you sure you want to accept the quoted price of %s", totalPriceDetail.getPrice());
+                alertDialogBuilder.setTitle("Confirm");
+                alertDialogBuilder.setMessage(message);
+                alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
+                    try {
+                        makePayment();
+                    } catch (Exception e) {
+                    }
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                });
+                alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
+
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.show();
+
+            }
+        }else{
+            String difference = payload.getChargeAcceptNewestDifferenceAmount();
+            String message = String.format("Are you sure you want to accept the new quote difference of %s", difference);
             alertDialogBuilder.setTitle("Confirm");
             alertDialogBuilder.setMessage(message);
             alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
@@ -179,7 +211,6 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
             alertDialogBuilder.setCancelable(false);
             alertDialogBuilder.show();
-
         }
     }
 
@@ -193,6 +224,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
                 selectedPaymentSource =  data.getExtras().getString(Constants.PAYMENT_SOURCE_PARCEL_KEY);
+                payload = data.getExtras().getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
                 if(!selectedPaymentSource.isEmpty()){
                     confirmPayment();
                 }
@@ -207,8 +239,14 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
     public void makePayment(){
         showProgress();
-        final PaymentRequest request = new PaymentRequest(serviceRequestId, mapQuote.getQuoteId(), "stripe", selectedPaymentSource);
-        retrofit.create(PaymentAPI.class).makePayment(PaymentRequest.getRequestBody(request)).enqueue(this);
+        if(mapQuote != null) {
+            final PaymentRequest request = new PaymentRequest(serviceRequestId, mapQuote.getQuoteId(), "stripe", selectedPaymentSource);
+            retrofit.create(PaymentAPI.class).makePayment(PaymentRequest.getRequestBody(request)).enqueue(this);
+        }else{
+            final PaymentRequest request = new PaymentRequest(serviceRequestId, payload.getTopQuote().getId(), "stripe", selectedPaymentSource);
+            retrofit.create(PaymentAPI.class).makePayment(PaymentRequest.getRequestBody(request)).enqueue(this);
+        }
+
     }
 
     public void payToShop() {

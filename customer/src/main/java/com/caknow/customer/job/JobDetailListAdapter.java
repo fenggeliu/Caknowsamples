@@ -1,6 +1,8 @@
 package com.caknow.customer.job;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.service.model.VehicleServiceInterface;
+import com.caknow.customer.transaction.TransactionActivity;
 import com.caknow.customer.util.TimeUtils;
+import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.service.quotes.Affiliate;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
 
