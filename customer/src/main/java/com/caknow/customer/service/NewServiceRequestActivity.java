@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.garage.Vehicle;
 import com.caknow.customer.widget.BaseActivity;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.service.fragment.NewServiceDetailsFragment;
@@ -63,6 +65,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     String imageFilePath;
     File image = null;
     Bitmap bitmap;
+    Vehicle vehicle;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 13;
 
     @Inject
@@ -73,7 +76,8 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         super.onCreate(savedInstanceState);
         CAKNOWApplication.get().getNetComponent().inject(this);
         services = new ArrayList<>();
-        vehicleId = getIntent().getStringExtra("vehicleId");
+        vehicle = getIntent().getParcelableExtra(Constants.VEHICLE_PARCEL_KEY);
+        vehicleId = vehicle.getId();
     }
 
     @Override
@@ -295,6 +299,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         return this.bitmap;
     }
 
+    public Vehicle getVehicle() { return this.vehicle; }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

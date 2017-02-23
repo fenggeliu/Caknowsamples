@@ -28,8 +28,8 @@ public class BaseRequestInterceptor implements Interceptor {
 
         newRequest = request.newBuilder()
                 .addHeader(HeadersContract.HEADER_CONTENT_TYPE, HeadersContract.HEADER_CONTENT_TYPE_JSON)
-                .addHeader(HeadersContract.HEADER_X_API_KEY, Constants.API_KEY_DEV)
-                //.addHeader(HeadersContract.HEADER_X_API_KEY, Constants.API_KEY_STAGING)
+                //.addHeader(HeadersContract.HEADER_X_API_KEY, Constants.API_KEY_DEV)
+                .addHeader(HeadersContract.HEADER_X_API_KEY, Constants.API_KEY_STAGING)
                 .addHeader(HeadersContract.HEADER_X_ACCESS_TOKEN, SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.ACCESS_TOKEN))
                 .build();
         return chain.proceed(newRequest);

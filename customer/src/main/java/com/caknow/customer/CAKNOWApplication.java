@@ -45,7 +45,7 @@ public class CAKNOWApplication extends MultiDexApplication {
         Stetho.initializeWithDefaults(this);
         netComponent = DaggerNetComponent.builder()
                 .appModule(new AppModule(this))
-                .netModule(new NetModule(Constants.DEV_ENDPOINT))
+                .netModule(new NetModule(Constants.STAGING_ENDPOINT))
                 //.netModule(new NetModule(Constants.STAGING_ENDPOINT))
                 .build();
         SessionPreferences.INSTANCE.init(this);

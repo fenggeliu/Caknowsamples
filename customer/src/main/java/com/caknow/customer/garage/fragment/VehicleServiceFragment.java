@@ -3,6 +3,7 @@ package com.caknow.customer.garage.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.BuildConfig;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
         Intent intent = new Intent(getActivity(), NewServiceRequestActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        intent.putExtra("vehicleId", vehicle.getId());
+        intent.putExtra(Constants.VEHICLE_PARCEL_KEY, (Parcelable) vehicle);
         getActivity().startActivity(intent);
     }
 

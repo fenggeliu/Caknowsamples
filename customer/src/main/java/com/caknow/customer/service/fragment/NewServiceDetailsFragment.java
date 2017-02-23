@@ -3,6 +3,7 @@ package com.caknow.customer.service.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.BuildConfig;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.caknow.app.R;
 import com.caknow.customer.garage.VehicleServiceActivity;
+import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.garage.Vehicle;
 import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.util.net.service.location.Geolocation;
@@ -53,6 +56,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     String vehicleId;
     String description;
     Geolocation geolocation;
+    Vehicle vehicle;
 
     // Handler to handle opening keyboard on touch of the description layout
     private Handler mHandler= new Handler();
@@ -85,6 +89,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
         vehicleId = ((NewServiceRequestActivity)getActivity()).getVehicleId();
         geolocation = ((NewServiceRequestActivity)getActivity()).getGeolocation();
         description = ((NewServiceRequestActivity)getActivity()).getServiceDescription();
+        vehicle = ((NewServiceRequestActivity) getActivity()).getVehicle();
         setupPrioritySpinner();
         setHasOptionsMenu(true);
         return v;
@@ -158,7 +163,11 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
         // If Successful, close parent activity NewServiceRequestActivity
         if(body.isSuccess()){
             try {
+                Intent intent = new Intent(getActivity(), VehicleServiceActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra(Constants.VEHICLE_PARCEL_KEY, (Parcelable) vehicle);
                 getActivity().finish();
+                startActivity(intent);
             } catch(Exception e){
                 // getActivity() call is not thread safe
             }
