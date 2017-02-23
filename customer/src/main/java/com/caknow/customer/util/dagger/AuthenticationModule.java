@@ -24,7 +24,7 @@ public class AuthenticationModule {
     public Retrofit provideRetrofit(OkHttpClient client){
         Gson gson = new GsonBuilder().create();
         return new Retrofit.Builder()
-                .baseUrl(Constants.STAGING_ENDPOINT)
+                .baseUrl(Constants.DEV_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();

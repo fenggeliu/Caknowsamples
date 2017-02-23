@@ -104,7 +104,6 @@ dependencies {
 
     // Android Support Libraries
     compile group: 'com.android.support', name: 'multidex', version: '1.0.1'
-    compile group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.0-beta4'
     compile group: 'com.android.support', name: 'appcompat-v7', version: '25.1.0'
     compile group: 'com.android.support', name: 'support-v4', version: '25.1.0'
     compile group: 'com.android.support', name: 'cardview-v7', version: '25.1.0'
@@ -161,4 +160,5 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
         transitive = true;
     }
+    compile 'com.android.support.constraint:constraint-layout:1.0.0'
 }
