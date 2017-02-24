@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.BuildConfig;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,6 +97,9 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
     @Override
     public void onResume(){
         super.onResume();
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        loadData(vehicle);
+        mSwipeContainer.setRefreshing(false);
     }
 
 

@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.caknow.app.R;
+import com.caknow.customer.garage.VehicleServiceActivity;
 import com.caknow.customer.history.HistoryActivity;
 import com.caknow.customer.job.JobActivity;
 import com.caknow.customer.payment.PaymentActivity;
@@ -193,14 +194,24 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
             paymentAPI.rejectTopQuote(rejectionRequest).enqueue(new Callback<RequestBody>() {
                 @Override
                 public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
-                    Toast.makeText(getActivity(), "Quote Rejected", Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
+                    if(response.isSuccessful()) {
+                        getActivity().finish();
+                        getActivity().onBackPressed();
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                    }
 //                    startActivity(getActivity().getIntent());
                 }
 
                 @Override
                 public void onFailure(Call<RequestBody> call, Throwable t) {
-                    getActivity().finish();
+                    Toast.makeText(getActivity(), "Quote Rejected", Toast.LENGTH_SHORT).show();
+                    Bundle args = new Bundle();
+                    Intent intent = new Intent(getActivity(), JobActivity.class);
+                    args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
+                    intent.putExtras(args);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
             });
             return true;

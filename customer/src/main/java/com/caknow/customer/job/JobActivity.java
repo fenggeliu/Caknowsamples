@@ -290,8 +290,7 @@ public class JobActivity extends BaseActivity{
                         Toast.makeText(JobActivity.this, "Service Reinitiated", Toast.LENGTH_SHORT).show();
                         JobActivity.this.onBackPressed();
                     } else{
-                        Toast.makeText(JobActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                        JobActivity.this.onBackPressed();
+                        Toast.makeText(JobActivity.this, "Can't Reinitiate Service Now", Toast.LENGTH_LONG).show();
                     }
                 } catch(Exception e){
                     // UI Events are not thread safe
