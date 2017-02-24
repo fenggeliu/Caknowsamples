@@ -150,7 +150,7 @@
     <activity
         android:name="com.caknow.customer.quote.QuoteActivity"
         android:label="Quotes"
-        android:theme="@style/AppTheme"
+        android:theme="@style/QuoteTheme"
         android:screenOrientation="portrait"/>
     <activity
         android:name="com.caknow.customer.webview.WebViewActivity"

@@ -12,6 +12,10 @@
 
     </style>
 
+    <style name="QuoteTheme" parent="AppTheme">
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
     <style name="CustomAlertDialogStyle">
         <item name="android:bottomBright">@color/transparent</item>
         <item name="android:bottomDark">@color/transparent</item>
