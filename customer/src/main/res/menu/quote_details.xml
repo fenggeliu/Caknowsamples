@@ -27,7 +27,7 @@
         android:orderInCategory="100"
         android:title="@string/menu_reinitiate"
         android:textColor="@color/black"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="never"
         />
 </menu>

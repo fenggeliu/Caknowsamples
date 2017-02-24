@@ -34,7 +34,6 @@ public class NewServiceListFragment extends BaseFragment {
     private OnListFragmentInteractionListener mListener;
     private ServiceItemAdapter adapter;
     ArrayList list;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).

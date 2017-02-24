@@ -72,7 +72,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
             final Intent intent = new Intent(getActivity(), PaymentActivity.class);
             intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
             getActivity().startActivityForResult(intent, TransactionActivity.PAYMENT_SELECTED_REQUEST_CODE);
-        }else if (response.getGetQuotesByServiceIdPayload().getTopQuote().getStatus().equals("unconfirmed")) {
+        }else if (response != null) {
             final Intent intent = new Intent(getActivity(), PaymentActivity.class);
             Bundle extras = new Bundle();
             extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");

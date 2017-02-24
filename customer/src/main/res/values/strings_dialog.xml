@@ -3,7 +3,9 @@
     <string name="dialog_positive_ok">OK</string>
     <string name="dialog_negative_cancel">CANCEL</string>
     <string name="dialog_cancel_request_message_body">Are you sure you want to cancel this service request?</string>
+    <string name="dialog_reinitiate_request_message_body">Are you sure you want to choose another shop?</string>
     <string name="dialog_cancel_request_title">Cancel Request</string>
+    <string name="dialog_reinitiate_request_tile">Reinitiate Request</string>
     <string name="dialog_order_number_title">Order Number</string>
 
 </resources>

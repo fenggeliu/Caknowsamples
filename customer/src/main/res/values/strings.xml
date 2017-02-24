@@ -217,7 +217,7 @@
     <string name="action_submit">SUBMIT</string>
     <string name="menu_cancel_request">Cancel Service Request</string>
     <string name="menu_order_number">Order Number</string>
-    <string name="menu_reinitiate">Re-initiate</string>
+    <string name="menu_reinitiate">Choose Another Shop</string>
     <string name="menu_report">Report</string>
     <string name="garage">Garage</string>
     <string name="title_activity_quote_map">Quotes</string>

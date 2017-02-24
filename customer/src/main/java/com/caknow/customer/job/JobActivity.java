@@ -173,6 +173,7 @@ public class JobActivity extends BaseActivity{
                 startActivity(intent);
                 break;
             case R.id.action_reinitiate:
+                reinitiateRequest();
                 break;
         }
 
@@ -211,6 +212,20 @@ public class JobActivity extends BaseActivity{
         alertDialogBuilder.show();
     }
 
+    private void reinitiateRequest(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        String message = getString(R.string.dialog_reinitiate_request_message_body);
+        alertDialogBuilder.setTitle(getString(R.string.dialog_cancel_request_title));
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setPositiveButton(getResources().getString(R.string.dialog_positive_ok), (dialogInterface, i) -> {
+            performReinitiation();
+        });
+        alertDialogBuilder.setNegativeButton(getResources().getString(R.string.dialog_negative_cancel), (dialogInterface, i) -> dialogInterface.cancel());
+
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.show();
+    }
 
     public boolean checkCallPermission(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -260,6 +275,42 @@ public class JobActivity extends BaseActivity{
             }
         });
     }
+
+    private void performReinitiation(){
+        showProgress();
+        JsonObject requestId = new JsonObject();
+        requestId.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
+        RequestBody reinitiateRequest = RequestBody.create(MediaType.parse("application/json"), requestId.toString());
+        serviceAPI.reinitiateServiceByRequestId(reinitiateRequest).enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                try{
+                    hideProgress();
+                    if(response.body().getSuccess()){
+                        Toast.makeText(JobActivity.this, "Service Reinitiated", Toast.LENGTH_SHORT).show();
+                        JobActivity.this.finish();
+                    } else{
+                        Toast.makeText(JobActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch(Exception e){
+                    // UI Events are not thread safe
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                try{
+                    hideProgress();
+                    Toast.makeText(JobActivity.this, "Network Error Occured:".concat(t.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
+                } catch(Exception e){
+                    // UI Events are not thread safe
+                }
+
+            }
+        });
+    }
+
     public void clickRequoteButton (View v){
         final Intent intent = new Intent(this, TransactionActivity.class);
         final Bundle extras = new Bundle();

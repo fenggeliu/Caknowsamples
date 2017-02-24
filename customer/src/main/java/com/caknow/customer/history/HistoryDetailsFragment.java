@@ -34,7 +34,7 @@ public class HistoryDetailsFragment extends BaseFragment{
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + HistoryDetailsFragment.class.getName();
 
 
-    @BindView(R.id.transaction_detail_listview)
+    @BindView(R.id.job_detail_listview)
     ListView detailListView;
     History serviceItem;
     GetQuotesResponse responseBody;

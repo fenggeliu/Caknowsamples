@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.caknow.app.R;
+import com.caknow.customer.util.net.service.NewServiceRequest;
 import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.service.adapter.ServiceTypeAdapter;
@@ -111,6 +112,7 @@ public class NewServiceTypeFragment extends BaseFragment implements Callback<Ser
             NewServiceListFragment fragment = new NewServiceListFragment();
             Bundle args = new Bundle();
             args.putParcelableArrayList(Constants.ITEM_LIST_PARCEL_KEY, parcelableArrayList);
+//            args.putString(Constants.SERVICE_TYPE_KEY, serviceId);
             fragment.setArguments(args);
             homeActivity.replaceFragment(R.id.flContent,
                     fragment,
@@ -131,7 +133,8 @@ public class NewServiceTypeFragment extends BaseFragment implements Callback<Ser
         // If there are no more sub items to display...
         if(parcelableArrayList.size() > 0) {
 
-            ((NewServiceRequestActivity) getActivity()).setServiceDescription(serviceId);
+            ((NewServiceRequestActivity) getActivity()).clearServiceId();
+            ((NewServiceRequestActivity) getActivity()).setServiceId(serviceId);
 
             openNextFragment(parcelableArrayList);
 
@@ -143,6 +146,7 @@ public class NewServiceTypeFragment extends BaseFragment implements Callback<Ser
 
             fragment.setArguments(args);
             try {
+                ((NewServiceRequestActivity) getActivity()).clearServiceId();
                 ((NewServiceRequestActivity) getActivity()).setServiceId(serviceId);
                 ((NewServiceRequestActivity)getActivity()).replaceFragment(R.id.flContent, fragment, NewServiceDetailsFragment.FRAGMENT_TAG, "details");
             } catch (Exception e){

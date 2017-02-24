@@ -64,7 +64,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     @BindView(R.id.rdl_description_input) EditText descriptionEditText;
     @BindView(R.id.service_detail_mileage_editext) EditText mileageEditText;
     @BindView(R.id.spinner_time_state) Spinner spinnerPriority;
-    @OnClick
+    @OnClick(R.id.rdl_pic1_layout)
     void uploadPhoto(){
         final Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
 //to get image and videos, I used a */"

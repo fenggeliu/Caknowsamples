@@ -24,13 +24,13 @@
         <!-- listSelector attribute set #0000000 -->
 
 
-    <!--<ListView-->
-        <!--android:id="@+id/transaction_quotes_listview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="300dp"-->
-        <!--android:layout_above="@+id/transaction_submit_button"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:visibility="gone"/>-->
+    <ListView
+        android:id="@+id/transaction_quotes_listview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_above="@+id/transaction_submit_button"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
         <ExpandableListView
             android:id="@+id/quote_exp_listview"
             android:layout_width="match_parent"

@@ -220,6 +220,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
 
     @Override
     public void onListFragmentInteraction(ServiceItem item) {
+        clearServiceId();
         setServiceId(item.getCatagoryId());
         NewServiceDetailsFragment fragment = new NewServiceDetailsFragment();
         Bundle args = new Bundle();
@@ -247,6 +248,8 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     public void setServiceId(final String serviceId){
         this.services.add(serviceId);
     }
+
+    public void clearServiceId() { this.services.clear();}
 
     public void setServiceDescription(final String description){
        this.description = description;

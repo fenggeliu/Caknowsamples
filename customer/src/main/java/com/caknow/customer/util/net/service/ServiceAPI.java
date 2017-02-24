@@ -36,4 +36,7 @@ public interface ServiceAPI {
 
     @PATCH("/consumer/vehicle/serviceRequest")
     Call<BaseResponse> makeAppointment(@Body RequestBody appointmentRequest);
+
+    @POST("/consumer/serviceRequests/reinitiate")
+    Call<BaseResponse> reinitiateServiceByRequestId(@Body RequestBody requestId);
 }
