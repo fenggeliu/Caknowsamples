@@ -124,12 +124,6 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                 }else{
                     switch (type - mData.size()) {
                         case TYPE_PROMOTION_CODE:
-                            convertView = mInflater.inflate(R.layout.list_item_promotion_code, null);
-//                            if (quote == null) {
-//                                convertView.setVisibility(View.GONE);
-//                                convertView.invalidate();
-//                                break;
-//                            }
                             if (payload != null) {
                                 convertView = mInflater.inflate(R.layout.list_item_exp_parent, null);
                                 holder.labelTextView = (TextView) convertView.findViewById(R.id.quote_info);
@@ -138,6 +132,13 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                                 holder.textView.setText(TimeUtils.getTime(payload.getCt() * 1000));
                                 convertView.invalidate();
                                 break;
+                            }else{
+                                convertView = mInflater.inflate(R.layout.list_item_promotion_code, null);
+//                            if (quote == null) {
+//                                convertView.setVisibility(View.GONE);
+//                                convertView.invalidate();
+//                                break;
+//                            }
                             }
                             convertView.invalidate();
                             break;

@@ -1,7 +1,12 @@
 package com.caknow.customer.util.net.payment;
 
+import com.caknow.customer.util.net.BaseResponse;
 import com.caknow.customer.util.net.service.ServiceRequestResponse;
 import com.caknow.customer.util.net.service.ServiceTypeResponse;
+import com.caknow.customer.util.net.transaction.PromotionCodesPayload;
+import com.caknow.customer.util.net.transaction.PromotionCodesResponse;
+
+import java.util.ArrayList;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -37,4 +42,8 @@ public interface PaymentAPI {
 
     @POST("consumer/serviceRequests/quotes/reject")
     Call<RequestBody> rejectTopQuote(@Body RequestBody body);
+
+    @GET("consumer/serviceRequest/quote/price")
+    Call<PromotionCodesResponse> verifyPromotionCode(@Query("serviceRequestId") String serviceRequestId, @Query("promotionCodes[0]")String promotionCodes);
+
 }

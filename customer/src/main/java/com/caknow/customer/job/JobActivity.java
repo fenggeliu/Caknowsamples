@@ -286,11 +286,12 @@ public class JobActivity extends BaseActivity{
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 try{
                     hideProgress();
-                    if(response.body().getSuccess()){
+                    if(response.isSuccessful()){
                         Toast.makeText(JobActivity.this, "Service Reinitiated", Toast.LENGTH_SHORT).show();
-                        JobActivity.this.finish();
+                        JobActivity.this.onBackPressed();
                     } else{
-                        Toast.makeText(JobActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(JobActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        JobActivity.this.onBackPressed();
                     }
                 } catch(Exception e){
                     // UI Events are not thread safe

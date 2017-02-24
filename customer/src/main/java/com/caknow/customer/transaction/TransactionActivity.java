@@ -3,6 +3,8 @@ package com.caknow.customer.transaction;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import com.caknow.customer.payment.PaymentActivity;
 import com.caknow.customer.promo.PromoActivity;
 import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.util.constant.Constants;
+import com.caknow.customer.util.net.BaseResponse;
 import com.caknow.customer.util.net.payment.PaymentAPI;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceIdPayload;
@@ -24,9 +27,11 @@ import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.util.net.service.quotes.PriceDetail;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
 import com.caknow.customer.util.net.transaction.PaymentRequest;
+import com.caknow.customer.util.net.transaction.PromotionCodesResponse;
 import com.caknow.customer.widget.BaseActivity;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -311,5 +316,33 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     public void onFailure(Call<ResponseBody> call, Throwable t) {
         Toast.makeText(this, "Error Occured", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void verifyPromotionCode (View v){
+        EditText edit = (EditText) findViewById(R.id.promo_code_edit_text);
+        String promotionCodes = edit.getText().toString();
+        retrofit.create(PaymentAPI.class).verifyPromotionCode(serviceRequestId, promotionCodes).enqueue(new Callback<PromotionCodesResponse>() {
+            @Override
+            public void onResponse(Call<PromotionCodesResponse> call, Response<PromotionCodesResponse> response) {
+                try{
+                    if(response.isSuccessful()) {
+                        if (response.body().getPayload().getAcceptedPromoCodes() != null) {
+                            Toast.makeText(TransactionActivity.this, "Valid Promotion Code", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(TransactionActivity.this, "Invalid Promotion Code", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(TransactionActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PromotionCodesResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

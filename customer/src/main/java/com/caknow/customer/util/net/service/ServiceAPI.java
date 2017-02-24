@@ -3,6 +3,8 @@ package com.caknow.customer.util.net.service;
 import com.caknow.customer.util.net.BaseResponse;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
 
+import java.util.ArrayList;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -39,4 +41,5 @@ public interface ServiceAPI {
 
     @POST("/consumer/serviceRequests/reinitiate")
     Call<BaseResponse> reinitiateServiceByRequestId(@Body RequestBody requestId);
+
 }
