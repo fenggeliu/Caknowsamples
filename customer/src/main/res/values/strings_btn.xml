@@ -2,8 +2,8 @@
 <resources>
     <!-- init layout -->
     <string name="init_layout_login_btn">Sign in</string>
-    <string name="init_layout_create_btn">Create new account</string>
-    <string name="init_layout_social_btn">login with social account</string>
+    <string name="init_layout_create_btn">Sign up with Email</string>
+    <string name="init_layout_facebook_btn">Login with FaceBook</string>
 
     <!-- sign up info layout -->
     <string name="suil_sign_up_btn">Sign up</string>

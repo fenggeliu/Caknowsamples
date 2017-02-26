@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_homepage_2x"
+    android:background="@drawable/bg_homepage_3x"
+    android:scaleType="centerCrop"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="8"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -27,19 +28,27 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:layout_marginTop="@dimen/init_layout_margin_top"
+                android:visibility="gone"
                 android:src="@drawable/logo_login" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1">
+            <Button
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="80dp"
+                android:id="@+id/init_layout_login_btn"
+                android:background="@drawable/login_button"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="6"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -56,26 +65,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"></LinearLayout>
+                android:layout_weight="0"></LinearLayout>
 
             <LinearLayout
                 android:id="@+id/init_layout_login"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
+                android:layout_height="wrap_content"
+                android:layout_weight="0">
 
                 <Button
-                    android:id="@+id/init_layout_login_btn"
+                    android:id="@+id/init_layout_create_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_red_2x"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_start_2x"
                     android:gravity="center"
                     android:scaleType="fitCenter"
-                    android:text="@string/init_layout_login_btn"
+                    android:text="@string/init_layout_create_btn"
                     android:textAllCaps="false"
                     android:textColor="@color/white_full"
-                    android:textSize="@dimen/init_layout_login_text_size"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/init_layout_create_text_size"
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,33 +95,65 @@
             <LinearLayout
                 android:id="@+id/init_layout_create"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
+                android:layout_height="wrap_content"
+                android:layout_weight="0">
 
-                <Button
-                    android:id="@+id/init_layout_create_btn"
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/init_layout_facebook_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_start_2x"
-                    android:gravity="center"
-                    android:scaleType="fitCenter"
-                    android:text="@string/init_layout_create_btn"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white_full"
-                    android:textSize="@dimen/init_layout_create_text_size"
-                    android:textStyle="bold" />
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/init_layout_login_text_size"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"></LinearLayout>
+                android:layout_weight="5">
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_layout_description_head"
+            android:textAlignment="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_layout_privacy_policy"
+                android:textAlignment="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_layout_terms_of_service"
+                android:textAlignment="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_layout_terms_and_condition"
+                android:textAlignment="center" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

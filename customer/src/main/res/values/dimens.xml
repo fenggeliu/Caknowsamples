@@ -2,8 +2,8 @@
 <resources>
     <!-- init layout -->
     <dimen name="init_layout_margin_top">40dp</dimen>
-    <dimen name="init_layout_login_text_size">25sp</dimen>
-    <dimen name="init_layout_create_text_size">25sp</dimen>
+    <dimen name="init_layout_login_text_size">20sp</dimen>
+    <dimen name="init_layout_create_text_size">20sp</dimen>
     <dimen name="init_layout_social_text_size">25sp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -685,9 +685,9 @@
     <dimen name="rdl_description_height">25dp</dimen>
     <dimen name="rdl_description_text_margin_left">3dp</dimen>
     <dimen name="rdl_description_text_size">18sp</dimen>
-    <dimen name="rdl_pic_width">100dp</dimen>
+    <dimen name="rdl_pic_width">120dp</dimen>
     <dimen name="rdl_pic_space">16dp</dimen>
-    <dimen name="rdl_pic_margin">25dp</dimen>
+    <dimen name="rdl_pic_margin">5dp</dimen>
     <dimen name="rdl_icon_margin_top">12dp</dimen>
     <dimen name="rdl_icon_margin_bottom">2dp</dimen>
     <dimen name="rdl_icon_margin_left">10dp</dimen>

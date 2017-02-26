@@ -12,6 +12,7 @@ import com.caknow.customer.widget.AppComponent;
 import com.caknow.customer.widget.DaggerNetComponent;
 import com.caknow.customer.widget.NetComponent;
 import com.facebook.stetho.Stetho;
+import com.facebook.FacebookSdk;
 
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;

@@ -175,7 +175,7 @@ public class QuoteDetailListAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.list_header_vehicle_service, null);
                     holder.textView = (TextView)convertView.findViewById(R.id.service_header_textview);
                     holder.textView.setText("Service Type");
-                    holder.textView.setVisibility(View.GONE);
+                    holder.textView.setVisibility(View.VISIBLE);
                     break;
                 case TYPE_SERVICE_ITEM:
                 default:

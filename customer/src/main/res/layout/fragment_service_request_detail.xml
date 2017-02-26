@@ -160,7 +160,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/rdl_pic_margin"
-                        android:background="@drawable/ic_action_add" />
+                        android:background="@drawable/camera_icon_2x" />
                 </LinearLayout>
 
                 <LinearLayout
