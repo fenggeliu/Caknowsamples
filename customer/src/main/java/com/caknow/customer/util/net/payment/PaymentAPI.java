@@ -7,6 +7,7 @@ import com.caknow.customer.util.net.transaction.PromotionCodesPayload;
 import com.caknow.customer.util.net.transaction.PromotionCodesResponse;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -18,6 +19,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by junu on 1/11/2017.
@@ -44,6 +46,6 @@ public interface PaymentAPI {
     Call<RequestBody> rejectTopQuote(@Body RequestBody body);
 
     @GET("consumer/serviceRequest/quote/price")
-    Call<PromotionCodesResponse> verifyPromotionCode(@Query("serviceRequestId") String serviceRequestId, @Query("promotionCodes[0]")String promotionCodes);
+    Call<PromotionCodesResponse> verifyPromotionCode(@QueryMap Map<String, String> options);
 
 }

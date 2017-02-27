@@ -29,10 +29,13 @@ import com.caknow.customer.util.net.service.quotes.QuoteList;
 import com.caknow.customer.util.net.transaction.PaymentRequest;
 import com.caknow.customer.util.net.transaction.PromotionCodesResponse;
 import com.caknow.customer.widget.BaseActivity;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,6 +47,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static java.lang.String.format;
 
 /**
  * Created by junu on 1/2/2017.
@@ -63,9 +68,10 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     Bundle extras;
     VehicleServiceInterface item;
     String serviceRequestId;
-    String promotionCodes;
+    List<String> validPromotionCodesList;
     GetQuotesByServiceIdPayload payload;
     private String selectedPaymentSource;
+    int index = 0;
     @Override
     protected void initContentView() {
 
@@ -180,7 +186,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                 }
             }
             if (totalPriceDetail != null) {
-                String message = String.format("Are you sure you want to accept the quoted price of %s", totalPriceDetail.getPrice());
+                String message = format("Are you sure you want to accept the quoted price of %s", totalPriceDetail.getPrice());
                 alertDialogBuilder.setTitle("Confirm");
                 alertDialogBuilder.setMessage(message);
                 alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
@@ -200,7 +206,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             }
         }else{
             String difference = payload.getChargeAcceptNewestDifferenceAmount();
-            String message = String.format("Are you sure you want to accept the new quote difference of %s", difference);
+            String message = format("Are you sure you want to accept the new quote difference of %s", difference);
             alertDialogBuilder.setTitle("Confirm");
             alertDialogBuilder.setMessage(message);
             alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
@@ -265,32 +271,38 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             }
         }
         if (totalPriceDetail != null) {
-            String message = String.format("Are you sure you want to pay the amount of %s to the shop?", totalPriceDetail.getPrice());
+            String message = format("Are you sure you want to pay the amount of %s to the shop?", totalPriceDetail.getPrice());
             alertDialogBuilder.setTitle("Confirm");
             alertDialogBuilder.setMessage(message);
             alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
-                try {
-                    JsonObject payment = new JsonObject();
-                    payment.addProperty("serviceRequestId", serviceRequestId);
-                    payment.addProperty("promotionCodes", promotionCodes);
-                    final RequestBody request = RequestBody.create(MediaType.parse("application/json"), payment.toString());
-                    retrofit.create(PaymentAPI.class).payToShop(request).enqueue(new Callback<RequestBody>() {
-                        @Override
-                        public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
-                            if(response != null) {
-                                Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
-                            }else {
-                                Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<RequestBody> call, Throwable t) {
-
-                        }
-                    });
-                } catch (Exception e) {
+                JsonObject payment = new JsonObject();
+                JsonArray validPromotionCodes = new JsonArray();
+                payment.addProperty("serviceRequestId", serviceRequestId);
+                if (validPromotionCodesList != null) {
+                    for (String value : validPromotionCodesList) {
+                        validPromotionCodes.add(value);
+                    }
+                    payment.add("promotionCodes", validPromotionCodes);
+                }else{
+                    payment.add("promotionCodes", null);
                 }
+
+                final RequestBody request = RequestBody.create(MediaType.parse("application/json"), payment.toString());
+                retrofit.create(PaymentAPI.class).payToShop(request).enqueue(new Callback<RequestBody>() {
+                    @Override
+                    public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
+                        if(response.code() <= 400) {
+                            Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(TransactionActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RequestBody> call, Throwable t) {
+                        Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -321,14 +333,21 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
     public void verifyPromotionCode (View v){
         EditText edit = (EditText) findViewById(R.id.promo_code_edit_text);
+        String promotionKey = String.format("promotionCode[%d]", index);
         String promotionCodes = edit.getText().toString();
-        retrofit.create(PaymentAPI.class).verifyPromotionCode(serviceRequestId, promotionCodes).enqueue(new Callback<PromotionCodesResponse>() {
+        Map<String, String> data = new HashMap<>();
+        data.put("serviceRequestId", serviceRequestId);
+        data.put(promotionKey,promotionCodes);
+
+        retrofit.create(PaymentAPI.class).verifyPromotionCode(data).enqueue(new Callback<PromotionCodesResponse>() {
             @Override
             public void onResponse(Call<PromotionCodesResponse> call, Response<PromotionCodesResponse> response) {
                 try{
                     if(response.isSuccessful()) {
+                        index ++;
                         if (response.body().getPayload().getAcceptedPromoCodes() != null) {
                             Toast.makeText(TransactionActivity.this, "Valid Promotion Code", Toast.LENGTH_SHORT).show();
+                            validPromotionCodesList.add(promotionCodes);
                         }else{
                             Toast.makeText(TransactionActivity.this, "Invalid Promotion Code", Toast.LENGTH_SHORT).show();
                         }
