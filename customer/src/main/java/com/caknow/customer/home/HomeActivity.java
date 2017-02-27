@@ -52,7 +52,7 @@ public class HomeActivity extends BaseActivity
     @Inject
     public Retrofit retrofit;
 
-    private int lastCheckedItem = R.id.nav_messages;
+//    private int lastCheckedItem = R.id.nav_messages;
 
     @Override
     protected void initContentView() {
@@ -198,10 +198,11 @@ public class HomeActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_messages) {
-            Intent intent = new Intent(this, MessagesActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_payment) {
+//        if (id == R.id.nav_messages) {
+//            Intent intent = new Intent(this, MessagesActivity.class);
+//            startActivity(intent);
+//        } else
+        if (id == R.id.nav_payment) {
             Intent intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_promo) {

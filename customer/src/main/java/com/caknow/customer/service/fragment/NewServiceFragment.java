@@ -24,6 +24,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by junu on 1/1/17.
  */
@@ -84,7 +86,7 @@ public class NewServiceFragment extends BaseFragment implements Callback<Service
 
     private void loadDataOnClick(final int typeId){
         try{
-            ((NewServiceRequestActivity) getActivity()).showProgress();
+            ((NewServiceRequestActivity) getApplicationContext()).showProgress();
             ((NewServiceRequestActivity) getActivity()).setServiceType(typeId);
         } catch(Exception e){
             // Thread safe

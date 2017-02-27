@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:id="@+id/message_group"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_messages"
-            android:icon="@drawable/message_home_2x_drawlayout"
-            android:textSize="@dimen/md_text_size"
-            android:title="@string/md_message"></item>
-    </group>
+    <!--<group-->
+        <!--android:id="@+id/message_group"-->
+        <!--android:checkableBehavior="single">-->
+        <!--<item-->
+            <!--android:id="@+id/nav_messages"-->
+            <!--android:icon="@drawable/message_home_2x_drawlayout"-->
+            <!--android:textSize="@dimen/md_text_size"-->
+            <!--android:title="@string/md_message"></item>-->
+    <!--</group>-->
     <group
         android:id="@+id/credit_group"
         android:checkableBehavior="single">

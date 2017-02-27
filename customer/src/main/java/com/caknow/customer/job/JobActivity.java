@@ -2,6 +2,7 @@ package com.caknow.customer.job;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -137,12 +138,12 @@ public class JobActivity extends BaseActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.quote_details, menu);
-//        MenuItem reinitiateItem = (MenuItem) findViewById(R.id.action_reinitiate);
 //        reinitiateItem.setVisible(false);
 //        MenuItem cancelItem = (MenuItem) findViewById(R.id.action_cancel_request);
-//        if(serviceItem.getStatus() < 8){
-//            cancelItem.setVisible(true);
-//        }
+        MenuItem reinitiateItem = menu.findItem(R.id.action_reinitiate);
+        if(serviceItem.getStatus() < 3){
+            reinitiateItem.setVisible(false);
+        }
         this.invalidateOptionsMenu();
         return true;
     }
@@ -242,7 +243,7 @@ public class JobActivity extends BaseActivity{
     }
 
     private void performCancellation(){
-        showProgress();
+//        showProgress();
         JsonObject requestId = new JsonObject();
         requestId.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
         RequestBody cancelRequest = RequestBody.create(MediaType.parse("application/json"), requestId.toString());
@@ -250,7 +251,7 @@ public class JobActivity extends BaseActivity{
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 try{
-                    hideProgress();
+//                    hideProgress();
                     if(response.body().getSuccess()){
                         Toast.makeText(JobActivity.this, "Service Cancelled", Toast.LENGTH_SHORT).show();
                         JobActivity.this.finish();

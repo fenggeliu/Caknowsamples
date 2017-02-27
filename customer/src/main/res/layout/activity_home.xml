@@ -43,7 +43,7 @@
             android:layout_gravity="bottom"
             android:layout_marginBottom="@dimen/garage_layout_description_margin_bottom"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/nav_about_us_tv"

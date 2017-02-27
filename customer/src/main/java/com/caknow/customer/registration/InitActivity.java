@@ -1,24 +1,19 @@
 package com.caknow.customer.registration;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
+import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.home.HomeActivity;
-import com.caknow.customer.job.JobActivity;
 import com.caknow.customer.util.SessionPreferences;
 import com.caknow.customer.util.constant.PreferenceKeys;
-import com.caknow.customer.util.net.BaseResponse;
 import com.caknow.customer.util.net.auth.AuthenticationAPI;
 import com.caknow.customer.util.net.auth.AuthenticationPayload;
 import com.caknow.customer.util.net.auth.AuthenticationResponse;
-import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.widget.BaseActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -26,15 +21,11 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -56,13 +47,14 @@ import retrofit2.Retrofit;
 
 public class InitActivity extends BaseActivity implements Callback<AuthenticationResponse> {
 
+    @Inject
+    Retrofit retrofit;
+
     private CallbackManager facebookCallbackManager;
     private LoginManager loginManager;
     private AccessTokenTracker accessTokenTracker;
     private AccessToken accessToken;
 
-    @Inject
-    Retrofit retrofit;
 
     @BindView(R.id.init_layout_login_btn)
     Button signInButton;
@@ -90,10 +82,12 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
     @OnClick(R.id.init_layout_facebook_btn)
 //    @SuppressWarnings("unused")
     void loginWithFacebookAccount() {
-        if (accessToken == null) {
-            loginManager.logInWithReadPermissions(InitActivity.this, Arrays.asList("public_profile"));
-        } else {
+        if (accessToken != null) {
+            accessToken = null;
             loginManager.logOut();
+
+        } else {
+            loginManager.logInWithReadPermissions(InitActivity.this, Arrays.asList("email"));
         }
 
     }
@@ -122,8 +116,8 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
             @Override
             public void onSuccess(LoginResult loginResult) {
                 System.out.println("Success");
-                accessToken = AccessToken.getCurrentAccessToken();
-                submitFacebookLogin(accessToken);
+                accessToken = loginResult.getAccessToken();
+                InitActivity.this.submitFacebookLogin(accessToken);
             }
 
             @Override
@@ -140,6 +134,7 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
 
     @Override
     public void initContentView() {
+        CAKNOWApplication.get().getNetComponent().inject(this);
         setContentView(R.layout.activity_init);
         ButterKnife.bind(this);
 
@@ -166,10 +161,10 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
 
     }
 
-    private void submitFacebookLogin(AccessToken token) {
+    protected void submitFacebookLogin(AccessToken token) {
         JsonObject facebookJson = new JsonObject();
         facebookJson.addProperty("accountType", "FACEBOOK_USER");
-        facebookJson.addProperty("token3st", token.toString());
+        facebookJson.addProperty("token3st", token.getToken());
         RequestBody facebookRequest = RequestBody.create(MediaType.parse("application/json"), facebookJson.toString());
         AuthenticationAPI authenticationAPI = retrofit.create(AuthenticationAPI.class);
         authenticationAPI.login(facebookRequest).enqueue(this);

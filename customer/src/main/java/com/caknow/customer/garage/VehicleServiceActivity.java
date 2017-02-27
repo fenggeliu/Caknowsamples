@@ -2,6 +2,7 @@ package com.caknow.customer.garage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static com.caknow.customer.garage.fragment.VehicleServiceFragment.FRAGMENT_TAG;
 
 /**
  * This activity is loaded when user clicks on a vehicle from the {@link com.caknow.customer.garage.fragment.GarageFragment}
@@ -67,7 +70,7 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
         // Load up a new VehicleServiceFragment with the data set in initContentView
         addFragment(R.id.flContent,
                 fragment,
-                VehicleServiceFragment.FRAGMENT_TAG);
+                FRAGMENT_TAG);
     }
 
     @Override
@@ -216,5 +219,13 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+//        if(fragment != null)
+//            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
     }
 }

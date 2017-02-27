@@ -1,6 +1,7 @@
 package com.caknow.customer.widget;
 
 import com.caknow.customer.job.JobActivity;
+import com.caknow.customer.registration.InitActivity;
 import com.caknow.customer.registration.LoginActivity;
 import com.caknow.customer.garage.AddVehicleActivity;
 import com.caknow.customer.garage.VehicleServiceActivity;
@@ -60,4 +61,6 @@ public interface NetComponent {
         void inject(JobActivity jobActivity);
 
         void inject(TransactionActivity transactionActivity);
+
+        void inject(InitActivity initActivity);
 }

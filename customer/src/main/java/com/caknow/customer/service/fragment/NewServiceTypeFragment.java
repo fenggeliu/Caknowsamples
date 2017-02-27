@@ -95,7 +95,7 @@ public class NewServiceTypeFragment extends BaseFragment implements Callback<Ser
 
 
     private void loadDataOnClick(final int typeId, final String parentId){
-        ((NewServiceRequestActivity) getActivity()).showProgress();
+//        ((NewServiceRequestActivity) getActivity()).showProgress();
         Call<ServiceTypeResponse> call = serviceAPI.getServiceTypeList(typeId, parentId);
         //asynchronous call
         call.enqueue(this);

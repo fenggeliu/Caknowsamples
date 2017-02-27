@@ -77,57 +77,88 @@ public class JobDetailsFragment extends BaseFragment{
         else {
             JobDetailListAdapter adapter = new JobDetailListAdapter(getContext(), serviceItem, responseBody.getPayload().getAffiliate(), responseBody.getPayload().getHasUnconfirmedReQuote());
             detailListView.setAdapter(adapter);
-            try {
-                switch (serviceItem.getStatus()) {
-                    case 2:
-                        responseButton.setVisibility(View.VISIBLE);
-                        responseButton.setText("Make Appointment");
-                        responseButton.setBackgroundColor(Color.parseColor("#0071ff"));
+            responseButton.setVisibility(View.VISIBLE);
+            if (responseBody.getPayload().getHasUnconfirmedReQuote()) {
+                responseButton.setText("Has New Quote");
+                responseButton.setBackgroundColor(getResources().getColor(R.color.btn_red));
+                responseButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final Intent intent = new Intent(getActivity(), TransactionActivity.class);
+                        final Bundle extras = new Bundle();
+                        extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
+                        extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
+                        extras.putBoolean("paymentMode", false);
+                        //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+                        intent.putExtras(extras);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
+                        startActivity(intent);
 
-                        responseButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-//                                showProgress();
-                                // prepare call in Retrofit 2.0
-                                JsonObject appointment = new JsonObject();
-                                appointment.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
-                                appointment.addProperty("status", "3");
-                                RequestBody appointmentRequest = RequestBody.create(MediaType.parse("application/json"), appointment.toString());
-                                ServiceAPI serviceAPI = retrofit.create(ServiceAPI.class);
-                                serviceAPI.makeAppointment(appointmentRequest).enqueue(new Callback<BaseResponse>() {
-                                    @Override
-                                    public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                                        ((JobActivity) getActivity()).hideProgress();
-                                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + responseBody.getPayload().getAffiliate().getTelephoneNumber()));
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        getActivity().finish();
-                                        startActivity(intent);
-                                    }
+                    }
+                });
 
-                                    @Override
-                                    public void onFailure(Call<BaseResponse> call, Throwable t) {
-
-                                    }
-                                });
-                            }
-                        });
+            }else {
 
 
-                        break;
-                    case 3:
-                        responseButton.setVisibility(View.VISIBLE);
-                        if (responseBody.getPayload().getHasUnconfirmedReQuote()) {
-                            responseButton.setText("Has New Quote");
-                            responseButton.setBackgroundColor(getResources().getColor(R.color.btn_red));
+                try {
+                    switch (serviceItem.getStatus()) {
+                        case 2:
+                            responseButton.setText("Make Appointment");
+                            responseButton.setBackgroundColor(Color.parseColor("#0071ff"));
                             responseButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+//                                showProgress();
+                                    // prepare call in Retrofit 2.0
+                                    JsonObject appointment = new JsonObject();
+                                    appointment.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
+                                    appointment.addProperty("status", "3");
+                                    RequestBody appointmentRequest = RequestBody.create(MediaType.parse("application/json"), appointment.toString());
+                                    ServiceAPI serviceAPI = retrofit.create(ServiceAPI.class);
+                                    serviceAPI.makeAppointment(appointmentRequest).enqueue(new Callback<BaseResponse>() {
+                                        @Override
+                                        public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                                            ((JobActivity) getActivity()).hideProgress();
+                                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + responseBody.getPayload().getAffiliate().getTelephoneNumber()));
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                            startActivity(intent);
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<BaseResponse> call, Throwable t) {
+
+                                        }
+                                    });
+                                }
+                            });
+
+
+                            break;
+                        case 3:
+                            responseButton.setText("In Service");
+                            responseButton.setBackgroundColor(Color.parseColor("#696969"));
+                        break;
+                        case 8:
+                        default:
+                            responseButton.setText("Confirm Completion");
+                            responseButton.setBackgroundColor(Color.parseColor("#2cc053"));
+                            responseButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
+                                        @Override
+                                        public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
                                             final Intent intent = new Intent(getActivity(), TransactionActivity.class);
                                             final Bundle extras = new Bundle();
+                                            Quote topQuote;
+                                            topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
+                                            extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
                                             extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
                                             extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
-                                            extras.putBoolean("paymentMode", false);
+                                            extras.putBoolean("paymentMode", true);
                                             //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
                                             intent.putExtras(extras);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -135,51 +166,19 @@ public class JobDetailsFragment extends BaseFragment{
                                             startActivity(intent);
 
                                         }
+
+                                        @Override
+                                        public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
+                                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
+                                        }
+                                    });
+
+                                }
                             });
-
-                        } else {
-                            responseButton.setText("In Service");
-                            responseButton.setBackgroundColor(Color.parseColor("#696969"));
-                        }
-                        break;
-                    case 8:
-                    default:
-                        responseButton.setVisibility(View.VISIBLE);
-                        responseButton.setText("Confirm Completion");
-                        responseButton.setBackgroundColor(Color.parseColor("#2cc053"));
-                        responseButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                retrofit.create(ServiceAPI.class).getQuotesForId(serviceItem.getServiceRequestId()).enqueue(new Callback<GetQuotesByServiceId>() {
-                                    @Override
-                                    public void onResponse(Call<GetQuotesByServiceId> call, Response<GetQuotesByServiceId> response) {
-                                        final Intent intent = new Intent(getActivity(), TransactionActivity.class);
-                                        final Bundle extras = new Bundle();
-                                        Quote topQuote;
-                                        topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
-                                        extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
-                                        extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
-                                        extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);
-                                        extras.putBoolean("paymentMode", true);
-                                        //extras.putString(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                                        intent.putExtras(extras);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        //intent.putExtra(Constants.PAYMENT_TYPE_PARCEL_KEY, "payment");
-                                        startActivity(intent);
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<GetQuotesByServiceId> call, Throwable t) {
-                                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
-                                    }
-                                });
-
-                            }
-                        });
-                        break;
+                            break;
+                    }
+                } catch (Exception e) {
                 }
-            } catch (Exception e) {
             }
             detailListView.setOnItemClickListener((adapterView, view, i, l) -> {
                 switch (i) {

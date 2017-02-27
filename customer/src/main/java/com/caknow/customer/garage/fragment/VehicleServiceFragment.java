@@ -97,7 +97,6 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
     @Override
     public void onResume(){
         super.onResume();
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
         loadData(vehicle);
         mSwipeContainer.setRefreshing(false);
     }
@@ -150,9 +149,10 @@ public class VehicleServiceFragment extends BaseFragment  implements  Callback<V
             vehicleLogo.invalidate();
             if (serviceResponse.getMaintenanceList().isEmpty() && serviceResponse.getRepairList().isEmpty()) {
                 noServiceRequestLayout.setVisibility(View.VISIBLE);
+                serviceListView.setVisibility(View.GONE);
             } else {
                 adapter = new VehicleServiceAdapter(getContext(), VehicleServiceFragment.this, serviceResponse.getRepairList(), serviceResponse.getMaintenanceList(), mListener);
-//                serviceListView.setAdapter(null);
+                serviceListView.setAdapter(null);
                 serviceListView.invalidate();
                 serviceListView.setAdapter(adapter);
 //                serviceListView.invalidate();
