@@ -72,6 +72,7 @@
 
                             <EditText
                                 android:id="@+id/ancl_card_number_input"
+                                android:cursorVisible="true"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="5"
@@ -158,6 +159,7 @@
 
                                 <EditText
                                     android:id="@+id/ccExpMM"
+                                    android:cursorVisible="true"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -184,6 +186,7 @@
 
                                 <EditText
                                     android:id="@+id/ccExpYY"
+                                    android:cursorVisible="true"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -209,6 +212,7 @@
 
                             <EditText
                                 android:id="@+id/ccCVV"
+                                android:cursorVisible="true"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@null"
@@ -247,7 +251,7 @@
 
                         <EditText
                             android:id="@+id/ccName"
-
+                            android:cursorVisible="true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"

@@ -151,7 +151,7 @@
 
                 <LinearLayout
                     android:id="@+id/rdl_pic1_layout"
-                    android:layout_width="@dimen/rdl_pic_width"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_text_bolder_visible">
 
@@ -160,7 +160,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/rdl_pic_margin"
-                        android:background="@drawable/camera_icon_2x" />
+                        android:background="@drawable/camera_red_2x" />
                 </LinearLayout>
 
                 <LinearLayout

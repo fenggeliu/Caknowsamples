@@ -85,9 +85,10 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
         if (accessToken != null) {
             accessToken = null;
             loginManager.logOut();
-
+            InitActivity.this.finish();
         } else {
             loginManager.logInWithReadPermissions(InitActivity.this, Arrays.asList("email"));
+            InitActivity.this.showProgress();
         }
 
     }
@@ -184,12 +185,13 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
             SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
-
+            InitActivity.this.hideProgress();
             final Intent intent = new Intent(this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             this.finish();
         } else {
+            InitActivity.this.hideProgress();
             Toast.makeText(InitActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
 
         }

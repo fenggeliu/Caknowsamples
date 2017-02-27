@@ -1,5 +1,6 @@
 package com.caknow.customer.service.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -135,26 +136,36 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
      * Sloppy way of building a payload object for request submission.
      */
     private void submitServiceRequest(){
-        try {
-            ((NewServiceRequestActivity) getActivity()).showProgress();
-        } catch (Exception e){
-            // this call is not thread safe
+        String mileage = mileageEditText.getText().toString();
+        if (!mileage.matches("")) {
+            try {
+                ((NewServiceRequestActivity) getActivity()).showProgress();
+            } catch (Exception e) {
+                // this call is not thread safe
+            }
+            final NewServiceRequest payload = new NewServiceRequest();
+            payload.setAddress(address);
+            payload.setServiceList(serviceId);
+            payload.setVehicleId(vehicleId);
+            payload.setMileage(Long.valueOf(mileage));
+            payload.setPriority(spinnerPriority.getSelectedItemPosition());
+            payload.setDescription(description);
+            payload.setGeolocation(geolocation);
+            payload.setType(serviceType);
+            String text = NewServiceRequest.getJsonString(payload);
+            RequestBody body =
+                    RequestBody.create(MediaType.parse("application/json"), text);
+            Call<ServiceRequestResponse> call = retrofit.create(ServiceAPI.class).submitNewServiceRequest(body);
+            call.enqueue(this);
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+            String message = "Please Enter Proper Mileage on Your Vehicle!";
+            alertDialogBuilder.setMessage(message);
+            alertDialogBuilder.setPositiveButton("OK", (dialogIntergace, i) -> {
+                dialogIntergace.dismiss();
+            });
+            alertDialogBuilder.show();
         }
-        final NewServiceRequest payload = new NewServiceRequest();
-        payload.setAddress(address);
-        payload.setServiceList(serviceId);
-        payload.setVehicleId(vehicleId);
-        payload.setMileage(
-                (mileageEditText.getText() == null) ? 0: Long.valueOf(mileageEditText.getText().toString()));
-        payload.setPriority(spinnerPriority.getSelectedItemPosition());
-        payload.setDescription(description);
-        payload.setGeolocation(geolocation);
-        payload.setType(serviceType);
-        String text = NewServiceRequest.getJsonString(payload);
-        RequestBody body =
-                RequestBody.create(MediaType.parse("application/json"), text);
-        Call<ServiceRequestResponse> call = retrofit.create(ServiceAPI.class).submitNewServiceRequest(body);
-        call.enqueue(this);
 
     }
 

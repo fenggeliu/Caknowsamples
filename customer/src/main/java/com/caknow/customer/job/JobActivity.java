@@ -141,7 +141,7 @@ public class JobActivity extends BaseActivity{
 //        reinitiateItem.setVisible(false);
 //        MenuItem cancelItem = (MenuItem) findViewById(R.id.action_cancel_request);
         MenuItem reinitiateItem = menu.findItem(R.id.action_reinitiate);
-        if(serviceItem.getStatus() < 3){
+        if(serviceItem.getStatus() < 2){
             reinitiateItem.setVisible(false);
         }
         this.invalidateOptionsMenu();
