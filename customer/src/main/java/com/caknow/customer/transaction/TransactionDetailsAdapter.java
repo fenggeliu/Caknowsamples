@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -11,16 +12,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.service.model.VehicleServiceInterface;
 import com.caknow.customer.util.TimeUtils;
+import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceIdPayload;
 import com.caknow.customer.util.net.quote.Quote;
@@ -31,6 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * THis is the top list in the transaction details screen that shows itemized PriceDetail items
@@ -51,6 +58,7 @@ public class TransactionDetailsAdapter extends BaseAdapter {
     private Context context;
     private QuoteList quoteList;
     private GetQuotesByServiceIdPayload payload;
+    private ArrayList<String> validPromotionCodes;
     VehicleServiceInterface item;
 
     public TransactionDetailsAdapter(Context context, QuoteList quoteList, List<Quote> quoteItems) {
@@ -65,12 +73,13 @@ public class TransactionDetailsAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public TransactionDetailsAdapter(Context context, Quote quote, VehicleServiceInterface item, GetQuotesByServiceIdPayload payload) {
+    public TransactionDetailsAdapter(Context context, Quote quote, VehicleServiceInterface item, GetQuotesByServiceIdPayload payload, ArrayList<String> validPromotionCodes) {
         this.context = context;
         this.quote = quote;
         this.item = item;
         this.mData = quote.getItemizedAmounts();
         this.payload = payload;
+        this.validPromotionCodes = validPromotionCodes;
         paymentMode = true;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -134,11 +143,14 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                                 break;
                             }else{
                                 convertView = mInflater.inflate(R.layout.list_item_promotion_code, null);
-//                            if (quote == null) {
-//                                convertView.setVisibility(View.GONE);
-//                                convertView.invalidate();
-//                                break;
-//                            }
+                                if (validPromotionCodes != null) {
+                                    holder.listView = (ListView) convertView.findViewById(R.id.valid_promotion_codes_list);
+                                    holder.listView.setVisibility(View.VISIBLE);
+                                    PromotionCodesAdapter codesAdapter = new PromotionCodesAdapter(context, validPromotionCodes);
+                                    holder.listView.setAdapter(codesAdapter);
+                                    float factor = holder.listView.getContext().getResources().getDisplayMetrics().density;
+                                    convertView.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Math.round((validPromotionCodes.size()*30 +120)*factor)));
+                                }
                             }
                             convertView.invalidate();
                             break;
@@ -212,6 +224,7 @@ public class TransactionDetailsAdapter extends BaseAdapter {
         public TextView labelTextView;
         public TextView priceTextView;
         public TextView textView;
+        public ListView listView;
     }
 
 }

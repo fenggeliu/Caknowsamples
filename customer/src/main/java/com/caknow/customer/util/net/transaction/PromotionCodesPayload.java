@@ -18,7 +18,7 @@ public class PromotionCodesPayload implements Serializable, Parcelable
     private List<PriceDetail> details = null;
     @SerializedName("acceptedPromoCodes")
     @Expose
-    private List<Object> acceptedPromoCodes = null;
+    private List<String> acceptedPromoCodes = null;
     @SerializedName("rejectedPromoCodes")
     @Expose
     private List<String> rejectedPromoCodes = null;
@@ -57,7 +57,7 @@ public class PromotionCodesPayload implements Serializable, Parcelable
      * @param details
      * @param rejectedPromoCodes
      */
-    public PromotionCodesPayload(List<PriceDetail> details, List<Object> acceptedPromoCodes, List<String> rejectedPromoCodes) {
+    public PromotionCodesPayload(List<PriceDetail> details, List<String> acceptedPromoCodes, List<String> rejectedPromoCodes) {
         super();
         this.details = details;
         this.acceptedPromoCodes = acceptedPromoCodes;
@@ -72,11 +72,11 @@ public class PromotionCodesPayload implements Serializable, Parcelable
         this.details = details;
     }
 
-    public List<Object> getAcceptedPromoCodes() {
+    public List<String> getAcceptedPromoCodes() {
         return acceptedPromoCodes;
     }
 
-    public void setAcceptedPromoCodes(List<Object> acceptedPromoCodes) {
+    public void setAcceptedPromoCodes(List<String> acceptedPromoCodes) {
         this.acceptedPromoCodes = acceptedPromoCodes;
     }
 

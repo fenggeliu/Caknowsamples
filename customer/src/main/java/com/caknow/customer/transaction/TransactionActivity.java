@@ -1,11 +1,16 @@
 package com.caknow.customer.transaction;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +53,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.caknow.customer.transaction.TransactionDetailsFragment.FRAGMENT_TAG;
 import static java.lang.String.format;
 
 /**
@@ -68,7 +74,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     Bundle extras;
     VehicleServiceInterface item;
     String serviceRequestId;
-    List<String> validPromotionCodesList;
+    ArrayList<String> validPromotionCodesList = new ArrayList<>();
     GetQuotesByServiceIdPayload payload;
     private String selectedPaymentSource;
     int index = 0;
@@ -87,9 +93,8 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
         } catch(Exception e){
 
         }
-
-
-
+//        validPromotionCodesList.add("ok");
+//        validPromotionCodesList.add("what");
     }
 
     @Override
@@ -107,9 +112,10 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             args.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, quote);
             args.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, mapQuote);
             args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
+            args.putStringArrayList(Constants.PROMO_CODE_KEY,validPromotionCodesList);
             args.putBoolean("paymentMode", paymentMode);
             fragment.setArguments(args);
-            addFragment(R.id.transactionContent, fragment, TransactionDetailsFragment.FRAGMENT_TAG);
+            addFragment(R.id.transactionContent, fragment, FRAGMENT_TAG);
         } else{
             retrofit.create(ServiceAPI.class).getQuotesForId(serviceRequestId).enqueue(new Callback<GetQuotesByServiceId>() {
                 @Override
@@ -130,7 +136,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
                     args.putBoolean("paymentMode", paymentMode);
                     fragment.setArguments(args);
-                    addFragment(R.id.transactionContent, fragment, TransactionDetailsFragment.FRAGMENT_TAG);
+                    addFragment(R.id.transactionContent, fragment, FRAGMENT_TAG);
                 }
 
                 @Override
@@ -333,7 +339,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
     public void verifyPromotionCode (View v){
         EditText edit = (EditText) findViewById(R.id.promo_code_edit_text);
-        String promotionKey = String.format("promotionCode[%d]", index);
+        String promotionKey = String.format("promotionCodes[%d]", (validPromotionCodesList != null) ? validPromotionCodesList.size() : 0);
         String promotionCodes = edit.getText().toString();
         Map<String, String> data = new HashMap<>();
         data.put("serviceRequestId", serviceRequestId);
@@ -345,9 +351,29 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                 try{
                     if(response.isSuccessful()) {
                         index ++;
-                        if (response.body().getPayload().getAcceptedPromoCodes() != null) {
+                        if (response.body().getPayload().getAcceptedPromoCodes().contains(promotionCodes)) {
                             Toast.makeText(TransactionActivity.this, "Valid Promotion Code", Toast.LENGTH_SHORT).show();
-                            validPromotionCodesList.add(promotionCodes);
+                            if (!validPromotionCodesList.contains(promotionCodes) || validPromotionCodesList == null){
+                                validPromotionCodesList.add(promotionCodes);
+                                TransactionDetailsFragment frag = (TransactionDetailsFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+//                                frag.updateContent();
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .detach(frag)
+                                        .commitNowAllowingStateLoss();
+
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .attach(frag)
+                                        .commitAllowingStateLoss();
+//                                Fragment fragment = new Fragment();
+//                                fragmentTransaction.replace(R.id.transactionContent, frag, FRAGMENT_TAG);
+//                                fragmentTransaction.commit();
+//                                finish();
+//                                startActivity(getIntent());
+                            }else{
+                                Toast.makeText(TransactionActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            }
                         }else{
                             Toast.makeText(TransactionActivity.this, "Invalid Promotion Code", Toast.LENGTH_SHORT).show();
                         }

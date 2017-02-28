@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -36,6 +37,7 @@ import com.caknow.customer.widget.BaseFragment;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +68,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
 
     @BindView(R.id.quote_exp_listview)
     ExpandableListView quoteHistoryListView;
+
 
     @OnClick(R.id.transaction_submit_button)
     void selectCard(){
@@ -140,11 +143,12 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
 //            quotes.setAdapter(quotesAdapter);
         }
         if(response != null && response.getGetQuotesByServiceIdPayload().getTopQuote().getStatus().equals("unconfirmed")){
-            adapter = new TransactionDetailsAdapter(getContext(), quote, item, response.getGetQuotesByServiceIdPayload());
+            adapter = new TransactionDetailsAdapter(getContext(), quote, item, response.getGetQuotesByServiceIdPayload(), null);
         }else if(quote == null){
             adapter = new TransactionDetailsAdapter(getContext(), mapQuote, quoteList);
         }else{
-            adapter = new TransactionDetailsAdapter(getContext(), quote, item, null);
+            ArrayList<String> validPromotionCodesList = getArguments().getStringArrayList(Constants.PROMO_CODE_KEY);
+            adapter = new TransactionDetailsAdapter(getContext(), quote, item, null, validPromotionCodesList);
         }
         detailListView.setAdapter(adapter);
         return v;
@@ -177,6 +181,10 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
     {
         inflater.inflate(R.menu.reject, menu);
         return;
+    }
+
+    public void updateContent(){
+        adapter.notifyDataSetChanged();
     }
 
     @Override

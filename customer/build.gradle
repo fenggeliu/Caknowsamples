@@ -9,7 +9,7 @@ buildscript {
 
         // We recommend changing it to the latest version from our changelog:
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.22.1'
     }
 }
 
@@ -104,13 +104,13 @@ dependencies {
 
     // Android Support Libraries
     compile group: 'com.android.support', name: 'multidex', version: '1.0.1'
-    compile group: 'com.android.support', name: 'appcompat-v7', version: '25.1.0'
-    compile group: 'com.android.support', name: 'support-v4', version: '25.1.0'
-    compile group: 'com.android.support', name: 'cardview-v7', version: '25.1.0'
-    compile group: 'com.android.support', name: 'design', version: '25.1.0'
-    compile group: 'com.android.support', name: 'recyclerview-v7', version: '25.1.0'
+    compile group: 'com.android.support', name: 'appcompat-v7', version: '25.2.0'
+    compile group: 'com.android.support', name: 'support-v4', version: '25.2.0'
+    compile group: 'com.android.support', name: 'cardview-v7', version: '25.2.0'
+    compile group: 'com.android.support', name: 'design', version: '25.2.0'
+    compile group: 'com.android.support', name: 'recyclerview-v7', version: '25.2.0'
 
-    androidTestCompile 'com.android.support:support-annotations:25.1.0'
+    androidTestCompile 'com.android.support:support-annotations:25.2.0'
 
     //Facebook Login
 
@@ -119,11 +119,11 @@ dependencies {
     compile 'io.card:android-sdk:5.4.2'
 
     // Third Party SDK
-    compile 'com.google.android.gms:play-services:10.0.1'
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
-    compile 'com.google.android.gms:play-services-identity:10.0.1'
-    compile 'com.google.android.gms:play-services-gcm:10.0.1'
-    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.google.android.gms:play-services:10.2.0'
+    compile 'com.google.android.gms:play-services-ads:10.2.0'
+    compile 'com.google.android.gms:play-services-identity:10.2.0'
+    compile 'com.google.android.gms:play-services-gcm:10.2.0'
+    compile 'com.google.android.gms:play-services-maps:10.2.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.pubnub:pubnub-android:3.7.10'
 

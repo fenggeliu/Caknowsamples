@@ -6,22 +6,20 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <!-- A CardView that contains a TextView -->
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/valid_promotion_codes_list"
+        android:divider="@color/white"
+        android:visibility="gone" />
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="4dp">
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="358dp"
-                android:layout_height="0dp"
-
-                android:orientation="vertical">
-
             <EditText
                 android:id="@+id/promo_code_edit_text"
                 android:background="@drawable/edit_text_bolder_visible"
@@ -42,7 +40,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                card_view:layout_constraintTop_toBottomOf="@+id/promo_code_edit_text"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="@string/promotion_codes_button_text"
                 android:background="@color/blue_title"
@@ -50,8 +48,7 @@
                 android:layout_marginStart="30dp"
                 android:onClick="verifyPromotionCode"
                 android:layout_marginEnd="30dp"
+                android:layout_gravity="bottom"
                 />
-            </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
