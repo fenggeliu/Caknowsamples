@@ -40,6 +40,9 @@
     <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBZbcpWdPZlpjipb2YuFqYwrZpNShorc2w"/>
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+    <provider android:authorities="com.facebook.app.FacebookContentProvider1820939124810783"
+        android:name="com.facebook.FacebookContentProvider"
+        android:exported="true" />
     <activity
         android:name="com.caknow.customer.registration.SplashActivity"
         android:label="@string/app_name"
