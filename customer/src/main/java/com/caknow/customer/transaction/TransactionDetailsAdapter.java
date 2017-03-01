@@ -150,6 +150,7 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                                     holder.listView.setAdapter(codesAdapter);
                                     float factor = holder.listView.getContext().getResources().getDisplayMetrics().density;
                                     convertView.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Math.round((validPromotionCodes.size()*30 +120)*factor)));
+//                                    holder.listView.setOnItemClickListener();
                                 }
                             }
                             convertView.invalidate();

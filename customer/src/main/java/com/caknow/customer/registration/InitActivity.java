@@ -85,7 +85,7 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
         if (accessToken != null) {
             accessToken = null;
             loginManager.logOut();
-            InitActivity.this.finish();
+//            InitActivity.this.finish();
         } else {
             loginManager.logInWithReadPermissions(InitActivity.this, Arrays.asList("email"));
             InitActivity.this.showProgress();
@@ -189,6 +189,7 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
             final Intent intent = new Intent(this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            InitActivity.this.hideProgress();
             this.finish();
         } else {
             InitActivity.this.hideProgress();
