@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <LinearLayout
         android:id="@+id/garage_list_item"
-        android:layout_width="@dimen/gli_layout_width"
+        android:layout_width="0dp"
         android:layout_height="@dimen/gli_layout_height"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout

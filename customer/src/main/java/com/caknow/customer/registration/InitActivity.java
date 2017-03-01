@@ -88,7 +88,7 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
 //            InitActivity.this.finish();
         } else {
             loginManager.logInWithReadPermissions(InitActivity.this, Arrays.asList("email"));
-            InitActivity.this.showProgress();
+//            InitActivity.this.showProgress();
         }
 
     }

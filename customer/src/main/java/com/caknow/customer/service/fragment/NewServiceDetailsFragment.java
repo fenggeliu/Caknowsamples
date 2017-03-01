@@ -179,12 +179,14 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra(Constants.VEHICLE_PARCEL_KEY, (Parcelable) vehicle);
                 getActivity().finish();
+                ((NewServiceRequestActivity) getActivity()).hideProgress();
                 startActivity(intent);
             } catch(Exception e){
                 // getActivity() call is not thread safe
             }
         } else{
             Toast.makeText(getContext(), body.getMessage(), Toast.LENGTH_SHORT).show();
+            ((NewServiceRequestActivity) getActivity()).hideProgress();
 
         }
 

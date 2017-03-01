@@ -91,13 +91,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/service_request_description_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3.2"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/service_request_description_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="15"

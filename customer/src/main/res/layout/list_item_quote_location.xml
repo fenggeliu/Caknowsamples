@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/font_black"
         android:text="Shop Location"
         android:id="@+id/shop_location_title"
@@ -39,7 +39,7 @@
         android:id="@+id/list_item_address_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textColor="@color/black"
         android:text="(626)535-2364"
         android:layout_marginStart="8dp"

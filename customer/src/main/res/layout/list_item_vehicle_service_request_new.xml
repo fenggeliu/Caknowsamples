@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:maxLines="1"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             card_view:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="18dp"
             card_view:layout_constraintLeft_toRightOf="@+id/service_item_icon"

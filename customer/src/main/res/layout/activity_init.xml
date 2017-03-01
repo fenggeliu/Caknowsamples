@@ -131,7 +131,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_layout_description_head"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="@dimen/init_layout_declaration_text_size"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -141,17 +143,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_layout_privacy_policy"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="@dimen/init_layout_declaration_text_size"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_layout_terms_of_service"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+            android:textSize="@dimen/init_layout_declaration_text_size"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_layout_terms_and_condition"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="@dimen/init_layout_declaration_text_size"/>
+
         </LinearLayout>
 
     </LinearLayout>
