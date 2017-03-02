@@ -195,6 +195,7 @@
     <dimen name="md_text_size">18sp</dimen>
     <!-- tool bar layout -->
     <dimen name="tbl_title_text_size">22sp</dimen>
+    <dimen name="bar_height">40dp</dimen>
     <!-- garage layout -->
     <dimen name="garage_layout_description_height">20dp</dimen>
     <dimen name="garage_layout_description_margin_bottom">20dp</dimen>

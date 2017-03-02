@@ -9,6 +9,7 @@
         <item name="windowActionBar">true</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:actionBarSize">@dimen/bar_height</item>
 
     </style>
 

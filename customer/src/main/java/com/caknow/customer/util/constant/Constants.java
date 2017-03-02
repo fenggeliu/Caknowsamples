@@ -44,6 +44,7 @@ public class Constants {
     public static final String svcType                              = caknowUrl + "client/svcReqs/svcTypes";
     public static final String cloudinaryUrl                        = caknowUrl + "cloudinary/images/signatures";
     public static final String cloudinaryServer                     = "http://res.cloudinary.com/caknow-app/image/upload/";
+    public static final String CLOUDINARY_AUTHENTICATION_URL        ="cloudinary://471886552525434:nRQpYgAyqRT-jwYcc5CWxFuaStg@caknow";
     public static final String LOGOURL                              = "https://res.cloudinary.com/caknow/vehicle_logo/";
     public static final String ACCOUNT_TYPE_FACEBOOK = "FACEBOOK_USER";
     public static final String ACCOUNT_TYPE_GOOGLE   = "GOOGLE_USER";

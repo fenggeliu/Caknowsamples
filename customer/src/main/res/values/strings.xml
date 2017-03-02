@@ -216,10 +216,10 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="vehicle_name_placeholder">BMW 5 SERIES</string>
     <string name="sample_cc_number_placeholder">xxxx xxxx xxxx 1853</string>
-    <string name="action_submit">SUBMIT</string>
-    <string name="menu_cancel_request">Cancel Service Request</string>
-    <string name="menu_order_number">Order Number</string>
-    <string name="menu_reinitiate">Choose Another Shop</string>
+    <string name="action_submit">ACCEPT NEW QUOTE</string>
+    <string name="menu_cancel_request">Cancel service request</string>
+    <string name="menu_order_number">Order number</string>
+    <string name="menu_reinitiate">Choose another shop</string>
     <string name="menu_report">Report</string>
     <string name="garage">Garage</string>
     <string name="title_activity_quote_map">Quotes</string>

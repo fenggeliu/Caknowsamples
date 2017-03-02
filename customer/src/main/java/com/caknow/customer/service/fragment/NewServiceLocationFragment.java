@@ -23,6 +23,7 @@ import com.caknow.customer.service.NewServiceRequestActivity;
 import com.caknow.customer.util.net.service.location.Geolocation;
 import com.caknow.customer.util.net.service.location.ServiceAddress;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +72,6 @@ public class NewServiceLocationFragment extends BaseFragment {
     void startServiceSelection(){
         if(validate()) {
             NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
-            activity.setGeolocation(geolocation);
             NewServiceFragment fragment = new NewServiceFragment();
             final Bundle bundle = new Bundle();
             ServiceAddress address = new ServiceAddress();
@@ -80,7 +80,22 @@ public class NewServiceLocationFragment extends BaseFragment {
             address.setCity(nameViews.get(2).getText().toString());
             address.setPostalCode(nameViews.get(3).getText().toString());
             address.setState(stateSpinner.getSelectedItem().toString());
-            ((NewServiceRequestActivity)getActivity()).setServiceAddress(address);
+            ((NewServiceRequestActivity) getActivity()).setServiceAddress(address);
+            Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+            String strAddress = address.getLineOne() + address.getLineTwo() + address.getCity() + address.getState() + address.getPostalCode();
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocationName(strAddress, 5);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Address location = addresses.get(0);
+            location.getLatitude();
+            location.getLongitude();
+            geolocation.setLatitude(location.getLatitude());
+            geolocation.setLongitude(location.getLongitude());
+            activity.setGeolocation(geolocation);
+
             fragment.setArguments(bundle);
             activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
         } else{

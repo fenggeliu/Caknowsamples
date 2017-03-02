@@ -220,9 +220,8 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     makePayment();
                 } catch (Exception e) {
                 }
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                startActivityForResult(new Intent(this, HomeActivity.class), HomeActivity.PAYMENT_SUCCESSFUL_CODE);
+
             });
             alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
 
@@ -310,9 +309,9 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     }
                 });
 
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(new Intent(this, HomeActivity.class), HomeActivity.PAYMENT_SUCCESSFUL_CODE);
 
             });
             alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());

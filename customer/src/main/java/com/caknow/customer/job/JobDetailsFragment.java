@@ -79,7 +79,7 @@ public class JobDetailsFragment extends BaseFragment{
             detailListView.setAdapter(adapter);
             responseButton.setVisibility(View.VISIBLE);
             if (responseBody.getPayload().getHasUnconfirmedReQuote()) {
-                responseButton.setText("Has New Quote");
+                responseButton.setText("Respond to new quote");
                 responseButton.setBackgroundColor(getResources().getColor(R.color.btn_red));
                 responseButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -104,7 +104,7 @@ public class JobDetailsFragment extends BaseFragment{
                 try {
                     switch (serviceItem.getStatus()) {
                         case 2:
-                            responseButton.setText("Make Appointment");
+                            responseButton.setText("Call and make appointment");
                             responseButton.setBackgroundColor(Color.parseColor("#0071ff"));
                             responseButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -138,12 +138,12 @@ public class JobDetailsFragment extends BaseFragment{
 
                             break;
                         case 3:
-                            responseButton.setText("In Service");
+                            responseButton.setText("In service");
                             responseButton.setBackgroundColor(Color.parseColor("#696969"));
                         break;
                         case 8:
                         default:
-                            responseButton.setText("Confirm Completion");
+                            responseButton.setText("Confirm completion and pay");
                             responseButton.setBackgroundColor(Color.parseColor("#2cc053"));
                             responseButton.setOnClickListener(new View.OnClickListener() {
                                 @Override

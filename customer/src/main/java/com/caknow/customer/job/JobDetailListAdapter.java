@@ -199,7 +199,7 @@ public class JobDetailListAdapter extends BaseAdapter {
                         starViews.get(i).setImageResource(R.drawable.star_red_2x);
                         starViews.get(i).invalidate();
                     }
-                    ((TextView) convertView.findViewById(R.id.reviews_label)).setText(String.valueOf(affiliate.getReviewCount()).concat(" Reviews"));
+                    ((TextView) convertView.findViewById(R.id.reviews_label)).setText(String.valueOf(affiliate.getReviewCount()).concat(" reviews"));
                     convertView.findViewById(R.id.reviews_label).invalidate();
 
                     break;
@@ -212,7 +212,7 @@ public class JobDetailListAdapter extends BaseAdapter {
                     }
 
                     holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
-                    holder.textView.setText("Shop Info");
+                    holder.textView.setText("Shop information");
                     break;
                 case TYPE_SHOP_LOCATION:
                     convertView = mInflater.inflate(R.layout.list_item_quote_location, null);
@@ -244,7 +244,7 @@ public class JobDetailListAdapter extends BaseAdapter {
                         break;
                     }
                     holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
-                    holder.textView.setText("Service Items");
+                    holder.textView.setText("Service items");
 
                     break;
                 case TYPE_SERVICE_ITEM:

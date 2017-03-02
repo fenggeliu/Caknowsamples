@@ -26,9 +26,10 @@
     <Button
         android:id="@+id/job_detail_response_button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:textSize="24sp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         android:visibility="gone"
         android:textColor="@color/white_full"/>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.caknow.customer.home;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -45,6 +46,7 @@ import retrofit2.Retrofit;
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
 
+    public static final int PAYMENT_SUCCESSFUL_CODE = 1;
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     DrawerLayout drawer;
@@ -77,7 +79,7 @@ public class HomeActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         int height = getResources().getDisplayMetrics().heightPixels;
-        DrawerLayout.LayoutParams params = (android.support.v4.widget.DrawerLayout.LayoutParams) navigationView.getLayoutParams();
+        DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) navigationView.getLayoutParams();
         params.height = height;
         navigationView.setLayoutParams(params);
         // Set up Header
@@ -91,7 +93,9 @@ public class HomeActivity extends BaseActivity
                 GarageFragment.FRAGMENT_TAG));
         //TODO: set user info here
         nameView.setText(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.USER_FNAME));
-        userPhoto.setImageDrawable(getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            userPhoto.setImageDrawable(getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
+        }
 
 
         // Set up Footer
@@ -239,5 +243,15 @@ public class HomeActivity extends BaseActivity
         startActivity(intent);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        super.onActivityResult(requestCode, resultCode, intent);
 
+        if(requestCode == PAYMENT_SUCCESSFUL_CODE) {
+            finish();
+            addFragment(R.id.flContent,
+                    new GarageFragment(),
+                    GarageFragment.FRAGMENT_TAG);
+        }
+    }
 }
