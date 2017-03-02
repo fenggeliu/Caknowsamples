@@ -25,11 +25,15 @@
 
     <Button
         android:id="@+id/job_detail_response_button"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_gravity="bottom"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:visibility="gone"
-        android:textColor="@color/white_full"/>
+        android:textColor="@color/white_full"
+        android:layout_marginTop="0dp"/>
 </LinearLayout>

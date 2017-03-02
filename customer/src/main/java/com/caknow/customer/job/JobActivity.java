@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,7 +60,7 @@ public class JobActivity extends BaseActivity{
     ServiceAPI serviceAPI;
     @Override
     protected void initContentView() {
-
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         setContentView(R.layout.activity_job);
         CAKNOWApplication.get().getNetComponent().inject(this);
         ButterKnife.bind(this);
@@ -127,8 +129,8 @@ public class JobActivity extends BaseActivity{
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Service");
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("");
+//            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
@@ -243,7 +245,7 @@ public class JobActivity extends BaseActivity{
     }
 
     private void performCancellation(){
-//        showProgress();
+        showProgress();
         JsonObject requestId = new JsonObject();
         requestId.addProperty("serviceRequestId", serviceItem.getServiceRequestId());
         RequestBody cancelRequest = RequestBody.create(MediaType.parse("application/json"), requestId.toString());
@@ -251,7 +253,7 @@ public class JobActivity extends BaseActivity{
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 try{
-//                    hideProgress();
+                    hideProgress();
                     if(response.body().getSuccess()){
                         Toast.makeText(JobActivity.this, "Service Cancelled", Toast.LENGTH_SHORT).show();
                         JobActivity.this.finish();

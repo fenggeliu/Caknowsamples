@@ -228,6 +228,17 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
             payload.setGeolocation(geolocation);
             payload.setType(serviceType);
             String text = NewServiceRequest.getJsonString(payload);
+
+            //Cloudinary uploads
+//            imageFilePath = getPath(selectedImageUri);
+//            bitmap = BitmapFactory.decodeFile(imagePath);
+//            Map resultMap;
+//            try {
+//                resultMap = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
+//            } catch(IOException e){
+//                Toast.makeText(this, "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
+//            }
+
             RequestBody body =
                     RequestBody.create(MediaType.parse("application/json"), text);
             Call<ServiceRequestResponse> call = retrofit.create(ServiceAPI.class).submitNewServiceRequest(body);
@@ -286,13 +297,13 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
 //               picThree.setImageURI(selectedImage);
            }
         } else if (requestCode == RESULT_REQUEST_CAMERA){
-            Uri selectedImage = data.getData();
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
             if (picTwoLayout.getVisibility() == View.GONE){
                 picTwoLayout.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load(selectedImage).into(picTwo);
+                picTwo.setImageBitmap(imageBitmap);
             }else {
                 picThreeLayout.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load(selectedImage).into(picThree);
+                picThree.setImageBitmap(imageBitmap);
 //               picThree.setImageURI(selectedImage);
             }
         }

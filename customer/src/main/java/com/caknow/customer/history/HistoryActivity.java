@@ -1,6 +1,7 @@
 package com.caknow.customer.history;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,7 +64,7 @@ public class HistoryActivity extends BaseActivity implements HistoryFragment.OnL
     protected void setTitle() {
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("History");
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }

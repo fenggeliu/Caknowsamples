@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
         try {
             TextView title = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext);
             title.setText("Sign In");
-            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (Exception e) {
             //
         }
@@ -142,7 +142,7 @@ public class LoginActivity extends BaseActivity implements Callback<Authenticati
     protected void setTitle() {
         try {
             ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign In");
-            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageView) getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e) {
             //
         }

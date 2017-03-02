@@ -178,7 +178,8 @@
     <activity android:name="com.caknow.customer.quote.QuoteMapActivity"
               android:label="@string/title_activity_quote_map"/>
     <activity android:name="com.caknow.customer.job.JobActivity"
-        android:label="@string/title_activity_quote_map"/>
+        android:label="@string/title_activity_quote_map"
+        android:theme="@style/QuoteTheme"/>
     <activity android:name="com.caknow.customer.transaction.TransactionActivity"
         android:label="@string/title_activity_quote_map"/>
     <meta-data
@@ -187,6 +188,5 @@
         />
 </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
 

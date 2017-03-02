@@ -157,7 +157,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     protected void setTitle() {
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Service Fee");
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
@@ -200,9 +200,6 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                         makePayment();
                     } catch (Exception e) {
                     }
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
                 });
                 alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
 
@@ -220,7 +217,6 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                     makePayment();
                 } catch (Exception e) {
                 }
-                startActivityForResult(new Intent(this, HomeActivity.class), HomeActivity.PAYMENT_SUCCESSFUL_CODE);
 
             });
             alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
@@ -326,7 +322,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         Toast.makeText(this, response.message(), Toast.LENGTH_SHORT).show();
-
+        startActivityForResult(new Intent(this, HomeActivity.class), HomeActivity.PAYMENT_SUCCESSFUL_CODE);
 //        super.onBackPressed();
     }
 

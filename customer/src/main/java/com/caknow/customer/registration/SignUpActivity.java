@@ -110,7 +110,7 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
     @Override
     protected void setTitle() {
         try {
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Sign Up");
         } catch (Exception e) {
             //
