@@ -688,7 +688,7 @@
     <dimen name="rdl_description_text_margin_left">3dp</dimen>
     <dimen name="rdl_description_text_size">16sp</dimen>
     <dimen name="rdl_pic_width">120dp</dimen>
-    <dimen name="rdl_pic_space">16dp</dimen>
+    <dimen name="rdl_pic_space">8dp</dimen>
     <dimen name="rdl_pic_margin">5dp</dimen>
     <dimen name="rdl_icon_margin_top">12dp</dimen>
     <dimen name="rdl_icon_margin_bottom">2dp</dimen>

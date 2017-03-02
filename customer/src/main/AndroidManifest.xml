@@ -15,7 +15,7 @@
 <uses-permission android:name="android.permission.CAMERA"/>
 
 <!-- Camera features - recommended -->
-<uses-feature android:name="android.hardware.camera" android:required="false"/>
+<uses-feature android:name="android.hardware.camera" android:required="true"/>
 <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
 <supports-screens
@@ -29,6 +29,7 @@
 <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 <uses-permission android:name="android.permission.READ_PROFILE"/>
 <uses-permission android:name="android.permission.READ_CONTACTS"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 <uses-feature android:name="android.hardware.screen.portrait"/>
 <application
     android:name="com.caknow.customer.CAKNOWApplication"

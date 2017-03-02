@@ -38,11 +38,11 @@
     <!-- list content select layout -->
     <string name="lcsl_next_btn">Next</string>
     <!-- request detail layout -->
-    <string name="rdl_submit_btn">SUBMIT</string>
+    <string name="rdl_submit_btn">Accept new quote</string>
     <!-- call and make an appointment -->
-    <string name="jdl_appointment_btn">Make Appointment</string>
+    <string name="jdl_appointment_btn">Call and make an appointment</string>
     <!-- in service button unclickable -->
-    <string name="jdl_inservice_btn">In Service</string>
+    <string name="jdl_inservice_btn">In service</string>
     <!-- Complete and accept button -->
     <string name="jdl_accept_btn">Accept</string>
 </resources>

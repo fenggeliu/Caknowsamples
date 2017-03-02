@@ -306,17 +306,18 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Uri selectedImageUri = data.getData();
-            imageFilePath = getPath(selectedImageUri);
-            bitmap = BitmapFactory.decodeFile(imagePath);
-            Map resultMap;
-            try {
-                resultMap = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
-            } catch(IOException e){
-                Toast.makeText(this, "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
-            }
-        }
+        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1 && resultCode == RESULT_OK) {
+//            Uri selectedImageUri = data.getData();
+//            imageFilePath = getPath(selectedImageUri);
+//            bitmap = BitmapFactory.decodeFile(imagePath);
+//            Map resultMap;
+//            try {
+//                resultMap = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
+//            } catch(IOException e){
+//                Toast.makeText(this, "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
+//            }
+//        }
     }
 
     public String getPath(Uri uri) {

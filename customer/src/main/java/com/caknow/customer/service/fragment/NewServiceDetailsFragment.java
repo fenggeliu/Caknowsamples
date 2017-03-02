@@ -2,10 +2,19 @@ package com.caknow.customer.service.fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.provider.MediaStore;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.BuildConfig;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,10 +22,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import android.Manifest;
+
+import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.garage.VehicleServiceActivity;
 import com.caknow.customer.util.constant.Constants;
@@ -42,6 +58,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by junu on 1/1/17.
  */
@@ -50,6 +69,8 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + NewServiceDetailsFragment.class.getName();
 
+    private static final int RESULT_LOAD_IMAGE = 1;
+    private static final int RESULT_REQUEST_CAMERA = 2;
     // Fields needed to make service request
     ServiceAddress address;
     int serviceType;
@@ -65,13 +86,19 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     @BindView(R.id.rdl_description_input) EditText descriptionEditText;
     @BindView(R.id.service_detail_mileage_editext) EditText mileageEditText;
     @BindView(R.id.spinner_time_state) Spinner spinnerPriority;
-    @OnClick(R.id.rdl_pic1_layout)
-    void uploadPhoto(){
-        final Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-//to get image and videos, I used a */"
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, 1);
-    }
+    @BindView(R.id.rdl_pic1) TextView picOne;
+    @BindView(R.id.rdl_pic2_layout) LinearLayout picTwoLayout;
+    @BindView(R.id.rdl_pic3_layout) LinearLayout picThreeLayout;
+    @BindView(R.id.rdl_pic2) ImageView picTwo;
+    @BindView(R.id.rdl_pic3) ImageView picThree;
+//    @OnClick(R.id.rdl_pic1_layout)
+//    void uploadPhoto(){
+//
+//        final Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+////to get image and videos, I used a */"
+//        galleryIntent.setType("image/*");
+//        startActivityForResult(galleryIntent, 1);
+//    }
     @OnClick(R.id.service_request_description_layout)
     void focusDescription(){
         descriptionEditText.requestFocus();
@@ -93,6 +120,54 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
         vehicle = ((NewServiceRequestActivity) getActivity()).getVehicle();
         setupPrioritySpinner();
         setHasOptionsMenu(true);
+
+        picOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+                View parentView = inflater.inflate(R.layout.bottom_sheet_image_upload, null);
+                bottomSheetDialog.setContentView(parentView);
+                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) parentView.getParent());
+                bottomSheetBehavior.setPeekHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, getResources().getDisplayMetrics()));
+                bottomSheetDialog.show();
+
+                Button cameraButton = (Button) parentView.findViewById(R.id.bs_camera_btn);
+                Button galleryButton = (Button) parentView.findViewById(R.id.bs_gallery_btn);
+
+                cameraButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            // Check Permissions Now
+                            // Callback onRequestPermissionsResult interceptado na Activity MainActivity
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{Manifest.permission.CAMERA},
+                                    RESULT_REQUEST_CAMERA);
+                        } else {
+                            // permission has been granted, continue as usual
+
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent,RESULT_REQUEST_CAMERA);
+                        }
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                galleryButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    //to get image and videos, I used a */"
+                        galleryIntent.setType("image/*");
+                        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+            }
+        });
+
         return v;
     }
 
@@ -195,5 +270,59 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     @Override
     public void onFailure(Call<ServiceRequestResponse> call, Throwable t) {
         Toast.makeText(getContext(), "Oops, something happened!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+           if (picTwoLayout.getVisibility() == View.GONE){
+               picTwoLayout.setVisibility(View.VISIBLE);
+               Glide.with(getContext()).load(selectedImage).into(picTwo);
+           }else{
+               picThreeLayout.setVisibility(View.VISIBLE);
+               Glide.with(getContext()).load(selectedImage).into(picThree);
+//               picThree.setImageURI(selectedImage);
+           }
+        } else if (requestCode == RESULT_REQUEST_CAMERA){
+            Uri selectedImage = data.getData();
+            if (picTwoLayout.getVisibility() == View.GONE){
+                picTwoLayout.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(selectedImage).into(picTwo);
+            }else {
+                picThreeLayout.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(selectedImage).into(picThree);
+//               picThree.setImageURI(selectedImage);
+            }
+        }
+//        FragmentTransaction tr = getFragmentManager().beginTransaction();
+//        tr.replace(R.id.container_current, this);
+//        tr.commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case RESULT_REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }
