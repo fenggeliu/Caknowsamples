@@ -248,7 +248,6 @@ public class HomeActivity extends BaseActivity
         super.onActivityResult(requestCode, resultCode, intent);
 
         if(requestCode == PAYMENT_SUCCESSFUL_CODE) {
-            finish();
             addFragment(R.id.flContent,
                     new GarageFragment(),
                     GarageFragment.FRAGMENT_TAG);

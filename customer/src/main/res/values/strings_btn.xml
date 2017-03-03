@@ -32,7 +32,7 @@
     <!-- invite confirm layout -->
     <string name="icl_ok_btn_text">OK</string>
     <!-- Service request content layout -->
-    <string name="srcl_new_request_btn">+ New Service</string>
+    <string name="srcl_new_request_btn">+ New service</string>
     <!-- location layout -->
     <string name="location_layout_next_btn">Next</string>
     <!-- list content select layout -->

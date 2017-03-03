@@ -458,7 +458,7 @@
     <dimen name="ancl_cvc_text_size">18sp</dimen>
     <dimen name="ancl_holder_name_description_text_size">18sp</dimen>
     <dimen name="ancl_holder_name_text_size">16sp</dimen>
-    <dimen name="ancl_add_card_btn_text_size">22sp</dimen>
+    <dimen name="ancl_add_card_btn_text_size">18sp</dimen>
 
     <!-- share to earn layout -->
     <dimen name="stel_title_text_size">22sp</dimen>
@@ -533,7 +533,7 @@
     <dimen name="srcl_maintenance_title_height">40dp</dimen>
     <dimen name="srcl_maintenance_title_text_size">18sp</dimen>
     <dimen name="srcl_maintenance_title_margin_left">20dp</dimen>
-    <dimen name="srcl_new_service_request_btn_text_size">22sp</dimen>
+    <dimen name="srcl_new_service_request_btn_text_size">18sp</dimen>
 
     <!-- Service request list item layout -->
     <dimen name="srli_list_item_layout_height">90dp</dimen>
@@ -599,7 +599,7 @@
     <dimen name="location_layout_zip_padding_top">0dp</dimen>
     <dimen name="location_layout_zip_text_size">16sp</dimen>
     <dimen name="location_layout_spinner_margin_left">3dp</dimen>
-    <dimen name="location_layout_next_btn_text_size">22sp</dimen>
+    <dimen name="location_layout_next_btn_text_size">18sp</dimen>
     <dimen name="location_layout_left_arrow_margin_top">12dp</dimen>
     <dimen name="location_layout_left_arrow_margin_bottom">12dp</dimen>
     <dimen name="location_layout_left_arrow_margin_left">15dp</dimen>

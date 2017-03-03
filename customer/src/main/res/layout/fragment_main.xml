@@ -57,19 +57,20 @@
                 android:layout_above="@+id/quote_accept_layout"
                 android:smoothScrollbar="false"/>
             <FrameLayout
+                android:layout_margin="5dp"
                 android:id="@+id/quote_accept_layout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/btn_red"
+                android:background="@drawable/button_red_2x"
                 android:gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textColor="@color/white_full"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:text="Accept Quote"
                     />
             </FrameLayout>

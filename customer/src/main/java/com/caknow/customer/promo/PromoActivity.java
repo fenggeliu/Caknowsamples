@@ -37,7 +37,7 @@ public class PromoActivity extends BaseActivity {
     protected void setTitle() {
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Share To Earn");
-            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }

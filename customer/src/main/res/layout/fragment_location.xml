@@ -98,7 +98,8 @@
                         android:textColorHint="#999999"
                         android:textCursorDrawable="@null"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/location_layout_line1_text_size">
+                        android:textSize="@dimen/location_layout_line1_text_size"
+                        >
 
                         <requestFocus />
                     </EditText>
@@ -258,7 +259,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight=".8"
                 android:background="@drawable/button_start_2x"
                 android:orientation="horizontal">
 

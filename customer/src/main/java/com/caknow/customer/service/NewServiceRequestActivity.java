@@ -127,7 +127,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     protected void setTitle() {
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("New Service");
-            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
@@ -308,15 +308,7 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        if (requestCode == 1 && resultCode == RESULT_OK) {
-//            Uri selectedImageUri = data.getData();
-//            imageFilePath = getPath(selectedImageUri);
-//            bitmap = BitmapFactory.decodeFile(imagePath);
-//            Map resultMap;
-//            try {
-//                resultMap = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
-//            } catch(IOException e){
-//                Toast.makeText(this, "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
-//            }
+//
 //        }
     }
 
@@ -325,9 +317,9 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(projection[0]);
-        String filePath = cursor.getString(columnIndex);
+//        int columnIndex = cursor.getColumnIndex(projection[0]);
+        String filePath = cursor.getString(column_index);
         cursor.close();
-        return cursor.getString(column_index);
+        return filePath;
     }
 }

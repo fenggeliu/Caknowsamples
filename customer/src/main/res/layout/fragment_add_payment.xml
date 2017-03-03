@@ -72,7 +72,7 @@
 
                             <EditText
                                 android:id="@+id/ancl_card_number_input"
-                                android:cursorVisible="true"
+                                android:textCursorDrawable="@null"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="5"
@@ -159,7 +159,6 @@
 
                                 <EditText
                                     android:id="@+id/ccExpMM"
-                                    android:cursorVisible="true"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -171,7 +170,9 @@
                                     android:maxLength="2"
                                     android:maxLines="1"
                                     android:textColorHint="#999999"
-                                    android:textSize="@dimen/ancl_expiration_text_size" />
+                                    android:textSize="@dimen/ancl_expiration_text_size"
+                                    android:textCursorDrawable="@null"
+                                    />
                             </LinearLayout>
 
                             <LinearLayout
@@ -186,7 +187,6 @@
 
                                 <EditText
                                     android:id="@+id/ccExpYY"
-                                    android:cursorVisible="true"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -198,7 +198,9 @@
                                     android:maxLength="2"
                                     android:maxLines="1"
                                     android:textColorHint="#999999"
-                                    android:textSize="@dimen/ancl_expiration_text_size" />
+                                    android:textSize="@dimen/ancl_expiration_text_size"
+                                    android:textCursorDrawable="@null"
+                                    />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -212,7 +214,6 @@
 
                             <EditText
                                 android:id="@+id/ccCVV"
-                                android:cursorVisible="true"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@null"
@@ -223,7 +224,9 @@
                                 android:maxLength="4"
                                 android:maxLines="1"
                                 android:textColorHint="#999999"
-                                android:textSize="@dimen/ancl_cvc_text_size" />
+                                android:textSize="@dimen/ancl_cvc_text_size"
+                                android:textCursorDrawable="@null"
+                                />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -251,7 +254,6 @@
 
                         <EditText
                             android:id="@+id/ccName"
-                            android:cursorVisible="true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -259,7 +261,9 @@
                             android:hint="@string/ancl_credit_card_holder_name"
                             android:maxLines="1"
                             android:textColorHint="#999999"
-                            android:textSize="@dimen/ancl_holder_name_text_size"></EditText>
+                            android:textSize="@dimen/ancl_holder_name_text_size"
+                            android:textCursorDrawable="@null"
+                            ></EditText>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -272,7 +276,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.2">
+                    android:layout_weight=".9">
 
                     <Button
                         android:id="@+id/ancl_add_card_btn"
