@@ -118,6 +118,7 @@
             android:gravity="center"
             android:text="@string/srcl_new_request_btn"
             android:visibility="gone"
+            android:textAllCaps="false"
             android:textColor="@color/white_full"
             android:textSize="@dimen/srcl_new_service_request_btn_text_size" />
     </LinearLayout>

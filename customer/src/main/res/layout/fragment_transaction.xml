@@ -48,6 +48,6 @@
         android:textAllCaps="false"
         android:text="Accept new quote"
         android:textColor="@color/white_full"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
 </LinearLayout>

@@ -45,9 +45,22 @@ import com.caknow.customer.util.net.service.location.ServiceAddress;
 import com.caknow.customer.util.net.service.NewServiceRequest;
 import com.caknow.customer.util.net.service.ServiceRequestResponse;
 import com.caknow.customer.widget.NothingSelectedSpinnerAdapter;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +71,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.attr.bitmap;
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -79,14 +93,18 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     String description;
     Geolocation geolocation;
     Vehicle vehicle;
+    List<InputStream> pictures;
 
     // Handler to handle opening keyboard on touch of the description layout
     private Handler mHandler= new Handler();
 
+    @Inject
+    Cloudinary cloudinary;
+
     @BindView(R.id.rdl_description_input) EditText descriptionEditText;
     @BindView(R.id.service_detail_mileage_editext) EditText mileageEditText;
     @BindView(R.id.spinner_time_state) Spinner spinnerPriority;
-    @BindView(R.id.rdl_pic1) TextView picOne;
+    @BindView(R.id.rdl_pic1) ImageView picOne;
     @BindView(R.id.rdl_pic2_layout) LinearLayout picTwoLayout;
     @BindView(R.id.rdl_pic3_layout) LinearLayout picThreeLayout;
     @BindView(R.id.rdl_pic2) ImageView picTwo;
@@ -118,6 +136,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
         geolocation = ((NewServiceRequestActivity)getActivity()).getGeolocation();
         description = ((NewServiceRequestActivity)getActivity()).getServiceDescription();
         vehicle = ((NewServiceRequestActivity) getActivity()).getVehicle();
+        pictures = new ArrayList<>();
         setupPrioritySpinner();
         setHasOptionsMenu(true);
 
@@ -232,12 +251,14 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
             //Cloudinary uploads
 //            imageFilePath = getPath(selectedImageUri);
 //            bitmap = BitmapFactory.decodeFile(imagePath);
-//            Map resultMap;
-//            try {
-//                resultMap = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
-//            } catch(IOException e){
-//                Toast.makeText(this, "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
-//            }
+            Map resultMap;
+            try {
+                for(InputStream picture: pictures){
+                    resultMap = cloudinary.uploader().upload(picture, ObjectUtils.emptyMap());
+                }
+            } catch(IOException e){
+                Toast.makeText(getApplicationContext(), "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
+            }
 
             RequestBody body =
                     RequestBody.create(MediaType.parse("application/json"), text);
@@ -291,21 +312,33 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
            if (picTwoLayout.getVisibility() == View.GONE){
                picTwoLayout.setVisibility(View.VISIBLE);
                Glide.with(getContext()).load(selectedImage).into(picTwo);
-           }else{
+           }else if (picThreeLayout.getVisibility() == View.GONE){
                picThreeLayout.setVisibility(View.VISIBLE);
                Glide.with(getContext()).load(selectedImage).into(picThree);
-//               picThree.setImageURI(selectedImage);
+           }else {
+               Glide.with(getContext()).load(selectedImage).into(picOne);
            }
-        } else if (requestCode == RESULT_REQUEST_CAMERA){
+            try {
+                pictures.add(new FileInputStream(((NewServiceRequestActivity) getActivity()).getPath(selectedImage)));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == RESULT_REQUEST_CAMERA && data != null){
             Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
             if (picTwoLayout.getVisibility() == View.GONE){
                 picTwoLayout.setVisibility(View.VISIBLE);
                 picTwo.setImageBitmap(imageBitmap);
-            }else {
+            }else if(picThreeLayout.getVisibility() == View.GONE){
                 picThreeLayout.setVisibility(View.VISIBLE);
                 picThree.setImageBitmap(imageBitmap);
 //               picThree.setImageURI(selectedImage);
+            }else{
+                picOne.setImageBitmap(imageBitmap);
             }
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            pictures.add(new ByteArrayInputStream(bitmapdata));
         }
 //        FragmentTransaction tr = getFragmentManager().beginTransaction();
 //        tr.replace(R.id.container_current, this);

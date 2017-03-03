@@ -317,9 +317,9 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(projection[0]);
-        String filePath = cursor.getString(columnIndex);
+//        int columnIndex = cursor.getColumnIndex(projection[0]);
+        String filePath = cursor.getString(column_index);
         cursor.close();
-        return cursor.getString(column_index);
+        return filePath;
     }
 }

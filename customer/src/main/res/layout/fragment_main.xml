@@ -70,7 +70,7 @@
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textColor="@color/white_full"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:text="Accept Quote"
                     />
             </FrameLayout>

@@ -157,11 +157,10 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_text_bolder_visible">
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/rdl_pic1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/rdl_pic_margin"
                         android:background="@drawable/camera_red_2x" />
                 </LinearLayout>
 
