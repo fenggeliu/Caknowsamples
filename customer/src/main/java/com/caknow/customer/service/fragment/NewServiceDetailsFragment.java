@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -13,7 +15,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.BuildConfig;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,7 +29,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import android.Manifest;
@@ -46,17 +47,15 @@ import com.caknow.customer.util.net.service.NewServiceRequest;
 import com.caknow.customer.util.net.service.ServiceRequestResponse;
 import com.caknow.customer.widget.NothingSelectedSpinnerAdapter;
 import com.cloudinary.Cloudinary;
+import com.cloudinary.android.Utils;
 import com.cloudinary.utils.ObjectUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
 
 
@@ -71,7 +70,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.R.attr.bitmap;
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -82,7 +80,11 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class NewServiceDetailsFragment extends BaseFragment implements Callback<ServiceRequestResponse> {
 
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + NewServiceDetailsFragment.class.getName();
-
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSION_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     private static final int RESULT_LOAD_IMAGE = 1;
     private static final int RESULT_REQUEST_CAMERA = 2;
     // Fields needed to make service request
@@ -93,7 +95,8 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     String description;
     Geolocation geolocation;
     Vehicle vehicle;
-    List<InputStream> pictures;
+    ArrayList<String> pictures;
+    ArrayList<String> imageList;
 
     // Handler to handle opening keyboard on touch of the description layout
     private Handler mHandler= new Handler();
@@ -136,7 +139,8 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
         geolocation = ((NewServiceRequestActivity)getActivity()).getGeolocation();
         description = ((NewServiceRequestActivity)getActivity()).getServiceDescription();
         vehicle = ((NewServiceRequestActivity) getActivity()).getVehicle();
-        pictures = new ArrayList<>();
+//        pictures = new ArrayList<>();
+//        imageList = new ArrayList<>();
         setupPrioritySpinner();
         setHasOptionsMenu(true);
 
@@ -177,6 +181,13 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                 galleryButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int permission = ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        if (permission != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(
+                                    getActivity(),
+                                    PERMISSION_STORAGE,
+                                    REQUEST_EXTERNAL_STORAGE);
+                        }
                         final Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                     //to get image and videos, I used a */"
                         galleryIntent.setType("image/*");
@@ -237,6 +248,12 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
             } catch (Exception e) {
                 // this call is not thread safe
             }
+            if (pictures != null) {
+                for (int i = 0; i < pictures.size(); i++) {
+                    System.out.println(pictures.get(i));
+                    asyncUpload(pictures.get(i));
+                }
+            }
             final NewServiceRequest payload = new NewServiceRequest();
             payload.setAddress(address);
             payload.setServiceList(serviceId);
@@ -246,19 +263,8 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
             payload.setDescription(description);
             payload.setGeolocation(geolocation);
             payload.setType(serviceType);
+            payload.setImageList(imageList);
             String text = NewServiceRequest.getJsonString(payload);
-
-            //Cloudinary uploads
-//            imageFilePath = getPath(selectedImageUri);
-//            bitmap = BitmapFactory.decodeFile(imagePath);
-            Map resultMap;
-            try {
-                for(InputStream picture: pictures){
-                    resultMap = cloudinary.uploader().upload(picture, ObjectUtils.emptyMap());
-                }
-            } catch(IOException e){
-                Toast.makeText(getApplicationContext(), "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
-            }
 
             RequestBody body =
                     RequestBody.create(MediaType.parse("application/json"), text);
@@ -316,14 +322,49 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                picThreeLayout.setVisibility(View.VISIBLE);
                Glide.with(getContext()).load(selectedImage).into(picThree);
            }else {
+               picOne.setImageDrawable(null);
                Glide.with(getContext()).load(selectedImage).into(picOne);
            }
-            try {
-                pictures.add(new FileInputStream(((NewServiceRequestActivity) getActivity()).getPath(selectedImage)));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else if (requestCode == RESULT_REQUEST_CAMERA && data != null){
+//            InputStream image_stream = null;
+//            try {
+//                image_stream = getApplicationContext().getContentResolver().openInputStream(selectedImage);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            Bitmap imageBitmap= BitmapFactory.decodeStream(image_stream);
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            imageBitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+//            byte[] byteArray = stream.toByteArray();
+//            String imgString = Base64.encodeToString(byteArray,
+//                    Base64.NO_WRAP);
+//            pictures.add(imgString);
+
+////            File file = new File(((NewServiceRequestActivity) getActivity()).getPath(selectedImage));
+//            System.out.println(selectedImage.toString());
+//            String filePath;
+//            try {
+//                String[] proj = { MediaStore.Images.Media.DATA };
+//                Cursor cursor = getApplicationContext().getContentResolver().query(selectedImage, proj,
+//                        null, null, null);
+//                cursor.moveToFirst();
+//                int columnIndex = cursor.getColumnIndex(proj[0]);
+//                filePath = cursor.getString(columnIndex);
+//            } catch (Exception e) {
+//                filePath = selectedImage.getPath();
+//            }
+//            Log.v("log", "filePath is : " + filePath);
+////            try {
+//                File file = new File(filePath);
+////                InputStream stream = new FileInputStream(file);
+//                pictures.add(file.getAbsolutePath());
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println(((NewServiceRequestActivity) getActivity()).getPath(selectedImage));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+        } else if (requestCode == RESULT_REQUEST_CAMERA && resultCode == RESULT_OK && data != null){
             Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
             if (picTwoLayout.getVisibility() == View.GONE){
                 picTwoLayout.setVisibility(View.VISIBLE);
@@ -333,16 +374,16 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                 picThree.setImageBitmap(imageBitmap);
 //               picThree.setImageURI(selectedImage);
             }else{
+                picOne.setImageDrawable(null);
                 picOne.setImageBitmap(imageBitmap);
             }
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-            byte[] bitmapdata = stream.toByteArray();
-            pictures.add(new ByteArrayInputStream(bitmapdata));
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+//            byte[] byteArray = stream.toByteArray();
+//            String imgString = Base64.encodeToString(byteArray,
+//                    Base64.NO_WRAP);
+//            pictures.add(imgString);
         }
-//        FragmentTransaction tr = getFragmentManager().beginTransaction();
-//        tr.replace(R.id.container_current, this);
-//        tr.commit();
     }
 
     @Override
@@ -368,5 +409,25 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    protected void asyncUpload(String path){
+        AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
+            @Override
+            protected String doInBackground(String... paths) {
+                Cloudinary cloudinary = new Cloudinary(Utils.cloudinaryUrlFromContext(getApplicationContext()));
+                Map resultMap;
+                try {
+                    resultMap = cloudinary.uploader().upload(paths[0], ObjectUtils.emptyMap());
+                    System.out.println(resultMap.toString());
+                    imageList.add(resultMap.get("url").toString());
+                    System.out.println(imageList);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
+                }
+                return null;
+            }
+        };
+        task.execute(path);
     }
 }

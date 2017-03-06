@@ -315,6 +315,9 @@ public class NewServiceRequestActivity extends BaseActivity implements GoogleApi
     public String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null){
+            return uri.getPath();
+        }
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
 //        int columnIndex = cursor.getColumnIndex(projection[0]);

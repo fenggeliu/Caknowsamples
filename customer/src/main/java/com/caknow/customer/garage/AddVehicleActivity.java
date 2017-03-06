@@ -84,7 +84,7 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
     protected void setTitle() {
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Select Make");
-            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
@@ -98,7 +98,7 @@ AddVehicleModelFragment.OnListFragmentInteractionListener,
     public void updateTitle(String titleText){
         try {
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText(titleText);
-            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }
