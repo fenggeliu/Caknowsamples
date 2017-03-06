@@ -3,6 +3,7 @@ package com.caknow.customer.service.fragment;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.BuildConfig;
 import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -51,11 +53,14 @@ import com.cloudinary.android.Utils;
 import com.cloudinary.utils.ObjectUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -95,8 +100,9 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     String description;
     Geolocation geolocation;
     Vehicle vehicle;
-    ArrayList<String> pictures;
-    ArrayList<String> imageList;
+    ArrayList<String> pictures = new ArrayList<>();
+    ArrayList<String> imageList = new ArrayList<>();
+//    Cloudinary cloudinary;
 
     // Handler to handle opening keyboard on touch of the description layout
     private Handler mHandler= new Handler();
@@ -248,12 +254,22 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
             } catch (Exception e) {
                 // this call is not thread safe
             }
-            if (pictures != null) {
-                for (int i = 0; i < pictures.size(); i++) {
-                    System.out.println(pictures.get(i));
-                    asyncUpload(pictures.get(i));
-                }
-            }
+//            if (pictures != null) {
+//                for (int i = 0; i < pictures.size(); i++) {
+//                    System.out.println(pictures.get(i));
+//                    Cloudinary cloudinary = new Cloudinary(Constants.CLOUDINARY_AUTHENTICATION_URL);
+//                    Map resultMap;
+//                    try {
+//                        resultMap = cloudinary.uploader().upload(pictures.get(i), ObjectUtils.emptyMap());
+//                        System.out.println(resultMap.toString());
+//                        imageList.add(resultMap.get("url").toString());
+//                        System.out.println(imageList);
+//                    } catch (IOException e) {
+//                        Toast.makeText(getApplicationContext(), "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                    asyncUpload(pictures.get(i));
+//                }
+//            }
             final NewServiceRequest payload = new NewServiceRequest();
             payload.setAddress(address);
             payload.setServiceList(serviceId);
@@ -313,6 +329,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String outPutFile;
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
            if (picTwoLayout.getVisibility() == View.GONE){
@@ -325,38 +342,49 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                picOne.setImageDrawable(null);
                Glide.with(getContext()).load(selectedImage).into(picOne);
            }
-//            InputStream image_stream = null;
-//            try {
-//                image_stream = getApplicationContext().getContentResolver().openInputStream(selectedImage);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
+            InputStream image_stream = null;
+            try {
+                image_stream = getApplicationContext().getContentResolver().openInputStream(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+//            String debug = "http://res.cloudinary.com/demo/image/facebook/c_thumb,g_face,h_90,w_120/billclinton.jpg";
+
+
+
+            //byte array method (null object reference)
 //            Bitmap imageBitmap= BitmapFactory.decodeStream(image_stream);
 //            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //            imageBitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
 //            byte[] byteArray = stream.toByteArray();
-//            String imgString = Base64.encodeToString(byteArray,
-//                    Base64.NO_WRAP);
-//            pictures.add(imgString);
+////            ByteBuffer byteBuffer = ByteBuffer.wrap(byteArray);
+//            outPutFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-////            File file = new File(((NewServiceRequestActivity) getActivity()).getPath(selectedImage));
+            //uri path method (null object reference)
+//            File file = new File(((NewServiceRequestActivity) getActivity()).getPath(selectedImage));
 //            System.out.println(selectedImage.toString());
-//            String filePath;
+            String filePath;
+            try {
+                String[] proj = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getApplicationContext().getContentResolver().query(selectedImage, proj,
+                        null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(proj[0]);
+                filePath = cursor.getString(columnIndex);
+            } catch (Exception e) {
+                filePath = selectedImage.getPath();
+            }
+            Log.v("log", "filePath is : " + filePath);
 //            try {
-//                String[] proj = { MediaStore.Images.Media.DATA };
-//                Cursor cursor = getApplicationContext().getContentResolver().query(selectedImage, proj,
-//                        null, null, null);
-//                cursor.moveToFirst();
-//                int columnIndex = cursor.getColumnIndex(proj[0]);
-//                filePath = cursor.getString(columnIndex);
-//            } catch (Exception e) {
-//                filePath = selectedImage.getPath();
-//            }
-//            Log.v("log", "filePath is : " + filePath);
-////            try {
 //                File file = new File(filePath);
-////                InputStream stream = new FileInputStream(file);
+//                InputStream stream = new FileInputStream(file);
 //                pictures.add(file.getAbsolutePath());
+
+            System.out.println(filePath);
+//            Cloudinary cloudinary = new Cloudinary(Constants.CLOUDINARY_AUTHENTICATION_URL);
+            asyncUpload(filePath);
+
+////
 //            } catch (FileNotFoundException e) {
 //                e.printStackTrace();
 //            }
@@ -377,12 +405,22 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                 picOne.setImageDrawable(null);
                 picOne.setImageBitmap(imageBitmap);
             }
-//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-//            byte[] byteArray = stream.toByteArray();
-//            String imgString = Base64.encodeToString(byteArray,
-//                    Base64.NO_WRAP);
-//            pictures.add(imgString);
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), imageBitmap, "temp", null);
+            Uri outPutUri = Uri.parse(path);
+            String filePath;
+            try {
+                String[] proj = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getApplicationContext().getContentResolver().query(outPutUri, proj,
+                        null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(proj[0]);
+                filePath = cursor.getString(columnIndex);
+            } catch (Exception e) {
+                filePath = outPutUri.getPath();
+            }
+            asyncUpload(filePath);
         }
     }
 
@@ -411,23 +449,23 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
         }
     }
 
-    protected void asyncUpload(String path){
+    protected void asyncUpload(String imgString){
         AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
             @Override
-            protected String doInBackground(String... paths) {
-                Cloudinary cloudinary = new Cloudinary(Utils.cloudinaryUrlFromContext(getApplicationContext()));
+            protected String doInBackground(String... imgStrings) {
+                Cloudinary cloudinary = new Cloudinary(Constants.CLOUDINARY_AUTHENTICATION_URL);
                 Map resultMap;
                 try {
-                    resultMap = cloudinary.uploader().upload(paths[0], ObjectUtils.emptyMap());
+                    resultMap = cloudinary.uploader().upload(imgString, ObjectUtils.asMap("public_id",""));
                     System.out.println(resultMap.toString());
                     imageList.add(resultMap.get("url").toString());
-                    System.out.println(imageList);
                 } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(), "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Cloudinary upload failed", Toast.LENGTH_SHORT).show();
                 }
+                System.out.println(imageList);
                 return null;
             }
         };
-        task.execute(path);
+        task.execute(imgString);
     }
 }
