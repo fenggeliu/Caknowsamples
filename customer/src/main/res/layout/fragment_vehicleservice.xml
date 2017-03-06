@@ -28,7 +28,6 @@
                     android:layout_width="@dimen/srcl_car_logo_outside_width"
                     android:layout_height="@dimen/srcl_car_logo_outside_height"
                     android:layout_marginTop="@dimen/srcl_car_logo_outside_margin_top"
-                    android:background="@drawable/circle_white_2x"
                     android:gravity="center">
 
                     <de.hdodenhof.circleimageview.CircleImageView
