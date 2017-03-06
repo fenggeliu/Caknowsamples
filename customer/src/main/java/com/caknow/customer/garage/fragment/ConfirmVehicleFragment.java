@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.caknow.app.R;
 import com.caknow.customer.widget.BaseFragment;
 import com.caknow.customer.garage.AddVehicleActivity;
@@ -40,7 +42,7 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     private String displayName;
     private AddVehicleMakeFragment payload;
     private OkHttpClient client;
-
+    private String logoUrl;
     private String year, make, model, makeNN, modelNN;
 
     @BindView(R.id.acsl_vehicle_name)
@@ -49,6 +51,8 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
     @BindView(R.id.acsl_submit_btn)
     Button submitButton;
 
+    @BindView(R.id.acsl_image_display)
+    ImageView carLogo;
 
     @OnClick(R.id.acsl_submit_btn)
     void addCarToGarage(){
@@ -85,6 +89,7 @@ public class ConfirmVehicleFragment extends BaseFragment implements Callback<Add
         View v = inflater.inflate(R.layout.fragment_confirmvehicle, container, false);
         unbinder = ButterKnife.bind(this, v);
         vehicleName.setText(displayName);
+        Glide.with(getContext()).load(Constants.LOGOURL.concat(makeNN)).into(carLogo);
         return v;
     }
 

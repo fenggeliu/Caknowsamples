@@ -517,11 +517,11 @@
     <dimen name="srcl_back_btn_margin_bottom">15dp</dimen>
     <dimen name="srcl_back_btn_margin_start">18dp</dimen>
     <dimen name="srcl_back_btn_margin_end">18dp</dimen>
-    <dimen name="srcl_car_logo_outside_width">90dp</dimen>
-    <dimen name="srcl_car_logo_outside_height">90dp</dimen>
+    <dimen name="srcl_car_logo_outside_width">100dp</dimen>
+    <dimen name="srcl_car_logo_outside_height">100dp</dimen>
     <dimen name="srcl_car_logo_outside_margin_top">20dp</dimen>
     <dimen name="srcl_car_logo_inside_margin">10dp</dimen>
-    <dimen name="srcl_car_information_text_size">16sp</dimen>
+    <dimen name="srcl_car_information_text_size">18sp</dimen>
     <dimen name="srcl_no_request_logo_width">100dp</dimen>
     <dimen name="srcl_no_request_logo_height">100dp</dimen>
     <dimen name="srcl_no_request_logo_margin_top">90dp</dimen>

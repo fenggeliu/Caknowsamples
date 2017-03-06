@@ -16,8 +16,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.caknow.app.BuildConfig;
 import com.caknow.app.R;
+import com.caknow.customer.util.net.settings.ConsumerInfoResponse;
+import com.caknow.customer.util.net.settings.SettingsAPI;
 import com.caknow.customer.widget.BaseActivity;
 import com.caknow.customer.CAKNOWApplication;
 import com.caknow.customer.feedback.FeedbackActivity;
@@ -38,6 +41,9 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
@@ -92,10 +98,24 @@ public class HomeActivity extends BaseActivity
                 new GarageFragment(),
                 GarageFragment.FRAGMENT_TAG));
         //TODO: set user info here
-        nameView.setText(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.USER_FNAME));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            userPhoto.setImageDrawable(getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
-        }
+        SettingsAPI settingsAPI = retrofit.create(SettingsAPI.class);
+        settingsAPI.getConsumerInfo().enqueue(new Callback<ConsumerInfoResponse>() {
+            @Override
+            public void onResponse(Call<ConsumerInfoResponse> call, Response<ConsumerInfoResponse> response) {
+                ConsumerInfoResponse responseBody = response.body();
+                nameView.setText(responseBody.getPayload().getFName() + " " + responseBody.getPayload().getLName());
+                Glide.with(HomeActivity.this).load(responseBody.getPayload().getProfileImg()).into(userPhoto);
+            }
+
+            @Override
+            public void onFailure(Call<ConsumerInfoResponse> call, Throwable t) {
+
+            }
+        });
+//        nameView.setText(SessionPreferences.INSTANCE.getStringPref(PreferenceKeys.USER_FNAME));
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            userPhoto.setImageDrawable(getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
+//        }
 
 
         // Set up Footer
