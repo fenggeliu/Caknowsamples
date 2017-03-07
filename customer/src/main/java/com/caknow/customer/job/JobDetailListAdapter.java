@@ -245,7 +245,6 @@ public class JobDetailListAdapter extends BaseAdapter {
                     }
                     holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
                     holder.textView.setText("Service items");
-
                     break;
                 case TYPE_SERVICE_ITEM:
                 default:

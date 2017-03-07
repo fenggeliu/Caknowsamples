@@ -36,6 +36,7 @@ import butterknife.OnClick;
  */
 public class PaymentMethodFragment extends BaseFragment {
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + PaymentMethodFragment.class.getName();
+    public boolean allowRefresh;
 
     @BindView(R.id.empty_card_layout)
     ConstraintLayout emptyCardLayout;
@@ -174,5 +175,13 @@ public class PaymentMethodFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(allowRefresh) {
+            allowRefresh = false;
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
 
 }

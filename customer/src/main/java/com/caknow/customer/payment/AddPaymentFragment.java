@@ -156,11 +156,11 @@ public class AddPaymentFragment extends BaseFragment implements Callback<AddPaym
             // Not thread safe
         }
         if(success){
-            ((PaymentActivity)getActivity()).hideProgress();
-            Intent intent;
-            intent = new Intent(getActivity(), PaymentActivity.class);
-            getActivity().finish();
-            startActivity(intent);
+//            ((PaymentActivity)getActivity()).hideProgress();
+//            Intent intent;
+//            intent = new Intent(getActivity(), PaymentActivity.class);
+            getActivity().onBackPressed();
+//            startActivity(intent);
         }
         else{
             Toast.makeText(getContext(),

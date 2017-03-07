@@ -30,9 +30,10 @@ import java.util.TreeSet;
 public class EmptyJobDetailListAdapter extends BaseAdapter {
 
     private static final int TYPE_SHOP_HEADER= 0;
-    private static final int TYPE_SERVICE_ITEM = 1;
-    private static final int TYPE_TIME_FRAME = 3;
-    private static final int TYPE_LIST_SEPARATOR = 2;
+    private static final int TYPE_SERVICE_ITEM = 2;
+    private static final int TYPE_TIME_FRAME = 4;
+    private static final int TYPE_LIST_SEPARATOR = 3;
+    private static final int TYPE_SERVICE_SEPARATOR = 1;
 
     private ArrayList<String> mData = new ArrayList();
     private LayoutInflater mInflater;
@@ -56,7 +57,9 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
         switch(position){
             case TYPE_SHOP_HEADER:
                 return TYPE_SHOP_HEADER;
-             case TYPE_SERVICE_ITEM:
+            case TYPE_SERVICE_SEPARATOR:
+                return TYPE_SERVICE_SEPARATOR;
+            case TYPE_SERVICE_ITEM:
                 return TYPE_SERVICE_ITEM;
             case TYPE_LIST_SEPARATOR:
                 return TYPE_LIST_SEPARATOR;
@@ -69,12 +72,12 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return 4;
+        return 5;
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -102,11 +105,20 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.list_header_service_detail, null);
                     convertView.setBackground(context.getResources().getDrawable(R.drawable.service_detail_step1));
                     convertView.findViewById(R.id.service_step_1_textview).setVisibility(View.VISIBLE);
+                    convertView.findViewById(R.id.service_shop_name).setVisibility(View.VISIBLE);
+                    ((TextView)convertView.findViewById(R.id.service_shop_name)).setText("Waiting for quotes...");
                     convertView.invalidate();
                     break;
-
+                case TYPE_SERVICE_SEPARATOR:
+                    convertView = mInflater.inflate(R.layout.list_header_vehicle_service, null);
+//                    if (affiliate == null) {
+//                        convertView.setVisibility(View.GONE);
+//                        break;
+//                    }
+                    holder.textView = (TextView) convertView.findViewById(R.id.service_header_textview);
+                    holder.textView.setText("Service items");
+                    break;
                 case TYPE_SERVICE_ITEM:
-                default:
                     convertView = mInflater.inflate(R.layout.list_item_vehicle_service_request_new, null);
                     holder.textView = (TextView)convertView.findViewById(R.id.service_item_title);
                     // Update service item text
@@ -130,6 +142,7 @@ public class EmptyJobDetailListAdapter extends BaseAdapter {
 
                     break;
                 case TYPE_TIME_FRAME:
+                    default:
                     convertView = mInflater.inflate(R.layout.list_item_time_frame, null);
                     ((TextView)convertView.findViewById(R.id.time_frame)).setText(String.valueOf(payload.getTimeframe()));
                     convertView.findViewById(R.id.time_frame).invalidate();

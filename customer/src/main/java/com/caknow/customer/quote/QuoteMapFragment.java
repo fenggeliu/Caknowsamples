@@ -132,7 +132,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
 
         int mapHeight = getResources().getDimensionPixelSize(R.dimen.map_height);
         mSlidingUpPanelLayout.setPanelHeight( getResources().getDimensionPixelSize(R.dimen.slider_map_height)); // you can use different height here
-        mSlidingUpPanelLayout.setScrollableView(mListView, mapHeight);
+//        mSlidingUpPanelLayout.setScrollableView(mListView, mapHeight);
 
         mSlidingUpPanelLayout.setPanelSlideListener(this);
         mSlidingUpPanelLayout.setSlidingEnabled(true);
@@ -166,6 +166,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
                 mSlidingUpPanelLayout.onPanelDragged(0);
             }
         });
+        mSlidingUpPanelLayout.collapsePane();
 
         return rootView;
     }
@@ -178,12 +179,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         if (mLocation == null) {
             mLocation = getLastKnownLocation(false);
         }
-
-        mMapFragment = SupportMapFragment.newInstance();
-        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.mapContainer, mMapFragment, "map");
-        fragmentTransaction.commit();
-
+        
         ArrayList<String> testData = new ArrayList<String>(100);
         for (int i = 0; i < 100; i++) {
             testData.add("Item " + i);
@@ -203,15 +199,9 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         });
         mTransparentHeaderView.setOnClickListener(view -> {
             mListView.setAdapter(adapter);
-            mWhiteSpaceView.setVisibility(View.VISIBLE);
+            mWhiteSpaceView.setVisibility(View.GONE);
         });
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
 
-        setUpMapIfNeeded();
     }
 
     private void setUpMapIfNeeded() {

@@ -131,7 +131,7 @@
                                 android:textColorHint="#999999"
                                 android:textSize="@dimen/suil_last_name_hint_text_size"
                                 android:nextFocusDown="@+id/suil_email_input"
-                                android:inputType="textCapWords"/>
+                                android:inputType="textEmailAddress"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

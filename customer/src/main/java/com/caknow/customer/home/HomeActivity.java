@@ -53,6 +53,7 @@ public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnListFragmentInteractionListener{
 
     public static final int PAYMENT_SUCCESSFUL_CODE = 1;
+    public static final int PROFILE_IMAGE_UPDATE = 2;
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     DrawerLayout drawer;
@@ -167,7 +168,7 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void setTitle() {
         try {
-            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Garage");
+            ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setVisibility(View.GONE);
         } catch (NullPointerException e){
             //
         }
@@ -271,6 +272,11 @@ public class HomeActivity extends BaseActivity
             addFragment(R.id.flContent,
                     new GarageFragment(),
                     GarageFragment.FRAGMENT_TAG);
+        }
+
+        if(requestCode == PROFILE_IMAGE_UPDATE) {
+            finish();
+            startActivity(getIntent());
         }
     }
 }

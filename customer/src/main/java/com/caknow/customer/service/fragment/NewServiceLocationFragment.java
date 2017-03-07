@@ -89,17 +89,22 @@ public class NewServiceLocationFragment extends BaseFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Address location = addresses.get(0);
-            location.getLatitude();
-            location.getLongitude();
-            geolocation.setLatitude(location.getLatitude());
-            geolocation.setLongitude(location.getLongitude());
-            activity.setGeolocation(geolocation);
+            System.out.println(addresses);
+            if (addresses != null && addresses.size() > 0) {
+                Address location = addresses.get(0);
+                location.getLatitude();
+                location.getLongitude();
+                geolocation.setLatitude(location.getLatitude());
+                geolocation.setLongitude(location.getLongitude());
+                activity.setGeolocation(geolocation);
 
-            fragment.setArguments(bundle);
-            activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
-        } else{
-            Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT);
+                fragment.setArguments(bundle);
+                activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
+            }else{
+                Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT).show();
         }
     }
 

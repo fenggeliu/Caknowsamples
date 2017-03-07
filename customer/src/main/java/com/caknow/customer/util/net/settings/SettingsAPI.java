@@ -24,4 +24,7 @@ public interface SettingsAPI {
 
     @GET("/consumer")
     Call<ConsumerInfoResponse> getConsumerInfo();
+
+    @PATCH("/consumer/profileImg")
+    Call<ResponseBody> uploadProfileImage(@Body RequestBody body);
 }

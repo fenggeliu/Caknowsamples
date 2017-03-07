@@ -1,5 +1,6 @@
 package com.caknow.customer.garage;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -172,11 +173,7 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
     }
 
     private void openQuotesMap(VehicleServiceInterface item){
-        try{
-            showProgress();
-        } catch(Exception e){
 
-        }
         if(item.getQuoteCount() == 0){
             hideProgress();
             final Intent emptyJobIntent = new Intent(this, JobActivity.class);
@@ -211,21 +208,18 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
             @Override
             public void onFailure(Call<GetQuotesResponse> call, Throwable t) {
                 Toast.makeText(VehicleServiceActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                try {
-                    hideProgress();
-                } catch(Exception e){
-
-                }
             }
         });
 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-//        if(fragment != null)
-//            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+    public void onPause() {
+        super.onPause();
+        try{
+            hideProgress();
+        }catch (Exception e){
+
+        }
     }
 }

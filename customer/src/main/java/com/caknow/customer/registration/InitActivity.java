@@ -119,6 +119,11 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
                 System.out.println("Success");
                 accessToken = loginResult.getAccessToken();
                 InitActivity.this.submitFacebookLogin(accessToken);
+                try{
+                showProgress();}
+                catch (Exception e){
+
+                }
             }
 
             @Override
@@ -173,6 +178,7 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
 
     @Override
     public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
 
