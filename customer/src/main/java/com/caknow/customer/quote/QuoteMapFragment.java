@@ -11,7 +11,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -22,17 +21,15 @@ import android.support.v4.BuildConfig;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.caknow.app.R;
@@ -96,6 +93,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
     private QuoteDetailListAdapter adapter;
     private Point displaySize;
     private FrameLayout acceptQuoteButton;
+    private RelativeLayout slidingContainer;
     public QuoteMapFragment() {
     }
 
@@ -104,7 +102,6 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         displaySize = new Point();
@@ -126,16 +123,18 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
 
         mListView = (LockableListView) rootView.findViewById(R.id.quote_list_view);
         mListView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-
+        slidingContainer = (RelativeLayout) rootView.findViewById(R.id.slidingContainer);
+        slidingContainer.setVisibility(View.GONE);
         mSlidingUpPanelLayout = (CustomSlidingUpPanelLayout) rootView.findViewById(R.id.slidingLayout);
         mSlidingUpPanelLayout.setEnableDragViewTouchEvents(true);
 
         int mapHeight = getResources().getDimensionPixelSize(R.dimen.map_height);
         mSlidingUpPanelLayout.setPanelHeight( getResources().getDimensionPixelSize(R.dimen.slider_map_height)); // you can use different height here
-//        mSlidingUpPanelLayout.setScrollableView(mListView, mapHeight);
+        mSlidingUpPanelLayout.setScrollableView(mListView, mapHeight);
 
         mSlidingUpPanelLayout.setPanelSlideListener(this);
         mSlidingUpPanelLayout.setSlidingEnabled(true);
+
         // transparent view at the top of ListView
         mTransparentView = rootView.findViewById(R.id.transparentView);
         mWhiteSpaceView = rootView.findViewById(R.id.whiteSpaceView);
@@ -166,7 +165,6 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
                 mSlidingUpPanelLayout.onPanelDragged(0);
             }
         });
-        mSlidingUpPanelLayout.collapsePane();
 
         return rootView;
     }
@@ -179,7 +177,12 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         if (mLocation == null) {
             mLocation = getLastKnownLocation(false);
         }
-        
+
+        mMapFragment = SupportMapFragment.newInstance();
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.mapContainer, mMapFragment, "map");
+        fragmentTransaction.commit();
+
         ArrayList<String> testData = new ArrayList<String>(100);
         for (int i = 0; i < 100; i++) {
             testData.add("Item " + i);
@@ -199,9 +202,15 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         });
         mTransparentHeaderView.setOnClickListener(view -> {
             mListView.setAdapter(adapter);
-            mWhiteSpaceView.setVisibility(View.GONE);
+            mTransparentHeaderView.setVisibility(View.GONE);
         });
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
 
+        setUpMapIfNeeded();
     }
 
     private void setUpMapIfNeeded() {
@@ -472,12 +481,12 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
                 public void onMapClick(LatLng latLng) {
                     mIsNeedLocationUpdate = false;
                     //moveToLocation(latLng, false);
-                    //mSlidingUpPanelLayout.expandPane();
                     mSlidingUpPanelLayout.collapsePane();
                 }
             });
             // Start with map expanded and details closed
-
+            mSlidingUpPanelLayout.collapsePane();
+            slidingContainer.setVisibility(View.VISIBLE);
         }
     }
 

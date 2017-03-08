@@ -66,7 +66,7 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void initContentView() {
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.title_toolbar);
         setSupportActionBar(toolbar);
         // Inject this class into Dagger netcomponent
         CAKNOWApplication.get().getNetComponent().inject(this);
@@ -76,11 +76,12 @@ public class HomeActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        try {
-            getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button).setVisibility(View.GONE);
-        } catch(Exception e){
-            //
-        }
+//        try {
+//            getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button).setVisibility(View.GONE);
+//            getSupportActionBar().getCustomView().findViewById(R.id.mytext).setVisibility(View.GONE);
+//        } catch(Exception e){
+//            //
+//        }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
