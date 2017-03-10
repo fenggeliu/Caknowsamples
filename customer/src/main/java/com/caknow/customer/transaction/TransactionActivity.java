@@ -37,6 +37,8 @@ import com.caknow.customer.widget.BaseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +107,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     @Override
     protected void initData() {
         if(paymentMode) {
+            payload = extras.getParcelable(Constants.PAYLOAD_PARCEL_KEY);
             quote = extras.getParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY);
             mapQuote = extras.getParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY);
             TransactionDetailsFragment fragment = new TransactionDetailsFragment();
@@ -272,7 +275,12 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             }
         }
         if (totalPriceDetail != null) {
-            String message = format("Are you sure you want to pay the amount of %s to the shop?", totalPriceDetail.getPrice());
+            String message = format("The total of service request is %s.", totalPriceDetail.getPrice());
+            if(payload.getChargeAcceptNewestDifferenceAmountNumber() > 0){
+                message.concat(format(" Additional %s will be charged.", payload.getChargeAcceptNewestDifferenceAmount()));
+            }else if(payload.getChargeAcceptNewestDifferenceAmountNumber() <0){
+                message.concat(format(" Since the price was adjusted during the service, you will be refunded %s.", payload.getChargeAcceptNewestDifferenceAmount()));
+            }
             alertDialogBuilder.setTitle("Confirm");
             alertDialogBuilder.setMessage(message);
             alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
@@ -351,7 +359,18 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                             if (!validPromotionCodesList.contains(promotionCodes) || validPromotionCodesList == null){
                                 validPromotionCodesList.add(promotionCodes);
                                 TransactionDetailsFragment frag = (TransactionDetailsFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-//                                frag.updateContent();
+                                NumberFormat format = NumberFormat.getCurrencyInstance();
+                                String totalPrice = quote.getItemizedAmounts().get(quote.getItemizedAmounts().size() - 1).getPrice();
+                                Double totalPriceNumber = 0.00;
+                                try {
+                                    totalPriceNumber += format.parse(totalPrice).doubleValue();
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                String newPrice = format.format(totalPriceNumber + (response.body().getPayload().getRefundAmount().doubleValue() / 100));
+                                quote.getItemizedAmounts().get(quote.getItemizedAmounts().size() - 1).setPrice(newPrice);
+
+                                //refresh content
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         .detach(frag)

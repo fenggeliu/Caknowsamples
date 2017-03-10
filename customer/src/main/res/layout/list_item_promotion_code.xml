@@ -16,7 +16,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="110dp"
         android:layout_gravity="bottom"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="4dp">
@@ -39,13 +39,14 @@
                 />
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="@string/promotion_codes_button_text"
                 android:background="@color/blue_title"
                 android:textSize="@dimen/com_facebook_share_button_text_size"
                 android:layout_marginStart="30dp"
+                android:textAllCaps="false"
                 android:onClick="verifyPromotionCode"
                 android:layout_marginEnd="30dp"
                 android:layout_gravity="bottom"

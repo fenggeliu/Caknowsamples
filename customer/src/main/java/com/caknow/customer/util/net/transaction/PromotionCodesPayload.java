@@ -22,6 +22,9 @@ public class PromotionCodesPayload implements Serializable, Parcelable
     @SerializedName("rejectedPromoCodes")
     @Expose
     private List<String> rejectedPromoCodes = null;
+    @SerializedName("refundAmount")
+    @Expose
+    private  long refundAmount;
     public final static Parcelable.Creator<PromotionCodesPayload> CREATOR = new Creator<PromotionCodesPayload>() {
 
 
@@ -31,8 +34,9 @@ public class PromotionCodesPayload implements Serializable, Parcelable
         public PromotionCodesPayload createFromParcel(Parcel in) {
             PromotionCodesPayload instance = new PromotionCodesPayload();
             in.readList(instance.details, (com.caknow.customer.util.net.service.quotes.PriceDetail.class.getClassLoader()));
-            in.readList(instance.acceptedPromoCodes, (java.lang.Object.class.getClassLoader()));
+            in.readList(instance.acceptedPromoCodes, (java.lang.String.class.getClassLoader()));
             in.readList(instance.rejectedPromoCodes, (java.lang.String.class.getClassLoader()));
+            instance.refundAmount = ((Long) in.readValue((Long.class.getClassLoader())));
             return instance;
         }
 
@@ -57,11 +61,12 @@ public class PromotionCodesPayload implements Serializable, Parcelable
      * @param details
      * @param rejectedPromoCodes
      */
-    public PromotionCodesPayload(List<PriceDetail> details, List<String> acceptedPromoCodes, List<String> rejectedPromoCodes) {
+    public PromotionCodesPayload(List<PriceDetail> details, List<String> acceptedPromoCodes, List<String> rejectedPromoCodes, Long refundAmont) {
         super();
         this.details = details;
         this.acceptedPromoCodes = acceptedPromoCodes;
         this.rejectedPromoCodes = rejectedPromoCodes;
+        this.refundAmount = refundAmont;
     }
 
     public List<PriceDetail> getDetails() {
@@ -88,10 +93,15 @@ public class PromotionCodesPayload implements Serializable, Parcelable
         this.rejectedPromoCodes = rejectedPromoCodes;
     }
 
+    public Long getRefundAmount() {
+        return refundAmount;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(details);
         dest.writeList(acceptedPromoCodes);
         dest.writeList(rejectedPromoCodes);
+        dest.writeValue(refundAmount);
     }
 
     public int describeContents() {

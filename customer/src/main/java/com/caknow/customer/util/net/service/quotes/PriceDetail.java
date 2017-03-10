@@ -45,7 +45,9 @@ public class PriceDetail implements Serializable, Parcelable {
         return price;
     }
 
-
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(priceItem);

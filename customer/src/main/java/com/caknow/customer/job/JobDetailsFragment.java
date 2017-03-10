@@ -155,6 +155,7 @@ public class JobDetailsFragment extends BaseFragment{
                                             final Bundle extras = new Bundle();
                                             Quote topQuote;
                                             topQuote = response.body().getGetQuotesByServiceIdPayload().getTopQuote();
+                                            extras.putParcelable(Constants.PAYLOAD_PARCEL_KEY, response.body().getGetQuotesByServiceIdPayload());
                                             extras.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, topQuote);
                                             extras.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, serviceItem.getServiceRequestId());
                                             extras.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, serviceItem);

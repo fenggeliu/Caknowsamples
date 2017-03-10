@@ -120,5 +120,5 @@
 
     <!-- pay to shop layout -->
     <string name="promotion_codes">Promotion Codes</string>
-    <string name="promotion_codes_button_text">ADD PROMO CODE</string>
+    <string name="promotion_codes_button_text">Add promotion codes</string>
 </resources>
