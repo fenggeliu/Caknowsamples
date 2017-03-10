@@ -3,7 +3,9 @@ package com.caknow.customer.quote;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -94,6 +96,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
     private Point displaySize;
     private FrameLayout acceptQuoteButton;
     private RelativeLayout slidingContainer;
+    private AlertDialog dialog;
     public QuoteMapFragment() {
     }
 
@@ -106,7 +109,6 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         Display display = wm.getDefaultDisplay();
         displaySize = new Point();
         display.getSize(displaySize);
-
         try{
             Bundle args = getArguments();
             quoteList = args.getParcelableArrayList(Constants.QUOTE_LIST_ID_PARCEL_KEY);
@@ -120,7 +122,10 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder.setMessage("Loading maps...");
+        alertDialogBuilder.setCancelable(false);
+        dialog = alertDialogBuilder.show();
         mListView = (LockableListView) rootView.findViewById(R.id.quote_list_view);
         mListView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
         slidingContainer = (RelativeLayout) rootView.findViewById(R.id.slidingContainer);
@@ -198,7 +203,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             TransactionDetailsAdapter feeAdapter = new TransactionDetailsAdapter(getContext(), currentQuote, null);
             mListView.setAdapter(feeAdapter);
-//            mWhiteSpaceView.setVisibility(View.GONE);
+            mTransparentHeaderView.setVisibility(View.VISIBLE);
         });
         mTransparentHeaderView.setOnClickListener(view -> {
             mListView.setAdapter(adapter);
@@ -487,6 +492,7 @@ public class QuoteMapFragment extends Fragment implements GoogleApiClient.Connec
             // Start with map expanded and details closed
             mSlidingUpPanelLayout.collapsePane();
             slidingContainer.setVisibility(View.VISIBLE);
+            dialog.dismiss();
         }
     }
 

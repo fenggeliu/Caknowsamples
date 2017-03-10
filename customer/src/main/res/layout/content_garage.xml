@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/garage_content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_homepage_2x"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.caknow.customer.home.HomeActivity"
-    >
-    <!--tools:showIn="@layout/fragment_garage"-->
-
+    tools:context="com.caknow.customer.garage.VehicleServiceActivity"
+    tools:showIn="@layout/fragment_garage"
+    android:background="@drawable/bg_homepage_2x">
 
     <FrameLayout
         android:layout_width="match_parent"

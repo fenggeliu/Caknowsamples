@@ -76,12 +76,12 @@ public class HomeActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-//        try {
-//            getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button).setVisibility(View.GONE);
+        try {
+            getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button).setVisibility(View.GONE);
 //            getSupportActionBar().getCustomView().findViewById(R.id.mytext).setVisibility(View.GONE);
-//        } catch(Exception e){
-//            //
-//        }
+        } catch(Exception e){
+            //
+        }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);

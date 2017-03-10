@@ -119,7 +119,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-identity:10.2.0'
     compile 'com.google.android.gms:play-services-gcm:10.2.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.facebook.android:facebook-android-sdk:4.20.0'
     compile 'com.pubnub:pubnub-android:3.7.10'
     // Core Libraries
 
@@ -154,5 +154,4 @@ dependencies {
         transitive = true;
     }
     compile 'com.android.support.constraint:constraint-layout:1.0.0'
-    compile 'com.facebook.android:facebook-android-sdk:4.19.0'
 }

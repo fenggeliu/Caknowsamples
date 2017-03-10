@@ -1,6 +1,8 @@
 package com.caknow.customer.settings;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static java.lang.String.format;
 
 /**
  * Created by junu on 1/2/2017.
@@ -60,6 +64,7 @@ public class ManageGarageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ManageVehicleView viewHolder;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
 
         //Timber.d("position =" + position);
 //        if (convertView == null ) {
@@ -71,9 +76,18 @@ public class ManageGarageAdapter extends BaseAdapter {
 //            viewHolder = (ManageVehicleView) convertView.getTag();
 //        }
         viewHolder.deleteButton.setOnClickListener(view -> {
-            delete(vehicleList.get(position).getId());
-            vehicleList.remove(vehicleList.get(position)); //Actually change your list of items here
-            notifyDataSetChanged();
+            dialogBuilder.setMessage(format("Are you sure to delete %s?", vehicleList.get(position).getModel()));
+            dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    delete(vehicleList.get(position).getId());
+                    vehicleList.remove(vehicleList.get(position)); //Actually change your list of items here
+                    notifyDataSetChanged();
+                }
+            });
+            dialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.show();
         });
         return convertView;
     }

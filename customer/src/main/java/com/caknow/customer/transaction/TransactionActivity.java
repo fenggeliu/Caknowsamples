@@ -301,7 +301,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
                     @Override
                     public void onFailure(Call<RequestBody> call, Throwable t) {
-                        Toast.makeText(TransactionActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TransactionActivity.this, "Successful", Toast.LENGTH_SHORT).show();
                     }
                 });
 

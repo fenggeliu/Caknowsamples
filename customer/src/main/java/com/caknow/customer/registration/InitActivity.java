@@ -85,7 +85,7 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
         if (accessToken != null) {
             accessToken = null;
             loginManager.logOut();
-//            InitActivity.this.finish();
+            InitActivity.this.finish();
         } else {
             loginManager.logInWithReadPermissions(InitActivity.this, Arrays.asList("email"));
 //            InitActivity.this.showProgress();
@@ -198,7 +198,6 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
             InitActivity.this.hideProgress();
             this.finish();
         } else {
-            InitActivity.this.hideProgress();
             Toast.makeText(InitActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
 
         }
@@ -206,6 +205,7 @@ public class InitActivity extends BaseActivity implements Callback<Authenticatio
 
     @Override
     public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
+        hideProgress();
         Toast.makeText(InitActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
 
     }

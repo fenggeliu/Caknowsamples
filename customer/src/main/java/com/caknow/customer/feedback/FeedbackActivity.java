@@ -62,7 +62,7 @@ public class FeedbackActivity extends BaseActivity {
         try {
 
             ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("Help");
-            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
+//            ((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.custom_ab_home_button)).setImageResource(R.drawable.ic_action_close);
         } catch (NullPointerException e){
             //
         }

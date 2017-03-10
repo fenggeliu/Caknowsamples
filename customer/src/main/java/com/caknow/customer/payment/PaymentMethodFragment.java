@@ -53,6 +53,7 @@ public class PaymentMethodFragment extends BaseFragment {
     // Add New Card button On Click event
     @OnClick(R.id.add_card_button)
     void addCard(){
+        allowRefresh = true;
         AddPaymentFragment fragment = new AddPaymentFragment();
         ((PaymentActivity)getActivity()).replaceFragment(R.id.paymentContent, fragment, AddPaymentFragment.FRAGMENT_TAG, "addPayment");
     }
@@ -178,10 +179,18 @@ public class PaymentMethodFragment extends BaseFragment {
     @Override
     public void onResume(){
         super.onResume();
-        if(allowRefresh) {
+        if (allowRefresh)
+        {
             allowRefresh = false;
-            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+//            getActivity().finish();
+//            startActivity(getActivity().getIntent());
+            getFragmentManager().beginTransaction().detach(this).commit();
+            ((PaymentActivity)getActivity()).loadPaymentMethodsFragment();
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

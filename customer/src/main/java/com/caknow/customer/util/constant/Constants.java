@@ -34,6 +34,7 @@ public class Constants {
     public static final String PROD_ENDPOINT                        = "https://www.caknow.com";
     public static final String STAGING_ENDPOINT                     = "https://staging.caknow.com/";
     public static final String DEV_ENDPOINT                         = "https://dev.caknow.com/";
+    public static final String ANTARES_A_ENDPOINT                   = "https://antares-a.caknow.com/";
 
     public static final String API_KEY_PROD                         = "Ubi2Id/9+a1z3vlww4EoPPN6MYndtaqP8blgxSAlIag=";
     public static final String API_KEY_STAGING                      = /*"Ubi2Id/9+a1z3vlww4EoPPN6MYndtaqP8blgxSAlIag=";*/ "KZ0aDZYBWXWS/IHxtzfEFM8jPC8GB+S+vZc22HsSnHA=";

@@ -54,7 +54,7 @@ public class ManageCarFragment extends BaseFragment implements Callback<GarageRe
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        getActivity().setTitle("History");
+        ((SettingsActivity) getActivity()).updateTitle("My Garage", R.drawable.ic_action_back);
     }
 
     private void loadData(){

@@ -242,6 +242,12 @@ public class SettingsFragment extends BaseFragment {
         };
         task.execute(imgString);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((SettingsActivity) getActivity()).updateTitle("Settings", R.drawable.ic_action_back);
+    }
 }
 
 

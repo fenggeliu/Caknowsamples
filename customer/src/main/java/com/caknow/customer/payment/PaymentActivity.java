@@ -104,8 +104,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(PaymentActivity.this, "Delete Card Success", Toast.LENGTH_SHORT).show();
-                finish();
-                startActivity(getIntent());
+                getCards();
             }
 
             @Override
@@ -118,7 +117,7 @@ public class PaymentActivity extends BaseActivity implements PaymentMethodFragme
 
     }
 
-    private void loadPaymentMethodsFragment(){
+    public void loadPaymentMethodsFragment(){
         PaymentMethodFragment fragment = new PaymentMethodFragment();
         final Bundle args = new Bundle();
         args.putParcelableArrayList(Constants.PAYMENT_METHOD_LIST_PARCEL_KEY, data);

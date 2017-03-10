@@ -59,7 +59,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
     public static final String FRAGMENT_TAG = BuildConfig.APPLICATION_ID + TransactionDetailsFragment.class.getName();
 
     ArrayList<Parcelable> arguments;
-    boolean paymentMode = false;
+    boolean paymentMode = true;
     @BindView(R.id.transaction_detail_listview)
     ListView detailListView;
 
@@ -131,7 +131,11 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
                     quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
                 }else{
                     submitButton.setVisibility(View.GONE);
-                    quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
+                    quote = response.getGetQuotesByServiceIdPayload().getTopQuote();
+//                    quoteList.add(response.getGetQuotesByServiceIdPayload().getTopQuote());
+                    quoteHistoryListView.setVisibility(View.VISIBLE);
+                    quoteHistoryAdapter = new QuoteHistoryAdapter(getContext(), response.getGetQuotesByServiceIdPayload());
+                    quoteHistoryListView.setAdapter(quoteHistoryAdapter);
                     quoteList.addAll(response.getGetQuotesByServiceIdPayload().getQuotes());
                 }
             }catch (Exception e) {
@@ -142,7 +146,8 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
 //            quotes.setVisibility(View.VISIBLE);
 //            quotes.setAdapter(quotesAdapter);
         }
-        if(response != null && response.getGetQuotesByServiceIdPayload().getTopQuote().getStatus().equals("unconfirmed")){
+//        && response.getGetQuotesByServiceIdPayload().getTopQuote().getStatus().equals("unconfirmed")
+        if(response != null){
             adapter = new TransactionDetailsAdapter(getContext(), quote, item, response.getGetQuotesByServiceIdPayload(), null);
         }else if(quote == null){
             adapter = new TransactionDetailsAdapter(getContext(), mapQuote, quoteList);

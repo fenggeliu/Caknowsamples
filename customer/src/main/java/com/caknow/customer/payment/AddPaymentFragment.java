@@ -80,8 +80,8 @@ public class AddPaymentFragment extends BaseFragment implements Callback<AddPaym
                 resultDisplayStr = "Card Number: " + scanResult.getRedactedCardNumber() + "\n";
                 ccNum.setText(scanResult.cardNumber);
                 cardholderName.setText(scanResult.cardholderName);
-                ccExpM.setText(scanResult.expiryMonth);
-                ccExpY.setText(scanResult.expiryYear);
+                ccExpM.setText(String.valueOf(scanResult.expiryMonth));
+                ccExpY.setText(String.valueOf(scanResult.expiryYear));
             }
             else {
                 resultDisplayStr = "Scan was canceled.";

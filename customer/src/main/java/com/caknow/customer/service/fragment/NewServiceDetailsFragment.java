@@ -166,7 +166,13 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
                 cameraButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        int permission = ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        if (permission != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(
+                                    getActivity(),
+                                    PERMISSION_STORAGE,
+                                    REQUEST_EXTERNAL_STORAGE);
+                        }
                         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
                                 != PackageManager.PERMISSION_GRANTED) {
                             // Check Permissions Now
