@@ -15,14 +15,16 @@
         app:civ_border_width="2dp"
         app:civ_border_color="#FF000000"
         android:gravity="center"
+
         />
     <TextView
         android:id="@+id/marker_price"
-        android:layout_width="wrap_content"
+        android:layout_width="65dp"
         android:layout_height="65dp"
         android:maxLines="1"
         android:maxEms="10"
-        android:text="$15522.20"
+        android:text="$5.00"
+        android:textAlignment="center"
         android:gravity="center"
         android:contentDescription="@null"
  />

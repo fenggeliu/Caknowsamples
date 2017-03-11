@@ -254,6 +254,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
      */
     private void submitServiceRequest(){
         String mileage = mileageEditText.getText().toString();
+        description = descriptionEditText.getText().toString();
         if (!mileage.matches("")) {
             try {
                 ((NewServiceRequestActivity) getActivity()).showProgress();

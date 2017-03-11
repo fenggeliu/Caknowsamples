@@ -41,6 +41,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:ems="10"
+                android:inputType="phone"
                 android:textCursorDrawable="@null"
                 android:textColor="@color/font_black"
                 android:paddingEnd="@dimen/setting_update_text_padding_end"
