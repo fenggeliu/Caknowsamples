@@ -9,18 +9,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.caknow.app.R;
+import com.caknow.customer.util.net.transaction.PromotionCodesPayload;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import static java.lang.String.format;
 
 /**
  * Created by fliu on 2/27/17.
  */
 
 public class PromotionCodesAdapter extends BaseAdapter {
-    private ArrayList<String> validPromotionCodes;
+    private List<String> validPromotionCodes = new ArrayList<>();
+    private PromotionCodesPayload payload;
     private LayoutInflater mInflater;
-    public PromotionCodesAdapter (Context context, ArrayList<String> validPromotionCodes){
-        this.validPromotionCodes = validPromotionCodes;
+    public PromotionCodesAdapter (Context context, PromotionCodesPayload payload){
+        this.payload = payload;
+        this.validPromotionCodes = payload.getAcceptedPromoCodes();
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -47,11 +54,14 @@ public class PromotionCodesAdapter extends BaseAdapter {
         }
         holder.textView = (TextView) convertView.findViewById(R.id.promotion_codes);
         holder.textView.setText(validPromotionCodes.get(position));
+//        holder.refundAmount = (TextView) convertView.findViewById(R.id.refund_amount);
+//        holder.refundAmount.setText(format(Locale.ENGLISH, "$%.2f", - payload.getRefundAmount().doubleValue() / 100));
         convertView.invalidate();
         return convertView;
     }
 
     public static class ViewHolder {
         public TextView textView;
+//        public TextView refundAmount;
     }
 }

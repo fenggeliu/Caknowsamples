@@ -281,7 +281,7 @@ public class NewServiceDetailsFragment extends BaseFragment implements Callback<
             payload.setServiceList(serviceId);
             payload.setVehicleId(vehicleId);
             payload.setMileage(Long.valueOf(mileage));
-            payload.setPriority(spinnerPriority.getSelectedItemPosition());
+            payload.setPriority(spinnerPriority.getSelectedItemPosition() - 1);
             payload.setDescription(description);
             payload.setGeolocation(geolocation);
             payload.setType(serviceType);

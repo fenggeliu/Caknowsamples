@@ -163,7 +163,7 @@ public class AddPaymentFragment extends BaseFragment implements Callback<AddPaym
 //            startActivity(intent);
         }
         else{
-            Toast.makeText(getContext(),
+            Toast.makeText(getActivity().getApplicationContext(),
                     response.body().getMessage(),
                     Toast.LENGTH_LONG
             ).show();

@@ -32,6 +32,7 @@ import com.caknow.customer.util.net.service.ServiceAPI;
 import com.caknow.customer.util.net.service.quotes.PriceDetail;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
 import com.caknow.customer.util.net.transaction.PaymentRequest;
+import com.caknow.customer.util.net.transaction.PromotionCodesPayload;
 import com.caknow.customer.util.net.transaction.PromotionCodesResponse;
 import com.caknow.customer.widget.BaseActivity;
 import com.google.gson.JsonArray;
@@ -42,6 +43,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -78,6 +80,7 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     String serviceRequestId;
     ArrayList<String> validPromotionCodesList = new ArrayList<>();
     GetQuotesByServiceIdPayload payload;
+    PromotionCodesPayload promotionPayload;
     private String selectedPaymentSource;
     int index = 0;
     @Override
@@ -115,7 +118,8 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
             args.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, quote);
             args.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, mapQuote);
             args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
-            args.putStringArrayList(Constants.PROMO_CODE_KEY,validPromotionCodesList);
+//            args.putStringArrayList(Constants.PROMO_CODE_KEY,validPromotionCodesList);
+            args.putParcelable(Constants.PAYLOAD_PARCEL_KEY, promotionPayload);
             args.putBoolean("paymentMode", paymentMode);
             fragment.setArguments(args);
             addFragment(R.id.transactionContent, fragment, FRAGMENT_TAG);
@@ -276,10 +280,10 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
         }
         if (totalPriceDetail != null) {
             String message = format("The total of service request is %s.", totalPriceDetail.getPrice());
-            if(payload.getChargeAcceptNewestDifferenceAmountNumber() > 0){
-                message.concat(format(" Additional %s will be charged.", payload.getChargeAcceptNewestDifferenceAmount()));
-            }else if(payload.getChargeAcceptNewestDifferenceAmountNumber() <0){
-                message.concat(format(" Since the price was adjusted during the service, you will be refunded %s.", payload.getChargeAcceptNewestDifferenceAmount()));
+            if(payload.getCurrentAndInitialNetDifferenceNumber() > 0){
+                message = message.concat(format(Locale.ENGLISH, " Additional $%.2f will be charged.", ((double) payload.getCurrentAndInitialNetDifferenceNumber()) / 100));
+            }else if(payload.getCurrentAndInitialNetDifferenceNumber() <0){
+                message = message.concat(format(Locale.ENGLISH, " Since the price was adjusted during the service, you will be refunded $%.2f.", ( - (double) payload.getCurrentAndInitialNetDifferenceNumber() / 100)));
             }
             alertDialogBuilder.setTitle("Confirm");
             alertDialogBuilder.setMessage(message);
@@ -315,7 +319,9 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
 
 //                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityForResult(new Intent(this, HomeActivity.class), HomeActivity.PAYMENT_SUCCESSFUL_CODE);
+                Intent backHome = new Intent(this, HomeActivity.class);
+                backHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(backHome, HomeActivity.PAYMENT_SUCCESSFUL_CODE);
 
             });
             alertDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.dismiss());
@@ -330,8 +336,9 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         Toast.makeText(this, response.message(), Toast.LENGTH_SHORT).show();
-        startActivityForResult(new Intent(this, HomeActivity.class), HomeActivity.PAYMENT_SUCCESSFUL_CODE);
-//        super.onBackPressed();
+        Intent backHome = new Intent(this, HomeActivity.class);
+        backHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(backHome, HomeActivity.PAYMENT_SUCCESSFUL_CODE);//        super.onBackPressed();
     }
 
     @Override
@@ -354,42 +361,52 @@ public class TransactionActivity extends BaseActivity implements Callback<Respon
                 try{
                     if(response.isSuccessful()) {
                         index ++;
-                        if (response.body().getPayload().getAcceptedPromoCodes().contains(promotionCodes)) {
+                        promotionPayload = response.body().getPayload();
+                        if (promotionPayload.getAcceptedPromoCodes().contains(promotionCodes)) {
                             Toast.makeText(TransactionActivity.this, "Valid Promotion Code", Toast.LENGTH_SHORT).show();
                             if (!validPromotionCodesList.contains(promotionCodes) || validPromotionCodesList == null){
                                 validPromotionCodesList.add(promotionCodes);
                                 TransactionDetailsFragment frag = (TransactionDetailsFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-                                NumberFormat format = NumberFormat.getCurrencyInstance();
-                                String totalPrice = quote.getItemizedAmounts().get(quote.getItemizedAmounts().size() - 1).getPrice();
-                                Double totalPriceNumber = 0.00;
-                                try {
-                                    totalPriceNumber += format.parse(totalPrice).doubleValue();
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                String newPrice = format.format(totalPriceNumber + (response.body().getPayload().getRefundAmount().doubleValue() / 100));
-                                quote.getItemizedAmounts().get(quote.getItemizedAmounts().size() - 1).setPrice(newPrice);
+//                                NumberFormat format = NumberFormat.getCurrencyInstance();
+//                                String totalPrice = quote.getItemizedAmounts().get(quote.getItemizedAmounts().size() - 1).getPrice();
+//                                Double totalPriceNumber = 0.00;
+//                                try {
+//                                    totalPriceNumber += format.parse(totalPrice).doubleValue();
+//                                } catch (ParseException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                String newPrice = format.format(totalPriceNumber + (response.body().getPayload().getRefundAmount().doubleValue() / 100));
+//                                quote.getItemizedAmounts().get(quote.getItemizedAmounts().size() - 1).setPrice(newPrice);
 
                                 //refresh content
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         .detach(frag)
                                         .commitNowAllowingStateLoss();
+                                TransactionDetailsFragment fragment = new TransactionDetailsFragment();
+                                final Bundle args = new Bundle();
+                                args.putParcelable(Constants.TOP_QUOTE_ITEM_ID_PARCEL_KEY, quote);
+                                args.putParcelable(Constants.SELECTED_QUOTE_ITEM_ID_PARCEL_KEY, mapQuote);
+                                args.putParcelable(Constants.JOB_FRAGMENT_SERVICE_ITEM_PARCEL_KEY, item);
+                                args.putParcelable(Constants.PAYLOAD_PARCEL_KEY, promotionPayload);
+                                args.putBoolean("paymentMode", paymentMode);
+                                fragment.setArguments(args);
+                                addFragment(R.id.transactionContent, fragment, FRAGMENT_TAG);
 
-                                getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .attach(frag)
-                                        .commitAllowingStateLoss();
+//                                getSupportFragmentManager()
+//                                        .beginTransaction()
+//                                        .attach(frag)
+//                                        .commitAllowingStateLoss();
 //                                Fragment fragment = new Fragment();
 //                                fragmentTransaction.replace(R.id.transactionContent, frag, FRAGMENT_TAG);
 //                                fragmentTransaction.commit();
 //                                finish();
 //                                startActivity(getIntent());
                             }else{
-                                Toast.makeText(TransactionActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TransactionActivity.this, "Already used that codes", Toast.LENGTH_SHORT).show();
                             }
                         }else{
-                            Toast.makeText(TransactionActivity.this, "Invalid Promotion Code", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TransactionActivity.this, "Invalid promotion code", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(TransactionActivity.this, "Error", Toast.LENGTH_SHORT).show();

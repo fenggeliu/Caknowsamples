@@ -1,5 +1,6 @@
 package com.caknow.customer.quote;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.caknow.app.R;
 import com.caknow.customer.garage.AddVehicleActivity;
+import com.caknow.customer.job.JobActivity;
+import com.caknow.customer.report.ReportActivity;
 import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.service.quotes.ServiceList;
 import com.caknow.customer.widget.BaseActivity;
@@ -36,6 +39,7 @@ public class QuoteActivity extends BaseActivity {
     ArrayList<ServiceList> serviceList;
     String serviceRequestId;
     CustomSlidingUpPanelLayout slidingUpPanelLayout;
+    String orderNumber;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class QuoteActivity extends BaseActivity {
         quotesList = getIntent().getParcelableArrayListExtra(Constants.QUOTE_LIST_ID_PARCEL_KEY);
         serviceList = getIntent().getParcelableArrayListExtra(Constants.SERVICE_LIST_PARCEL_KEY);
         serviceRequestId = getIntent().getStringExtra(Constants.SERVICE_REQUEST_ID_PARCEL_KEY);
+        orderNumber = getIntent().getStringExtra(Constants.SERVICE_TYPE_KEY);
         if (savedInstanceState == null) {
             QuoteMapFragment mapFragment = new QuoteMapFragment();
             Bundle mapArgs = new Bundle();
@@ -63,6 +68,8 @@ public class QuoteActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.quote_details, menu);
+        menu.findItem(R.id.action_reinitiate).setVisible(false);
+        menu.findItem(R.id.action_cancel_request).setVisible(false);
         return true;
     }
 
@@ -74,10 +81,14 @@ public class QuoteActivity extends BaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_start_new_service) {
-            Intent intent = new Intent(this, AddVehicleActivity.class);
-            startActivity(intent);
+        if (id == R.id.action_order_number) {
+            showOrderNumber();
             return true;
+        }
+        if (id == R.id.action_report) {
+            final Intent intent = new Intent(this, ReportActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -138,5 +149,22 @@ public class QuoteActivity extends BaseActivity {
 
     public void openPane(){
         slidingUpPanelLayout.expandPane();
+    }
+
+    public void showOrderNumber(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        String message = orderNumber;
+        alertDialogBuilder.setTitle(getString(R.string.dialog_order_number_title));
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
+            try {
+                dialogInterface.dismiss();
+            } catch (Exception e) {
+            }
+        });
+
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.show();
     }
 }

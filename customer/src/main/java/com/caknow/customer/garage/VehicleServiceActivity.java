@@ -201,6 +201,7 @@ public class VehicleServiceActivity extends BaseActivity implements VehicleServi
                 args.putParcelableArrayList(Constants.QUOTE_LIST_ID_PARCEL_KEY, quotes);
                 args.putParcelableArrayList(Constants.SERVICE_LIST_PARCEL_KEY, services);
                 args.putString(Constants.SERVICE_REQUEST_ID_PARCEL_KEY, response.body().getPayload().getServiceRequestId());
+                args.putString(Constants.SERVICE_TYPE_KEY, response.body().getPayload().getOrderNo());
                 intent.putExtras(args);
                 startActivity(intent);
             }

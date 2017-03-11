@@ -30,9 +30,11 @@ import com.caknow.customer.util.constant.Constants;
 import com.caknow.customer.util.net.history.HistoryResponse;
 import com.caknow.customer.util.net.payment.PaymentAPI;
 import com.caknow.customer.util.net.quote.GetQuotesByServiceId;
+import com.caknow.customer.util.net.quote.GetQuotesByServiceIdPayload;
 import com.caknow.customer.util.net.quote.Quote;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
 import com.caknow.customer.util.net.service.quotes.ServiceList;
+import com.caknow.customer.util.net.transaction.PromotionCodesPayload;
 import com.caknow.customer.widget.BaseFragment;
 import com.google.gson.JsonObject;
 
@@ -99,6 +101,7 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
     ListView quotes;
     QuoteList mapQuote;
     VehicleServiceInterface item;
+    PromotionCodesPayload promotionPayload;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -152,8 +155,10 @@ public class TransactionDetailsFragment extends BaseFragment implements Callback
         }else if(quote == null){
             adapter = new TransactionDetailsAdapter(getContext(), mapQuote, quoteList);
         }else{
-            ArrayList<String> validPromotionCodesList = getArguments().getStringArrayList(Constants.PROMO_CODE_KEY);
-            adapter = new TransactionDetailsAdapter(getContext(), quote, item, null, validPromotionCodesList);
+            promotionPayload = getArguments().getParcelable(Constants.PAYLOAD_PARCEL_KEY);
+//            ArrayList<String> validPromotionCodesList = getArguments().getStringArrayList(Constants.PROMO_CODE_KEY);
+            adapter = new TransactionDetailsAdapter(getContext(), quote, item, null, promotionPayload);
+            System.out.println(promotionPayload);
         }
         detailListView.setAdapter(adapter);
         return v;

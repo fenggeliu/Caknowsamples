@@ -4,6 +4,14 @@
     android:orientation="horizontal">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Promotions:"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/font_black"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"/>
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/promotion_codes"
@@ -13,6 +21,14 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:maxLines="1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refund_amount"
+        android:text="$0.00"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"/>
     <ImageView
         android:layout_width="16dp"
         android:layout_height="16dp"

@@ -143,7 +143,12 @@ public class JobActivity extends BaseActivity{
 //        reinitiateItem.setVisible(false);
 //        MenuItem cancelItem = (MenuItem) findViewById(R.id.action_cancel_request);
         MenuItem reinitiateItem = menu.findItem(R.id.action_reinitiate);
-        if(serviceItem.getStatus() < 2){
+        MenuItem cancelServiceItem = menu.findItem(R.id.action_cancel_request);
+        if(serviceItem.getStatus() < Constants.SERVICE_STATUS_IN_SERVICE){
+            reinitiateItem.setVisible(false);
+        }
+        if(serviceItem.getStatus() > Constants.SERVICE_STATUS_IN_SERVICE){
+            cancelServiceItem.setVisible(false);
             reinitiateItem.setVisible(false);
         }
         this.invalidateOptionsMenu();
@@ -183,7 +188,7 @@ public class JobActivity extends BaseActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    private void showOrderNumber(){
+    public void showOrderNumber(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
         String message = serviceItem.getOrderNo();

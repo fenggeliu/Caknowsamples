@@ -31,6 +31,10 @@ public class Constants {
     public static final String VEHICLE_ADD_PAYLOAD_MODEL_KEY = "model";
     public static final String VEHICLE_ADD_PAYLOAD_MODEL_NICENAME_KEY = "modelNN";
     public static final String VEHICLE_ADD_PAYLOAD_YEAR_KEY = "modelNN";
+    public static final int SERVICE_STATUS_NO_QUOTE = 1;
+    public static final int SERVICE_STATUS_NEW_QUOTE = 2;
+    public static final int SERVICE_STATUS_IN_SERVICE = 3;
+    public static final int SERVICE_STATUS_COMPLETE = 8;
 
     public static final String PROD_ENDPOINT                        = "https://www.caknow.com";
     public static final String STAGING_ENDPOINT                     = "https://staging.caknow.com/";

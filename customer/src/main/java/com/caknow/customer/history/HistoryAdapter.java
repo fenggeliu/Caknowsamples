@@ -1,5 +1,7 @@
 package com.caknow.customer.history;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,6 +53,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public TextView reviewLabel;
         private ArrayList<ImageView> starViews = new ArrayList<>(6);
         public LinearLayout serviceDetail;
+        public LinearLayout stateLayout;
         public ViewHolder(View v) {
             super(v);
             cardView = (CardView) v;
@@ -70,6 +73,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             starViews.add((ImageView) v.findViewById(R.id.star5));
             reviewLabel = (TextView) v.findViewById(R.id.stars_level);
             serviceDetail = (LinearLayout) v.findViewById(R.id.vehicle_display);
+            stateLayout = (LinearLayout) v.findViewById(R.id.history_price_state_layout);
         }
     }
 
@@ -102,8 +106,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.shopNameTextView.setText(item.getShopName());
         holder.serviceTypeTextView.setText(item.getServiceCategory());
         Glide.with(CAKNOWApplication.get()).load(item.getShopImage()).into(holder.shopImageView);
-        holder.statusTextView.setText(String.valueOf(item.getStatus()));
-
+        if (item.getStatus() == 4) {
+            holder.statusTextView.setText("Complete");
+        }
+        if (item.getStatus()== 6) {
+            holder.statusTextView.setText("Cancelled");
+            holder.stateLayout.setBackgroundColor(Color.RED);
+        }
         holder.userInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

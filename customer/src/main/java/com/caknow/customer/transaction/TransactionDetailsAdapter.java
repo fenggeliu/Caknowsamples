@@ -31,6 +31,7 @@ import com.caknow.customer.util.net.quote.GetQuotesByServiceIdPayload;
 import com.caknow.customer.util.net.quote.Quote;
 import com.caknow.customer.util.net.service.quotes.PriceDetail;
 import com.caknow.customer.util.net.service.quotes.QuoteList;
+import com.caknow.customer.util.net.transaction.PromotionCodesPayload;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class TransactionDetailsAdapter extends BaseAdapter {
     private Context context;
     private QuoteList quoteList;
     private GetQuotesByServiceIdPayload payload;
-    private ArrayList<String> validPromotionCodes;
+    private PromotionCodesPayload promotionPayload;
     VehicleServiceInterface item;
 
     public TransactionDetailsAdapter(Context context, QuoteList quoteList, List<Quote> quoteItems) {
@@ -73,13 +74,17 @@ public class TransactionDetailsAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public TransactionDetailsAdapter(Context context, Quote quote, VehicleServiceInterface item, GetQuotesByServiceIdPayload payload, ArrayList<String> validPromotionCodes) {
+    public TransactionDetailsAdapter(Context context, Quote quote, VehicleServiceInterface item, GetQuotesByServiceIdPayload payload, PromotionCodesPayload promotionPayload) {
         this.context = context;
         this.quote = quote;
         this.item = item;
-        this.mData = quote.getItemizedAmounts();
+        if (promotionPayload == null){
+            this.mData = quote.getItemizedAmounts();
+        } else {
+            this.mData = promotionPayload.getDetails();
+        }
         this.payload = payload;
-        this.validPromotionCodes = validPromotionCodes;
+        this.promotionPayload = promotionPayload;
         paymentMode = true;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -143,13 +148,13 @@ public class TransactionDetailsAdapter extends BaseAdapter {
                                 break;
                             }else{
                                 convertView = mInflater.inflate(R.layout.list_item_promotion_code, null);
-                                if (validPromotionCodes != null) {
+                                if (promotionPayload != null) {
                                     holder.listView = (ListView) convertView.findViewById(R.id.valid_promotion_codes_list);
                                     holder.listView.setVisibility(View.VISIBLE);
-                                    PromotionCodesAdapter codesAdapter = new PromotionCodesAdapter(context, validPromotionCodes);
+                                    PromotionCodesAdapter codesAdapter = new PromotionCodesAdapter(context, promotionPayload);
                                     holder.listView.setAdapter(codesAdapter);
                                     float factor = holder.listView.getContext().getResources().getDisplayMetrics().density;
-                                    convertView.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Math.round((validPromotionCodes.size()*30 +120)*factor)));
+                                    convertView.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Math.round((promotionPayload.getAcceptedPromoCodes().size()*30 +120)*factor)));
 //                                    holder.listView.setOnItemClickListener();
                                 }
                             }

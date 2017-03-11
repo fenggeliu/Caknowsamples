@@ -81,7 +81,7 @@ public class NewServiceLocationFragment extends BaseFragment {
             address.setPostalCode(nameViews.get(3).getText().toString());
             address.setState(stateSpinner.getSelectedItem().toString());
             ((NewServiceRequestActivity) getActivity()).setServiceAddress(address);
-            Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+            geocoder = new Geocoder(getActivity(), Locale.getDefault());
             String strAddress = address.getLineOne() + address.getLineTwo() + address.getCity() + address.getState() + address.getPostalCode();
             List<Address> addresses = null;
             try {
@@ -92,14 +92,18 @@ public class NewServiceLocationFragment extends BaseFragment {
             System.out.println(addresses);
             if (addresses != null && addresses.size() > 0) {
                 Address location = addresses.get(0);
-                location.getLatitude();
-                location.getLongitude();
-                geolocation.setLatitude(location.getLatitude());
-                geolocation.setLongitude(location.getLongitude());
-                activity.setGeolocation(geolocation);
+                if (location.hasLatitude() && location.hasLongitude()) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    geolocation.setLatitude(latitude);
+                    geolocation.setLongitude(longitude);
+                    activity.setGeolocation(geolocation);
 
-                fragment.setArguments(bundle);
-                activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
+                    fragment.setArguments(bundle);
+                    activity.replaceFragment(R.id.flContent, fragment, NewServiceFragment.FRAGMENT_TAG, "service_type");
+                }else{
+                    Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT).show();
+                }
             }else{
                 Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT).show();
             }
