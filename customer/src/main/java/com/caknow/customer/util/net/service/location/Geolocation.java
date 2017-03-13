@@ -17,10 +17,10 @@ public class Geolocation implements Serializable, Parcelable
 
     @SerializedName("longitude")
     @Expose
-    private Double longitude;
+    private double longitude;
     @SerializedName("latitude")
     @Expose
-    private Double latitude;
+    private double latitude;
     public final static Parcelable.Creator<Geolocation> CREATOR = new Creator<Geolocation>() {
 
 
@@ -29,8 +29,8 @@ public class Geolocation implements Serializable, Parcelable
         })
         public Geolocation createFromParcel(Parcel in) {
             Geolocation instance = new Geolocation();
-            instance.longitude = ((Double) in.readValue((Double.class.getClassLoader())));
-            instance.latitude = ((Double) in.readValue((Double.class.getClassLoader())));
+            instance.longitude = ((double) in.readValue((double.class.getClassLoader())));
+            instance.latitude = ((double) in.readValue((double.class.getClassLoader())));
             return instance;
         }
 
@@ -42,25 +42,25 @@ public class Geolocation implements Serializable, Parcelable
             ;
     private final static long serialVersionUID = 4757083563858546654L;
 
-    public Double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public Double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(longitude);
-        dest.writeValue(latitude);
+        dest.writeValue(this.longitude);
+        dest.writeValue(this.latitude);
     }
 
     public int describeContents() {

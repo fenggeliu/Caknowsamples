@@ -96,9 +96,9 @@ public class GetQuotesByServiceIdPayload implements Serializable, Parcelable {
         this.chargeAcceptNewestDifferenceAmount = in.readString();
         this.quotes = in.createTypedArrayList(Quote.CREATOR);
         this.topQuote = ((Quote) in.readValue(Quote.class.getClassLoader()));
-        this.ct = ((Long)in.readValue(Quote.class.getClassLoader()));
+        this.ct = ((long)in.readValue(Quote.class.getClassLoader()));
         this.remark = in.readString();
-        this.chargeAcceptNewestDifferenceAmountNumber = ((Long)in.readValue(Quote.class.getClassLoader()));
+        this.chargeAcceptNewestDifferenceAmountNumber = ((long)in.readValue(Quote.class.getClassLoader()));
         this.currentAndInitialNetDifferenceNumber = ((long)in.readValue(Quote.class.getClassLoader()));
     }
 

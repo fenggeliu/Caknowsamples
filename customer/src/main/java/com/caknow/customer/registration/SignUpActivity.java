@@ -140,22 +140,10 @@ public class SignUpActivity extends BaseActivity implements Callback<Authenticat
     public void onResponse(Call<AuthenticationResponse> call, retrofit2.Response<AuthenticationResponse> response) {
         hideProgress();
         if (response.isSuccessful()) {
-            Toast.makeText(SignUpActivity.this, response.body().toString(), Toast.LENGTH_LONG).show();
-            AuthenticationPayload authPayload = response.body().getAuthenticationPayload();
-
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.ACCESS_TOKEN, authPayload.getToken());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_FNAME, authPayload.getfName());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_ID, authPayload.get_id());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.REFRESH_TOKEN, authPayload.getRefreshToken());
-            SessionPreferences.INSTANCE.setBoolPref(PreferenceKeys.BOOL_VERIFICATION_STATUS, authPayload.getVerificationStatus());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.STRIPE_TOKEN, authPayload.getStripeCusToken());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.PUBNUB_CHANNEL, authPayload.getPubnubChnl());
-            SessionPreferences.INSTANCE.setStringPref(PreferenceKeys.USER_VERIFICATION_CODE, authPayload.getPubnubChnl());
-
-            final Intent intent = new Intent(this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            Toast.makeText(SignUpActivity.this, "Success, log in now!", Toast.LENGTH_SHORT).show();
             this.finish();
+        } else {
+            Toast.makeText(SignUpActivity.this, response.message(), Toast.LENGTH_SHORT).show();
         }
     }
 

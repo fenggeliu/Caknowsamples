@@ -24,6 +24,7 @@ import com.caknow.customer.util.net.service.location.Geolocation;
 import com.caknow.customer.util.net.service.location.ServiceAddress;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -83,7 +84,7 @@ public class NewServiceLocationFragment extends BaseFragment {
             ((NewServiceRequestActivity) getActivity()).setServiceAddress(address);
             geocoder = new Geocoder(getActivity(), Locale.getDefault());
             String strAddress = address.getLineOne() + address.getLineTwo() + address.getCity() + address.getState() + address.getPostalCode();
-            List<Address> addresses = null;
+            List<Address> addresses = new ArrayList<>();
             try {
                 addresses = geocoder.getFromLocationName(strAddress, 5);
             } catch (IOException e) {
@@ -93,10 +94,9 @@ public class NewServiceLocationFragment extends BaseFragment {
             if (addresses != null && addresses.size() > 0) {
                 Address location = addresses.get(0);
                 if (location.hasLatitude() && location.hasLongitude()) {
-                    double latitude = location.getLatitude();
-                    double longitude = location.getLongitude();
-                    geolocation.setLatitude(latitude);
-                    geolocation.setLongitude(longitude);
+                    geolocation = new Geolocation();
+                    geolocation.setLatitude(location.getLatitude());
+                    geolocation.setLongitude(location.getLongitude());
                     activity.setGeolocation(geolocation);
 
                     fragment.setArguments(bundle);

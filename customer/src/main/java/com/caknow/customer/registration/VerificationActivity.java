@@ -33,6 +33,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
@@ -51,6 +52,8 @@ public class VerificationActivity extends BaseActivity implements Callback<Verif
 
     @BindView(R.id.verification_submit_button)
     Button submitButton;
+    @BindView(R.id.resend_code_tv)
+    TextView resentCode;
 
     @OnClick(R.id.verification_submit_button)
     void verifyAccount(){
@@ -62,10 +65,29 @@ public class VerificationActivity extends BaseActivity implements Callback<Verif
         final String verificationInput = sb.toString();
         if(verificationInput.length() == 4){
             validate(verificationInput);
+        }else{
+            Toast.makeText(VerificationActivity.this, "Wrong input", Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    @OnClick(R.id.resend_code_tv)
+    void resentCode(){
+        RegistrationAPI registrationAPI = retrofit.create(RegistrationAPI.class);
+        registrationAPI.resendCode().enqueue(new Callback<VerificationResponse>() {
+            @Override
+            public void onResponse(Call<VerificationResponse> call, Response<VerificationResponse> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(VerificationActivity.this, "New code sent", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerificationResponse> call, Throwable t) {
+                Toast.makeText(VerificationActivity.this, "Oops an error occured!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
    @Inject Retrofit retrofit;
 
@@ -113,8 +135,7 @@ public class VerificationActivity extends BaseActivity implements Callback<Verif
         RegistrationAPI registrationAPI = retrofit.create(RegistrationAPI.class);
         String text = VerificationRequest.getJsonString(
                new VerificationRequest(code));
-        RequestBody body =
-                RequestBody.create(MediaType.parse("application/json"), text);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), text);
 
         Call<VerificationResponse> call = registrationAPI.verify(body);
         //asynchronous call

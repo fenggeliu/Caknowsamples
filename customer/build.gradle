@@ -36,6 +36,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        setProperty("archivesBaseName", "CAKNOW-$versionName")
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -61,15 +62,23 @@ android {
     buildTypes {
         release {
 //            signingConfig signingConfigs.release
-            //minifyEnabled true
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            debuggable true
+            debuggable false
             minifyEnabled false
         }
+
     }
-    compileOptions {
+    productFlavors {
+        full {
+            applicationIdSuffix ".full"
+            versionNameSuffix "-full"
+        }
+    }
+        compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
