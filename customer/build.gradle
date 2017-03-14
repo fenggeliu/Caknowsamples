@@ -9,7 +9,7 @@ buildscript {
 
         // We recommend changing it to the latest version from our changelog:
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-        classpath 'io.fabric.tools:gradle:1.22.1'
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 
@@ -23,7 +23,7 @@ repositories {
 }
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
 
     aaptOptions {
         cruncherEnabled = false
@@ -34,133 +34,133 @@ android {
         applicationId "com.caknow.customer"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 2
-        versionName "2.0"
+        versionCode 1
+        versionName "1.0"
         setProperty("archivesBaseName", "CAKNOW-$versionName")
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dexOptions {
-        jumboMode                   true
-        javaMaxHeapSize             "4g"
-        preDexLibraries             true
+        jumboMode true
+        javaMaxHeapSize "4g"
+        preDexLibraries true
     }
-//    signingConfigs {
-//        release {
-//            storeFile file("src/release/caknow.jks")
-//            storePassword "caknow88"
-//            keyAlias "caknow"
-//            keyPassword "caknow88"
-//        }
+    signingConfigs {
+        release {
+            storeFile file("src/release/caknow.jks")
+            storePassword "caknow88"
+            keyAlias "caknow"
+            keyPassword "caknow88"
+        }
 //        debug {
 //            storeFile file("src/debug/debug.jks")
 //            storePassword "caknow88"
 //            keyAlias "caknow"
 //            keyPassword "caknow88"
 //        }
-//    }
-    buildTypes {
-        release {
-//            signingConfig signingConfigs.release
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    }
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+//                shrinkResources true
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
 //        debug {
 //            debuggable false
 //            minifyEnabled false
 //        }
 
-    }
-    productFlavors {
-        full {
-            applicationIdSuffix ".full"
-            versionNameSuffix "-full"
+        }
+        productFlavors {
+            full {
+                applicationIdSuffix ".full"
+                versionNameSuffix "-full"
+            }
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        lintOptions {
+            abortOnError false
+            disable 'InvalidPackage'
+        }
+        dexOptions {
+            javaMaxHeapSize "4g"
+        }
+        packagingOptions {
+            exclude 'META-INF/services/javax.annotation.processing.Processor'
         }
     }
-        compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+
+    repositories {
+        mavenCentral()
     }
-    lintOptions {
-        abortOnError false
-        disable 'InvalidPackage'
+
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        //Net Libraries
+        compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+        compile 'com.squareup.retrofit2:retrofit:2.1.0'
+        //compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava', version: '2.1.0'
+        compile 'com.squareup.okhttp3:okhttp:3.4.1'
+        compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+        // Android Support Libraries
+        compile 'com.android.support:appcompat-v7:25.3.0'
+//        compile 'com.android.support:support-v4:25.3.0'
+        compile 'com.android.support:cardview-v7:25.3.0'
+        compile 'com.android.support:design:25.3.0'
+        compile 'com.android.support:recyclerview-v7:25.3.0'
+        compile 'com.android.support.constraint:constraint-layout:1.0.1'
+        androidTestCompile 'com.android.support:support-annotations:25.3.0'
+        compile 'com.android.support:multidex:1.0.1'
+        //Facebook Login
+
+        // Payment Libraries
+        compile 'com.stripe:stripe-android:2.0.2'
+        compile 'io.card:android-sdk:5.4.2'
+        // Third Party SDK
+        compile 'com.google.android.gms:play-services:10.2.0'
+        compile 'com.google.android.gms:play-services-ads:10.2.0'
+        compile 'com.google.android.gms:play-services-identity:10.2.0'
+        compile 'com.google.android.gms:play-services-gcm:10.2.0'
+        compile 'com.google.android.gms:play-services-maps:10.2.0'
+        compile 'com.facebook.android:facebook-android-sdk:4.20.0'
+        compile 'com.pubnub:pubnub-android:3.7.10'
+        // Core Libraries
+
+        //compile 'io.reactivex:rxandroid:1.2.1'
+
+        //compile 'io.reactivex:rxjava:1.2.1'
+
+        //compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+        compile 'com.google.guava:guava:20.0'
+        compile 'com.google.dagger:dagger:2.7'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+        androidTestCompile 'com.squareup:javawriter:2.5.1'
+        provided 'org.glassfish:javax.annotation:10.0-b28'
+        // UI Libraries
+        compile 'com.sothree.slidinguppanel:library:3.3.1'
+        compile 'com.jakewharton:butterknife:8.4.0'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+        compile 'com.jakewharton.timber:timber:4.3.1'
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+        compile 'com.baoyz.swipemenulistview:library:1.3.0'
+        compile 'se.emilsjolander:stickylistheaders:2.7.0'
+        compile 'com.cloudinary:cloudinary-android:1.2.2'
+        compile 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
+        compile 'de.hdodenhof:circleimageview:2.1.0'
+        // Debug Libraries
+        compile 'com.facebook.stetho:stetho:1.4.2'
+        compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+        // Test libraries
+        testCompile 'junit:junit:4.12'
+        //Crashlytics
+        compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
+            transitive = true;
+        }
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-    }
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    //Net Libraries
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    //compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava', version: '2.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    // Android Support Libraries
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:support-v4:25.2.0'
-    compile 'com.android.support:cardview-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.android.support:recyclerview-v7:25.2.0'
-    androidTestCompile 'com.android.support:support-annotations:25.2.0'
-    //Facebook Login
-
-    // Payment Libraries
-    compile 'com.stripe:stripe-android:2.0.2'
-    compile 'io.card:android-sdk:5.4.2'
-    // Third Party SDK
-    compile 'com.google.android.gms:play-services:10.2.0'
-    compile 'com.google.android.gms:play-services-ads:10.2.0'
-    compile 'com.google.android.gms:play-services-identity:10.2.0'
-    compile 'com.google.android.gms:play-services-gcm:10.2.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.facebook.android:facebook-android-sdk:4.20.0'
-    compile 'com.pubnub:pubnub-android:3.7.10'
-    // Core Libraries
-
-    //compile 'io.reactivex:rxandroid:1.2.1'
-
-    //compile 'io.reactivex:rxjava:1.2.1'
-
-    //compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    compile 'com.google.guava:guava:19.0'
-    compile 'com.google.dagger:dagger:2.7'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
-    androidTestCompile 'com.squareup:javawriter:2.5.1'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    // UI Libraries
-    compile 'com.sothree.slidinguppanel:library:3.3.1'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.jakewharton.timber:timber:4.3.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.baoyz.swipemenulistview:library:1.3.0'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
-    compile 'com.cloudinary:cloudinary-android:1.2.2'
-    compile 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    // Debug Libraries
-    compile 'com.facebook.stetho:stetho:1.4.2'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
-    // Test libraries
-    testCompile 'junit:junit:4.12'
-    //Crashlytics
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
-        transitive = true;
-    }
-    compile 'com.android.support.constraint:constraint-layout:1.0.0'
-}
