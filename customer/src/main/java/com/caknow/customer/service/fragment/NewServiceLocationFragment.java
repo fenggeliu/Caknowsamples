@@ -72,6 +72,11 @@ public class NewServiceLocationFragment extends BaseFragment {
     @OnClick(R.id.service_location_next_button)
     void startServiceSelection(){
         if(validate()) {
+            try {
+                ((NewServiceRequestActivity) getActivity()).showProgress();
+            } catch (Exception e) {
+                // this call is not thread safe
+            }
             NewServiceRequestActivity activity = (NewServiceRequestActivity) getActivity();
             NewServiceFragment fragment = new NewServiceFragment();
             final Bundle bundle = new Bundle();
@@ -107,6 +112,7 @@ public class NewServiceLocationFragment extends BaseFragment {
             }else{
                 Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT).show();
             }
+                ((NewServiceRequestActivity) getActivity()).hideProgress();
         }else{
             Toast.makeText(getContext(), "Please check address again.", Toast.LENGTH_SHORT).show();
         }

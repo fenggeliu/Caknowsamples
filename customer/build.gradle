@@ -34,8 +34,8 @@ android {
         applicationId "com.caknow.customer"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         setProperty("archivesBaseName", "CAKNOW-$versionName")
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -66,10 +66,10 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug {
-            debuggable false
-            minifyEnabled false
-        }
+//        debug {
+//            debuggable false
+//            minifyEnabled false
+//        }
 
     }
     productFlavors {

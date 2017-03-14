@@ -209,6 +209,9 @@ public class JobActivity extends BaseActivity{
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
         String message = getString(R.string.dialog_cancel_request_message_body);
+        if (serviceItem.getStatus() > Constants.SERVICE_STATUS_NO_QUOTE){
+            message = message.concat(" 10% cancellation fee will be charged.");
+        }
         alertDialogBuilder.setTitle(getString(R.string.dialog_cancel_request_title));
         alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setPositiveButton(getResources().getString(R.string.dialog_positive_ok), (dialogInterface, i) -> {
@@ -259,7 +262,7 @@ public class JobActivity extends BaseActivity{
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 try{
                     hideProgress();
-                    if(response.body().getSuccess()){
+                    if(response.isSuccessful()){
                         Toast.makeText(JobActivity.this, "Service Cancelled", Toast.LENGTH_SHORT).show();
                         JobActivity.this.finish();
                     } else{
